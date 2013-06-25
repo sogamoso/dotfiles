@@ -1,0 +1,3 @@
+alias code="cd $HOME/Code"
+alias dotfiles="cd $HOME/Code/dotfiles"
+alias ls="ls -G"

@@ -1,0 +1,11 @@
+.DS_Store
+
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/**/*
+zeus.json
+custom_plan.rb
+
+*.*~
+*.sw[nop]

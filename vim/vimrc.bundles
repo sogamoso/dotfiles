@@ -1,0 +1,29 @@
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle 
+Bundle 'gmarik/vundle'
+
+" My Bundles here:
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-bundler'
+Bundle 'tpope/vim-rake'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-ragtag'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-markdown'
+Bundle 'kien/ctrlp.vim'
+Bundle 'ervandew/supertab'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'danro/rename.vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'vim-scripts/greplace.vim'
+Bundle 'vim-scripts/tComment'
+Bundle 'xenoterracide/html.vim'
+Bundle 'vim-ruby/vim-ruby'
+
+filetype plugin indent on

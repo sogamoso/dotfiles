@@ -1,0 +1,4 @@
+# Show branch in status line
+export PS1='sebasoga@[\W]$(__git_ps1 "(\[\033[32m\]%s\[\033[m\])"):$ '
+export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
+PATH=$PATH:$

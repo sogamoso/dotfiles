@@ -1,0 +1,2 @@
+# Needed for rbenv to work when installed via Homebrew
+eval "$(rbenv init -)"

@@ -1,0 +1,23 @@
+[user]
+  name  = Sebastian Sogamoso
+  email = sebasoga@gmail.com
+[github]
+  user = sebasoga
+[credential]
+  helper = osxkeychain
+[core]
+  editor = vim
+[color]
+  ui = always
+[alias]
+  a     = add
+  aa    = add .
+  co    = checkout
+  s     = status
+  st    = status
+  br    = branch
+  d     = diff
+  pom   = pull origin master
+  prom  = pull --rebase origin master
+  fop   = fetch origin --prune
+  amend = commit --amend
