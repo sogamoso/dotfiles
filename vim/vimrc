@@ -25,10 +25,13 @@ set nobackup                      " Don't make a backup before overwriting a fil
 set nowritebackup                 " And again.
 set directory=/var/tmp            " Keep swap files in one location
 set laststatus=2                  " Show the status line all the time
+set colorcolumn=80                " Show a line at 80 characters
+set textwidth=80                  " Wrap when line hits the 80 character mark
 set foldmethod=syntax
 set foldlevelstart=99
 set foldlevel=99
 set timeoutlen=200
+set formatoptions+=t
 au BufRead,BufNewFile *.scss set filetype=scss
 au BufRead,BufNewFile *.ejs set filetype=html
 
