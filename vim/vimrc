@@ -49,7 +49,7 @@ autocmd BufWritePre *.rb :%s/\s\+$//e
 colorscheme railscasts
 
 " Normal mode and save
-map <Leader>q <ESC>:w<CR>
+map <Leader>s <ESC>:w<CR>
 
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
