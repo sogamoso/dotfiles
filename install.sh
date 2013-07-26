@@ -22,3 +22,5 @@ cp -fi ./system/path ~/.system/path
 
 source ~/.bashrc
 source ~/.bash_profile
+
+vim +BundleInstall +qall
