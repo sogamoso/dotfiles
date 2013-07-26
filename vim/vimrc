@@ -43,6 +43,9 @@ set expandtab                     " Use spaces instead of tabs
 " Useful status information at bottom of screen
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
 
+" Remove trailing spaces
+autocmd BufWritePre *.rb :%s/\s\+$//e
+
 colorscheme railscasts
 
 " Normal mode and save
