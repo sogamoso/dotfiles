@@ -79,5 +79,8 @@ nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>tt :call RunNearestSpec()<CR>
 nnoremap <Leader>ttt :call RunLastSpec()<CR>
 
+" :A is from rails.vim plugin
+nnoremap <Leader>a :A<CR>
+
 " Configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
