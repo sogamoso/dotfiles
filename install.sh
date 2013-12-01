@@ -12,7 +12,7 @@ cp -fi ./vim/railscasts.vim ~/.vim/colors/railscasts.vim
 
 cp -fi ./bash/aliases ~/.bash/aliases
 cp -fi ./bash/git_completion.bash ~/.bash/git_completion.bash
-cp -fi ./git/aliases ~/.git/aliases
+cp -fi ./git/aliases ~/.gitt/aliases
 cp -fi ./ruby/aliases ~/.ruby/aliases
 cp -fi ./ruby/rbenv ~/.ruby/rbenv
 cp -fi ./system/aliases ~/.system/aliases

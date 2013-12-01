@@ -6,7 +6,7 @@ source ~/.system/aliases
 source ~/.bash/aliases
 source ~/.bash/git_completion.bash
 
-source ~/.git/aliases
+source ~/.gitt/aliases
 
 source ~/.ruby/aliases
 source ~/.ruby/rbenv
