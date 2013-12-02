@@ -10,15 +10,16 @@
 [color]
   ui = always
 [alias]
-  a     = add
-  aa    = add .
-  co    = checkout
-  s     = status
-  st    = status
-  br    = branch
-  d     = diff
-  pom   = pull origin master
-  prom  = pull --rebase origin master
-  fop   = fetch origin --prune
-  amend = commit --amend
-  today = log --since=midnight --author='Sebastian Sogamoso' --oneline
+  a         = add
+  aa        = add .
+  co        = checkout
+  s         = status
+  st        = status
+  br        = branch
+  d         = diff
+  pom       = pull origin master
+  prom      = pull --rebase origin master
+  fop       = fetch origin --prune
+  amend     = commit --amend
+  today     = log --since=midnight --author='Sebastian Sogamoso' --oneline
+  last-week = log --since='1 week ago' --no-merges --oneline
