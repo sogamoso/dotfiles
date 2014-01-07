@@ -23,3 +23,4 @@
   amend     = commit --amend
   today     = log --since=midnight --author='Sebastian Sogamoso' --oneline
   last-week = log --since='1 week ago' --no-merges --oneline
+  prod-diff = log origin/master...origin/production --oneline
