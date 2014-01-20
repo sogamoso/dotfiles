@@ -11,6 +11,6 @@ Install:
     cd dotfiles
     sh install.sh
 
-This will copy config files in your home directory. It will ask you whether you want to overide each file or not.
+This will create symlinks to config files in your home directory overwriting the existing ones.
 
 You can safely run `sh install.sh` multiple times to update.

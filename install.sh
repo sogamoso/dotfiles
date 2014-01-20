@@ -1,26 +1,38 @@
-cp -fi ./bash_profile ~/.bash_profile
-cp -fi ./bashrc ~/.bashrc
+cp -fv $PWD/bash_profile ~/.bash_profile
+cp -fv $PWD/bashrc ~/.bashrc
 
-cp -fi ./git/gitconfig ~/.gitconfig
-cp -fi ./git/githelpers ~/.githelpers
-cp -fi ./git/gitignore ~/.gitignore
-cp -fi ./ruby/gemrc ~/.gemrc
-cp -fi ./ruby/irbrc ~/.irbrc
-cp -fi ./vim/vimrc ~/.vimrc
-cp -fi ./vim/vimrc.bundles ~/.vimrc.bundles
-cp -fi ./vim/railscasts.vim ~/.vim/colors/railscasts.vim
+mkdir -pv ~/.gitt
+ln -sFv $PWD/git/gitconfig ~/.gitconfig
+ln -sFv $PWD/git/githelpers ~/.githelpers
+ln -sFv $PWD/git/gitignore ~/.gitignore
+ln -sFv $PWD/git/aliases ~/.gitt/aliases
 
-cp -fi ./bash/aliases ~/.bash/aliases
-cp -fi ./bash/git_completion.bash ~/.bash/git_completion.bash
-cp -fi ./git/aliases ~/.gitt/aliases
-cp -fi ./ruby/aliases ~/.ruby/aliases
-cp -fi ./ruby/rbenv ~/.ruby/rbenv
-cp -fi ./system/aliases ~/.system/aliases
-cp -fi ./system/config ~/.system/config
-cp -fi ./system/env ~/.system/env
-cp -fi ./system/path ~/.system/path
+mkdir -pv ~/.ruby
+ln -sFv $PWD/ruby/gemrc ~/.gemrc
+ln -sFv $PWD/ruby/irbrc ~/.irbrc
+ln -sFv $PWD/ruby/aliases ~/.ruby/aliases
+ln -sFv $PWD/ruby/rbenv ~/.ruby/rbenv
+
+mkdir -pv ~/.vim/colors
+ln -sFv $PWD/vim/vimrc ~/.vimrc
+ln -sFv $PWD/vim/vimrc.bundles ~/.vimrc.bundles
+ln -sFv $PWD/vim/vividchalk.vim ~/.vim/colors/vividchalk.vim
+
+mkdir -pv ~/.bash
+ln -sFv $PWD/bash/aliases ~/.bash/aliases
+ln -sFv $PWD/bash/git_completion.bash ~/.bash/git_completion.bash
+
+mkdir -pv ~/.system
+ln -sFv $PWD/system/aliases ~/.system/aliases
+ln -sFv $PWD/system/config ~/.system/config
+ln -sFv $PWD/system/env ~/.system/env
+ln -sFv $PWD/system/path ~/.system/path
 
 source ~/.bashrc
 source ~/.bash_profile
+
+if [ ! -d ~/.vim/bundle/vundle ]; then
+  git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+fi
 
 vim +BundleInstall +qall
