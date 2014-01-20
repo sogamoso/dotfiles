@@ -46,7 +46,7 @@ set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLo
 " Remove trailing spaces
 autocmd BufWritePre *.rb :%s/\s\+$//e
 
-colorscheme railscasts
+colorscheme vividchalk
 
 " Normal mode and save
 map <Leader>s <ESC>:w<CR>
