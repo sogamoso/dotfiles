@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# Symliks
+mkdir -pv $HOME/.gitt
+ln -sFv $PWD/git/gitconfig ~/.gitconfig
+ln -sFv $PWD/git/githelpers ~/.githelpers
+ln -sFv $PWD/git/gitignore ~/.gitignore
+
+mkdir -pv $HOME/.ruby
+ln -sFv $PWD/ruby/gemrc ~/.gemrc
+ln -sFv $PWD/ruby/irbrc ~/.irbrc
+
+mkdir -pv $HOME/.vim/colors
+ln -sFv $PWD/vim/vimrc ~/.vimrc
+ln -sFv $PWD/vim/vimrc.bundles ~/.vimrc.bundles
+ln -sFv $PWD/vim/vividchalk.vim ~/.vim/colors/vividchalk.vim
+
+
+# Vim plugins
+if [ ! -d $HOME/.vim/bundle/vundle ]; then
+  git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
+fi
+
+vim +BundleInstall +qall
+
+
+# Homebrew
+if [ ! -d /usr/local/Cellar ]; then
+  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+else
+  brew update
+fi
+
+brew install rbenv ruby-build zsh tmux qt imagemagick phantomjs ghostscript terminal-notifier
+brew tap nviennot/tmate
+brew install tmate
+
+
+# Oh-my-zsh
+if [ ! -d $HOME/.oh-my-zsh ]; then
+  curl -L http://install.ohmyz.sh | sh
+fi
+
+sudo chsh -s $(which zsh) $(whoami)
+
+mkdir -pv $HOME/.oh-my-zsh/custom/plugins/sebasoga
+cp -fv $PWD/zsh/sebasoga.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebasoga/sebasoga.plugin.zsh
+
+sed -i '' "s/^plugins=.*$/plugins=(brew bundler capistrano git rails rake rake-fast rbenv ruby sebasoga)/g" $HOME/.zshrc
+
+zsh
