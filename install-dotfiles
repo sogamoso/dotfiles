@@ -27,13 +27,13 @@ vim +BundleInstall +qall
 # Homebrew
 if [ ! -d /usr/local/Cellar ]; then
   ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+
+  brew install rbenv ruby-build zsh tmux qt imagemagick phantomjs ghostscript terminal-notifier
+  brew tap nviennot/tmate
+  brew install tmate
 else
   brew update
 fi
-
-brew install rbenv ruby-build zsh tmux qt imagemagick phantomjs ghostscript terminal-notifier
-brew tap nviennot/tmate
-brew install tmate
 
 
 # Oh-my-zsh
