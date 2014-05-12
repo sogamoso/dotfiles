@@ -48,4 +48,10 @@ cp -fv $PWD/zsh/sebasoga.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebasoga/seb
 
 sed -i '' "s/^plugins=.*$/plugins=(brew bundler capistrano git rails rake rake-fast rbenv ruby sebasoga)/g" $HOME/.zshrc
 
+if ! grep -e "^export PATH=\"\\$\HOME/.rbenv/shims:\\$\PATH\"" $HOME/.zshrc ; then
+  echo '' >> $HOME/.zshrc
+  echo '# Added by doftiles installer for rbenv' >> $HOME/.zshrc
+  echo 'export PATH="$HOME/.rbenv/shims:$PATH"' >> $HOME/.zshrc
+fi
+
 zsh
