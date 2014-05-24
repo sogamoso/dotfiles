@@ -7,6 +7,7 @@
   helper = osxkeychain
 [core]
   editor = vim
+  excludesfile=~/.gitignore
 [color]
   ui = always
 [alias]
