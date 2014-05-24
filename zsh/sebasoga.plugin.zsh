@@ -18,7 +18,8 @@ fi
 
 # Aliases
 alias code="cd $HOME/Code"
-alias dotfiles="cd $HOME/Code/dotfiles"
+alias dotfiles="code/dotfiles"
+alias idot="dotfiles && sh install-dotfiles"
 
 alias gadd='git add --all && git status'
 alias glog='git log'
