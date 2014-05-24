@@ -28,7 +28,7 @@ vim +BundleInstall +qall
 if [ ! -d /usr/local/Cellar ]; then
   ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 
-  brew install rbenv ruby-build zsh tmux qt imagemagick phantomjs ghostscript terminal-notifier
+  brew install rbenv ruby-build zsh tmux qt imagemagick phantomjs ghostscript terminal-notifier the_silver_searcher postgresql mysql redis ctags-exuberant
   brew tap nviennot/tmate
   brew install tmate
 else
