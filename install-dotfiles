@@ -7,6 +7,7 @@ ln -sFv $PWD/git/gitignore ~/.gitignore
 
 ln -sFv $PWD/ruby/gemrc ~/.gemrc
 ln -sFv $PWD/ruby/irbrc ~/.irbrc
+ln -sFv $PWD/ruby/pryrc ~/.pryrc
 
 mkdir -pv $HOME/.vim/colors
 ln -sFv $PWD/vim/vimrc ~/.vimrc
