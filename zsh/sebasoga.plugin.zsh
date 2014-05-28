@@ -19,7 +19,7 @@ fi
 # Aliases
 alias code="cd $HOME/Code"
 alias dotfiles="cd $HOME/Code/dotfiles"
-alias idot="cd $HOME/Code/dotfiles && sh install-dotfiles"
+alias idot="cd $HOME/Code/dotfiles && sh install-dotfiles && source ~/.zshrc"
 
 alias gadd='git add --all && git status'
 alias glog='git log'
