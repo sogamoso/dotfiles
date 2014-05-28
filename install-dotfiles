@@ -16,6 +16,8 @@ ln -sFv $PWD/vim/vividchalk.vim ~/.vim/colors/vividchalk.vim
 
 ln -sFv $PWD/tmux/tmux.conf ~/.tmux.conf
 
+ln -sFv $PWD/ag/agignore ~/.agignore
+
 
 # Vim plugins
 if [ ! -d $HOME/.vim/bundle/vundle ]; then
