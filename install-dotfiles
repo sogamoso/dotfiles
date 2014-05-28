@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
 # Symliks
-mkdir -pv $HOME/.gitt
 ln -sFv $PWD/git/gitconfig ~/.gitconfig
 ln -sFv $PWD/git/githelpers ~/.githelpers
 ln -sFv $PWD/git/gitignore ~/.gitignore
 
-mkdir -pv $HOME/.ruby
 ln -sFv $PWD/ruby/gemrc ~/.gemrc
 ln -sFv $PWD/ruby/irbrc ~/.irbrc
 
