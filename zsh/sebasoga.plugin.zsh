@@ -11,6 +11,10 @@ function reload(){
   source ~/.zshrc
 }
 
+function tmuxa(){ tmux attach -t $*; }
+function tmuxn(){ tmux new-session -s $*; }
+function tmuxk(){ tmux kill-session -t $*; }
+
 # Editor
 if [[ "$EDITOR" == "" ]] ; then
   export EDITOR="vim"
