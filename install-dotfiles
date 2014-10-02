@@ -27,23 +27,7 @@ fi
 vim +BundleInstall +qall
 
 
-# Homebrew
-if [ ! -d /usr/local/Cellar ]; then
-  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-
-  brew install rbenv ruby-build zsh tmux qt imagemagick phantomjs ghostscript terminal-notifier the_silver_searcher postgresql mysql redis ctags-exuberant
-  brew tap nviennot/tmate
-  brew install tmate
-else
-  brew update
-fi
-
-
 # Oh-my-zsh
-if [ ! -d $HOME/.oh-my-zsh ]; then
-  curl -L http://install.ohmyz.sh | sh
-fi
-
 sudo chsh -s $(which zsh) $(whoami)
 
 mkdir -pv $HOME/.oh-my-zsh/custom/plugins/sebasoga

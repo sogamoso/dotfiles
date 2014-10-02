@@ -4,10 +4,10 @@
 [github]
   user = sebasoga
 [credential]
-  helper = osxkeychain
+  helper = /opt/boxen/bin/boxen-git-credential
 [core]
   editor = vim
-  excludesfile=~/.gitignore
+  excludesfile=/opt/boxen/config/git/gitignore
 [color]
   ui = always
 [alias]
