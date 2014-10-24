@@ -33,12 +33,17 @@ sudo chsh -s $(which zsh) $(whoami)
 mkdir -pv $HOME/.oh-my-zsh/custom/plugins/sebasoga
 cp -fv $PWD/zsh/sebasoga.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebasoga/sebasoga.plugin.zsh
 
-sed -i '' "s/^plugins=.*$/plugins=(brew bundler capistrano git rails rake
-rake-fast rbenv ruby sebasoga zeus)/g" $HOME/.zshrc
+sed -i '' "s/^plugins=.*$/plugins=(brew bundler capistrano git rails rake rake-fast rbenv ruby sebasoga zeus)/g" $HOME/.zshrc
 
-if ! grep -e "^source /opt/boxen/env.sh\"" $HOME/.zshrc ; then
+if ! grep -e "^export GOPATH=$HOME/go" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
-  echo '# Added by doftiles installer for rbenv' >> $HOME/.zshrc
+  echo '# Added by doftiles installer for Go' >> $HOME/.zshrc
+  echo 'export GOPATH=$HOME/go' >> $HOME/.zshrc
+fi
+
+if ! grep -e "^source /opt/boxen/env.sh" $HOME/.zshrc ; then
+  echo '' >> $HOME/.zshrc
+  echo '# Added by doftiles installer for Boxen' >> $HOME/.zshrc
   echo 'source /opt/boxen/env.sh' >> $HOME/.zshrc
 fi
 
