@@ -24,6 +24,7 @@ fi
 alias code="cd $HOME/src"
 alias dotfiles="cd $HOME/src/dotfiles"
 alias idot="cd $HOME/src/dotfiles && sh install-dotfiles && source ~/.zshrc"
+alias boxen_repo="cd $HOME/src/our-boxen"
 
 alias gadd='git add --all && git status'
 alias glog='git log'
