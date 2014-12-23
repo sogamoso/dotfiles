@@ -27,5 +27,6 @@ Bundle 'xenoterracide/html.vim'
 Bundle 'mortice/pbcopy.vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'slim-template/vim-slim.git'
+Bundle 'elixir-lang/vim-elixir'
 
 filetype plugin indent on
