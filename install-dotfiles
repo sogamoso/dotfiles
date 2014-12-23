@@ -9,6 +9,8 @@ ln -sFv $PWD/ruby/gemrc ~/.gemrc
 ln -sFv $PWD/ruby/irbrc ~/.irbrc
 ln -sFv $PWD/ruby/pryrc ~/.pryrc
 
+ln -sFv $PWD/elixir/iex.exs ~/.iex.exs
+
 mkdir -pv $HOME/.vim/colors
 ln -sFv $PWD/vim/vimrc ~/.vimrc
 ln -sFv $PWD/vim/vimrc.bundles ~/.vimrc.bundles
