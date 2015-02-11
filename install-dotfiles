@@ -20,6 +20,8 @@ ln -sFv $PWD/tmux/tmux.conf ~/.tmux.conf
 
 ln -sFv $PWD/ag/agignore ~/.agignore
 
+ln -sFv $PWD/ctags/ctags ~/.ctags
+
 
 # Vim plugins
 if [ ! -d $HOME/.vim/bundle/vundle ]; then

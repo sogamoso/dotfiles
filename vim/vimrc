@@ -68,7 +68,7 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
 " Update CTags
-map <F5> :exec "!/usr/local/bin/ctags -R --exclude=.git --exclude=vendor/bundle"<CR>
+map <F5> :exec "!ctags *"<CR>
 
 " Rename current file
 function! RenameFile()
