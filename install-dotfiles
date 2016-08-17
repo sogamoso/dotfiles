@@ -32,6 +32,10 @@ vim +BundleInstall +qall
 
 
 # Oh-my-zsh
+if [ ! -d $HOME/.oh-my-zsh ]; then
+  curl -L http://install.ohmyz.sh | sh
+fi
+ 
 sudo chsh -s $(which zsh) $(whoami)
 
 mkdir -pv $HOME/.oh-my-zsh/custom/plugins/sebasoga
