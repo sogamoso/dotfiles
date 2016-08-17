@@ -14,6 +14,7 @@ Install:
 This will:
 * Create symlinks to config files in your home directory overwriting the existing ones.
 * Install Vim plugins
+* Install Homebrew and a few useful packages
 * Install oh-my-zsh and enable a few plugins
 
 You can safely run `sh install-dotfiles` multiple times to update.
