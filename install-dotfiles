@@ -31,9 +31,20 @@ fi
 vim +BundleInstall +qall
 
 
+# Homebrew
+if [ ! -d /usr/local/Cellar ]; then
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  
+  brew install rbenv ruby-build tmux qt phantomjs terminal-notifier the_silver_searcher postgresql homebrew/versions/mysql56 redis ctags-exuberant libsass
+else
+  brew update
+  brew upgrade
+fi
+
+
 # Oh-my-zsh
 if [ ! -d $HOME/.oh-my-zsh ]; then
-  curl -L http://install.ohmyz.sh | sh
+  sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
  
 sudo chsh -s $(which zsh) $(whoami)
@@ -41,7 +52,7 @@ sudo chsh -s $(which zsh) $(whoami)
 mkdir -pv $HOME/.oh-my-zsh/custom/plugins/sebasoga
 cp -fv $PWD/zsh/sebasoga.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebasoga/sebasoga.plugin.zsh
 
-sed -i '' "s/^plugins=.*$/plugins=(brew bundler capistrano git rails rake rake-fast rbenv ruby sebasoga zeus)/g" $HOME/.zshrc
+sed -i '' "s/^plugins=.*$/plugins=(brew bundler capistrano git rails rake rbenv ruby sebasoga)/g" $HOME/.zshrc
 
 if ! grep -e "^export GOPATH=\$HOME/go" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
