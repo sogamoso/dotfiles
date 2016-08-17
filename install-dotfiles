@@ -62,7 +62,7 @@ cp -fv $PWD/zsh/sebasoga.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebasoga/seb
 sed -i '' "s/^plugins=.*$/plugins=(brew bundler capistrano git rails rake rbenv ruby sebasoga)/g" $HOME/.zshrc
 
 ## Load rbenv automatically
-if ! grep -e "^eval \"$(rbenv init -)\"" $HOME/.zshrc ; then
+if ! grep -e "^rbenv init"" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
   echo 'Added by doftiles installer for rbenv' >> $HOME/.zshrc
   echo 'eval "$(rbenv init -)"' >> $HOME/.zshrc
