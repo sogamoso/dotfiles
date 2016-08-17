@@ -45,10 +45,4 @@ if ! grep -e "^export GOPATH=\$HOME/go" $HOME/.zshrc ; then
   echo 'export GOPATH=$HOME/go' >> $HOME/.zshrc
 fi
 
-if ! grep -e "^source /opt/boxen/env.sh" $HOME/.zshrc ; then
-  echo '' >> $HOME/.zshrc
-  echo '# Added by doftiles installer for Boxen' >> $HOME/.zshrc
-  echo 'source /opt/boxen/env.sh' >> $HOME/.zshrc
-fi
-
 zsh
