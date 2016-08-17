@@ -3,8 +3,11 @@
   email = sebasoga@gmail.com
 [github]
   user = sebasoga
+[credential]
+  helper = osxkeychain
 [core]
   editor = vim
+  excludesfile=~/.gitignore
 [color]
   ui = always
 [alias]
