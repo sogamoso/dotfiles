@@ -68,7 +68,7 @@ if ! grep -e "^eval \"\$(rbenv init -)\"" $HOME/.zshrc ; then
   echo 'eval "$(rbenv init -)"' >> $HOME/.zshrc
 fi
 
-## Set de Golang path
+## Set the Golang path
 if ! grep -e "^export GOPATH=\$HOME/go" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
   echo '# Added by doftiles installer for Go' >> $HOME/.zshrc
