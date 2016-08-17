@@ -1,29 +1,36 @@
 #!/usr/bin/env bash
 
-# Symliks
+# Create symliks
+## Git
 ln -sFv $PWD/git/gitconfig ~/.gitconfig
 ln -sFv $PWD/git/githelpers ~/.githelpers
 ln -sFv $PWD/git/gitignore ~/.gitignore
 
+## Ruby
 ln -sFv $PWD/ruby/gemrc ~/.gemrc
 ln -sFv $PWD/ruby/irbrc ~/.irbrc
 ln -sFv $PWD/ruby/pryrc ~/.pryrc
 
+## Elixir
 ln -sFv $PWD/elixir/iex.exs ~/.iex.exs
 
+## Vim
 mkdir -pv $HOME/.vim/colors
 ln -sFv $PWD/vim/vimrc ~/.vimrc
 ln -sFv $PWD/vim/vimrc.bundles ~/.vimrc.bundles
 ln -sFv $PWD/vim/vividchalk.vim ~/.vim/colors/vividchalk.vim
 
+## Tmux
 ln -sFv $PWD/tmux/tmux.conf ~/.tmux.conf
 
+## The silver searcher
 ln -sFv $PWD/ag/agignore ~/.agignore
 
+## Ctags
 ln -sFv $PWD/ctags/ctags ~/.ctags
 
 
-# Vim plugins
+# Install Vim plugins
 if [ ! -d $HOME/.vim/bundle/vundle ]; then
   git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
 fi
@@ -31,7 +38,7 @@ fi
 vim +BundleInstall +qall
 
 
-# Homebrew
+# Install/update Homebrew
 if [ ! -d /usr/local/Cellar ]; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   
@@ -42,7 +49,7 @@ else
 fi
 
 
-# Oh-my-zsh
+# Setup Oh-my-zsh
 if [ ! -d $HOME/.oh-my-zsh ]; then
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
@@ -54,6 +61,14 @@ cp -fv $PWD/zsh/sebasoga.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebasoga/seb
 
 sed -i '' "s/^plugins=.*$/plugins=(brew bundler capistrano git rails rake rbenv ruby sebasoga)/g" $HOME/.zshrc
 
+## Load rbenv automatically
+if ! grep -e "^eval \"$(rbenv init -)\"" $HOME/.zshrc ; then
+  echo '' >> $HOME/.zshrc
+  echo 'Added by doftiles installer for rbenv' >> $HOME/.zshrc
+  echo 'eval "$(rbenv init -)"' >> $HOME/.zshrc
+fi
+
+## Set de Golang path
 if ! grep -e "^export GOPATH=\$HOME/go" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
   echo '# Added by doftiles installer for Go' >> $HOME/.zshrc
