@@ -20,7 +20,6 @@
   d         = diff
   pom       = pull origin master
   prom      = pull --rebase origin master
-  prodv     = pull --rebase origin develop
   fop       = fetch origin --prune
   amend     = commit --amend
   today     = log --since=midnight --author='Sebastian Sogamoso' --oneline
