@@ -42,7 +42,7 @@ vim +BundleInstall +qall
 if [ ! -d /usr/local/Cellar ]; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   
-  brew install rbenv ruby-build tmux qt phantomjs terminal-notifier the_silver_searcher postgresql homebrew/versions/mysql56 redis ctags-exuberant libsass
+  brew install rbenv ruby-build zsh tmux qt phantomjs terminal-notifier the_silver_searcher postgresql homebrew/versions/mysql56 redis ctags-exuberant libsass
 else
   brew update
   brew upgrade
@@ -50,11 +50,11 @@ fi
 
 
 # Setup Oh-my-zsh
+sudo chsh -s $(which zsh) $(whoami)
+
 if [ ! -d $HOME/.oh-my-zsh ]; then
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
- 
-sudo chsh -s $(which zsh) $(whoami)
 
 mkdir -pv $HOME/.oh-my-zsh/custom/plugins/sebasoga
 cp -fv $PWD/zsh/sebasoga.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebasoga/sebasoga.plugin.zsh
