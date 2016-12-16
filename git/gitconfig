@@ -7,7 +7,7 @@
   helper = osxkeychain
 [core]
   editor = vim
-  excludesfile=~/.gitignore
+  excludesfile = ~/.gitignore
 [color]
   ui = always
 [alias]
@@ -24,6 +24,11 @@
   amend     = commit --amend
   today     = log --since=midnight --author='Sebastian Sogamoso' --oneline
   last-week = log --since='1 week ago' --no-merges --oneline
-  prod-diff = log origin/master...origin/production --oneline
+  remote-diff = diff master...origin/master --oneline
 [hub]
   protocol = https
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
