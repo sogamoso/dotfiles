@@ -75,4 +75,11 @@ if ! grep -e "^export GOPATH=\$HOME/go" $HOME/.zshrc ; then
   echo 'export GOPATH=$HOME/go' >> $HOME/.zshrc
 fi
 
+## Set the GPG signingkey
+if ! grep -e "^export GPG_TTY=\$(tty)" $HOME/.zshrc ; then
+  echo '' >> $HOME/.zshrc
+  echo '# GPG' >> $HOME/.zshrc
+  echo 'export GPG_TTY=$(tty)' >> $HOME/.zshrc
+fi
+
 zsh
