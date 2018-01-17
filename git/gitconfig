@@ -1,6 +1,7 @@
 [user]
-  name  = Sebastian Sogamoso
-  email = sebasoga@gmail.com
+	name = Sebastian Sogamoso
+	email = sebasoga@gmail.com
+	signingkey = 
 [github]
   user = sebasoga
 [credential]
