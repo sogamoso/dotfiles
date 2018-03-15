@@ -25,7 +25,7 @@ set nobackup                      " Don't make a backup before overwriting a fil
 set nowritebackup                 " And again.
 set directory=/var/tmp            " Keep swap files in one location
 set laststatus=2                  " Show the status line all the time
-set colorcolumn=80                " Show a line at 80 characters
+set colorcolumn=120               " Show a line at 81 characters
 set textwidth=80                  " Wrap when line hits the 80 character mark
 set foldmethod=syntax
 set foldlevelstart=99
@@ -45,8 +45,6 @@ set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLo
 
 " Remove trailing spaces
 autocmd BufWritePre *.rb :%s/\s\+$//e
-
-colorscheme vividchalk
 
 " Normal mode and save
 map <Leader>s <ESC>:w<CR>
@@ -71,23 +69,11 @@ nnoremap <C-l> <C-w>l
 command! E e
 command! W w
 command! Q q
+command! Wall wall
 command! Qall qall
 
 " Update CTags
 map <F5> :exec "!ctags *"<CR>
-
-" Rename current file
-function! RenameFile()
-  let old_name = expand('%')
-  let new_name = input('Renaming file. New file name: ', expand('%'), 'file')
-  if new_name != '' && new_name != old_name
-    exec ':saveas ' . new_name
-    exec ':silent !rm ' . old_name
-    redraw!
-  endif
-endfunction
-
-map <leader>n :call RenameFile()<cr>
 
 " Copy current file to a new location
 function! CopyFile()
@@ -101,6 +87,9 @@ endfunction
 
 map <leader>c :call CopyFile()<cr>
 
+" Create current directory tree
+command! Mkdir :silent exec "!mkdir -p %:h" | redraw!
+
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
@@ -112,6 +101,7 @@ let g:html_indent_tags = 'li\|p'
 nnoremap <Leader>t :call RunCurrentSpecFile()<CR>
 nnoremap <Leader>tt :call RunNearestSpec()<CR>
 nnoremap <Leader>ttt :call RunLastSpec()<CR>
+nnoremap <Leader>tttt :call RunAllSpecs()<CR>
 
 " :A is from rails.vim plugin
 nnoremap <Leader>a :A<CR>
