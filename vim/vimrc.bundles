@@ -27,6 +27,7 @@ Bundle 'mortice/pbcopy.vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'ngmy/vim-rubocop'
 Bundle 'chriskempson/base16-vim'
+Bundle 'tpope/vim-fugitive'
 
 call vundle#end()
 
