@@ -41,8 +41,11 @@ vim +BundleInstall +qall
 # Install/update Homebrew
 if [ ! -d /usr/local/Cellar ]; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+  # Had to run this to make Homebrew work again after a `homebrew/versions` was deprecated
+  # git -C "$(brew --repo homebrew/core)" fetch --unshallow
   
-  brew install rbenv ruby-build zsh tmux qt phantomjs terminal-notifier the_silver_searcher postgresql homebrew/versions/mysql56 redis ctags-exuberant libsass
+  brew install zsh openssl git hub rbenv ruby-build node yarn tmux qt phantomjs the_silver_searcher mysql@5.6 postgresql redis percona-toolkit elasticsearch ctags-exuberant libsass
 else
   brew update
   brew upgrade
