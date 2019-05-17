@@ -111,7 +111,7 @@ else
 endif
 
 " :A is from rails.vim plugin
-nnoremap <Leader>a :A<CR>
+nnoremap <leader>a :A<CR>
 
 " Configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
