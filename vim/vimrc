@@ -98,8 +98,8 @@ endif
 let g:html_indent_tags = 'li\|p'
 
 " Set up vim-test
-nmap <silent> <leader>t :TestFile<CR>
-nmap <silent> <leader>T :TestNearest<CR>
+nmap <silent> <leader>r :TestFile<CR>
+nmap <silent> <leader>R :TestNearest<CR>
 let g:test#strategy = 'vimux'
 
 " Run specs in split screen
