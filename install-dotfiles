@@ -10,6 +10,7 @@ ln -sFv $PWD/git/gitignore ~/.gitignore
 ln -sFv $PWD/ruby/gemrc ~/.gemrc
 ln -sFv $PWD/ruby/irbrc ~/.irbrc
 ln -sFv $PWD/ruby/pryrc ~/.pryrc
+ln -sFv $PWD/ruby/bundle_config ~/.bundle/config
 
 ## Elixir
 ln -sFv $PWD/elixir/iex.exs ~/.iex.exs
