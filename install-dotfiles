@@ -98,4 +98,10 @@ if ! grep -e "^BASE16_SHELL" $HOME/.zshrc ; then
   echo '[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"' >> $HOME/.zshrc
 fi
 
+# Set locale
+ if ! grep -e "^export LC_ALL=en_GB.UTF-8" $HOME/.zshrc ; then
+  echo '' >> $HOME/.zshrc
+  echo '# Set locale' >> $HOME/.zshrc
+  echo 'export LC_ALL=en_GB.UTF-8' >> $HOME/.zshrc
+ fi
 zsh
