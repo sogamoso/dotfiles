@@ -73,7 +73,7 @@ if ! grep -e "^eval \"\$(rbenv init -)\"" $HOME/.zshrc ; then
 fi
 
 # ruby-build installs a non-Homebrew OpenSSL for each Ruby version installed and these are never upgraded
-if ! grep -e "^RUBY_CONFIGURE_OPTS" $HOME/.zshrc ; then
+if ! grep -e "^export RUBY_CONFIGURE_OPTS=\"--with-openssl-dir=\$(brew --prefix openssl@1.1)\"" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
   echo '# Link Rubies to Homebrew´s OpenSSL 1.1 (which gets upgraded)' >> $HOME/.zshrc
   echo 'export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"' >> $HOME/.zshrc
@@ -112,4 +112,5 @@ fi
   echo '# Set locale' >> $HOME/.zshrc
   echo 'export LC_ALL=en_US.UTF-8' >> $HOME/.zshrc
  fi
-zsh
+
+ zsh
