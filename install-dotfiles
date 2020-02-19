@@ -98,6 +98,7 @@ if [ ! -d $HOME/.config/base16-shell ]; then
   git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 fi
 
+# Colors for the terminal
 if ! grep -e "^BASE16_SHELL" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
   echo '# Base16 (iTerm2 theme colors)' >> $HOME/.zshrc
@@ -106,9 +107,9 @@ if ! grep -e "^BASE16_SHELL" $HOME/.zshrc ; then
 fi
 
 # Set locale
- if ! grep -e "^export LC_ALL=en_GB.UTF-8" $HOME/.zshrc ; then
+ if ! grep -e "^export LC_ALL=en_US.UTF-8" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
   echo '# Set locale' >> $HOME/.zshrc
-  echo 'export LC_ALL=en_GB.UTF-8' >> $HOME/.zshrc
+  echo 'export LC_ALL=en_US.UTF-8' >> $HOME/.zshrc
  fi
 zsh
