@@ -36,6 +36,3 @@ alias gpf='git push -f'
 alias gpr='git pull --rebase'
 alias gr='git rebase'
 alias gt='git tag -s'
-alias rerun_dotfiles="cd $HOME/src/dotfiles && sh install-dotfiles && source ~/.zshrc"
-alias rc_test='RAILS_ENV=test bundle exec rails console --sandbox'
-alias start_day='open https://gist.github.com/sebasoga/e9d3ed93b8b51cf6e389b14c7d03717d'
