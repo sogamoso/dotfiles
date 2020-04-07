@@ -102,6 +102,8 @@ let g:html_indent_tags = 'li\|p'
 " Set up vim-test
 nmap <silent> <leader>r :TestFile<CR>
 nmap <silent> <leader>R :TestNearest<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>L :TestVisit<CR>
 let g:test#strategy = 'vimux'
 
 " Run specs in split screen
