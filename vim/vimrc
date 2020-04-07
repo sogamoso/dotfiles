@@ -71,6 +71,8 @@ command! W w
 command! Q q
 command! Wall wall
 command! Qall qall
+command! WAll wall
+command! QAll qall
 
 " Update CTags
 map <F5> :exec "!ctags *"<CR>
