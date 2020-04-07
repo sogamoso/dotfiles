@@ -26,10 +26,8 @@ Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-rhubarb'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-ruby/vim-ruby'
-Bundle 'vim-scripts/greplace.vim'
 Bundle 'vim-scripts/tComment'
 
 call vundle#end()
