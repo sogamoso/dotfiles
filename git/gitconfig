@@ -13,12 +13,7 @@
   ui = always
 [alias]
   a         = add
-  aa        = add .
   co        = checkout
-  s         = status
-  st        = status
-  br        = branch
-  d         = diff
   pom       = pull origin master
   prom      = pull --rebase origin master
   fop       = fetch origin --prune

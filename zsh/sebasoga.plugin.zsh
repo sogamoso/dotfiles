@@ -22,14 +22,11 @@ fi
 
 # Aliases
 alias code="cd $HOME/src"
-alias db_prepare='bundle exec rake db:reset db:setup'
-alias db_redo='bundle exec rake db:migrate:redo'
 alias dotfiles="cd $HOME/src/dotfiles"
 alias gadd='git add --all && git status'
 alias gap='git add --patch'
 alias gc='git commit -S'
 alias gcm='git checkout master'
-alias gh_not='open https://github.com/notifications'
 alias glog='git log'
 alias gp='git push'
 alias gpf='git push -f'
