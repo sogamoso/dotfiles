@@ -46,7 +46,7 @@ if [ ! -d /usr/local/Cellar ]; then
   # Had to run this to make Homebrew work again after a `homebrew/versions` was deprecated
   # git -C "$(brew --repo homebrew/core)" fetch --unshallow
   
-  brew install zsh openssl git hub rbenv ruby-build node yarn tmux the_silver_searcher mysql postgresql redis ctags-exuberant
+  brew install zsh openssl git hub rbenv ruby-build node yarn tmux the_silver_searcher mysql postgresql redis ctags-exuberant overmind
 else
   brew update
   brew upgrade
