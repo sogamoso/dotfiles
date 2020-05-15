@@ -25,7 +25,7 @@ set nobackup                      " Don't make a backup before overwriting a fil
 set nowritebackup                 " And again.
 set directory=/var/tmp            " Keep swap files in one location
 set laststatus=2                  " Show the status line all the time
-set colorcolumn=121               " Show a line at 121 characters
+set colorcolumn=111               " Show a line at 111 characters
 set textwidth=80                  " Wrap when line hits the 80 character mark
 set foldmethod=syntax
 set foldlevelstart=99
