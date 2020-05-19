@@ -21,7 +21,6 @@ if [[ "$EDITOR" == "" ]] ; then
 fi
 
 # Aliases
-alias code="cd $HOME/Code"
 alias dotfiles="cd $HOME/Code/dotfiles"
 alias gadd='git add --all && git status'
 alias gap='git add --patch'
