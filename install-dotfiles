@@ -46,7 +46,7 @@ if [ ! -d /usr/local/Cellar ]; then
   # Had to run this to make Homebrew work again after a `homebrew/versions` was deprecated
   # git -C "$(brew --repo homebrew/core)" fetch --unshallow
   
-  brew install zsh openssl git hub rbenv ruby-build node yarn tmux the_silver_searcher mysql postgresql redis ctags-exuberant overmind macvim
+  brew install zsh openssl git hub rbenv ruby-build node yarn tmux the_silver_searcher mysql postgresql redis ctags-exuberant overmind macvim direnv
 else
   brew update
   brew upgrade
@@ -65,7 +65,15 @@ cp -fv $PWD/zsh/sebasoga.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebasoga/seb
 
 sed -i '' "s/^plugins=.*$/plugins=(brew bundler capistrano git rails rake rbenv ruby sebasoga)/g" $HOME/.zshrc
 
-## Load rbenv automatically
+
+# Hook direnv into the shell
+if ! grep -e "^eval \"\$(direnv hook zsh)\"" $HOME/.zshrc ; then
+  echo '' >> $HOME/.zshrc
+  echo '# Added by doftiles installer for direnv' >> $HOME/.zshrc
+  echo 'eval "$(direnv hook zsh)"' >> $HOME/.zshrc
+fi
+
+# Load rbenv automatically
 if ! grep -e "^eval \"\$(rbenv init -)\"" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
   echo '# Added by doftiles installer for rbenv' >> $HOME/.zshrc
@@ -79,14 +87,14 @@ if ! grep -e "^export RUBY_CONFIGURE_OPTS=\"--with-openssl-dir=\$(brew --prefix 
   echo 'export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"' >> $HOME/.zshrc
 fi
 
-## Set the Golang path
+# Set the Golang path
 if ! grep -e "^export GOPATH=\$HOME/go" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
   echo '# Added by doftiles installer for Go' >> $HOME/.zshrc
   echo 'export GOPATH=$HOME/go' >> $HOME/.zshrc
 fi
 
-## Set the GPG signingkey
+# Set the GPG signingkey
 if ! grep -e "^export GPG_TTY=\$(tty)" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
   echo '# GPG' >> $HOME/.zshrc
