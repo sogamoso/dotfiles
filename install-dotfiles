@@ -101,6 +101,12 @@ if ! grep -e "^export GPG_TTY=\$(tty)" $HOME/.zshrc ; then
   echo 'export GPG_TTY=$(tty)' >> $HOME/.zshrc
 fi
 
+# Install monokai Terminal theme
+if [ ! -d $HOME/Code/monokai-pro-terminal ]; then
+  git clone git@github.com:sebasoga/monokai-pro-terminal.git $HOME/Code/monokai-pro-terminal
+  open $HOME/Code/monokai-pro-terminal/Monokai_Classic.terminal
+fi
+
 # Set locale
  if ! grep -e "^export LC_ALL=en_US.UTF-8" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
