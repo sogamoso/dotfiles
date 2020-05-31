@@ -17,7 +17,8 @@
   pom       = pull origin master
   prom      = pull --rebase origin master
   fop       = fetch origin --prune
-  amend     = commit --amend
+  amend     = commit -C HEAD --amend
+  amendm    = commit --amend
   today     = log --since=midnight --author='Sebastian Sogamoso' --oneline
   last-week = log --since='1 week ago' --no-merges --oneline
   remote-diff = diff master...origin/master --oneline
