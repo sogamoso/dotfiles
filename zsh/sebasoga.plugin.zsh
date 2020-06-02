@@ -23,6 +23,7 @@ fi
 # Aliases
 alias dotfiles="cd $HOME/Code/dotfiles"
 alias gadd='git add --all && git status'
+alias gan='git add . -N'
 alias gap='git add --patch'
 alias gc='git commit -S'
 alias gcm='git checkout master'
