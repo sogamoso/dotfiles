@@ -11,3 +11,5 @@ custom_plan.rb
 *.*~
 *.sw[nop]
 tags
+
+*.dump
