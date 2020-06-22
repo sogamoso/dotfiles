@@ -15,7 +15,7 @@
   a         = add
   co        = checkout
   pom       = pull origin master
-  prom      = pull --rebase origin master
+  prom      = pull --rebase origin main
   fop       = fetch origin --prune
   amend     = commit -C HEAD --amend
   amendm    = commit --amend
