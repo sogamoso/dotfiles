@@ -24,6 +24,7 @@ fi
 alias dotfiles="cd $HOME/Code/dotfiles"
 alias fs="foreman start -f Procfile"
 alias fsd="foreman start -f Procfile.dev"
+alias fwl="--force-with-lease"
 alias gadd='git add --all && git status'
 alias ganew='git add . -N'
 alias gap='git add --patch'
