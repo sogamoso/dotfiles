@@ -114,4 +114,13 @@ fi
   echo 'export LC_ALL=en_US.UTF-8' >> $HOME/.zshrc
  fi
 
- zsh
+ # Load nvm and its bash autocompletion
+ if ! grep -e "^export NVM_DIR=\"\$HOME/.nvm\"" $HOME/.zshrc ; then
+  echo '' >> $HOME/.zshrc
+  echo '# Added by dotfiles installer for nvm' >> $HOME/.zshrc
+  echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.zshrc
+  echo '[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"' >> $HOME/.zshrc
+  echo '[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"' >> $HOME/.zshrc
+fi
+
+zsh
