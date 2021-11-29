@@ -1,9 +1,9 @@
 [user]
 	name = Sebastian Sogamoso
-	email = sebasoga@gmail.com
+	email = sebastian@sogamo.so
 	signingkey = 
 [github]
-  user = sebasoga
+  user = sebastiansogamoso
 [credential]
   helper = osxkeychain
 [core]
@@ -15,7 +15,7 @@
   a         = add
   co        = checkout
   pom       = pull origin master
-  prom      = pull --rebase origin main
+  prom      = pull --rebase origin master
   fop       = fetch origin --prune
   amend     = commit -C HEAD --amend
   amendm    = commit --amend
