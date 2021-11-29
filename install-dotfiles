@@ -62,14 +62,6 @@ cp -fv $PWD/zsh/sebasoga.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebastiansog
 
 sed -i '' "s/^plugins=.*$/plugins=(brew bundler git rails rake ruby sebastiansogamoso)/g" $HOME/.zshrc
 
-
-# Hook direnv into the shell
-if ! grep -e "^eval \"\$(direnv hook zsh)\"" $HOME/.zshrc ; then
-  echo '' >> $HOME/.zshrc
-  echo '# Added by doftiles installer for direnv' >> $HOME/.zshrc
-  echo 'eval "$(direnv hook zsh)"' >> $HOME/.zshrc
-fi
-
 # Load rbenv automatically
 if ! grep -e "^eval \"\$(rbenv init -)\"" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
