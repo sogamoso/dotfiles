@@ -12,9 +12,6 @@ ln -sFv $PWD/ruby/irbrc ~/.irbrc
 ln -sFv $PWD/ruby/pryrc ~/.pryrc
 ln -sFv $PWD/ruby/bundle_config ~/.bundle/config
 
-## Elixir
-ln -sFv $PWD/elixir/iex.exs ~/.iex.exs
-
 ## Vim
 mkdir -pv $HOME/.vim/colors
 ln -sFv $PWD/vim/vimrc ~/.vimrc
@@ -46,7 +43,7 @@ if [ ! -d /usr/local/Cellar ]; then
   # Had to run this to make Homebrew work again after a `homebrew/versions` was deprecated
   # git -C "$(brew --repo homebrew/core)" fetch --unshallow
   
-  brew install zsh openssl git hub rbenv ruby-build node yarn tmux the_silver_searcher mysql postgresql redis ctags-exuberant direnv nvm
+  brew install zsh openssl readline git hub asdf tmux vim the_silver_searcher mysql postgresql redis ctags-exuberant 
 else
   brew update
   brew upgrade
@@ -60,10 +57,10 @@ if [ ! -d $HOME/.oh-my-zsh ]; then
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
-mkdir -pv $HOME/.oh-my-zsh/custom/plugins/sebasoga
-cp -fv $PWD/zsh/sebasoga.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebasoga/sebasoga.plugin.zsh
+mkdir -pv $HOME/.oh-my-zsh/custom/plugins/sebastiansogamoso
+cp -fv $PWD/zsh/sebasoga.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebastiansogamoso/sebastiansogamoso.plugin.zsh
 
-sed -i '' "s/^plugins=.*$/plugins=(brew bundler capistrano git rails rake rbenv ruby sebasoga)/g" $HOME/.zshrc
+sed -i '' "s/^plugins=.*$/plugins=(brew bundler git rails rake ruby sebastiansogamoso)/g" $HOME/.zshrc
 
 
 # Hook direnv into the shell
@@ -80,7 +77,7 @@ if ! grep -e "^eval \"\$(rbenv init -)\"" $HOME/.zshrc ; then
   echo 'eval "$(rbenv init -)"' >> $HOME/.zshrc
 fi
 
-# ruby-build installs a non-Homebrew OpenSSL for each Ruby version installed and these are never upgraded
+# asdf (via ruby-build) installs a non-Homebrew OpenSSL for each Ruby version installed and these are never upgraded
 if ! grep -e "^export RUBY_CONFIGURE_OPTS=\"--with-openssl-dir=\$(brew --prefix openssl@1.1)\"" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
   echo '# Link Rubies to Homebrew´s OpenSSL 1.1 (which gets upgraded)' >> $HOME/.zshrc
@@ -103,7 +100,7 @@ fi
 
 # Install monokai Terminal theme
 if [ ! -d $HOME/Code/monokai-pro-terminal ]; then
-  git clone git@github.com:sebasoga/monokai-pro-terminal.git $HOME/Code/monokai-pro-terminal
+  git clone git@github.com:sebastiansogamoso/monokai-pro-terminal.git $HOME/Code/monokai-pro-terminal
   open $HOME/Code/monokai-pro-terminal/Monokai_Classic.terminal
 fi
 
@@ -112,15 +109,6 @@ if ! grep -e "^export LC_ALL=en_US.UTF-8" $HOME/.zshrc ; then
   echo '' >> $HOME/.zshrc
   echo '# Set locale' >> $HOME/.zshrc
   echo 'export LC_ALL=en_US.UTF-8' >> $HOME/.zshrc
-fi
-
-# Load nvm and its bash autocompletion
-if ! grep -e "^export NVM_DIR=\"\$HOME/.nvm\"" $HOME/.zshrc ; then
-  echo '' >> $HOME/.zshrc
-  echo '# Added by dotfiles installer for nvm' >> $HOME/.zshrc
-  echo 'export NVM_DIR="$HOME/.nvm"' >> $HOME/.zshrc
-  echo '[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"' >> $HOME/.zshrc
-  echo '[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"' >> $HOME/.zshrc
 fi
 
 zsh
