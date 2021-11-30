@@ -42,11 +42,8 @@ vim +BundleInstall +qall
 
 
 # Install/update Homebrew
-if [ ! -d /opt/homebrew/Cellar ]; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-  # Had to run this to make Homebrew work again after a `homebrew/versions` was deprecated
-  # git -C "$(brew --repo homebrew/core)" fetch --unshallow
+if [ ! -d /usr/local/Cellar ]; then
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   
   brew install zsh openssl readline git hub asdf tmux vim the_silver_searcher mysql postgresql redis ctags-exuberant 
 else
