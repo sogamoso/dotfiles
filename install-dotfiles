@@ -58,7 +58,7 @@ if [ ! -d $HOME/.oh-my-zsh ]; then
 fi
 
 mkdir -pv $HOME/.oh-my-zsh/custom/plugins/sebastiansogamoso
-cp -fv $PWD/zsh/sebasoga.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebastiansogamoso/sebastiansogamoso.plugin.zsh
+cp -fv $PWD/zsh/sebastiansogamoso.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebastiansogamoso/sebastiansogamoso.plugin.zsh
 
 sed -i '' "s/^plugins=.*$/plugins=(brew bundler git rails rake ruby sebastiansogamoso)/g" $HOME/.zshrc
 
