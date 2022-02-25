@@ -37,8 +37,8 @@ vim +BundleInstall +qall
 
 
 # Install/update Homebrew
-if [ ! -d /usr/local/Cellar ]; then
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if [ ! -d /opt/homebrew/Cellar ]; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   # Had to run this to make Homebrew work again after a `homebrew/versions` was deprecated
   # git -C "$(brew --repo homebrew/core)" fetch --unshallow
@@ -61,6 +61,14 @@ mkdir -pv $HOME/.oh-my-zsh/custom/plugins/sebastiansogamoso
 cp -fv $PWD/zsh/sebastiansogamoso.plugin.zsh $HOME/.oh-my-zsh/custom/plugins/sebastiansogamoso/sebastiansogamoso.plugin.zsh
 
 sed -i '' "s/^plugins=.*$/plugins=(brew bundler git rails rake ruby sebastiansogamoso)/g" $HOME/.zshrc
+
+# Add Homebrew to the PATH
+if ! grep -e "^eval \"\$(/opt/homebrew/bin/brew shellenv)\"" $HOME/.zshrc ; then
+  echo '' >> $HOME/.zshrc
+  echo '# Add Homebrew to the PATH' >> $HOME/.zshrc
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
 # Load asdf automatically
 if ! grep -e "^. $(brew --prefix asdf)/libexec/asdf.sh" $HOME/.zshrc ; then
@@ -92,7 +100,7 @@ fi
 
 # Install monokai Terminal theme
 if [ ! -d $HOME/Code/monokai-pro-terminal ]; then
-  git clone git@github.com:sebastiansogamoso/monokai-pro-terminal.git $HOME/Code/monokai-pro-terminal
+  git clone git@github.com:sebsogamoso/monokai-pro-terminal.git $HOME/Code/monokai-pro-terminal
   open $HOME/Code/monokai-pro-terminal/Monokai_Classic.terminal
 fi
 
