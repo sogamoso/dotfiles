@@ -27,6 +27,11 @@ ln -sFv $PWD/ag/agignore ~/.agignore
 ## Ctags
 ln -sFv $PWD/ctags/ctags ~/.ctags
 
+## ASDF
+
+ln -sFv $PWD/asdf/default-gems ~/.default-gems
+ln -sFv $PWD/asdf/default-npm-packages ~/.default-npm-packages
+
 
 # Install Vim plugins
 if [ ! -d $HOME/.vim/bundle/vundle ]; then
