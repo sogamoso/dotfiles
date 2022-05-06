@@ -14,13 +14,13 @@
 [alias]
   a         = add
   co        = checkout
-  pom       = pull origin master
-  prom      = pull --rebase origin master
+  pom       = pull origin main
+  prom      = pull --rebase origin main
   fop       = fetch origin --prune
   amend     = commit -C HEAD --amend
   amendm    = commit --amend
   today     = log --since=midnight --author='Sebastian Sogamoso' --oneline
   last-week = log --since='1 week ago' --no-merges --oneline
-  remote-diff = diff master...origin/master --oneline
+  remote-diff = diff main...origin/main --oneline
 [hub]
   protocol = https
