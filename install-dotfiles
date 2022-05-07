@@ -42,8 +42,8 @@ vim +BundleInstall +qall
 
 
 # Install/update Homebrew
-if [ ! -d /usr/local/Cellar ]; then
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if [ ! -d /opt/homebrew/Cellar ]; then
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   
   brew install zsh openssl readline git hub asdf tmux vim the_silver_searcher mysql postgresql redis ctags-exuberant 
 else
