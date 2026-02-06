@@ -1,0 +1,31 @@
+[user]
+  name = Sebastian Sogamoso
+  email = sebastian@sogamo.so
+  signingkey = ~/.ssh/id_ed25519_git_signing.pub
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[commit]
+  gpgsign = true
+
+[tag]
+  gpgSign = true
+
+[init]
+  defaultBranch = main
+
+[core]
+  editor = vim
+  excludesfile = ~/.config/git/ignore
+
+[credential "https://github.com"]
+  helper =
+  helper = !/opt/homebrew/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+  helper =
+  helper = !/opt/homebrew/bin/gh auth git-credential
