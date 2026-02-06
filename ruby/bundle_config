@@ -1,3 +1,0 @@
----
-BUNDLE_BUILD__MYSQL2: "--with-opt-dir=/usr/local/opt/openssl"
-BUNDLE_BUILD__LIBXML___RUBY: "--with-xml2-config=/usr/local/opt/libxml2/bin/xml2-config"

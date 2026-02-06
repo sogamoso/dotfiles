@@ -1,0 +1,25 @@
+# OS junk
+.DS_Store
+.DS_Store?
+Thumbs.db
+
+# Editors
+*.swp
+*.swo
+*.swn
+*~
+.zed/
+.vscode/
+
+# Claude
+**/.claude/settings.local.json
+
+# Ruby
+.bundle/
+
+# Node / JS tooling
+node_modules/
+*-debug.log*
+*-error.log*
+.next/
+.turbo/
