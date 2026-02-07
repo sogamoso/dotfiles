@@ -28,4 +28,10 @@ gsync() { git fetch origin --prune && git pull --ff-only; }
 gmain() { git switch main && gsync; }
 
 # New branch off latest main
-gnew() { gmain && git switch -c "$1"; }
+gnew() {
+  if [[ -z "${1-}" ]]; then
+    echo "Usage: gnew <branch-name>"
+    return 1
+  fi
+  gmain && git switch -c "$1"
+}
