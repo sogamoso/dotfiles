@@ -6,4 +6,4 @@ alias ghprs='gh pr status'
 alias ghrepo='gh repo view --web' # Open current repo in browser
 
 # Check out a PR by number: ghco 123
-ghco() { gh pr checkout "$1"; }
+ghco() { gh pr checkout "$@"; }
