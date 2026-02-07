@@ -14,3 +14,8 @@ command -v brew >/dev/null 2>&1 || { echo "brew not found on PATH after install"
 brew update
 brew bundle --file "$REPO_DIR/Brewfile"
 brew cleanup
+
+# zsh-you-should-use
+PLUGIN_DIR="$HOME/.config/zsh/plugins/zsh-you-should-use"
+mkdir -p "$PLUGIN_DIR"
+ln -sf "$(brew --prefix)/share/zsh-you-should-use/you-should-use.plugin.zsh" "$PLUGIN_DIR/you-should-use.plugin.zsh"
