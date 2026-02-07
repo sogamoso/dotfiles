@@ -1,26 +1,21 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Install Homebrew if missing
-if ! command -v brew >/dev/null 2>&1; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# OS specific setup
+case "$(uname -s)" in
+  Darwin)
+    bash "$REPO_DIR/install/macos.sh"
+    ;;
+  *)
+    echo "Unsupported OS for now"
+    exit 1
+    ;;
+esac
 
-  # Make brew available in THIS shell session
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
+# Dotfiles via GNU stow
+bash "$REPO_DIR/install/stow.sh"
 
-# Ensure brew is available now
-command -v brew >/dev/null 2>&1 || { echo "brew not found on PATH after install" >&2; exit 1; }
-
-brew update
-brew bundle --file "$SCRIPT_DIR/Brewfile"
-
-# Stow dotfiles
-if command -v stow >/dev/null 2>&1 && [[ -d "$SCRIPT_DIR/stow" ]]; then
-  (
-    cd "$SCRIPT_DIR/stow"
-    stow --target "$HOME" --restow */
-  )
-fi
+# Fresh shell process
+exec zsh -l
