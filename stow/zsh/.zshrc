@@ -41,3 +41,7 @@ if [[ -d "$HOME/.zsh_aliases" ]]; then
     [[ -r "$file" ]] && source "$file"
   done
 fi
+
+# zsh-you-should-use
+export YSU_MESSAGE_POSITION="after"
+source "$HOME/.config/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh"
