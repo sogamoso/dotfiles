@@ -23,3 +23,6 @@ node_modules/
 *-error.log*
 .next/
 .turbo/
+
+# Solo
+**/solo.yml
