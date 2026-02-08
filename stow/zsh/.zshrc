@@ -15,8 +15,8 @@ HISTSIZE=5000
 SAVEHIST=20000
 setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
-# setopt HIST_IGNORE_ALL_DUPS
-# setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
 
 # Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
