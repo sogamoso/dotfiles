@@ -4,7 +4,7 @@ export LANG="en_US.UTF-8"
 
 # Defaults
 export EDITOR="zed"
-export SUDO_EDITOR="vim"
+export SUDO_EDITOR="nvim"
 
 # 1Password SHH Agent
 export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
