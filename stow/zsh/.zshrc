@@ -36,6 +36,9 @@ eval "$(starship init zsh)"
 # 1Password CLI
 eval "$(op completion zsh)"; compdef _op op
 
+# zoxide
+eval "$(zoxide init zsh)"
+
 if [[ -d "$HOME/.zsh_aliases" ]]; then
   for file in "$HOME/.zsh_aliases"/*.zsh; do
     [[ -r "$file" ]] && source "$file"
