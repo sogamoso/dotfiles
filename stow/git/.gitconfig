@@ -19,7 +19,7 @@
   defaultBranch = main
 
 [core]
-  editor = vim
+  editor = nvim
   excludesfile = ~/.config/git/ignore
 
 [credential "https://github.com"]
