@@ -2,8 +2,9 @@
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 
-# Defaults
+# Default editors
 export EDITOR="zed"
+export VISUAL="zed"
 export SUDO_EDITOR="nvim"
 
 # 1Password SHH Agent
