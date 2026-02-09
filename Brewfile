@@ -1,3 +1,5 @@
+tap "anomalyco/tap"
+brew "anomalyco/tap/opencode"
 brew "fzf"
 brew "gemini-cli"
 brew "gh"
