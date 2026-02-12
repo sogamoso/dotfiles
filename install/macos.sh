@@ -11,9 +11,12 @@ fi
 
 command -v brew >/dev/null 2>&1 || { echo "brew not found on PATH after install" >&2; exit 1; }
 
-brew update
+# Install new casks and formulae
 brew bundle --file "$REPO_DIR/Brewfile"
-brew cleanup
+
+# Autoupdate now and once a week
+brew autoupdate delete >/dev/null 2>&1 || true
+brew autoupdate start 604800 --ac-only --upgrade --cleanup --leaves-only --immediate --sudo
 
 # zsh-you-should-use
 PLUGIN_DIR="$HOME/.config/zsh/plugins/zsh-you-should-use"
