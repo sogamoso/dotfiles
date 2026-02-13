@@ -49,8 +49,3 @@ fi
 # zsh-you-should-use
 export YSU_MESSAGE_POSITION="after"
 source "$HOME/.config/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh"
-
-# Auto-attach to zellij dev session for incoming SSH connections
-if [[ -n "$SSH_TTY" && -z "$ZELLIJ" && "$-" == *i* ]]; then
-  zellij --layout dev attach -c dev
-fi
