@@ -1,1 +1,1 @@
-alias zdev="zellij attach -c dev"
+alias zdev="zellij --layout dev attach -c dev"
