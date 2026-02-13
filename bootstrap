@@ -17,5 +17,10 @@ esac
 # Dotfiles via GNU stow
 bash "$REPO_DIR/install/stow.sh"
 
+# Tailscale
+if ! tailscale status &>/dev/null; then
+  echo "⚠ Tailscale is not connected. Run: tailscale up --ssh"
+fi
+
 # Fresh shell process
 exec zsh -l
