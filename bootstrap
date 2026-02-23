@@ -3,24 +3,23 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# OS specific setup
 case "$(uname -s)" in
   Darwin)
+    bash "$REPO_DIR/install/omamac.sh"
     bash "$REPO_DIR/install/macos.sh"
     ;;
   *)
-    echo "Unsupported OS for now"
+    echo "Unsupported OS"
     exit 1
     ;;
 esac
 
-# Dotfiles via GNU stow
+# Stow personal configs (restores anything Omamac/Omarchy overwrote)
 bash "$REPO_DIR/install/stow.sh"
 
 # Tailscale
 if ! tailscale status &>/dev/null; then
-  echo "⚠ Tailscale is not connected. Run: tailscale up --ssh"
+  echo "Tailscale is not connected. Run: tailscale up --ssh"
 fi
 
-# Fresh shell process
 exec zsh -l
