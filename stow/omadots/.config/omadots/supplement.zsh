@@ -18,10 +18,10 @@ HISTFILE="$HOME/.history"
 HISTSIZE=5000
 SAVEHIST=20000
 
-# 1Password CLI completion
-if command -v op >/dev/null 2>&1; then
+# 1Password CLI completion (requires compinit to have run first)
+if command -v op >/dev/null 2>&1 && command -v compdef >/dev/null 2>&1; then
   eval "$(op completion zsh)"
-  compdef _op op 2>/dev/null || true
+  compdef _op op
 fi
 
 # Personal aliases

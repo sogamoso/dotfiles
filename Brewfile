@@ -1,6 +1,4 @@
-tap "anomalyco/tap"
 tap "domt4/autoupdate"
-brew "anomalyco/tap/opencode"
 brew "gemini-cli"
 brew "libyaml"
 brew "mosh"
