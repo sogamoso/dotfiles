@@ -6,6 +6,15 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 # Desktop wallpaper
 osascript -e 'tell application "System Events" to set picture of every desktop to POSIX file "'"$REPO_DIR/assets/desktop_background.png"'"'
 
+# Screensaver: photo slideshow from assets folder
+defaults -currentHost write com.apple.screensaver moduleDict -dict \
+  moduleName -string "iLifeSlideshows" \
+  path -string "/System/Library/Frameworks/ScreenSaver.framework/PlugIns/iLifeSlideshows.appex" \
+  type -int 0
+defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows styleKey -string "Classic"
+defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows selectedFolderPath -string "$REPO_DIR/assets"
+defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows selectedMediaGroup -string "selectedFolderPath"
+
 # Menu bar: tighter icon spacing
 defaults -currentHost write -globalDomain NSStatusItemSpacing -int 10
 defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 10
