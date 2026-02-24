@@ -37,7 +37,7 @@ PLUGIN_DIR="$HOME/.config/zsh/plugins/zsh-you-should-use"
 mkdir -p "$PLUGIN_DIR"
 ln -sf "$(brew --prefix)/share/zsh-you-should-use/you-should-use.plugin.zsh" "$PLUGIN_DIR/you-should-use.plugin.zsh"
 
-# macOS defaults
+# macOS defaults override
 osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
 defaults write com.apple.dock orientation -string "right"
 defaults write com.apple.dock autohide -bool true
