@@ -3,6 +3,12 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Install Omamac if not already present (Rectangle Pro is a reliable Omamac signal)
+if ! brew list --cask rectangle-pro &>/dev/null 2>&1; then
+  curl -fsSL https://omamac.org/install | bash
+fi
+
+# Personal layer
 case "$(uname -s)" in
   Darwin)
     bash "$REPO_DIR/install/macos/all.sh"
@@ -13,7 +19,7 @@ case "$(uname -s)" in
     ;;
 esac
 
-# Stow personal configs (restores anything Omadots overwrote)
+# Stow personal configs
 bash "$REPO_DIR/install/stow.sh"
 
 # Tailscale
