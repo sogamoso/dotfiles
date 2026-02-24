@@ -36,3 +36,16 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
 PLUGIN_DIR="$HOME/.config/zsh/plugins/zsh-you-should-use"
 mkdir -p "$PLUGIN_DIR"
 ln -sf "$(brew --prefix)/share/zsh-you-should-use/you-should-use.plugin.zsh" "$PLUGIN_DIR/you-should-use.plugin.zsh"
+
+# macOS defaults
+osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
+defaults write com.apple.dock orientation -string "right"
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock tilesize -int 43
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+defaults write NSGlobalDomain AppleICUForce24HourTime -bool true
+defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
+killall Dock
+killall ControlCenter

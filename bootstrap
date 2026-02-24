@@ -5,8 +5,9 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 case "$(uname -s)" in
   Darwin)
-    bash "$REPO_DIR/install/omamac.sh"
+    bash "$REPO_DIR/install/omadots.sh"
     bash "$REPO_DIR/install/macos.sh"
+    bash "$REPO_DIR/install/alacritty.sh"
     ;;
   *)
     echo "Unsupported OS"
@@ -14,12 +15,28 @@ case "$(uname -s)" in
     ;;
 esac
 
-# Stow personal configs (restores anything Omamac/Omarchy overwrote)
+# Stow personal configs (restores anything Omadots overwrote)
 bash "$REPO_DIR/install/stow.sh"
 
 # Tailscale
 if ! tailscale status &>/dev/null; then
   echo "Tailscale is not connected. Run: tailscale up --ssh"
 fi
+
+cat <<'EOF'
+
+──────────────────────────────────────────
+  Manual post-setup steps
+──────────────────────────────────────────
+  1. Create nine default workspaces (F3 → + button)
+  2. Disable Keyboard Shortcuts for Mission Control + Spotlight
+     (System Settings → Keyboard → Keyboard Shortcuts)
+  3. Enable "Switch to Desktop" shortcuts on ⌘1–⌘9
+  4. Import Raycast config from ~/.config/raycast/Raycast.rayconfig (pw: 12345678)
+  5. gh auth login
+  6. Log out and back in (⌘⇧Q)
+──────────────────────────────────────────
+
+EOF
 
 exec zsh -l
