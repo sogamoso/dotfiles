@@ -1,7 +1,6 @@
 # Print keyboard shortcut tables using gum
 hotkeys() {
   local section="${1:-all}"
-  local printed=false
 
   _hotkeys_header() {
     gum style --bold --foreground 212 --padding "0 1" "  $1"
@@ -79,16 +78,15 @@ Prefix  q,Reload config" | _hotkeys_table
   }
 
   case "$section" in
-    launch|launching)  _hotkeys_launch; printed=true ;;
-    nav|navigation)    _hotkeys_nav; printed=true ;;
-    pos|positioning)   _hotkeys_pos; printed=true ;;
-    tmux|terminal)     _hotkeys_tmux; printed=true ;;
+    launch|launching)  _hotkeys_launch ;;
+    nav|navigation)    _hotkeys_nav ;;
+    pos|positioning)   _hotkeys_pos ;;
+    tmux|terminal)     _hotkeys_tmux ;;
     all)
       _hotkeys_launch; echo
       _hotkeys_nav; echo
       _hotkeys_pos; echo
       _hotkeys_tmux
-      printed=true
       ;;
     help|-h|--help)
       gum style --bold "hotkeys" --foreground 212
@@ -107,12 +105,6 @@ Prefix  q,Reload config" | _hotkeys_table
       return 1
       ;;
   esac
-
-  if $printed; then
-    echo
-    gum style --faint --foreground 245 --padding "0 1" \
-      "⌘ Command  ⌃ Control  ⌥ Option  ⇧ Shift  ⏎ Return"
-  fi
 
   unset -f _hotkeys_header _hotkeys_table _hotkeys_launch _hotkeys_nav _hotkeys_pos _hotkeys_tmux
 }
