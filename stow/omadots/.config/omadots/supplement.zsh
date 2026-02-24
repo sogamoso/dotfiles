@@ -1,10 +1,6 @@
 # Personal additions for Omadots-managed shells.
-# Sourced from ~/.zshrc by install/omamac.sh after Omamac runs.
+# Sourced from ~/.zshrc by install/macos/omadots.sh.
 # Only includes things Omadots doesn't provide.
-
-# Locale
-export LC_ALL="en_US.UTF-8"
-export LANG="en_US.UTF-8"
 
 # Editors Omadots doesn't set
 export VISUAL="nvim"
@@ -13,7 +9,7 @@ export SUDO_EDITOR="nvim"
 # 1Password SSH Agent
 export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
-# History file and sizes (Omadots sets SHARE_HISTORY and dedup options)
+# History file and sizes
 HISTFILE="$HOME/.history"
 HISTSIZE=5000
 SAVEHIST=20000
