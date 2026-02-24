@@ -14,6 +14,7 @@ defaults -currentHost write com.apple.screensaver moduleDict -dict \
 defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows styleKey -string "Classic"
 defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows selectedFolderPath -string "$REPO_DIR/assets/screensaver"
 defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows selectedMediaGroup -string "selectedFolderPath"
+defaults -currentHost write com.apple.screensaver showClock -bool true
 
 # Menu bar: tighter icon spacing
 defaults -currentHost write -globalDomain NSStatusItemSpacing -int 10
