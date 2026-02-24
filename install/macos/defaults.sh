@@ -31,7 +31,9 @@ defaults write org.hammerspoon.Hammerspoon MJConfigFile "$HOME/.config/hammerspo
 killall Dock
 killall ControlCenter
 
-# Launch apps that should run at startup
-open -a "Hammerspoon"
-open -a "Raycast"
-open -a "Tailscale"
+# Launch apps on first install (they'll already be running on subsequent runs)
+if [[ ! -f "$HOME/.config/omadots/.manual-steps-done" ]]; then
+  open -a "Hammerspoon"
+  open -a "Raycast"
+  open -a "Tailscale"
+fi
