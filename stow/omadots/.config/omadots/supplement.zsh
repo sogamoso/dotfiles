@@ -32,7 +32,6 @@ if [[ -d "$HOME/.zsh_aliases" ]]; then
 fi
 
 # zsh-you-should-use
-export YSU_MESSAGE_POSITION="after"
 if [[ -r "$HOME/.config/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh" ]]; then
   source "$HOME/.config/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh"
 fi
