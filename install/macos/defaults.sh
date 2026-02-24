@@ -12,6 +12,10 @@ defaults write NSGlobalDomain AppleICUForce24HourTime -bool true
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
+# Menu bar: tighter icon spacing
+defaults -currentHost write -globalDomain NSStatusItemSpacing -int 10
+defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 10
+
 # Menu bar: show only Bluetooth, WiFi, and Clock
 defaults write com.apple.controlcenter "NSStatusItem Visible WiFi" -bool false
 defaults write com.apple.controlcenter "NSStatusItem Visible Sound" -bool false
