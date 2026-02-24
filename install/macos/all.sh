@@ -6,7 +6,10 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 bash "$DIR/omadots.sh"
 bash "$DIR/setup.sh"
 
-cat <<'EOF'
+MANUAL_STEPS_MARKER="$HOME/.config/omadots/.manual-steps-done"
+
+if [[ ! -f "$MANUAL_STEPS_MARKER" ]]; then
+  cat <<'EOF'
 
 ──────────────────────────────────────────────────────────────
   Manual post-setup steps
@@ -30,11 +33,15 @@ cat <<'EOF'
 
   4. Authenticate GitHub CLI
      Run: gh auth login
-     Choose HTTPS, authenticate via browser.
+     Choose SSH, authenticate via browser.
 
   5. Log out and back in
      Apple menu → Log Out (⌘⇧Q) to apply all changes.
 
+  Once done, run:
+    touch ~/.config/omadots/.manual-steps-done
+
 ──────────────────────────────────────────────────────────────
 
 EOF
+fi
