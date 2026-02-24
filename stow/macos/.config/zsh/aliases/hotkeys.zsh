@@ -7,13 +7,20 @@ hotkeys() {
   }
 
   _hotkeys_table() {
-    {
-      IFS=, read -r key action
-      gum style --bold --foreground 212 "$(printf ' %-26s  %s' "$key" "$action")"
-      while IFS=, read -r key action; do
-        printf " %-26s  %s\n" "$key" "$action"
-      done
-    } | gum style --border rounded --border-foreground 240 --padding "0 1"
+    local lines=() content_w=0
+    while IFS=, read -r key action; do
+      lines+=("$(printf ' %-26s  %s' "$key" "$action")")
+    done
+    for l in "${lines[@]}"; do (( ${#l} > content_w )) && content_w=${#l}; done
+    local inner_w=$((content_w + 2))
+    local dashes=$(printf '─%.0s' {1..$inner_w})
+    local b=$'\e[38;5;240m' r=$'\e[0m' h=$'\e[1;38;5;141m'
+    printf '%s╭%s╮%s\n' "$b" "$dashes" "$r"
+    printf '%s│%s %-*s%s %s│%s\n' "$b" "$h" "$content_w" "${lines[1]}" "$r" "$b" "$r"
+    for ((i = 2; i <= ${#lines[@]}; i++)); do
+      printf '%s│%s %-*s %s│%s\n' "$b" "$r" "$content_w" "${lines[$i]}" "$b" "$r"
+    done
+    printf '%s╰%s╯%s\n' "$b" "$dashes" "$r"
   }
 
   _hotkeys_launch() {
