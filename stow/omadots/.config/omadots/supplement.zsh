@@ -20,8 +20,8 @@ if command -v op >/dev/null 2>&1 && command -v compdef >/dev/null 2>&1; then
 fi
 
 # Personal aliases
-if [[ -d "$HOME/.zsh_aliases" ]]; then
-  for file in "$HOME/.zsh_aliases"/*.zsh; do
+if [[ -d "$HOME/.config/zsh/aliases" ]]; then
+  for file in "$HOME/.config/zsh/aliases"/*.zsh; do
     [[ -r "$file" ]] && source "$file"
   done
 fi
