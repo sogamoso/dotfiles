@@ -14,8 +14,8 @@ case "$(uname -s)" in
     ;;
 esac
 
-# Stow personal configs
-bash "$REPO_DIR/install/stow.sh"
+# Personal dotfiles
+bash "$REPO_DIR/install/dotfiles.sh"
 
 # Tailscale
 if ! tailscale status &>/dev/null; then
