@@ -10,6 +10,5 @@ mkdir -p "$HOME/.ssh"
 
 (
   cd "$REPO_DIR/stow"
-  stow --target "$HOME" --adopt --restow */
-  git checkout -- .
+  stow --target "$HOME" --restow */
 )
