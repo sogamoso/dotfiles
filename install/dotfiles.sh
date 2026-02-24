@@ -14,13 +14,13 @@ mkdir -p "$HOME/.ssh"
 
 cd "$REPO_DIR/stow"
 
-# Cross-platform packages
-for pkg in */; do
-  [[ "$pkg" == "macos/" ]] && continue
-  stow --target "$HOME" --restow "$pkg"
+# Cross-platform configs
+for config in */; do
+  [[ "$config" == "macos/" ]] && continue
+  stow --target "$HOME" --restow "$config"
 done
 
-# OS-specific packages
+# OS-specific configs
 case "$(uname -s)" in
   Darwin) stow --target "$HOME" --restow macos ;;
 esac
