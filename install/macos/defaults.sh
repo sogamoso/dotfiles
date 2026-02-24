@@ -11,5 +11,15 @@ defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool fa
 defaults write NSGlobalDomain AppleICUForce24HourTime -bool true
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
+
+# Menu bar: show only Bluetooth, WiFi, and Clock
+defaults write com.apple.controlcenter "NSStatusItem Visible WiFi" -bool false
+defaults write com.apple.controlcenter "NSStatusItem Visible Sound" -bool false
+defaults write com.apple.controlcenter "NSStatusItem Visible Display" -bool false
+defaults write com.apple.controlcenter "NSStatusItem Visible Battery" -bool false
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC WiFi" -bool true
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC Bluetooth" -bool true
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC Clock" -bool true
+
 killall Dock
 killall ControlCenter
