@@ -3,6 +3,11 @@ set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Install Omamac if not already present (Rectangle Pro is a reliable Omamac signal)
+if ! brew list --cask rectangle-pro &>/dev/null 2>&1; then
+  curl -fsSL https://omamac.org/install | bash
+fi
+
 bash "$DIR/brew.sh"
 bash "$DIR/security.sh"
 bash "$DIR/preferences.sh"
