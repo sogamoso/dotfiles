@@ -13,11 +13,6 @@ export SUDO_EDITOR="nvim"
 # 1Password SSH Agent
 export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
-# History file and sizes
-HISTFILE="$HOME/.history"
-HISTSIZE=5000
-SAVEHIST=20000
-
 # 1Password CLI completion (requires compinit to have run first)
 if command -v op >/dev/null 2>&1 && command -v compdef >/dev/null 2>&1; then
   eval "$(op completion zsh)"
