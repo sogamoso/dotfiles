@@ -33,11 +33,17 @@ if [[ ! -f "$MANUAL_STEPS_MARKER" ]]; then
          through "Switch to Desktop 9". Enable each one and
          assign ⌘1 through ⌘9 respectively.
 
-  4. Authenticate GitHub CLI
+  4. Install Gmail and Google Calendar as Chrome web apps
+     Open each URL in Chrome → ⋮ menu → "Cast, save, and share"
+     → "Install page as app".
+       • https://mail.google.com
+       • https://calendar.google.com
+
+  5. Authenticate GitHub CLI
      Run: gh auth login
      Choose SSH, authenticate via browser.
 
-  5. Log out and back in
+  6. Log out and back in
      Apple menu → Log Out (⌘+⇧+Q) to apply all changes.
 
   Once done, run to avoid seeing this message every time:
