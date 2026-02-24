@@ -8,7 +8,15 @@ command -v stow >/dev/null 2>&1 || { echo "stow not found on PATH" >&2; exit 1; 
 
 mkdir -p "$HOME/.ssh"
 
-(
-  cd "$REPO_DIR/stow"
-  stow --target "$HOME" --restow */
-)
+cd "$REPO_DIR/stow"
+
+# Cross-platform packages
+for pkg in */; do
+  [[ "$pkg" == "macos/" ]] && continue
+  stow --target "$HOME" --restow "$pkg"
+done
+
+# OS-specific packages
+case "$(uname -s)" in
+  Darwin) stow --target "$HOME" --restow macos ;;
+esac

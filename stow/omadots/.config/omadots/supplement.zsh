@@ -1,5 +1,5 @@
 # Personal additions for Omadots-managed shells.
-# Sourced from ~/.zshrc by install/macos/omadots.sh.
+# Sourced from ~/.zshrc by install/omadots_supplement.sh.
 # Only includes things Omadots doesn't provide.
 
 # Locale (needed for SSH to remote hosts)
@@ -9,15 +9,6 @@ export LANG="en_US.UTF-8"
 # Editors Omadots doesn't set
 export VISUAL="nvim"
 export SUDO_EDITOR="nvim"
-
-# 1Password SSH Agent
-export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-
-# 1Password CLI completion (requires compinit to have run first)
-if command -v op >/dev/null 2>&1 && command -v compdef >/dev/null 2>&1; then
-  eval "$(op completion zsh)"
-  compdef _op op
-fi
 
 # Personal aliases
 if [[ -d "$HOME/.config/zsh/aliases" ]]; then
@@ -35,3 +26,6 @@ fi
 if [[ -z "$TMUX" && "$-" == *i* && -n "$SSH_TTY" ]]; then
   tmux attach || tmux new -s Work
 fi
+
+# OS-specific supplement
+[[ -r "$HOME/.config/omadots/supplement.macos.zsh" ]] && source "$HOME/.config/omadots/supplement.macos.zsh"
