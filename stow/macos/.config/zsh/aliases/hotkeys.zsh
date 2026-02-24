@@ -77,16 +77,22 @@ y,Copy selection
 Prefix  q,Reload config" | _hotkeys_table
   }
 
+  _hotkeys_legend() {
+    echo
+    gum style --faint --foreground 245 --padding "0 1" \
+      "⌘ Command  ⌃ Control  ⌥ Option  ⇧ Shift  ⏎ Return"
+  }
+
   case "$section" in
-    launch|launching)  _hotkeys_launch ;;
-    nav|navigation)    _hotkeys_nav ;;
-    pos|positioning)   _hotkeys_pos ;;
-    tmux|terminal)     _hotkeys_tmux ;;
+    launch|launching)  _hotkeys_launch; _hotkeys_legend ;;
+    nav|navigation)    _hotkeys_nav; _hotkeys_legend ;;
+    pos|positioning)   _hotkeys_pos; _hotkeys_legend ;;
+    tmux|terminal)     _hotkeys_tmux; _hotkeys_legend ;;
     all)
       _hotkeys_launch; echo
       _hotkeys_nav; echo
       _hotkeys_pos; echo
-      _hotkeys_tmux
+      _hotkeys_tmux; _hotkeys_legend
       ;;
     help|-h|--help)
       gum style --bold "hotkeys" --foreground 212
@@ -106,5 +112,5 @@ Prefix  q,Reload config" | _hotkeys_table
       ;;
   esac
 
-  unset -f _hotkeys_header _hotkeys_table _hotkeys_launch _hotkeys_nav _hotkeys_pos _hotkeys_tmux
+  unset -f _hotkeys_header _hotkeys_table _hotkeys_legend _hotkeys_launch _hotkeys_nav _hotkeys_pos _hotkeys_tmux
 }
