@@ -5,7 +5,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 bash "$DIR/brew.sh"
 bash "$DIR/security.sh"
-bash "$DIR/defaults.sh"
+bash "$DIR/preferences.sh"
 
 MANUAL_STEPS_MARKER="$HOME/.config/omadots/.manual-steps-done"
 

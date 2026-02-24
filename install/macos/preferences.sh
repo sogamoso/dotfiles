@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Personal macOS defaults (Omamac handles core defaults)
-
 # Menu bar: tighter icon spacing
 defaults -currentHost write -globalDomain NSStatusItemSpacing -int 10
 defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 10
