@@ -7,8 +7,9 @@ hotkeys() {
   }
 
   _hotkeys_table() {
-    gum table --print --border.foreground 240 --header.foreground 99 \
-      --selected.foreground "" --widths 32,40 --padding "0 1"
+    gum table --print --border.foreground 240 \
+      --header.foreground 212 --selected.foreground 255 \
+      --widths 32,40 --padding "0 1"
   }
 
   _hotkeys_launch() {
