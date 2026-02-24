@@ -90,10 +90,20 @@ Prefix  q,Reload config" | _hotkeys_table
       _hotkeys_tmux
       printed=true
       ;;
+    help|-h|--help)
+      gum style --bold "hotkeys" --foreground 212
+      echo "Print keyboard shortcut cheat sheets."
+      echo
+      gum style --faint "Usage: hotkeys [section]"
+      echo
+      echo "  launch, nav, pos, tmux    Show one section"
+      echo "  (no argument)             Show all sections"
+      return 0
+      ;;
     *)
       gum style --foreground 9 "Unknown section: $section"
       echo
-      gum style --faint "Usage: hotkeys [launch|nav|pos|tmux]"
+      echo "Run $(gum style --bold 'hotkeys help') to see available sections."
       return 1
       ;;
   esac
