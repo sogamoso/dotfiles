@@ -25,5 +25,13 @@ defaults write com.apple.controlcenter "NSStatusItem VisibleCC WiFi" -bool true
 defaults write com.apple.controlcenter "NSStatusItem VisibleCC Bluetooth" -bool true
 defaults write com.apple.controlcenter "NSStatusItem VisibleCC Clock" -bool true
 
+# Hammerspoon: use XDG config path
+defaults write org.hammerspoon.Hammerspoon MJConfigFile "$HOME/.config/hammerspoon/init.lua"
+
 killall Dock
 killall ControlCenter
+
+# Launch apps that should run at startup
+open -a "Hammerspoon"
+open -a "Raycast"
+open -a "Tailscale"
