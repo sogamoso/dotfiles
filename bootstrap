@@ -5,9 +5,9 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 case "$(uname -s)" in
   Darwin)
-    bash "$REPO_DIR/install/omadots.sh"
-    bash "$REPO_DIR/install/macos.sh"
-    bash "$REPO_DIR/install/alacritty.sh"
+    bash "$REPO_DIR/install/macos/omadots.sh"
+    bash "$REPO_DIR/install/macos/setup.sh"
+    bash "$REPO_DIR/install/macos/alacritty.sh"
     ;;
   *)
     echo "Unsupported OS"

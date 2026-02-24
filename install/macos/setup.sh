@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
 # Install Homebrew if missing
 if ! command -v brew >/dev/null 2>&1; then
