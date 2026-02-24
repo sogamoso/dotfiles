@@ -3,7 +3,7 @@ set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-bash "$DIR/overlay.sh"
+bash "$DIR/omamac_supplement.sh"
 bash "$DIR/brew.sh"
 bash "$DIR/security.sh"
 bash "$DIR/defaults.sh"
