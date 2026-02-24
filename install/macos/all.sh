@@ -8,9 +8,7 @@ bash "$DIR/brew.sh"
 bash "$DIR/security.sh"
 bash "$DIR/preferences.sh"
 
-CHROME_APPS="$HOME/Applications/Chrome Apps.localized"
-
-if [[ ! -d "$CHROME_APPS/Gmail.app" ]] || [[ ! -d "$CHROME_APPS/Google Calendar.app" ]]; then
+if [[ ! -d "$HOME/Applications/Gmail.app" ]] || [[ ! -d "$HOME/Applications/Google Calendar.app" ]]; then
   cat <<'EOF'
 
 ──────────────────────────────────────────────────────────────
