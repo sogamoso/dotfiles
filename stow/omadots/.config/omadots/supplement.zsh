@@ -2,6 +2,10 @@
 # Sourced from ~/.zshrc by install/macos/omadots.sh.
 # Only includes things Omadots doesn't provide.
 
+# Locale (needed for SSH to remote hosts)
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+
 # Editors Omadots doesn't set
 export VISUAL="nvim"
 export SUDO_EDITOR="nvim"
