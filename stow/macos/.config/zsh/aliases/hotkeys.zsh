@@ -10,7 +10,7 @@ hotkeys() {
     local first=true
     while IFS=, read -r key action; do
       if $first; then
-        printf "\033[38;5;212m %-26s  %s\033[0m\n" "$key" "$action"
+        printf "\033[1;38;5;212m %-26s  %s\033[0m\n" "$key" "$action"
         first=false
       else
         printf " %-26s  %s\n" "$key" "$action"
