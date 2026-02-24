@@ -14,9 +14,10 @@ command -v brew >/dev/null 2>&1 || { echo "brew not found on PATH after install"
 # Install new casks and formulae
 brew bundle --file "$REPO_DIR/Brewfile"
 
-# Autoupdate now and once a week
-brew autoupdate delete >/dev/null 2>&1 || true
-brew autoupdate start 604800 --ac-only --upgrade --cleanup --leaves-only --immediate --sudo
+# Autoupdate once a week
+if ! brew autoupdate status | grep -q "Autoupdate is installed and running"; then
+  brew autoupdate start 604800 --ac-only --upgrade --cleanup --leaves-only --immediate --sudo
+fi
 
 # zsh-you-should-use (installed via Brewfile, link into plugin dir)
 PLUGIN_DIR="$HOME/.config/zsh/plugins/zsh-you-should-use"
