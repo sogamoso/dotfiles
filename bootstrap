@@ -3,10 +3,7 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Omadots supplement (cross-platform)
-bash "$REPO_DIR/install/omadots_supplement.sh"
-
-# Personal layer
+# OS specific
 case "$(uname -s)" in
   Darwin)
     bash "$REPO_DIR/install/macos/all.sh"
