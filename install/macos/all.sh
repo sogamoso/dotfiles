@@ -3,7 +3,6 @@ set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-bash "$DIR/omadots_supplement.sh"
 bash "$DIR/brew.sh"
 bash "$DIR/security.sh"
 bash "$DIR/defaults.sh"

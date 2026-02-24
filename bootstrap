@@ -8,6 +8,9 @@ if ! brew list --cask rectangle-pro &>/dev/null 2>&1; then
   curl -fsSL https://omamac.org/install | bash
 fi
 
+# Omadots supplement (cross-platform)
+bash "$REPO_DIR/install/omadots_supplement.sh"
+
 # Personal layer
 case "$(uname -s)" in
   Darwin)
