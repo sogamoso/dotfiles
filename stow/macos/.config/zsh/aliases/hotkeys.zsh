@@ -1,22 +1,15 @@
 # Print keyboard shortcut tables using gum
 hotkeys() {
   local section="${1:-all}"
-  local pink='\033[38;5;212m' dim='\033[2m' bold='\033[1m' reset='\033[0m'
 
   _hotkeys_header() {
     gum style --bold --foreground 212 --padding "0 1" "  $1"
   }
 
   _hotkeys_table() {
-    local first=true
-    while IFS=, read -r key action; do
-      if $first; then
-        printf "${pink}${bold} %-26s  %s${reset}\n" "$key" "$action"
-        first=false
-      else
-        printf " ${bold}%-26s${reset}  %s\n" "$key" "$action"
-      fi
-    done | gum style --border rounded --border-foreground 240 --padding "0 1"
+    gum table --print --border.foreground 240 \
+      --selected.foreground 212 --header.foreground 252 \
+      --widths 28,40 --padding "0 1"
   }
 
   _hotkeys_launch() {
