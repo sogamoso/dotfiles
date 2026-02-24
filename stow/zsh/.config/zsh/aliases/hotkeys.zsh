@@ -1,0 +1,108 @@
+# Print keyboard shortcut tables using gum
+hotkeys() {
+  local section="${1:-all}"
+  local printed=false
+
+  _hotkeys_header() {
+    gum style --bold --foreground 212 --padding "0 1" "  $1"
+  }
+
+  _hotkeys_table() {
+    gum table --print --border.foreground 240 --header.foreground 99 \
+      --widths 32,40 --padding "0 1"
+  }
+
+  _hotkeys_launch() {
+    _hotkeys_header "APP LAUNCHING  (Raycast)"
+    echo "Shortcut,Action
+⌘ Space,Raycast Launcher
+⌘ ⌃ ⏎,New Ghostty Window
+⌘ ⌃ A ⏎,New Alacritty Window
+⌘ ⌃ ⇧ ⏎,New Chrome Window" | _hotkeys_table
+  }
+
+  _hotkeys_nav() {
+    _hotkeys_header "WINDOW NAVIGATION  (Hammerspoon)"
+    echo "Shortcut,Action
+⌘ ⌃ →,Focus window right
+⌘ ⌃ ←,Focus window left
+⌘ ⌃ ↑,Focus window above
+⌘ ⌃ ↓,Focus window below" | _hotkeys_table
+  }
+
+  _hotkeys_pos() {
+    _hotkeys_header "WINDOW POSITIONING  (Rectangle Pro)"
+    echo "Shortcut,Action
+⌘ ⌥ ← / →,Left / Right Half
+⌘ ⌥ ↑ / ↓,Top / Bottom Left Quarter
+⌘ ⌥ ⇧ ↑ / ↓,Top / Bottom Right Quarter
+⌘ ⌥ ⌃ ← / →,First / Last Fourth
+⌘ ⌥ ⌃ ↑ / ↓,Top / Bottom Left Eighth
+⌘ ⌥ ⌃ ⇧ ↑ / ↓,Top / Bottom Right Eighth
+⌘ ⌥ ⏎,Center Half
+⌘ ⌥ ⌃ ⏎,Maximize" | _hotkeys_table
+  }
+
+  _hotkeys_tmux() {
+    _hotkeys_header "TMUX PANES"
+    gum style --faint --foreground 245 --padding "0 2" "Prefix: ⌃ Space  (or ⌃ B)"
+    echo "Shortcut,Action
+⌃ ⌘ PageUp,Split horizontally
+⌃ ⌘ PageDown,Split vertically
+⌃ ⌘ End,Kill pane
+⌃ ⌘ ← / →,Focus left / right pane
+⌃ ⌘ ↑ / ↓,Focus up / down pane
+⌃ ⌘ ⇧ ← / →,Resize left / right
+⌃ ⌘ ⇧ ↑ / ↓,Resize up / down" | _hotkeys_table
+    echo
+    _hotkeys_header "TMUX WINDOWS"
+    echo "Shortcut,Action
+⌃ ⇧ Home,New window
+⌃ ⇧ End,Kill window
+⌃ ⇧ PageUp / PageDown,Next / Previous window
+Prefix  x,Kill window
+Prefix  r,Rename window" | _hotkeys_table
+    echo
+    _hotkeys_header "TMUX SESSIONS"
+    echo "Shortcut,Action
+⌃ ⌘ ⇧ Home,New session
+⌃ ⌘ ⇧ End,Kill session
+⌃ ⌘ ⇧ PageUp / PageDn,Prev / Next session
+Prefix  R,Rename session
+Prefix  X,Kill session" | _hotkeys_table
+    echo
+    _hotkeys_header "TMUX COPY MODE  (Vi)"
+    echo "Shortcut,Action
+v,Begin selection
+y,Copy selection
+Prefix  q,Reload config" | _hotkeys_table
+  }
+
+  case "$section" in
+    launch|launching)  _hotkeys_launch; printed=true ;;
+    nav|navigation)    _hotkeys_nav; printed=true ;;
+    pos|positioning)   _hotkeys_pos; printed=true ;;
+    tmux|terminal)     _hotkeys_tmux; printed=true ;;
+    all)
+      _hotkeys_launch; echo
+      _hotkeys_nav; echo
+      _hotkeys_pos; echo
+      _hotkeys_tmux
+      printed=true
+      ;;
+    *)
+      gum style --foreground 9 "Unknown section: $section"
+      echo
+      gum style --faint "Usage: hotkeys [launch|nav|pos|tmux]"
+      return 1
+      ;;
+  esac
+
+  if $printed; then
+    echo
+    gum style --faint --foreground 245 --padding "0 1" \
+      "⌘ Command  ⌃ Control  ⌥ Option  ⇧ Shift  ⏎ Return"
+  fi
+
+  unset -f _hotkeys_header _hotkeys_table _hotkeys_launch _hotkeys_nav _hotkeys_pos _hotkeys_tmux
+}
