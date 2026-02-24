@@ -1,6 +1,6 @@
 ## Dotfiles
 
-Personal dotfiles layered on top of [Omamac](https://github.com/omacom-io/omamac). Managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/). Designed to layer on top of an OS base setup — currently [Omamac](https://github.com/omacom-io/omamac) for macOS, with the structure ready to support other OSes (e.g. Omarchy for Linux) in the future.
 
 Omamac handles the base macOS setup (Omadots shell config, core packages, Ghostty, Hammerspoon, Rectangle Pro, Raycast, macOS defaults). This repo adds personal packages, aliases, security hardening, and configs.
 
@@ -16,7 +16,7 @@ Safe to run multiple times. Everything is idempotent.
 
 `bootstrap` runs two phases:
 
-1. **macOS setup** (`install/macos/all.sh`) — OS-specific installs and settings
+1. **OS setup** — dispatches by `uname -s`. On macOS this runs `install/macos/all.sh`. A future Linux branch would add `install/linux/all.sh`.
 2. **Dotfiles** (`install/dotfiles.sh`) — cross-platform config symlinks via stow
 
 After both phases it checks Tailscale status and drops into a fresh zsh login shell.
