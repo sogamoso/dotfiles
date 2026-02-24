@@ -7,9 +7,15 @@ hotkeys() {
   }
 
   _hotkeys_table() {
-    gum table --print --border.foreground 240 \
-      --selected.foreground 212 --header.foreground 252 \
-      --widths 28,40 --padding "0 1"
+    local first=true
+    while IFS=, read -r key action; do
+      if $first; then
+        printf "\033[38;5;212m %-26s  %s\033[0m\n" "$key" "$action"
+        first=false
+      else
+        printf " %-26s  %s\n" "$key" "$action"
+      fi
+    done | gum style --border rounded --border-foreground 240 --padding "0 1"
   }
 
   _hotkeys_launch() {
