@@ -12,7 +12,7 @@ defaults -currentHost write com.apple.screensaver moduleDict -dict \
   path -string "/System/Library/Frameworks/ScreenSaver.framework/PlugIns/iLifeSlideshows.appex" \
   type -int 0
 defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows styleKey -string "Classic"
-defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows selectedFolderPath -string "$REPO_DIR/assets"
+defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows selectedFolderPath -string "$REPO_DIR/assets/screensaver"
 defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows selectedMediaGroup -string "selectedFolderPath"
 
 # Menu bar: tighter icon spacing
