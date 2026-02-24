@@ -1,6 +1,8 @@
 ## Dotfiles
 
-Personal dotfiles layered on top of [Omadots](https://github.com/basecamp/omadots). Managed with [GNU Stow](https://www.gnu.org/software/stow/). Borrows ideas from [Omamac](https://github.com/basecamp/omamac).
+Personal dotfiles layered on top of [Omamac](https://github.com/omacom-io/omamac). Managed with [GNU Stow](https://www.gnu.org/software/stow/).
+
+Omamac handles the base macOS setup (Omadots, core packages, Ghostty, Hammerspoon, Rectangle Pro, Raycast, macOS defaults). This repo adds personal packages, aliases, security hardening, and configs.
 
 ### Installation
 
@@ -8,4 +10,4 @@ Simply run:
 
     ./bootstrap
 
-You can safely run `./bootstrap` multiple times to update.
+This installs Omamac first (if not already present), then applies personal customizations. You can safely run `./bootstrap` multiple times to update.
