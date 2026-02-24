@@ -8,23 +8,20 @@ bash "$DIR/brew.sh"
 bash "$DIR/security.sh"
 bash "$DIR/preferences.sh"
 
-MANUAL_STEPS_MARKER="$HOME/.config/omadots/.manual-steps-done"
+CHROME_APPS="$HOME/Applications/Chrome Apps.localized"
 
-if [[ ! -f "$MANUAL_STEPS_MARKER" ]]; then
+if [[ ! -d "$CHROME_APPS/Gmail.app" ]] || [[ ! -d "$CHROME_APPS/Google Calendar.app" ]]; then
   cat <<'EOF'
 
 ──────────────────────────────────────────────────────────────
   Additional manual steps (beyond Omamac)
 ──────────────────────────────────────────────────────────────
 
-  1. Install Gmail and Google Calendar as Chrome web apps
-     Open each URL in Chrome → ⋮ menu → "Cast, save, and share"
-     → "Install page as app".
-       • https://mail.google.com
-       • https://calendar.google.com
-
-  Once done, run to avoid seeing this message every time:
-    touch ~/.config/omadots/.manual-steps-done
+  Install Gmail and Google Calendar as Chrome web apps:
+    Open each URL in Chrome → ⋮ menu → "Cast, save, and share"
+    → "Install page as app".
+      • https://mail.google.com
+      • https://calendar.google.com
 
 ──────────────────────────────────────────────────────────────
 
