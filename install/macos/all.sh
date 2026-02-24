@@ -8,16 +8,33 @@ bash "$DIR/setup.sh"
 
 cat <<'EOF'
 
-──────────────────────────────────────────
+──────────────────────────────────────────────────────────────
   Manual post-setup steps
-──────────────────────────────────────────
-  1. Create nine default workspaces (F3 → + button)
-  2. Disable Keyboard Shortcuts for Mission Control + Spotlight
-     (System Settings → Keyboard → Keyboard Shortcuts)
-  3. Enable "Switch to Desktop" shortcuts on ⌘1–⌘9
-  4. Import Raycast config from ~/.config/raycast/Raycast.rayconfig (pw: 12345678)
-  5. gh auth login
-  6. Log out and back in (⌘⇧Q)
-──────────────────────────────────────────
+──────────────────────────────────────────────────────────────
+
+  1. Create nine workspaces
+     Open Mission Control (F3 or swipe up with three fingers).
+     Hover over the top-right of the Spaces bar and click the
+     "+" button until you have nine workspaces.
+
+  2. Disable default Mission Control & Spotlight shortcuts
+     System Settings → Keyboard → Keyboard Shortcuts →
+       • Mission Control: uncheck all shortcuts
+       • Spotlight: uncheck all shortcuts
+
+  3. Enable ⌘1–⌘9 to switch workspaces
+     System Settings → Keyboard → Keyboard Shortcuts →
+       • Mission Control: scroll down to "Switch to Desktop 1"
+         through "Switch to Desktop 9". Enable each one and
+         assign ⌘1 through ⌘9 respectively.
+
+  4. Authenticate GitHub CLI
+     Run: gh auth login
+     Choose HTTPS, authenticate via browser.
+
+  5. Log out and back in
+     Apple menu → Log Out (⌘⇧Q) to apply all changes.
+
+──────────────────────────────────────────────────────────────
 
 EOF
