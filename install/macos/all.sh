@@ -36,9 +36,9 @@ if [[ ! -f "$MANUAL_STEPS_MARKER" ]]; then
      Choose SSH, authenticate via browser.
 
   5. Log out and back in
-     Apple menu → Log Out (⌘⇧Q) to apply all changes.
+     Apple menu → Log Out (⌘+⇧+Q) to apply all changes.
 
-  Once done, run:
+  Once done, run to avoid seeing this message every time:
     touch ~/.config/omadots/.manual-steps-done
 
 ──────────────────────────────────────────────────────────────
