@@ -36,7 +36,8 @@ defaults write com.apple.controlcenter "NSStatusItem VisibleCC Bluetooth" -bool 
 defaults write com.apple.controlcenter "NSStatusItem VisibleCC Clock" -bool true
 killall ControlCenter
 
-# Dock: unpin all apps, disable workspace auto-rearrange
+# Dock: unpin all apps, disable workspace auto-rearrange, switch to space with open windows
 defaults write com.apple.dock persistent-apps -array
 defaults write com.apple.dock mru-spaces -bool false
+defaults write com.apple.dock workspaces-auto-swoosh -bool true
 killall Dock
