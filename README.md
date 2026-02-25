@@ -7,7 +7,7 @@ I designed it to layer on top of an OS base setup — currently [Omamac](https:/
 ### Installation
 
 ```
-./bootstrap
+mkdir -p ~/Code && git clone git@github.com:sogamoso/dotfiles.git ~/Code/dotfiles && ~/Code/dotfiles/bootstrap
 ```
 
 Safe to run multiple times. Everything is idempotent.
