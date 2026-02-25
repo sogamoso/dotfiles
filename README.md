@@ -30,6 +30,7 @@ stow/
   git/                     # .gitconfig + global .gitignore
   macos/                   # macOS-only configs (stowed only on Darwin)
   mise/                    # mise config (node + ruby via latest)
+  nvim/                    # Neovim plugin overrides
   omadots/                 # supplement.zsh — personal additions to Omadots shell config
   ruby/                    # .gemrc, .irbrc, .default-gems
   ssh/                     # SSH client config + signing key
