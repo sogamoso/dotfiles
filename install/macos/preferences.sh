@@ -18,6 +18,10 @@ defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows selectedFolder
 defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows selectedMediaGroup -string "selectedFolderPath"
 defaults -currentHost write com.apple.screensaver showClock -bool true
 
+# Accessibility: disable UI transparency (opaque menu bar/backgrounds)
+defaults write com.apple.universalaccess reduceTransparency -bool true
+killall SystemUIServer
+
 # Menu bar: tighter icon spacing
 defaults -currentHost write -globalDomain NSStatusItemSpacing -int 10
 defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 10
