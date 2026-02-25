@@ -40,4 +40,10 @@ killall ControlCenter
 defaults write com.apple.dock persistent-apps -array
 defaults write com.apple.dock mru-spaces -bool false
 defaults write com.apple.dock workspaces-auto-swoosh -bool true
+
+# Dock: disable hot corners
+defaults write com.apple.dock wvous-tl-corner -int 1
+defaults write com.apple.dock wvous-tr-corner -int 1
+defaults write com.apple.dock wvous-bl-corner -int 1
+defaults write com.apple.dock wvous-br-corner -int 1
 killall Dock
