@@ -3,6 +3,8 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
+echo -e "\n==> Configuring security..."
+
 # Enable Remote Login (SSH server)
 if ! launchctl print system/com.openssh.sshd &>/dev/null; then
   sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
