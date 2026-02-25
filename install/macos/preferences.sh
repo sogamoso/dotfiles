@@ -32,3 +32,7 @@ defaults write com.apple.controlcenter "NSStatusItem VisibleCC Bluetooth" -bool 
 defaults write com.apple.controlcenter "NSStatusItem VisibleCC Clock" -bool true
 
 killall ControlCenter
+
+# Dock: unpin all apps
+defaults write com.apple.dock persistent-apps -array
+killall Dock
