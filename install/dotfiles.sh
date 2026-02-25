@@ -3,6 +3,8 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
+echo -e "\n==> Stowing dotfiles..."
+
 # Append personal supplement to .zshrc (Omadots is already installed by Omamac)
 OVERLAY='source $HOME/.config/omadots/supplement.zsh'
 grep -qxF "$OVERLAY" "$HOME/.zshrc" 2>/dev/null || echo "$OVERLAY" >> "$HOME/.zshrc"

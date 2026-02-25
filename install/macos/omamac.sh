@@ -5,3 +5,5 @@ set -euo pipefail
 if [[ ! -f "$HOME/.config/shell/all" ]]; then
   curl -fsSL https://omamac.org/install | bash
 fi
+
+echo -e "\n==> Applying personal dotfiles..."
