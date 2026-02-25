@@ -30,7 +30,6 @@ defaults write com.apple.controlcenter "NSStatusItem Visible Battery" -bool fals
 defaults write com.apple.controlcenter "NSStatusItem VisibleCC WiFi" -bool true
 defaults write com.apple.controlcenter "NSStatusItem VisibleCC Bluetooth" -bool true
 defaults write com.apple.controlcenter "NSStatusItem VisibleCC Clock" -bool true
-
 killall ControlCenter
 
 # Dock: unpin all apps
