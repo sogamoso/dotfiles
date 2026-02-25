@@ -22,4 +22,6 @@ if ! tailscale status &>/dev/null; then
   echo "Tailscale is not connected. Run: tailscale up --ssh"
 fi
 
+echo -e "\n==> Finished installing Sebastian's dotfiles!"
+
 exec zsh -l
