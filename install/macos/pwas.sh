@@ -16,15 +16,3 @@ if (( ${#missing[@]} )); then
     echo "Opened $url — install via ⋮ → Cast, save, and share → Install page as app"
   done
 fi
-
-if [[ ! -d "$CHROME_APPS/Hotkeys.app" ]]; then
-  echo -e "\n==> Installing Hotkeys PWA..."
-  PORT=8765
-  DIR="$HOME/.config/raycast/hotkeys"
-  if ! lsof -ti:$PORT > /dev/null 2>&1; then
-    python3 -m http.server $PORT --directory "$DIR" > /dev/null 2>&1 &
-    sleep 0.3
-  fi
-  open -a "Google Chrome" "http://localhost:$PORT"
-  echo "Opened http://localhost:$PORT — install via ⋮ → Cast, save, and share → Install page as app"
-fi
