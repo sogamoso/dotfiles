@@ -20,7 +20,8 @@ hs.hotkey.bind(hotMods, "/", function()
   })
   cheatsheet:windowStyle({ "titled", "closable", "resizable" })
   cheatsheet:windowTitle("Hotkeys")
-  cheatsheet:url("file://" .. os.getenv("HOME") .. "/.config/raycast/hotkeys/index.html")
+  local path = hs.fs.pathToAbsolute(os.getenv("HOME") .. "/.config/hotkeys/index.html")
+  cheatsheet:url("file://" .. path)
 
   cheatsheet:windowCallback(function(action)
     if action == "closing" then
