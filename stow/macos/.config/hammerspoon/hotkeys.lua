@@ -35,6 +35,18 @@ hs.hotkey.bind(hotMods, "/", function()
     if code == hs.keycodes.map["escape"] then close(); return true end
     if flags.cmd and code == hs.keycodes.map["w"] then close(); return true end
     if flags.cmd and code == hs.keycodes.map["q"] then close(); return true end
+    if code == hs.keycodes.map["up"] then
+      cheatsheet:evaluateJavaScript("window.scrollBy(0, -120)"); return true
+    end
+    if code == hs.keycodes.map["down"] then
+      cheatsheet:evaluateJavaScript("window.scrollBy(0, 120)"); return true
+    end
+    if code == hs.keycodes.map["pageup"] then
+      cheatsheet:evaluateJavaScript("window.scrollBy(0, -600)"); return true
+    end
+    if code == hs.keycodes.map["pagedown"] then
+      cheatsheet:evaluateJavaScript("window.scrollBy(0, 600)"); return true
+    end
   end)
 
   cheatsheet:show()
