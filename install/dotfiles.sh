@@ -9,6 +9,11 @@ echo -e "\n==> Stowing dotfiles..."
 OVERLAY='source $HOME/.config/omadots/supplement.zsh'
 grep -qxF "$OVERLAY" "$HOME/.zshrc" 2>/dev/null || echo "$OVERLAY" >> "$HOME/.zshrc"
 
+# Append hotkeys module to Hammerspoon config (Omamac owns init.lua)
+HS_INIT="$HOME/.config/hammerspoon/init.lua"
+HS_OVERLAY='require("hotkeys")'
+grep -qxF "$HS_OVERLAY" "$HS_INIT" 2>/dev/null || echo "$HS_OVERLAY" >> "$HS_INIT"
+
 command -v stow >/dev/null 2>&1 || { echo "stow not found on PATH" >&2; exit 1; }
 [[ -d "$REPO_DIR/stow" ]] || { echo "stow directory not found: $REPO_DIR/stow" >&2; exit 1; }
 
