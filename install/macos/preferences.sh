@@ -39,3 +39,13 @@ killall ControlCenter || true
 # Dock: unpin all apps
 defaults write com.apple.dock persistent-apps -array
 killall Dock || true
+
+# Login items
+add_login_item() {
+  local path="$1" name
+  name="$(basename "$path" .app)"
+  osascript -e "tell application \"System Events\" to get the name of every login item" | grep -qw "$name" || \
+    osascript -e "tell application \"System Events\" to make login item at end with properties {path:\"$path\", hidden:false}"
+}
+add_login_item "/Applications/Hammerspoon.app"
+add_login_item "/Applications/Rectangle Pro.app"
