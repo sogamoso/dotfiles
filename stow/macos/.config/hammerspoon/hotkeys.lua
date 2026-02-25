@@ -16,7 +16,7 @@ hs.hotkey.bind(mods, "/", function()
     cheatsheet = hs.webview.new({ x = x, y = y, w = w, h = h })
     cheatsheet:windowStyle({ "titled", "closable", "resizable" })
     cheatsheet:windowTitle("Hotkeys")
-    cheatsheet:url("http://localhost:8765")
+    cheatsheet:url("file://" .. os.getenv("HOME") .. "/.config/raycast/hotkeys/index.html")
   end
 
   cheatsheet:show()
