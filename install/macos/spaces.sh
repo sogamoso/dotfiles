@@ -2,15 +2,13 @@
 set -euo pipefail
 
 echo -e "\n==> Setting up macOS Spaces..."
-echo
-echo "  Create 6 spaces in Mission Control (F3 → click + to add),"
-echo "  then assign each app via right-click on Dock icon → Options → Assign To:"
-echo
-echo "  Space 1  │  Chrome · Gmail · Google Calendar"
-echo "  Space 2  │  Ghostty"
-echo "  Space 3  │  Zed · Claude"
-echo "  Space 4  │  Slack · WhatsApp"
-echo "  Space 5  │  Notion · Obsidian · Linear · Akiflow"
-echo "  Space 6  │  Spotify · ChatGPT"
-echo
-echo "  All Desktops  │  1Password"
+echo "Right-click each Dock icon → Options → Assign To → the space below:"
+echo "1. Space 1 (Browsing):       Chrome, Safari"
+echo "2. Space 2 (Programming):    Ghostty, Zed, Linear"
+echo "3. Space 3 (Communication):  Slack, Google Meet, WhatsApp, Discord"
+echo "4. Space 4 (Scheduling):     Gmail, Google Calendar, Akiflow"
+echo "5. Space 5 (Writing):        Typora, Obsidian, Notion, Notes"
+echo "6. Space 6 (AI Tools):       ChatGPT, Claude, Codex"
+echo "7. Space 7 (Entertainment):  Spotify, YouTube"
+echo "8. Space 8 (Misc):           Whatever"
+echo "All Desktops:                1Password"
