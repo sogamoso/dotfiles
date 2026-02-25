@@ -20,7 +20,7 @@ defaults -currentHost write com.apple.screensaver showClock -bool true
 
 # Accessibility: disable UI transparency (opaque menu bar/backgrounds)
 defaults write com.apple.universalaccess reduceTransparency -bool true
-killall SystemUIServer || true
+killall SystemUIServer
 
 # Menu bar: tighter icon spacing
 defaults -currentHost write -globalDomain NSStatusItemSpacing -int 10
@@ -34,8 +34,8 @@ defaults write com.apple.controlcenter "NSStatusItem Visible Battery" -bool fals
 defaults write com.apple.controlcenter "NSStatusItem VisibleCC WiFi" -bool true
 defaults write com.apple.controlcenter "NSStatusItem VisibleCC Bluetooth" -bool true
 defaults write com.apple.controlcenter "NSStatusItem VisibleCC Clock" -bool true
-killall ControlCenter || true
+killall ControlCenter
 
 # Dock: unpin all apps
 defaults write com.apple.dock persistent-apps -array
-killall Dock || true
+killall Dock
