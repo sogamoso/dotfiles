@@ -9,7 +9,8 @@
 # Generates a styled HTML cheatsheet and opens it in the default browser.
 # Data mirrors the `hotkeys` shell function from hotkeys.zsh.
 
-FILE="/tmp/hotkeys-cheatsheet.html"
+FILE="$HOME/.config/raycast/hotkeys/index.html"
+mkdir -p "$(dirname "$FILE")"
 
 cat > "$FILE" << 'HTMLEOF'
 <!DOCTYPE html>
@@ -17,7 +18,9 @@ cat > "$FILE" << 'HTMLEOF'
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Keyboard Shortcuts</title>
+<title>Hotkeys</title>
+<link rel="manifest" href="/manifest.json">
+<script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');</script>
 <style>
   :root {
     --bg:        #1a1b26;
@@ -272,4 +275,38 @@ cat > "$FILE" << 'HTMLEOF'
 </html>
 HTMLEOF
 
-open "$FILE"
+DIR="$(dirname "$FILE")"
+
+cat > "$DIR/manifest.json" << 'EOF'
+{
+  "name": "Hotkeys",
+  "short_name": "Hotkeys",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1b26",
+  "theme_color": "#1a1b26",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
+EOF
+
+SCRIPT_DIR="$(dirname "$0")"
+cp "$SCRIPT_DIR/hotkeys-icon-192.png" "$DIR/icon-192.png"
+cp "$SCRIPT_DIR/hotkeys-icon-512.png" "$DIR/icon-512.png"
+
+cat > "$DIR/sw.js" << 'EOF'
+self.addEventListener('fetch', event => {
+  event.respondWith(fetch(event.request));
+});
+EOF
+
+PORT=8765
+if ! lsof -ti:$PORT > /dev/null 2>&1; then
+  python3 -m http.server $PORT --directory "$(dirname "$FILE")" > /dev/null 2>&1 &
+  sleep 0.3
+fi
+
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --app="http://localhost:$PORT" > /dev/null 2>&1 &
