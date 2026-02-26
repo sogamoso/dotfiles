@@ -3,5 +3,5 @@
 # Hide titlebar while keeping native window borders/rounded corners.
 macos-titlebar-style = hidden
 
-# Match Alacritty behavior: close the current OS window with Cmd+W.
-keybind = super+w=close_window
+# Quit Ghostty once the last window is closed.
+quit-after-last-window-closed = true
