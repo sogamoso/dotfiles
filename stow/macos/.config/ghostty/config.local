@@ -2,7 +2,3 @@
 
 # Hide titlebar while keeping native window borders/rounded corners.
 macos-titlebar-style = hidden
-
-# Remove top padding so hidden titlebar doesn't look like reserved bar space.
-# Keep bottom padding aligned with the base Omamac config.
-window-padding-y = 0,14
