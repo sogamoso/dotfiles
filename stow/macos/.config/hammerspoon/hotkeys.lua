@@ -19,7 +19,6 @@ hs.hotkey.bind(hotMods, "/", function()
     w = w, h = h,
   })
   cheatsheet:windowStyle(hs.webview.windowMasks.borderless)
-  cheatsheet:titleVisibility("hidden")
   local path = hs.fs.pathToAbsolute(os.getenv("HOME") .. "/.config/hotkeys/index.html")
   cheatsheet:url("file://" .. path)
 
