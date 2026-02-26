@@ -6,5 +6,6 @@ reload() {
   if [[ -d "/Applications/Hammerspoon.app" ]]; then
     open "hammerspoon://reload" >/dev/null 2>&1 || return
   fi
+  fc -R
   clear
 }
