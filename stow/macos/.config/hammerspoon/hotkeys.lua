@@ -18,8 +18,8 @@ hs.hotkey.bind(hotMods, "/", function()
     y = (f.h - h) / 2 + f.y,
     w = w, h = h,
   })
-  cheatsheet:windowStyle({ "titled", "closable", "resizable" })
-  cheatsheet:windowTitle("Hotkeys")
+  cheatsheet:windowStyle(hs.webview.windowMasks.borderless)
+  cheatsheet:titleVisibility("hidden")
   local path = hs.fs.pathToAbsolute(os.getenv("HOME") .. "/.config/hotkeys/index.html")
   cheatsheet:url("file://" .. path)
 
