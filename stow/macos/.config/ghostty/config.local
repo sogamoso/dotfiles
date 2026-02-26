@@ -1,7 +1,11 @@
 # Personal Ghostty overrides layered on top of Omamac-managed config.
 
-# Hide titlebar while keeping native window borders/rounded corners.
-macos-titlebar-style = hidden
+# Keep a minimal native titlebar while allowing visible tab UX.
+macos-titlebar-style = transparent
+macos-window-buttons = hidden
+macos-titlebar-proxy-icon = hidden
+window-subtitle = false
+window-padding-y = 0
 
 # Quit Ghostty once the last window is closed.
 quit-after-last-window-closed = true
