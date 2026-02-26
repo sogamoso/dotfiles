@@ -9,6 +9,13 @@ echo -e "\n==> Stowing dotfiles..."
 OVERLAY='source $HOME/.config/omadots/supplement.zsh'
 grep -qxF "$OVERLAY" "$HOME/.zshrc" 2>/dev/null || echo "$OVERLAY" >> "$HOME/.zshrc"
 
+# Append Ghostty local overlay include (Omamac owns base config)
+GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
+GHOSTTY_OVERLAY='config-file = config.local'
+if [[ -f "$GHOSTTY_CONFIG" ]]; then
+  grep -qxF "$GHOSTTY_OVERLAY" "$GHOSTTY_CONFIG" 2>/dev/null || echo "$GHOSTTY_OVERLAY" >> "$GHOSTTY_CONFIG"
+fi
+
 # Append hotkeys module to Hammerspoon config (Omamac owns init.lua)
 HS_INIT="$HOME/.config/hammerspoon/init.lua"
 HS_OVERLAY='require("hotkeys")'
