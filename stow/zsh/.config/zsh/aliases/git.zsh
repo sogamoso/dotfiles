@@ -28,7 +28,21 @@ alias grba='git rebase --abort'
 gsync() { git fetch origin --prune && git pull --ff-only; }
 
 # Keep main clean and updated
-gmain() { git switch main && gsync; }
+gbase() {
+  local base
+
+  if git show-ref --verify --quiet refs/heads/main || git show-ref --verify --quiet refs/remotes/origin/main; then
+    base="main"
+  elif git show-ref --verify --quiet refs/heads/master || git show-ref --verify --quiet refs/remotes/origin/master; then
+    base="master"
+  else
+    echo "No base branch found (main or master)."
+    return 1
+  fi
+
+  git switch "$base" 2>/dev/null || git switch -c "$base" --track "origin/$base"
+  gsync
+}
 
 # New branch off latest main
 gnew() {
@@ -36,5 +50,5 @@ gnew() {
     echo "Usage: gnew <branch-name>"
     return 1
   fi
-  gmain && git switch -c "$1"
+  gbase && git switch -c "$1"
 }
