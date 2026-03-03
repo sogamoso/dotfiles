@@ -13,11 +13,12 @@ alias gco='git checkout'
 alias gcb='git checkout -b'
 alias gb='git branch'
 alias gbd='git branch -d'
-alias gbD='git branch -D'
+alias gbD='git_force_remove_branch_and_worktrees'
 alias gsw='git switch'
 alias gsc='git switch -c'
 alias gp='git push -u origin HEAD'
 alias gpf='git push --force-with-lease'
+alias gf='git fetch --prune'
 alias gpull='git pull --ff-only'
 alias grb='git rebase'
 alias grbi='git rebase -i'
@@ -51,4 +52,16 @@ gnew() {
     return 1
   fi
   gbase && git switch -c "$1"
+}
+
+# Force-delete a branch, removing its worktree first if one exists
+git_force_remove_branch_and_worktrees() {
+  local branch="${1:?Usage: gbD <branch>}"
+  local worktree
+  worktree=$(git worktree list --porcelain | awk '/^worktree /{wt=$2} /^branch refs\/heads\/'"$branch"'$/{print wt}')
+  if [[ -n "$worktree" ]]; then
+    echo "Removing worktree: $worktree"
+    git worktree remove --force "$worktree"
+  fi
+  git branch -D "$branch"
 }
