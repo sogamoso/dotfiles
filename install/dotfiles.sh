@@ -38,3 +38,7 @@ done
 case "$(uname -s)" in
   Darwin) stow --target "$HOME" --restow macos ;;
 esac
+
+# Strip machine-specific sections from .gitconfig when staging
+git -C "$REPO_DIR" config filter.strip-coderabbit.clean \
+  "awk '/^\[coderabbit\]/{skip=1;next} /^\[/{skip=0} !skip{print}'"
