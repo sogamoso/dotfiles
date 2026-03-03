@@ -28,6 +28,7 @@ if [[ -d "$HOME/.config/zsh/aliases" ]]; then
 fi
 
 # zsh-you-should-use
+YSU_IGNORED_ALIASES=("git")
 if [[ -r "$HOME/.config/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh" ]]; then
   source "$HOME/.config/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh"
 fi
