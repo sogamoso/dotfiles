@@ -1,6 +1,7 @@
 tap "domt4/autoupdate"
 
 brew "btop"
+brew "coderabbit"
 brew "fzf"
 brew "gemini-cli"
 brew "mosh"
