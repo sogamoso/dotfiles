@@ -8,6 +8,7 @@ missing=()
 [[ ! -d "$CHROME_APPS/Google Calendar.app" ]] && missing+=("https://calendar.google.com")
 [[ ! -d "$CHROME_APPS/Google Meet.app" ]] && missing+=("https://meet.google.com")
 [[ ! -d "$CHROME_APPS/YouTube.app" ]] && missing+=("https://youtube.com")
+[[ ! -d "$CHROME_APPS/GitHub.app" ]] && missing+=("https://github.com")
 
 if (( ${#missing[@]} )); then
   echo -e "\n==> Installing PWAs..."
