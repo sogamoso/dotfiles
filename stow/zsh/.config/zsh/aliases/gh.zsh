@@ -1,6 +1,6 @@
 alias ghpr='gh pr create --fill'
 alias ghprw='gh pr view --web'
-alias ghprck='gh pr checks'
+alias ghprc='gh pr checks'
 alias ghprr='gh pr review'
 alias ghprs='gh pr status'
 alias ghrepo='gh repo view --web' # Open current repo in browser
