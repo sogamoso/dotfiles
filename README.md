@@ -41,16 +41,14 @@ stow/
 
 | Shortcut | Action |
 |----------|--------|
-| `⌘ 1–9` | Switch to workspace |
-| `⌘ ⇧ 1–9` | Move window to workspace |
-| `⌥ h/j/k/l` | Focus window left/down/up/right |
-| `⌥ ⇧ h/j/k/l` | Move window left/down/up/right |
-| `⌥ -` / `⌥ =` | Shrink / Grow window |
-| `⌥ f` | Fullscreen |
-| `⌥ ⇧ f` | Float / Tile toggle |
+| `⌘ ⌃ →/←/↑/↓` | Focus window right/left/above/below |
+| `⌘ ⌥ →/←` | Left / Right half |
+| `⌘ ⌥ ↩` | Center half |
+| `⌘ ⌥ ⌃ ↩` | Maximize |
 | `⌘ Space` | Raycast launcher |
 | `⌘ ⌃ ↩` | New Ghostty window |
 | `⌘ ⌃ ⇧ ↩` | New Chrome window |
+| `⌘ ⌃ /` | Hotkey cheatsheet |
 
 Full cheatsheet: `~/.config/hotkeys/index.html`
 

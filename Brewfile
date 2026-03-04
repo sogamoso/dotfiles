@@ -1,5 +1,5 @@
 tap "domt4/autoupdate"
-tap "nikitabobko/tap"
+tap "koekeishiya/formulae"
 
 brew "btop"
 brew "fzf"
@@ -8,9 +8,8 @@ brew "mosh"
 brew "pinentry-mac"
 brew "stow"
 brew "tailscale"
+brew "koekeishiya/formulae/yabai"
 brew "zsh-you-should-use"
-
-cask "nikitabobko/tap/aerospace"
 
 cask "1password"
 cask "1password-cli"
