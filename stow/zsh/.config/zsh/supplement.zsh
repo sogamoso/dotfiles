@@ -1,4 +1,5 @@
 # Personal additions for Omadots-managed shells.
+# Assumes Omadots have already been installed.
 # Sourced from ~/.zshrc by install/omadots_supplement.sh.
 # Only includes things Omadots doesn't provide.
 
@@ -10,7 +11,7 @@ export LANG="en_US.UTF-8"
 export VISUAL="nvim"
 export SUDO_EDITOR="nvim"
 
-# Enable zsh completion (idempotent if Omadots initializes it too)
+# Enable zsh completion
 if command -v brew >/dev/null 2>&1; then
   fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
 fi
@@ -38,5 +39,5 @@ if [[ -z "$TMUX" && "$-" == *i* && -n "$SSH_TTY" ]]; then
   tmux attach || tmux new -s Work
 fi
 
-# OS-specific supplement
-[[ -r "$HOME/.config/omadots/supplement.macos.zsh" ]] && source "$HOME/.config/omadots/supplement.macos.zsh"
+# Source OS-specific supplement
+[[ -r "$HOME/.config/zsh/supplement.macos.zsh" ]] && source "$HOME/.config/zsh/supplement.macos.zsh"
