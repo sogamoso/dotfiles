@@ -18,23 +18,12 @@ defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows selectedFolder
 defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows selectedMediaGroup -string "selectedFolderPath"
 defaults -currentHost write com.apple.screensaver showClock -bool true
 
-# Accessibility: disable UI transparency (opaque menu bar/backgrounds)
+# Accessibility: disable UI transparency
 defaults write com.apple.universalaccess reduceTransparency -bool true
+
+# Menu bar: hide native bar (replaced by SketchyBar)
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
 killall SystemUIServer
-
-# Menu bar: tighter icon spacing
-defaults -currentHost write -globalDomain NSStatusItemSpacing -int 10
-defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 10
-
-# Menu bar: show only Bluetooth, WiFi, and Clock
-defaults write com.apple.controlcenter "NSStatusItem Visible WiFi" -bool false
-defaults write com.apple.controlcenter "NSStatusItem Visible Sound" -bool false
-defaults write com.apple.controlcenter "NSStatusItem Visible Display" -bool false
-defaults write com.apple.controlcenter "NSStatusItem Visible Battery" -bool false
-defaults write com.apple.controlcenter "NSStatusItem VisibleCC WiFi" -bool true
-defaults write com.apple.controlcenter "NSStatusItem VisibleCC Bluetooth" -bool true
-defaults write com.apple.controlcenter "NSStatusItem VisibleCC Clock" -bool true
-killall ControlCenter
 
 # Dock: unpin all apps, disable workspace auto-rearrange, switch to space with open windows
 defaults write com.apple.dock persistent-apps -array

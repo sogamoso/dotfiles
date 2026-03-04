@@ -2,6 +2,7 @@ tap "domt4/autoupdate"
 tap "koekeishiya/formulae"
 
 brew "btop"
+brew "sketchybar"
 brew "fzf"
 brew "gemini-cli"
 brew "mosh"
