@@ -9,14 +9,11 @@ echo -e "\n==> Stowing dotfiles..."
 OVERLAY='source $HOME/.config/zsh/supplement.zsh'
 grep -qxF "$OVERLAY" "$HOME/.zshrc" 2>/dev/null || echo "$OVERLAY" >> "$HOME/.zshrc"
 
-command -v stow >/dev/null 2>&1 || { echo "stow not found on PATH" >&2; exit 1; }
-[[ -d "$REPO_DIR/stow" ]] || { echo "stow directory not found: $REPO_DIR/stow" >&2; exit 1; }
-
+# Ensure .ssh exists before stowing SSH config
 mkdir -p "$HOME/.ssh"
 
+# Cross-platform dotfiles
 cd "$REPO_DIR/stow"
-
-# Cross-platform configs
 for config in */; do
   [[ "$config" == "macos/" ]] && continue
   stow --target "$HOME" --restow "$config"
