@@ -9,3 +9,6 @@ bash "$DIR/security.sh"
 bash "$DIR/preferences.sh"
 bash "$DIR/pwas.sh"
 bash "$DIR/workspace_and_window_management.sh"
+
+echo -e "\n==> Starting yabai service..."
+yabai --start-service
