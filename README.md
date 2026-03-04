@@ -37,6 +37,23 @@ stow/
   zsh/                     # Shell aliases (git, gh, bundler, rails, npm)
 ```
 
+### Hotkeys
+
+| Shortcut | Action |
+|----------|--------|
+| `⌘ 1–7` | Switch to workspace |
+| `⌘ ⇧ 1–7` | Move window to workspace |
+| `⌥ h/j/k/l` | Focus window left/down/up/right |
+| `⌥ ⇧ h/j/k/l` | Move window left/down/up/right |
+| `⌥ -` / `⌥ =` | Shrink / Grow window |
+| `⌥ f` | Fullscreen |
+| `⌥ ⇧ f` | Float / Tile toggle |
+| `⌘ Space` | Raycast launcher |
+| `⌘ ⌃ ↩` | New Ghostty window |
+| `⌘ ⌃ ⇧ ↩` | New Chrome window |
+
+Full cheatsheet: `~/.config/hotkeys/index.html`
+
 ### Cross-platform design
 
 The stow packages under `stow/` are cross-platform by default. macOS-specific configs live in `stow/macos/` and are only stowed on Darwin.
