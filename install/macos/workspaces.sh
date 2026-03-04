@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo -e "\n==> Setting up macOS workspaces..."
-echo "Open each app then right-click its Dock icon → Options → Assign To:"
-echo "  • Workspace 1 (Browsing):       Chrome, Safari"
-echo "  • Workspace 2 (Programming):    Ghostty, Alacritty, Zed, Linear, GitHub"
-echo "  • Workspace 3 (Communication):  Slack, Google Meet, WhatsApp, Discord"
-echo "  • Workspace 4 (Scheduling):     Gmail, Google Calendar, Akiflow"
-echo "  • Workspace 5 (Writing):        Typora, Obsidian, Notion, Notes"
-echo "  • Workspace 6 (AI Tools):       ChatGPT, Claude, Codex"
-echo "  • Workspace 7 (Entertainment):  Spotify, YouTube"
-echo "  • Workspace 8 (Misc):           Everything else"
+echo -e "\n==> Workspaces (managed automatically by yabai):"
+echo "  • 1 (Browsing):       Chrome, Safari"
+echo "  • 2 (Programming):    Ghostty, Alacritty, Zed, Linear, GitHub"
+echo "  • 3 (Communication):  Slack, Google Meet, WhatsApp, Discord"
+echo "  • 4 (Scheduling):     Gmail, Google Calendar, Akiflow"
+echo "  • 5 (Writing):        Typora, Obsidian, Notion, Notes"
+echo "  • 6 (AI Tools):       ChatGPT, Claude, Codex"
+echo "  • 7 (Entertainment):  Spotify, YouTube"
+echo "  • 8 (Misc):           Everything else"
