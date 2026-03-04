@@ -1,4 +1,5 @@
 tap "domt4/autoupdate"
+tap "koekeishiya/formulae"
 
 brew "btop"
 brew "fzf"
@@ -7,7 +8,7 @@ brew "mosh"
 brew "pinentry-mac"
 brew "stow"
 brew "tailscale"
-brew "yabai"
+brew "koekeishiya/formulae/yabai"
 brew "zsh-you-should-use"
 
 cask "1password"
