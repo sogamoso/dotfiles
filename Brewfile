@@ -7,6 +7,7 @@ brew "mosh"
 brew "pinentry-mac"
 brew "stow"
 brew "tailscale"
+brew "yabai"
 brew "zsh-you-should-use"
 
 cask "1password"
