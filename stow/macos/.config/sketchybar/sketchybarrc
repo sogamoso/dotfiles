@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# Tokyo Night colors
+BG=0xff1a1b26
+SURFACE=0xff24283b
+MUTED=0xff565f89
+TEXT=0xffa9b1d6
+BLUE=0xff7aa2f7
+
+export CONFIG_DIR="$HOME/.config/sketchybar"
+
+# Bar
+sketchybar --bar \
+  height=32 \
+  position=top \
+  padding_left=12 \
+  padding_right=12 \
+  color=$BG \
+  border_width=0
+
+# Defaults
+sketchybar --default \
+  padding_left=4 \
+  padding_right=4 \
+  icon.font="JetBrainsMono Nerd Font:Bold:13.0" \
+  label.font="JetBrainsMono Nerd Font:Regular:13.0" \
+  icon.color=$TEXT \
+  label.color=$TEXT
+
+# Spaces
+for i in {1..9}; do
+  sketchybar --add space space.$i left \
+    --set space.$i \
+      associated_space=$i \
+      icon=$i \
+      icon.padding_left=8 \
+      icon.padding_right=8 \
+      background.color=$SURFACE \
+      background.corner_radius=5 \
+      background.height=24 \
+      background.drawing=off \
+      label.drawing=off \
+      script="$CONFIG_DIR/plugins/space.sh" \
+    --subscribe space.$i space_change
+done
+
+# Clock
+sketchybar --add item clock right \
+  --set clock \
+    update_freq=10 \
+    icon.drawing=off \
+    script="$CONFIG_DIR/plugins/clock.sh"
+
+# Battery
+sketchybar --add item battery right \
+  --set battery \
+    update_freq=120 \
+    script="$CONFIG_DIR/plugins/battery.sh" \
+  --subscribe battery power_source_change system_woke
+
+# WiFi
+sketchybar --add item wifi right \
+  --set wifi \
+    update_freq=30 \
+    script="$CONFIG_DIR/plugins/wifi.sh" \
+  --subscribe wifi wifi_change
+
+sketchybar --update
