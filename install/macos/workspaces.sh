@@ -3,7 +3,7 @@ set -euo pipefail
 
 echo -e "\n==> Workspaces (managed automatically by yabai):"
 echo "  • 1 (Browsing):       Chrome, Safari"
-echo "  • 2 (Programming):    Ghostty, Alacritty, Zed, Linear, GitHub"
+echo "  • 2 (Programming):    Ghostty, Alacritty, Zed, Linear, GitHub, TablePlus"
 echo "  • 3 (Communication):  Slack, Google Meet, WhatsApp, Discord"
 echo "  • 4 (Scheduling):     Gmail, Google Calendar"
 echo "  • 5 (Writing):        Typora, Obsidian, Notion, Notes"
