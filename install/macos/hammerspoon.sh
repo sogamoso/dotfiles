@@ -2,8 +2,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-
 echo -e "\n==> Configuring Hammerspoon..."
 
 # Append hotkeys module to Hammerspoon config (Omamac owns init.lua)
