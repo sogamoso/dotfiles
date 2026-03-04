@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo -e "\n==> Workspaces (managed automatically by yabai):"
+echo -e "\n==> Starting yabai service..."
+yabai --start-service
+
+echo -e "\n==> Workspaces:"
 echo "  • 1 (Browsing):       Chrome, Safari"
 echo "  • 2 (Programming):    Ghostty, Alacritty, Zed, Linear, GitHub, TablePlus"
 echo "  • 3 (Communication):  Slack, Google Meet, WhatsApp, Discord"
