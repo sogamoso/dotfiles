@@ -41,8 +41,8 @@ stow/
 
 | Shortcut | Action |
 |----------|--------|
-| `⌘ 1–7` | Switch to workspace |
-| `⌘ ⇧ 1–7` | Move window to workspace |
+| `⌘ 1–9` | Switch to workspace |
+| `⌘ ⇧ 1–9` | Move window to workspace |
 | `⌥ h/j/k/l` | Focus window left/down/up/right |
 | `⌥ ⇧ h/j/k/l` | Move window left/down/up/right |
 | `⌥ -` / `⌥ =` | Shrink / Grow window |
