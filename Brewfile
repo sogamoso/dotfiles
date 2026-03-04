@@ -1,8 +1,9 @@
 tap "domt4/autoupdate"
+tap "FelixKratz/formulae"
 tap "koekeishiya/formulae"
 
 brew "btop"
-brew "sketchybar"
+brew "FelixKratz/formulae/sketchybar"
 brew "fzf"
 brew "gemini-cli"
 brew "mosh"
