@@ -9,6 +9,9 @@ reload() {
   if command -v sketchybar &>/dev/null; then
     sketchybar --reload
   fi
+  if command -v aerospace &>/dev/null; then
+    aerospace reload-config
+  fi
   fc -R
   clear
 }
