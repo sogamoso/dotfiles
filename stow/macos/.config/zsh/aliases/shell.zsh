@@ -6,6 +6,9 @@ reload() {
   if [[ -d "/Applications/Hammerspoon.app" ]]; then
     open -g "hammerspoon://reload" >/dev/null 2>&1 || return
   fi
+  if command -v sketchybar &>/dev/null; then
+    sketchybar --reload
+  fi
   fc -R
   clear
 }
