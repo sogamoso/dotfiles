@@ -23,5 +23,7 @@ if ! tailscale status &>/dev/null; then
 fi
 
 echo -e "\n==> Finished installing Sebastian's dotfiles!"
+echo -e "\n==> Manual steps required — opening guide..."
+open -a Typora "$REPO_DIR/docs/macos-omarchy-setup.md"
 
 exec zsh -l
