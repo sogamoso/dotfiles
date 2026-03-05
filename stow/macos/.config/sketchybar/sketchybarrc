@@ -18,14 +18,27 @@ fi
 BAR_HEIGHT=$("$MBHEIGHT_BIN" 2>/dev/null || echo 30)
 
 # Keep Rectangle Pro's top gap in sync with the bar height.
-# Subtract whatever macOS already reserves at the top (notch on laptop = bar height,
-# nothing on external monitors), so windows sit just below the bar on all screens.
-# On laptop-only the notch already reserves top space, so no extra gap needed.
-# When an external monitor is connected, set the full bar height as the gap.
-SCREEN_COUNT=$(swift -e "import AppKit; print(NSScreen.screens.count)" 2>/dev/null || echo 1)
-RECT_GAP=$(( SCREEN_COUNT > 1 ? BAR_HEIGHT : 0 ))
+# Rectangle's gap is global, so use 0 only when the built-in display is the
+# only active screen (macOS already reserves top space there). If any external
+# display is active (including clamshell with a single external), reserve the
+# full bar height to prevent maximized windows from covering SketchyBar.
+HAS_EXTERNAL=$(swift -e 'import AppKit; import CoreGraphics; let hasExternal = NSScreen.screens.contains { screen in guard let num = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? NSNumber else { return false }; return CGDisplayIsBuiltin(num.uint32Value) == 0 }; print(hasExternal ? 1 : 0)' 2>/dev/null || echo 0)
+if [ "$HAS_EXTERNAL" -eq 1 ] 2>/dev/null; then
+  RECT_GAP=$BAR_HEIGHT
+else
+  RECT_GAP=0
+fi
 defaults write com.knollsoft.Hookshot screenEdgeGapTop -int "$RECT_GAP"
-killall "Rectangle Pro" 2>/dev/null; open -a "Rectangle Pro" &
+defaults write com.knollsoft.Rectangle screenEdgeGapTop -int "$RECT_GAP"
+defaults write com.knollsoft.Hookshot applyGapsToMaximize -bool true
+defaults write com.knollsoft.Rectangle applyGapsToMaximize -bool true
+defaults write com.knollsoft.Hookshot applyGapsToMaximizeHeight -bool true
+defaults write com.knollsoft.Rectangle applyGapsToMaximizeHeight -bool true
+defaults write com.knollsoft.Hookshot applyGapsToMaximizeWidth -bool true
+defaults write com.knollsoft.Rectangle applyGapsToMaximizeWidth -bool true
+defaults write com.knollsoft.Hookshot screenEdgeGapsOnMainScreenOnly -bool false
+defaults write com.knollsoft.Rectangle screenEdgeGapsOnMainScreenOnly -bool false
+killall "Rectangle Pro" 2>/dev/null; open -a "Rectangle Pro" >/dev/null 2>&1 &
 
 # Bar
 sketchybar --bar \

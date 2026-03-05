@@ -30,13 +30,10 @@ local function cycleWorkspaceWindows(reverse)
   hs.execute("/opt/homebrew/bin/aerospace focus --window-id " .. ids[nextIdx] .. " 2>/dev/null")
 end
 
-hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(e)
-  local flags = e:getFlags()
-  local keyCode = e:getKeyCode()
-  local tabCode = hs.keycodes.map["tab"]
+local workspaceSwitcherNext = hs.hotkey.bind({ "cmd" }, "tab", function()
+  cycleWorkspaceWindows(false)
+end)
 
-  if keyCode == tabCode and flags.cmd and not flags.alt and not flags.ctrl then
-    cycleWorkspaceWindows(flags.shift)
-    return true
-  end
-end):start()
+local workspaceSwitcherPrev = hs.hotkey.bind({ "cmd", "shift" }, "tab", function()
+  cycleWorkspaceWindows(true)
+end)
