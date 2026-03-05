@@ -21,8 +21,9 @@ defaults -currentHost write com.apple.screensaver showClock -bool true
 # Accessibility: disable UI transparency
 defaults write com.apple.universalaccess reduceTransparency -bool true
 
-# Menu bar: hide native bar (replaced by SketchyBar)
-defaults write NSGlobalDomain _HIHideMenuBar -bool true
+# Menu bar: auto-hide (accessible on hover, reserved space for SketchyBar)
+defaults write NSGlobalDomain _HIHideMenuBar -bool false
+defaults write com.apple.dock autohide-menu-bar -bool true
 killall SystemUIServer
 
 # Dock: unpin all apps, disable workspace auto-rearrange, switch to space with open windows
