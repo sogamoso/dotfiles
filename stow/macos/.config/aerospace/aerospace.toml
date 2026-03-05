@@ -35,7 +35,6 @@ run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
 if.app-id = "io.alacritty"
 run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
 
-
 [[on-window-detected]]
 if.app-id = "dev.zed.Zed"
 run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
@@ -50,7 +49,7 @@ run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
 
 [[on-window-detected]]
 if.app-id = "com.tinyapp.TablePlus"
-run = ['layout floating', 'move-node-to-workspace 2']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
 
 # 3: Communication
 [[on-window-detected]]
