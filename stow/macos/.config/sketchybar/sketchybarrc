@@ -17,8 +17,15 @@ if [ ! -f "$MBHEIGHT_BIN" ] || [ "$MBHEIGHT_SRC" -nt "$MBHEIGHT_BIN" ]; then
 fi
 BAR_HEIGHT=$("$MBHEIGHT_BIN" 2>/dev/null || echo 30)
 
-# Keep Rectangle Pro's top gap in sync with the bar height
-defaults write com.knollsoft.Hookshot screenEdgeGapTop -int "$BAR_HEIGHT"
+# Keep Rectangle Pro's top gap in sync with the bar height.
+# Subtract whatever macOS already reserves at the top (notch on laptop = bar height,
+# nothing on external monitors), so windows sit just below the bar on all screens.
+# On laptop-only the notch already reserves top space, so no extra gap needed.
+# When an external monitor is connected, set the full bar height as the gap.
+SCREEN_COUNT=$(swift -e "import AppKit; print(NSScreen.screens.count)" 2>/dev/null || echo 1)
+RECT_GAP=$(( SCREEN_COUNT > 1 ? BAR_HEIGHT : 0 ))
+defaults write com.knollsoft.Hookshot screenEdgeGapTop -int "$RECT_GAP"
+killall "Rectangle Pro" 2>/dev/null; open -a "Rectangle Pro" &
 
 # Bar
 sketchybar --bar \
