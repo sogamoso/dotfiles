@@ -13,7 +13,7 @@ export CONFIG_DIR="$HOME/.config/sketchybar"
 sketchybar --bar \
   height=22 \
   position=top \
-  topmost=on \
+  topmost=off \
   padding_left=12 \
   padding_right=12 \
   color=$BG \
