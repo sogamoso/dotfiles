@@ -6,8 +6,11 @@ CHARGING=$(pmset -g batt | grep 'AC Power')
 [ -z "$PERCENTAGE" ] && exit 0
 
 if [ -n "$CHARGING" ]; then
-  ICON="󰂄"
-elif [ "$PERCENTAGE" -gt 80 ]; then
+  sketchybar --set "$NAME" drawing=off
+  exit 0
+fi
+
+if [ "$PERCENTAGE" -gt 80 ]; then
   ICON="󰁹"
 elif [ "$PERCENTAGE" -gt 60 ]; then
   ICON="󰂀"
@@ -19,4 +22,4 @@ else
   ICON="󰁺"
 fi
 
-sketchybar --set "$NAME" icon="$ICON" label="${PERCENTAGE}%"
+sketchybar --set "$NAME" drawing=on icon="$ICON" label="${PERCENTAGE}%"

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-WIFI=$(networksetup -getairportnetwork en0 2>/dev/null | cut -d: -f2 | xargs)
+WIFI=$(ipconfig getsummary en0 2>/dev/null | awk '/^  SSID :/{print $NF}')
 
-if [ -z "$WIFI" ] || [ "$WIFI" = "You are not associated with an AirPort network." ]; then
-  sketchybar --set "$NAME" icon="󰤭" label="Off"
+if [ -z "$WIFI" ]; then
+  sketchybar --set "$NAME" icon="󰤭" label.drawing=off
 else
-  sketchybar --set "$NAME" icon="󰤨" label="$WIFI"
+  sketchybar --set "$NAME" icon="󰤨" label.drawing=off
 fi
