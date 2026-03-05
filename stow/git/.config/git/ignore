@@ -24,8 +24,5 @@ node_modules/
 .next/
 .turbo/
 
-# Solo
-**/solo.yml
-
 # MCP servers
 **/.playwright-mcp
