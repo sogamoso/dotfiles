@@ -17,29 +17,6 @@ if [ ! -f "$MBHEIGHT_BIN" ] || [ "$MBHEIGHT_SRC" -nt "$MBHEIGHT_BIN" ]; then
 fi
 BAR_HEIGHT=$("$MBHEIGHT_BIN" 2>/dev/null || echo 30)
 
-# Keep Rectangle Pro's top gap in sync with the bar height.
-# Rectangle's gap is global, so use 0 only when the built-in display is the
-# only active screen (macOS already reserves top space there). If any external
-# display is active (including clamshell with a single external), reserve the
-# full bar height to prevent maximized windows from covering SketchyBar.
-HAS_EXTERNAL=$(swift -e 'import AppKit; import CoreGraphics; let hasExternal = NSScreen.screens.contains { screen in guard let num = screen.deviceDescription[NSDeviceDescriptionKey("NSScreenNumber")] as? NSNumber else { return false }; return CGDisplayIsBuiltin(num.uint32Value) == 0 }; print(hasExternal ? 1 : 0)' 2>/dev/null || echo 0)
-if [ "$HAS_EXTERNAL" -eq 1 ] 2>/dev/null; then
-  RECT_GAP=$BAR_HEIGHT
-else
-  RECT_GAP=0
-fi
-defaults write com.knollsoft.Hookshot screenEdgeGapTop -int "$RECT_GAP"
-defaults write com.knollsoft.Rectangle screenEdgeGapTop -int "$RECT_GAP"
-defaults write com.knollsoft.Hookshot applyGapsToMaximize -bool true
-defaults write com.knollsoft.Rectangle applyGapsToMaximize -bool true
-defaults write com.knollsoft.Hookshot applyGapsToMaximizeHeight -bool true
-defaults write com.knollsoft.Rectangle applyGapsToMaximizeHeight -bool true
-defaults write com.knollsoft.Hookshot applyGapsToMaximizeWidth -bool true
-defaults write com.knollsoft.Rectangle applyGapsToMaximizeWidth -bool true
-defaults write com.knollsoft.Hookshot screenEdgeGapsOnMainScreenOnly -bool false
-defaults write com.knollsoft.Rectangle screenEdgeGapsOnMainScreenOnly -bool false
-killall "Rectangle Pro" 2>/dev/null; open -a "Rectangle Pro" >/dev/null 2>&1 &
-
 # Bar
 sketchybar --bar \
   height=$BAR_HEIGHT \
@@ -62,7 +39,7 @@ sketchybar --default \
 # Custom events
 sketchybar --add event aerospace_workspace_change
 
-# Spaces
+# Spaces (1-9; workspace 10 is the scratchpad, no indicator needed)
 for i in {1..9}; do
   sketchybar --add item space.$i left \
     --set space.$i \
