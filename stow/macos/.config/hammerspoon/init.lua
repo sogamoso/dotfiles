@@ -17,6 +17,7 @@ hs.hotkey.bind(mods, "down", function()
 end)
 require("hotkeys")
 require("aerospace_follow")
+require("workspace_switcher")
 
 hs.screen.watcher.new(function()
   hs.timer.doAfter(2, function()
