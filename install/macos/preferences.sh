@@ -26,9 +26,6 @@ defaults write NSGlobalDomain _HIHideMenuBar -bool true
 defaults write com.apple.controlcenter AutoHideMenuBarOption -int 2
 killall SystemUIServer ControlCenter 2>/dev/null; true
 
-# Rectangle Pro: reserve top 30px for sketchybar (menu bar auto-hides so macOS won't reserve it)
-defaults write com.knollsoft.Hookshot screenEdgeGapTop -int 30
-
 # Dock: unpin all apps, disable workspace auto-rearrange, switch to space with open windows
 defaults write com.apple.dock persistent-apps -array
 defaults write com.apple.dock mru-spaces -bool false
