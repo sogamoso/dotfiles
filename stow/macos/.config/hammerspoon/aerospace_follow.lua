@@ -1,4 +1,4 @@
--- Follow app to its AeroSpace workspace on activation (e.g. Cmd+Tab)
+-- Follow app to its AeroSpace workspace on activation
 local appWorkspaces = {
   -- 1: Browsing
   ["com.google.Chrome"]    = "1",
@@ -39,7 +39,6 @@ local appWorkspaces = {
 
 local appWatcher = hs.application.watcher.new(function(name, event, app)
   if event ~= hs.application.watcher.activated then return end
-  if _G.aerospaceFollowSuppressed then return end
   local bundleID = app:bundleID()
   local workspace = appWorkspaces[bundleID]
   if not workspace then return end
