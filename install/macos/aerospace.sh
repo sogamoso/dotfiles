@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo -e "\n==> Starting yabai service..."
-yabai --start-service
+echo -e "\n==> Starting AeroSpace..."
+open -a AeroSpace
 
 echo -e "\n==> Workspaces:"
 echo "  • 1 (Browsing):       Chrome, Safari"
@@ -11,5 +11,5 @@ echo "  • 3 (Communication):  Slack, Google Meet, WhatsApp, Discord"
 echo "  • 4 (Scheduling):     Gmail, Google Calendar"
 echo "  • 5 (Writing):        Typora, Obsidian, Notion, Notes"
 echo "  • 6 (AI Tools):       ChatGPT, Claude, Codex"
-echo "  • 7 (Entertainment):  Spotify, YouTube"
-echo "  • 8 (Misc):           Everything else"
+echo "  • 7 (Entertainment):  Spotify, YouTube, Apple Music"
+echo "  • 8-9 (Misc):         Everything else"

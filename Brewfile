@@ -1,6 +1,6 @@
 tap "domt4/autoupdate"
 tap "FelixKratz/formulae"
-tap "koekeishiya/formulae"
+tap "nikitabobko/tap"
 
 brew "btop"
 brew "FelixKratz/formulae/sketchybar"
@@ -10,7 +10,7 @@ brew "mosh"
 brew "pinentry-mac"
 brew "stow"
 brew "tailscale"
-brew "koekeishiya/formulae/yabai"
+cask "nikitabobko/tap/aerospace"
 brew "zsh-you-should-use"
 
 cask "1password"
