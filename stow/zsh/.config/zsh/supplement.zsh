@@ -40,4 +40,6 @@ if [[ -z "$TMUX" && "$-" == *i* && -n "$SSH_TTY" ]]; then
 fi
 
 # Source OS-specific supplement
-[[ -r "$HOME/.config/zsh/supplement.macos.zsh" ]] && source "$HOME/.config/zsh/supplement.macos.zsh"
+if [[ -r "$HOME/.config/zsh/supplement.macos.zsh" ]]; then
+  source "$HOME/.config/zsh/supplement.macos.zsh"
+fi
