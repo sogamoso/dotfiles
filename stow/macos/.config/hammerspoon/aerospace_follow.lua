@@ -39,10 +39,20 @@ local appWatcher = hs.application.watcher.new(function(name, event, app)
   if event ~= hs.application.watcher.activated then return end
   local bundleID = app:bundleID()
   local workspace = appWorkspaces[bundleID]
-  if workspace then
-    hs.task.new("/opt/homebrew/bin/aerospace", nil, {"workspace", workspace}):start()
-    hs.task.new("/opt/homebrew/bin/sketchybar", nil,
-      {"--trigger", "aerospace_workspace_change", "FOCUSED_WORKSPACE=" .. workspace}):start()
+  if not workspace then return end
+
+  -- Only follow if the app has a window on the current macOS Space
+  local win = app:mainWindow()
+  if not win then return end
+  local currentSpace = hs.spaces.focusedSpace()
+  local winSpaces = hs.spaces.windowSpaces(win) or {}
+  for _, spaceID in ipairs(winSpaces) do
+    if spaceID == currentSpace then
+      hs.task.new("/opt/homebrew/bin/aerospace", nil, {"workspace", workspace}):start()
+      hs.task.new("/opt/homebrew/bin/sketchybar", nil,
+        {"--trigger", "aerospace_workspace_change", "FOCUSED_WORKSPACE=" .. workspace}):start()
+      return
+    end
   end
 end)
 
