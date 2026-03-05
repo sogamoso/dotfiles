@@ -18,7 +18,8 @@ local appWorkspaces = {
   ["net.whatsapp.WhatsApp"]       = "3",
   ["com.hnc.Discord"]             = "3",
   -- 4: Scheduling
-  ["com.hey.app.desktop"]  = "4",
+  ["com.hey.app.desktop"]    = "4",
+  ["com.apple.reminders"]    = "4",
   ["com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm"] = "4",
   ["com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep"] = "4",
   -- 5: Writing

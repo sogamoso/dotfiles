@@ -82,6 +82,10 @@ if.app-id = "com.hey.app.desktop"
 run = ['layout floating', 'move-node-to-workspace --focus-follows-window 4']
 
 [[on-window-detected]]
+if.app-id = "com.apple.reminders"
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 4']
+
+[[on-window-detected]]
 if.app-id = "com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm"
 run = ['layout floating', 'move-node-to-workspace --focus-follows-window 4']
 
