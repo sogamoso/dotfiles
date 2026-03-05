@@ -35,9 +35,6 @@ run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
 if.app-id = "io.alacritty"
 run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
 
-[[on-window-detected]]
-if.app-id = "com.soloterm.solo"
-run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
 
 [[on-window-detected]]
 if.app-id = "dev.zed.Zed"
