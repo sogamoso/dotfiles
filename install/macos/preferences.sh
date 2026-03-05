@@ -42,17 +42,41 @@ defaults write NSGlobalDomain _HIHideMenuBar -bool true
 defaults write com.apple.controlcenter AutoHideMenuBarOption -int 2
 killall SystemUIServer ControlCenter 2>/dev/null; true
 
-# Dock: position, size, autohide, unpin all apps, disable workspace auto-rearrange, switch to space with open windows
+# Dock: position, size, autohide, instant show/hide, dwindle animation, unpin all apps
 defaults write com.apple.dock orientation -string "right"
 defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0.3
 defaults write com.apple.dock tilesize -int 43
 defaults write com.apple.dock persistent-apps -array
 defaults write com.apple.dock mru-spaces -bool false
 defaults write com.apple.dock workspaces-auto-swoosh -bool true
+defaults write com.apple.dock workspaces-swoosh-animation-off -bool true
 
-# Dock: disable hot corners
+# Dock: disable hot corners and tile-by-edge-drag (Aerospace owns tiling)
 defaults write com.apple.dock wvous-tl-corner -int 1
 defaults write com.apple.dock wvous-tr-corner -int 1
 defaults write com.apple.dock wvous-bl-corner -int 1
 defaults write com.apple.dock wvous-br-corner -int 1
+defaults write com.apple.WindowManager EnableTilingByEdgeDrag -bool false
 killall Dock
+
+# Disable Mission Control keyboard shortcuts (conflict with Aerospace ctrl-* after Karabiner swap)
+# 32=Mission Control, 34=Show Desktop, 118-126=Switch to Space 1-9
+for id in 32 34 118 119 120 121 122 123 124 125 126; do
+  /usr/libexec/PlistBuddy \
+    -c "Set :AppleSymbolicHotKeys:${id}:enabled false" \
+    ~/Library/Preferences/com.apple.symbolichotkeys.plist 2>/dev/null || true
+done
+
+# Disable Spotlight Cmd+Space (64) — Raycast takes that slot
+# After Karabiner swap, physical Ctrl+Space sends Cmd+Space to macOS → would open Spotlight
+/usr/libexec/PlistBuddy \
+  -c "Set :AppleSymbolicHotKeys:64:enabled false" \
+  ~/Library/Preferences/com.apple.symbolichotkeys.plist 2>/dev/null || true
+/usr/libexec/PlistBuddy \
+  -c "Set :AppleSymbolicHotKeys:65:enabled false" \
+  ~/Library/Preferences/com.apple.symbolichotkeys.plist 2>/dev/null || true
+
+# Apply symbolic hotkey changes
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
