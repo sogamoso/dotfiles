@@ -1,0 +1,125 @@
+# AeroSpace — workspace switching only, no tiling
+# Rectangle Pro handles window snapping, Hammerspoon handles hotkeys
+
+start-at-login = true
+
+[mode.main.binding]
+cmd-1 = ['workspace 1', 'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=1']
+cmd-2 = ['workspace 2', 'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=2']
+cmd-3 = ['workspace 3', 'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=3']
+cmd-4 = ['workspace 4', 'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=4']
+cmd-5 = ['workspace 5', 'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=5']
+cmd-6 = ['workspace 6', 'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=6']
+cmd-7 = ['workspace 7', 'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=7']
+cmd-8 = ['workspace 8', 'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=8']
+cmd-9 = ['workspace 9', 'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=9']
+
+# Workspace app assignments
+# Each rule moves the window to its workspace AND floats it (so Rectangle Pro controls positioning)
+
+# 1: Browsing
+[[on-window-detected]]
+if.app-id = "com.google.Chrome"
+run = ['move-node-to-workspace 1', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.apple.Safari"
+run = ['move-node-to-workspace 1', 'layout floating']
+
+# 2: Programming
+[[on-window-detected]]
+if.app-id = "com.mitchellh.ghostty"
+run = ['move-node-to-workspace 2', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "io.alacritty"
+run = ['move-node-to-workspace 2', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "dev.zed.Zed"
+run = ['move-node-to-workspace 2', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.linear"
+run = ['move-node-to-workspace 2', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.google.Chrome.app.mjoklplbddabcmpepnokjaffbmgbkkgg"
+run = ['move-node-to-workspace 2', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.tinyapp.TablePlus"
+run = ['move-node-to-workspace 2', 'layout floating']
+
+# 3: Communication
+[[on-window-detected]]
+if.app-id = "com.tinyspeck.slackmacgap"
+run = ['move-node-to-workspace 3', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan"
+run = ['move-node-to-workspace 3', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "net.whatsapp.WhatsApp"
+run = ['move-node-to-workspace 3', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.hnc.Discord"
+run = ['move-node-to-workspace 3', 'layout floating']
+
+# 4: Scheduling
+[[on-window-detected]]
+if.app-id = "com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm"
+run = ['move-node-to-workspace 4', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep"
+run = ['move-node-to-workspace 4', 'layout floating']
+
+# 5: Writing
+[[on-window-detected]]
+if.app-id = "abnerworks.Typora"
+run = ['move-node-to-workspace 5', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "md.obsidian"
+run = ['move-node-to-workspace 5', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "notion.id"
+run = ['move-node-to-workspace 5', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.apple.Notes"
+run = ['move-node-to-workspace 5', 'layout floating']
+
+# 6: AI Tools
+[[on-window-detected]]
+if.app-id = "com.openai.chat"
+run = ['move-node-to-workspace 6', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.anthropic.claudefordesktop"
+run = ['move-node-to-workspace 6', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.openai.codex"
+run = ['move-node-to-workspace 6', 'layout floating']
+
+# 7: Entertainment
+[[on-window-detected]]
+if.app-id = "com.spotify.client"
+run = ['move-node-to-workspace 7', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml"
+run = ['move-node-to-workspace 7', 'layout floating']
+
+[[on-window-detected]]
+if.app-id = "com.apple.Music"
+run = ['move-node-to-workspace 7', 'layout floating']
+
+# Float all other windows
+[[on-window-detected]]
+run = 'layout floating'
