@@ -1,0 +1,28 @@
+theme = "tokyonight"
+font-family = "JetBrainsMono Nerd Font"
+font-style = Regular
+font-size = 12
+
+# Window
+window-theme = ghostty
+window-padding-x = 14
+window-padding-y = 0
+confirm-close-surface = false
+resize-overlay = never
+gtk-toolbar-style = flat
+
+# macOS titlebar
+macos-titlebar-style = transparent
+macos-window-buttons = hidden
+macos-titlebar-proxy-icon = hidden
+window-subtitle = false
+
+# Cursor styling
+cursor-style = block
+cursor-style-blink = false
+
+# Shell integration (no-cursor + ssh-env must be listed together)
+shell-integration-features = no-cursor,ssh-env
+
+# Quit when last window closes
+quit-after-last-window-closed = true
