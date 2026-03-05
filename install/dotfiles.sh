@@ -7,7 +7,7 @@ echo -e "\n==> Stowing dotfiles..."
 
 # Append personal supplement to .zshrc
 OVERLAY='source $HOME/.config/zsh/supplement.zsh'
-grep -qxF "$OVERLAY" "$HOME/.zshrc" 2>/dev/null || echo "$OVERLAY" >> "$HOME/.zshrc"
+grep -qxF "$OVERLAY" "$HOME/.zshrc" 2>/dev/null || echo "$OVERLAY" >>"$HOME/.zshrc"
 
 # Ensure .ssh exists before stowing SSH config
 mkdir -p "$HOME/.ssh"
@@ -19,6 +19,6 @@ for config in */; do
   stow --target "$HOME" --restow "$config"
 done
 
-# Strip machine-specific sections from .gitconfig when staging
+# Coderabbit. Writes directly to the .gitconfig so we need to strip it out
 git -C "$REPO_DIR" config filter.strip-coderabbit.clean \
   "awk '/^\[coderabbit\]/{skip=1;next} /^\[/{skip=0} !skip{print}'"
