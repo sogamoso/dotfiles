@@ -17,6 +17,9 @@ if [ ! -f "$MBHEIGHT_BIN" ] || [ "$MBHEIGHT_SRC" -nt "$MBHEIGHT_BIN" ]; then
 fi
 BAR_HEIGHT=$("$MBHEIGHT_BIN" 2>/dev/null || echo 30)
 
+# Keep Rectangle Pro's top gap in sync with the bar height
+defaults write com.knollsoft.Hookshot screenEdgeGapTop -int "$BAR_HEIGHT"
+
 # Bar
 sketchybar --bar \
   height=$BAR_HEIGHT \
