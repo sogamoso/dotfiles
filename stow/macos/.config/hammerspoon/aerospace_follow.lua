@@ -4,18 +4,20 @@ local appWorkspaces = {
   ["com.google.Chrome"]    = "1",
   ["com.apple.Safari"]     = "1",
   -- 2: Programming
-  ["com.mitchellh.ghostty"]                               = "2",
-  ["io.alacritty"]                                        = "2",
-  ["dev.zed.Zed"]                                         = "2",
-  ["com.linear"]                                          = "2",
+  ["com.mitchellh.ghostty"]  = "2",
+  ["io.alacritty"]            = "2",
+  ["com.soloterm.solo"]       = "2",
+  ["dev.zed.Zed"]             = "2",
+  ["com.linear"]              = "2",
   ["com.google.Chrome.app.mjoklplbddabcmpepnokjaffbmgbkkgg"] = "2",
-  ["com.tinyapp.TablePlus"]                               = "2",
+  ["com.tinyapp.TablePlus"]   = "2",
   -- 3: Communication
-  ["com.tinyspeck.slackmacgap"]                           = "3",
+  ["com.tinyspeck.slackmacgap"]  = "3",
   ["com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan"] = "3",
-  ["net.whatsapp.WhatsApp"]                               = "3",
-  ["com.hnc.Discord"]                                     = "3",
+  ["net.whatsapp.WhatsApp"]       = "3",
+  ["com.hnc.Discord"]             = "3",
   -- 4: Scheduling
+  ["com.hey.app.desktop"]  = "4",
   ["com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm"] = "4",
   ["com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep"] = "4",
   -- 5: Writing
@@ -28,9 +30,9 @@ local appWorkspaces = {
   ["com.anthropic.claudefordesktop"]   = "6",
   ["com.openai.codex"]                 = "6",
   -- 7: Entertainment
-  ["com.spotify.client"]                                       = "7",
-  ["com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml"]  = "7",
-  ["com.apple.Music"]                                          = "7",
+  ["com.spotify.client"]  = "7",
+  ["com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml"] = "7",
+  ["com.apple.Music"]     = "7",
 }
 
 local appWatcher = hs.application.watcher.new(function(name, event, app)

@@ -36,6 +36,10 @@ if.app-id = "io.alacritty"
 run = ['layout floating', 'move-node-to-workspace 2']
 
 [[on-window-detected]]
+if.app-id = "com.soloterm.solo"
+run = ['layout floating', 'move-node-to-workspace 2']
+
+[[on-window-detected]]
 if.app-id = "dev.zed.Zed"
 run = ['layout floating', 'move-node-to-workspace 2']
 
@@ -44,7 +48,7 @@ if.app-id = "com.linear"
 run = ['layout floating', 'move-node-to-workspace 2']
 
 [[on-window-detected]]
-if.app-id = "com.google.Chrome.app.mjoklplbddabcmpepnokjaffbmgbkkgg"
+if.app-id = "com.google.Chrome.app.mjoklplbddabcmpepnokjaffbmgbkkgg"  # GitHub PWA
 run = ['layout floating', 'move-node-to-workspace 2']
 
 [[on-window-detected]]
@@ -57,7 +61,7 @@ if.app-id = "com.tinyspeck.slackmacgap"
 run = ['layout floating', 'move-node-to-workspace 3']
 
 [[on-window-detected]]
-if.app-id = "com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan"
+if.app-id = "com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan"  # Google Meet PWA
 run = ['layout floating', 'move-node-to-workspace 3']
 
 [[on-window-detected]]
@@ -69,6 +73,10 @@ if.app-id = "com.hnc.Discord"
 run = ['layout floating', 'move-node-to-workspace 3']
 
 # 4: Scheduling
+[[on-window-detected]]
+if.app-id = "com.hey.app.desktop"
+run = ['layout floating', 'move-node-to-workspace 4']
+
 [[on-window-detected]]
 if.app-id = "com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm"
 run = ['layout floating', 'move-node-to-workspace 4']
