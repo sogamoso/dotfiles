@@ -1,4 +1,5 @@
 require("hotkeys")
+require("cheatsheet")
 require("aerospace_follow")
 
 hs.screen.watcher
