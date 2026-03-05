@@ -6,7 +6,7 @@ local appWorkspaces = {
   -- 2: Programming
   ["com.mitchellh.ghostty"]  = "2",
   ["io.alacritty"]            = "2",
-  ["com.soloterm.solo"]       = "2",
+
   ["dev.zed.Zed"]             = "2",
   ["com.linear"]              = "2",
   ["com.google.Chrome.app.mjoklplbddabcmpepnokjaffbmgbkkgg"] = "2",

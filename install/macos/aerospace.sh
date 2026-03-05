@@ -6,7 +6,7 @@ open -a AeroSpace
 
 echo -e "\n==> Workspaces:"
 echo "  • 1 (Browsing):       Chrome, Safari"
-echo "  • 2 (Programming):    Ghostty, Alacritty, Solo, Zed, Linear, GitHub, TablePlus"
+echo "  • 2 (Programming):    Ghostty, Alacritty, Zed, Linear, GitHub, TablePlus"
 echo "  • 3 (Communication):  Slack, Google Meet, WhatsApp, Discord, Zoom"
 echo "  • 4 (Scheduling):     HEY, Gmail, Google Calendar, Reminders"
 echo "  • 5 (Writing):        Typora, Obsidian, Notion, Notes"
