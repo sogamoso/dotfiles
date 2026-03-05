@@ -2,7 +2,7 @@
 
 My personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
-I designed it to layer on top of an OS base setup — currently [Omamac](https://github.com/omacom-io/omamac) for macOS, with the structure ready to support other operating systems in the future.
+Designed to work on a fresh macOS install with no prior tooling. The installer bootstraps everything from scratch — shell framework, packages, and dotfile symlinks.
 
 ### Installation
 
@@ -16,10 +16,24 @@ Safe to run multiple times. Everything is idempotent.
 
 `bootstrap` runs two phases:
 
-1. **OS setup** — dispatches by `uname -s`. 
+1. **OS setup** — dispatches by `uname -s`.
 2. **Dotfiles** (`install/dotfiles.sh`) — cross-platform config symlinks via stow.
 
 After both phases it checks Tailscale status and drops into a fresh zsh login shell.
+
+The macOS setup (`install/macos/all.sh`) runs these scripts in order:
+
+| Script | What it does |
+|--------|-------------|
+| `omadots.sh` | Installs [Omadots](https://github.com/omacom-io/omadots) shell framework |
+| `brew.sh` | Installs all packages from `Brewfile` |
+| `alacritty.sh` | Installs Alacritty from latest GitHub release DMG |
+| `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
+| `security.sh` | SSH keys, GPG, 1Password setup |
+| `preferences.sh` | macOS system defaults |
+| `pwas.sh` | Installs Chrome PWAs (Gmail, Calendar, YouTube) |
+| `sketchybar.sh` | Configures SketchyBar status bar |
+| `aerospace.sh` | Configures Aerospace tiling window manager |
 
 ### Stow directory
 
@@ -39,18 +53,53 @@ stow/
 
 ### Hotkeys
 
-| Shortcut | Action |
-|----------|--------|
-| `⌘ ⌃ →/←/↑/↓` | Focus window right/left/above/below |
-| `⌘ ⌥ →/←` | Left / Right half |
-| `⌘ ⌥ ↩` | Center half |
-| `⌘ ⌥ ⌃ ↩` | Maximize |
-| `⌘ Space` | Raycast launcher |
-| `⌘ ⌃ ↩` | New Ghostty window |
-| `⌘ ⌃ ⇧ ↩` | New Chrome window |
-| `⌘ ⌃ /` | Hotkey cheatsheet |
+The setup follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding model on macOS. Karabiner-Elements swaps Cmd↔Ctrl so the physical `Cmd` key maps to `SUPER` on Omarchy.
 
-Full cheatsheet: `~/.config/hotkeys/index.html`
+#### Window management (Aerospace)
+
+| Physical key | Action |
+|---|---|
+| `Cmd + 1-9` | Switch to workspace 1–9 |
+| `Cmd + 0` | Workspace 10 (scratchpad) |
+| `Cmd + Shift + 1-9` | Move window to workspace |
+| `Cmd + arrows` | Focus window left/right/up/down |
+| `Cmd + Shift + arrows` | Move window within workspace |
+| `Cmd + W` | Close focused window |
+| `Cmd + F` | Fullscreen |
+| `Cmd + T` | Toggle floating/tiling |
+| `Cmd + Tab` | Next workspace |
+| `Cmd + Enter` | New Ghostty window |
+| `Cmd + Shift + Enter` | New Chrome window |
+| `Cmd + Shift + N` | New Zed window |
+| `Cmd + Space` | Raycast launcher |
+
+#### Window cycling
+
+| Physical key | Action |
+|---|---|
+| `Alt + Tab` | Cycle windows on current workspace (AltTab) |
+| `Alt + Shift + Tab` | Reverse cycle |
+
+#### Workspace layout
+
+| Workspace | App |
+|---|---|
+| 1 | Chrome |
+| 2 | Ghostty |
+| 3 | Slack |
+| 4 | Gmail |
+| 5 | Google Calendar |
+| 6 | Notion |
+| 7 | Spotify |
+| 8 | YouTube |
+| 9 | (free) |
+| 10 | Scratchpad |
+
+#### System shortcuts (after Cmd↔Ctrl swap)
+
+Physical `Ctrl` key sends `Cmd` to macOS: copy = `Ctrl+C`, paste = `Ctrl+V`, quit = `Ctrl+Q`, etc. This matches Linux muscle memory.
+
+For the full setup guide including Karabiner config, tmux, SketchyBar, and Tokyo Night theming: [`docs/macos-omarchy-setup.md`](docs/macos-omarchy-setup.md).
 
 ### Cross-platform design
 
