@@ -20,36 +20,36 @@ cmd-9 = ['workspace 9', 'exec-and-forget sketchybar --trigger aerospace_workspac
 # 1: Browsing
 [[on-window-detected]]
 if.app-id = "com.google.Chrome"
-run = ['layout floating', 'move-node-to-workspace 1']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 1']
 
 [[on-window-detected]]
 if.app-id = "com.apple.Safari"
-run = ['layout floating', 'move-node-to-workspace 1']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 1']
 
 # 2: Programming
 [[on-window-detected]]
 if.app-id = "com.mitchellh.ghostty"
-run = ['layout floating', 'move-node-to-workspace 2']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
 
 [[on-window-detected]]
 if.app-id = "io.alacritty"
-run = ['layout floating', 'move-node-to-workspace 2']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
 
 [[on-window-detected]]
 if.app-id = "com.soloterm.solo"
-run = ['layout floating', 'move-node-to-workspace 2']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
 
 [[on-window-detected]]
 if.app-id = "dev.zed.Zed"
-run = ['layout floating', 'move-node-to-workspace 2']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
 
 [[on-window-detected]]
 if.app-id = "com.linear"
-run = ['layout floating', 'move-node-to-workspace 2']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
 
 [[on-window-detected]]
 if.app-id = "com.google.Chrome.app.mjoklplbddabcmpepnokjaffbmgbkkgg"  # GitHub PWA
-run = ['layout floating', 'move-node-to-workspace 2']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 2']
 
 [[on-window-detected]]
 if.app-id = "com.tinyapp.TablePlus"
@@ -58,75 +58,79 @@ run = ['layout floating', 'move-node-to-workspace 2']
 # 3: Communication
 [[on-window-detected]]
 if.app-id = "com.tinyspeck.slackmacgap"
-run = ['layout floating', 'move-node-to-workspace 3']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 3']
 
 [[on-window-detected]]
 if.app-id = "com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan"  # Google Meet PWA
-run = ['layout floating', 'move-node-to-workspace 3']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 3']
 
 [[on-window-detected]]
 if.app-id = "net.whatsapp.WhatsApp"
-run = ['layout floating', 'move-node-to-workspace 3']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 3']
 
 [[on-window-detected]]
 if.app-id = "com.hnc.Discord"
-run = ['layout floating', 'move-node-to-workspace 3']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 3']
+
+[[on-window-detected]]
+if.app-id = "us.zoom.xos"
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 3']
 
 # 4: Scheduling
 [[on-window-detected]]
 if.app-id = "com.hey.app.desktop"
-run = ['layout floating', 'move-node-to-workspace 4']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 4']
 
 [[on-window-detected]]
 if.app-id = "com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm"
-run = ['layout floating', 'move-node-to-workspace 4']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 4']
 
 [[on-window-detected]]
 if.app-id = "com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep"
-run = ['layout floating', 'move-node-to-workspace 4']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 4']
 
 # 5: Writing
 [[on-window-detected]]
 if.app-id = "abnerworks.Typora"
-run = ['layout floating', 'move-node-to-workspace 5']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 5']
 
 [[on-window-detected]]
 if.app-id = "md.obsidian"
-run = ['layout floating', 'move-node-to-workspace 5']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 5']
 
 [[on-window-detected]]
 if.app-id = "notion.id"
-run = ['layout floating', 'move-node-to-workspace 5']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 5']
 
 [[on-window-detected]]
 if.app-id = "com.apple.Notes"
-run = ['layout floating', 'move-node-to-workspace 5']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 5']
 
 # 6: AI Tools
 [[on-window-detected]]
 if.app-id = "com.openai.chat"
-run = ['layout floating', 'move-node-to-workspace 6']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 6']
 
 [[on-window-detected]]
 if.app-id = "com.anthropic.claudefordesktop"
-run = ['layout floating', 'move-node-to-workspace 6']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 6']
 
 [[on-window-detected]]
 if.app-id = "com.openai.codex"
-run = ['layout floating', 'move-node-to-workspace 6']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 6']
 
 # 7: Entertainment
 [[on-window-detected]]
 if.app-id = "com.spotify.client"
-run = ['layout floating', 'move-node-to-workspace 7']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 7']
 
 [[on-window-detected]]
 if.app-id = "com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml"
-run = ['layout floating', 'move-node-to-workspace 7']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 7']
 
 [[on-window-detected]]
 if.app-id = "com.apple.Music"
-run = ['layout floating', 'move-node-to-workspace 7']
+run = ['layout floating', 'move-node-to-workspace --focus-follows-window 7']
 
 # Float all other windows
 [[on-window-detected]]

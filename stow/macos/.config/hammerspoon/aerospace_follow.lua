@@ -13,6 +13,7 @@ local appWorkspaces = {
   ["com.tinyapp.TablePlus"]   = "2",
   -- 3: Communication
   ["com.tinyspeck.slackmacgap"]  = "3",
+  ["us.zoom.xos"]                = "3",
   ["com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan"] = "3",
   ["net.whatsapp.WhatsApp"]       = "3",
   ["com.hnc.Discord"]             = "3",
@@ -41,6 +42,9 @@ local appWatcher = hs.application.watcher.new(function(name, event, app)
   local bundleID = app:bundleID()
   local workspace = appWorkspaces[bundleID]
   if not workspace then return end
+
+  local focusedWorkspace = hs.execute("/opt/homebrew/bin/aerospace list-workspaces --focused 2>/dev/null"):match("(%S+)")
+  if focusedWorkspace == workspace then return end
 
   hs.task.new("/opt/homebrew/bin/aerospace", nil, {"workspace", workspace}):start()
   hs.task.new("/opt/homebrew/bin/sketchybar", nil,
