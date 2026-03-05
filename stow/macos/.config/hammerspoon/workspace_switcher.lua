@@ -27,7 +27,9 @@ local function cycleWorkspaceWindows(reverse)
     nextIdx = currentIdx % #ids + 1
   end
 
+  _G.aerospaceFollowSuppressed = true
   hs.execute("/opt/homebrew/bin/aerospace focus --window-id " .. ids[nextIdx] .. " 2>/dev/null")
+  hs.timer.doAfter(0.5, function() _G.aerospaceFollowSuppressed = false end)
 end
 
 local workspaceSwitcherNext = hs.hotkey.bind({ "cmd" }, "tab", function()
