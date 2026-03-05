@@ -11,7 +11,7 @@ export CONFIG_DIR="$HOME/.config/sketchybar"
 
 # Bar
 sketchybar --bar \
-  height=24 \
+  height=22 \
   position=top \
   topmost=on \
   padding_left=12 \
