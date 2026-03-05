@@ -1,20 +1,29 @@
--- Cycle through windows in the current AeroSpace workspace with Cmd+Tab / Cmd+Shift+Tab
+-- Cycle through windows in the current macOS Space with Cmd+Tab / Cmd+Shift+Tab
 
 local function cycleWorkspaceWindows(reverse)
-  local output = hs.execute("/opt/homebrew/bin/aerospace list-windows --workspace focused --format '%{window-id}' 2>/dev/null")
+  -- Get window IDs on the current macOS Space
+  local currentSpace = hs.spaces.focusedSpace()
+  local spaceWindowIDs = hs.spaces.windowsForSpace(currentSpace) or {}
 
-  local ids = {}
-  for id in output:gmatch("%d+") do
-    table.insert(ids, tonumber(id))
+  local inSpace = {}
+  for _, id in ipairs(spaceWindowIDs) do
+    inSpace[id] = true
   end
 
-  if #ids < 2 then return end
+  -- Filter to standard, non-minimized windows on this Space
+  local wins = {}
+  for _, win in ipairs(hs.window.orderedWindows()) do
+    if win:isStandard() and not win:isMinimized() and inSpace[win:id()] then
+      table.insert(wins, win)
+    end
+  end
+
+  if #wins < 2 then return end
 
   local focusedId = hs.window.focusedWindow() and hs.window.focusedWindow():id()
-
   local currentIdx = 1
-  for i, id in ipairs(ids) do
-    if id == focusedId then
+  for i, win in ipairs(wins) do
+    if win:id() == focusedId then
       currentIdx = i
       break
     end
@@ -22,20 +31,20 @@ local function cycleWorkspaceWindows(reverse)
 
   local nextIdx
   if reverse then
-    nextIdx = (currentIdx - 2) % #ids + 1
+    nextIdx = (currentIdx - 2) % #wins + 1
   else
-    nextIdx = currentIdx % #ids + 1
+    nextIdx = currentIdx % #wins + 1
   end
 
   _G.aerospaceFollowSuppressed = true
-  hs.execute("/opt/homebrew/bin/aerospace focus --window-id " .. ids[nextIdx] .. " 2>/dev/null")
-  hs.timer.doAfter(0.5, function() _G.aerospaceFollowSuppressed = false end)
+  wins[nextIdx]:focus()
+  hs.timer.doAfter(0.2, function() _G.aerospaceFollowSuppressed = false end)
 end
 
-local workspaceSwitcherNext = hs.hotkey.bind({ "cmd" }, "tab", function()
+hs.hotkey.bind({ "cmd" }, "tab", function()
   cycleWorkspaceWindows(false)
 end)
 
-local workspaceSwitcherPrev = hs.hotkey.bind({ "cmd", "shift" }, "tab", function()
+hs.hotkey.bind({ "cmd", "shift" }, "tab", function()
   cycleWorkspaceWindows(true)
 end)
