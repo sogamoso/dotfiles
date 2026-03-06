@@ -86,7 +86,7 @@ ctrl-shift-equal = 'resize height +50'
 ctrl-enter       = 'exec-and-forget open -na Ghostty'         # Omarchy: SUPER + RETURN
 ctrl-shift-enter = 'exec-and-forget open -na "Google Chrome"' # Omarchy: SUPER + SHIFT + RETURN
 ctrl-shift-n     = 'exec-and-forget open -na Zed'                       # Omarchy: SUPER + SHIFT + N
-ctrl-shift-c     = 'exec-and-forget open "https://calendar.google.com"' # Google Calendar
+ctrl-shift-c     = 'exec-and-forget open -b "com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep"' # Google Calendar
 
 # Workspace menu
 ctrl-slash = ['mode workspace_menu', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu.sh keyboard']
