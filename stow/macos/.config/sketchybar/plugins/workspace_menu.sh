@@ -36,6 +36,19 @@ for i in {1..9}; do
 done
 VISIBLE="${VISIBLE# }"
 
+auto_close() {
+  local id="$1" delay="$2"
+  (sleep "$delay"
+    [ "$(cat /tmp/sketchybar_menu_timer 2>/dev/null)" = "$id" ] && {
+      rm -f /tmp/sketchybar_popup_open /tmp/sketchybar_menu_keyboard
+      sketchybar --set apple_menu popup.drawing=off
+      aerospace mode main 2>/dev/null
+    }) &
+}
+
+TIMER_ID=$$
+echo $TIMER_ID > /tmp/sketchybar_menu_timer
+
 if [ "$MODE" = "keyboard" ]; then
   echo "$VISIBLE" > /tmp/sketchybar_menu_workspaces
 
@@ -48,18 +61,10 @@ if [ "$MODE" = "keyboard" ]; then
 
   sketchybar --set apple_menu.ws.$SELECTED background.drawing=on label.color=0xff1a1b26
   sketchybar --set apple_menu popup.drawing=on
+  auto_close "$TIMER_ID" 4
 else
   touch /tmp/sketchybar_popup_open
   sketchybar --set apple_menu popup.drawing=on
   aerospace mode workspace_menu 2>/dev/null
-
-  # Auto-close after 6s
-  TIMER_ID=$$
-  echo $TIMER_ID > /tmp/sketchybar_menu_timer
-  (sleep 6
-    [ "$(cat /tmp/sketchybar_menu_timer 2>/dev/null)" = "$TIMER_ID" ] && {
-      rm -f /tmp/sketchybar_popup_open
-      sketchybar --set apple_menu popup.drawing=off
-      aerospace mode main 2>/dev/null
-    }) &
+  auto_close "$TIMER_ID" 2
 fi

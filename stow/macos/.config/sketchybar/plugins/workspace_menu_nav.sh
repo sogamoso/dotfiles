@@ -21,19 +21,25 @@ restore_color() {
 }
 
 case "$ACTION" in
-  up)
-    NEW_IDX=$(( (CURRENT_IDX - 1 + ${#WS_ARRAY[@]}) % ${#WS_ARRAY[@]} ))
+  up|down)
+    if [ "$ACTION" = "up" ]; then
+      NEW_IDX=$(( (CURRENT_IDX - 1 + ${#WS_ARRAY[@]}) % ${#WS_ARRAY[@]} ))
+    else
+      NEW_IDX=$(( (CURRENT_IDX + 1) % ${#WS_ARRAY[@]} ))
+    fi
     NEW="${WS_ARRAY[$NEW_IDX]}"
     sketchybar --set apple_menu.ws.$SELECTED background.drawing=off label.color=$(restore_color $SELECTED)
     echo "$NEW" > /tmp/sketchybar_menu_selected
     sketchybar --set apple_menu.ws.$NEW background.drawing=on label.color=0xff1a1b26
-    ;;
-  down)
-    NEW_IDX=$(( (CURRENT_IDX + 1) % ${#WS_ARRAY[@]} ))
-    NEW="${WS_ARRAY[$NEW_IDX]}"
-    sketchybar --set apple_menu.ws.$SELECTED background.drawing=off label.color=$(restore_color $SELECTED)
-    echo "$NEW" > /tmp/sketchybar_menu_selected
-    sketchybar --set apple_menu.ws.$NEW background.drawing=on label.color=0xff1a1b26
+    # Reset auto-close timer on each navigation
+    TIMER_ID=$$
+    echo $TIMER_ID > /tmp/sketchybar_menu_timer
+    (sleep 4
+      [ "$(cat /tmp/sketchybar_menu_timer 2>/dev/null)" = "$TIMER_ID" ] && {
+        rm -f /tmp/sketchybar_popup_open /tmp/sketchybar_menu_keyboard
+        sketchybar --set apple_menu popup.drawing=off
+        aerospace mode main 2>/dev/null
+      }) &
     ;;
   enter)
     rm -f /tmp/sketchybar_menu_keyboard /tmp/sketchybar_popup_open
