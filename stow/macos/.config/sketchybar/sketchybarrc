@@ -64,7 +64,7 @@ sketchybar --add item clock center \
   --set clock \
     update_freq=10 \
     icon.drawing=off \
-    click_script="open -a Calendar" \
+    click_script="$CONFIG_DIR/plugins/clock_alt.sh" \
     script="$CONFIG_DIR/plugins/clock.sh"
 
 # Battery
@@ -93,6 +93,7 @@ sketchybar --add item memory right \
 sketchybar --add item volume right \
   --set volume \
     update_freq=5 \
+    click_script="$CONFIG_DIR/plugins/volume_click.sh" \
     script="$CONFIG_DIR/plugins/volume.sh" \
   --subscribe volume volume_change
 
