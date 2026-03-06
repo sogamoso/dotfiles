@@ -7,5 +7,3 @@ if [[ ! -f "$HOME/.config/shell/all" ]]; then
 else
   echo -e "\n==> Omadots already installed..."
 fi
-
-echo -e "\n=== Installing Sebastian's dotfiles ==="
