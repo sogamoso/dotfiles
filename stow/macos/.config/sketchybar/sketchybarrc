@@ -42,6 +42,31 @@ sketchybar --default \
 # Custom events
 sketchybar --add event aerospace_workspace_change
 
+# Apple workspace menu — leftmost item
+sketchybar --add item apple_menu left \
+  --set apple_menu \
+    icon="" \
+    icon.font="JetBrainsMono Nerd Font:Bold:16.0" \
+    label.drawing=off \
+    padding_left=8 \
+    padding_right=4 \
+    popup.align=left \
+    popup.background.color=$SURFACE \
+    popup.background.corner_radius=6 \
+    popup.background.border_width=1 \
+    popup.background.border_color=$MUTED \
+    click_script="$CONFIG_DIR/plugins/workspace_menu.sh"
+
+for i in {1..9}; do
+  sketchybar --add item apple_menu.ws.$i popup.apple_menu \
+    --set apple_menu.ws.$i \
+      label="$i" \
+      label.font="JetBrainsMono Nerd Font:Regular:13.0" \
+      padding_left=8 \
+      padding_right=12 \
+      click_script="sketchybar --set apple_menu popup.drawing=off; aerospace workspace $i; sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$i"
+done
+
 # Spaces (1-9; workspace 10 is the scratchpad, no indicator needed)
 for i in {1..9}; do
   sketchybar --add item space.$i left \
