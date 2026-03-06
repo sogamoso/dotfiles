@@ -4,7 +4,6 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
 echo -e "\n==> Configuring security..."
-sudo echo "✓ Granted"
 
 # Enable Remote Login (SSH server)
 if ! launchctl print system/com.openssh.sshd &>/dev/null; then

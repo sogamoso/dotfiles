@@ -3,6 +3,12 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+echo -e "\n==> Installing Sebastian's dotfiles.."
+
+# Cache sudo credentials upfront — some casks (e.g. karabiner-elements) need them
+sudo echo "✓ Granted"
+while true; do sudo -n true 2>/dev/null || true; sleep 60; kill -0 "$$" || exit; done &
+
 # OS specific setup
 case "$(uname -s)" in
   Darwin)
@@ -26,7 +32,7 @@ fi
 # but more importantly we skip the interruption when re-running for updates)
 if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
   touch "$HOME/.dotfiles-bootstrapped"
-  echo -e "\n==> Manual steps required — opening guide..."
+  echo -e "\n==> Manual steps required. Opening guide..."
   open -a Typora "$REPO_DIR/docs/macos-setup.md"
 fi
 
