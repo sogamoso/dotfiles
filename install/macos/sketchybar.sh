@@ -3,4 +3,4 @@ set -euo pipefail
 
 echo -e "\n==> Restarting SketchyBar..."
 brew services restart sketchybar
-echo "  ✓ Done"
+echo "✓ Done"

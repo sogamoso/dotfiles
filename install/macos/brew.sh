@@ -3,7 +3,7 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
-echo -e "\n==> Installing personal Homebrew packages..."
+echo -e "\n==> Installing Homebrew packages..."
 
 # Install personal packages (Omamac handles core packages)
 brew bundle --file "$REPO_DIR/Brewfile"
