@@ -36,28 +36,9 @@ Set Raycast to respond to that:
 
 ---
 
-## 3. Test tmux Prefix
+## 3. Slack Tokyo Night Theme
 
-The omadots/Omarchy tmux prefix is `Ctrl+Space` (`C-Space`).
-
-Open Ghostty or Alacritty and press physical **Cmd+Space**, then `c` — a new window should open.
-
-If it doesn't work (Raycast intercepts it), add this to `~/.config/alacritty/alacritty.toml`:
-
-```toml
-[keyboard]
-bindings = [
-  { key = "Space", mods = "Command", chars = "\x00" }
-]
-```
-
-The fallback prefix is `C-b` (omadots sets `prefix2 = C-b`).
-
----
-
-## 4. Slack Tokyo Night Theme
-
-Slack → Preferences → Appearance → Custom Theme → Import → paste:
+Slack → Preferences → Themes → Custom Theme → paste:
 
 ```
 #1a1b26,#32344a,#7aa2f7,#a9b1d6,#444b6a,#a9b1d6,#9ece6a,#7aa2f7,#1a1b26,#a9b1d6
@@ -69,7 +50,6 @@ Slack → Preferences → Appearance → Custom Theme → Import → paste:
 
 > Type `!keys` in Raycast to expand the cheatsheet anywhere.
 > First-time setup: Raycast → Import Snippets → `~/.config/raycast/snippets.json`.
-> Use `Cmd + Shift + .` to toggle hidden files on in the Finder window.
 
 Physical Cmd = SUPER on Omarchy (Karabiner maps Cmd → Ctrl under the hood).
 
