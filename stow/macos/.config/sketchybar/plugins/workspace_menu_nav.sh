@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+ACTION="$1"
+BLUE=0xff7aa2f7
+TEXT=0xffa9b1d6
+
+SELECTED=$(cat /tmp/sketchybar_menu_selected 2>/dev/null || echo "1")
+WORKSPACES=$(cat /tmp/sketchybar_menu_workspaces 2>/dev/null || echo "1")
+WS_ARRAY=($WORKSPACES)
+FOCUSED=$(aerospace list-workspaces --focused 2>/dev/null)
+
+# Find index of current selection
+CURRENT_IDX=0
+for idx in "${!WS_ARRAY[@]}"; do
+  [ "${WS_ARRAY[$idx]}" = "$SELECTED" ] && CURRENT_IDX=$idx && break
+done
+
+case "$ACTION" in
+  up)
+    NEW_IDX=$(( (CURRENT_IDX - 1 + ${#WS_ARRAY[@]}) % ${#WS_ARRAY[@]} ))
+    NEW="${WS_ARRAY[$NEW_IDX]}"
+    sketchybar --set apple_menu.ws.$SELECTED background.drawing=off
+    echo "$NEW" > /tmp/sketchybar_menu_selected
+    sketchybar --set apple_menu.ws.$NEW background.drawing=on
+    ;;
+  down)
+    NEW_IDX=$(( (CURRENT_IDX + 1) % ${#WS_ARRAY[@]} ))
+    NEW="${WS_ARRAY[$NEW_IDX]}"
+    sketchybar --set apple_menu.ws.$SELECTED background.drawing=off
+    echo "$NEW" > /tmp/sketchybar_menu_selected
+    sketchybar --set apple_menu.ws.$NEW background.drawing=on
+    ;;
+  enter)
+    rm -f /tmp/sketchybar_menu_keyboard
+    sketchybar --set apple_menu.ws.$SELECTED background.drawing=off
+    sketchybar --set apple_menu popup.drawing=off
+    aerospace workspace "$SELECTED"
+    sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$SELECTED"
+    ;;
+  esc)
+    rm -f /tmp/sketchybar_menu_keyboard
+    sketchybar --set apple_menu.ws.$SELECTED background.drawing=off
+    sketchybar --set apple_menu popup.drawing=off
+    ;;
+esac
