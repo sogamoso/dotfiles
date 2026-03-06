@@ -17,6 +17,9 @@ if [ ! -f "$MBHEIGHT_BIN" ] || [ "$MBHEIGHT_SRC" -nt "$MBHEIGHT_BIN" ]; then
 fi
 BAR_HEIGHT=$("$MBHEIGHT_BIN" 2>/dev/null || echo 30)
 
+# Sync AeroSpace outer.top gap with the bar height (no reload — reload() handles that)
+"$CONFIG_DIR/plugins/sync_aerospace_gap.sh"
+
 # Bar
 sketchybar --bar \
   height=$BAR_HEIGHT \
