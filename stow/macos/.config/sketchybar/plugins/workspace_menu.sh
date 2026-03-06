@@ -9,12 +9,13 @@ FOCUSED=$(aerospace list-workspaces --focused 2>/dev/null)
 # Build rows and collect visible workspaces
 VISIBLE=""
 for i in {1..9}; do
-  APPS=$(aerospace list-windows --workspace "$i" --format "%{app-name}" 2>/dev/null \
-    | sort -u | paste -sd ', ' -)
-  if [ -z "$APPS" ]; then
+  APPS_ALL=$(aerospace list-windows --workspace "$i" --format "%{app-name}" 2>/dev/null | sort -u)
+  if [ -z "$APPS_ALL" ]; then
     sketchybar --set apple_menu.ws.$i drawing=off
   else
-    [ ${#APPS} -gt 20 ] && APPS="${APPS:0:17}..."
+    TOTAL=$(echo "$APPS_ALL" | wc -l | tr -d ' ')
+    APPS=$(echo "$APPS_ALL" | head -2 | paste -sd ', ' -)
+    [ "$TOTAL" -gt 2 ] && APPS="$APPS +$(( TOTAL - 2 ))"
     COLOR=$TEXT
     [ "$i" = "$FOCUSED" ] && COLOR=$BLUE
     sketchybar --set apple_menu.ws.$i \
