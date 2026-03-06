@@ -96,7 +96,8 @@ ctrl-slash = ['mode workspace_menu', 'exec-and-forget $HOME/.config/sketchybar/p
 [mode.workspace_menu.binding]
 up    = 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh up'
 down  = 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh down'
-enter = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh enter']
+space = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh enter']
+enter = 'mode main'
 esc   = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh esc']
 ctrl-slash = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh esc']
 
