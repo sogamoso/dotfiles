@@ -14,27 +14,40 @@ fi
 
 FOCUSED=$(aerospace list-workspaces --focused 2>/dev/null)
 
-# Build rows and collect visible workspaces
+# Single query for all windows, parsed into per-workspace summaries
+WS_SUMMARY=$(aerospace list-windows --all --format "%{workspace} %{app-name}" 2>/dev/null | \
+  sort | awk '
+    {
+      ws = $1; app = substr($0, length(ws) + 2)
+      if (!(ws SUBSEP app in seen)) {
+        seen[ws SUBSEP app] = 1; count[ws]++
+        if (count[ws] <= 2) label[ws] = (label[ws] ? label[ws] ", " app : app)
+      }
+    }
+    END {
+      for (ws in count) {
+        extra = count[ws] > 2 ? " +" (count[ws] - 2) : ""
+        print ws "|" label[ws] extra
+      }
+    }
+  ' | sort)
+
+# Hide all rows, then show occupied ones — all in one sketchybar call
+ARGS=(--set apple_menu.ws.1 drawing=off --set apple_menu.ws.2 drawing=off
+      --set apple_menu.ws.3 drawing=off --set apple_menu.ws.4 drawing=off
+      --set apple_menu.ws.5 drawing=off --set apple_menu.ws.6 drawing=off
+      --set apple_menu.ws.7 drawing=off --set apple_menu.ws.8 drawing=off
+      --set apple_menu.ws.9 drawing=off)
 VISIBLE=""
-for i in {1..9}; do
-  APPS_ALL=$(aerospace list-windows --workspace "$i" --format "%{app-name}" 2>/dev/null | sort -u)
-  if [ -z "$APPS_ALL" ]; then
-    sketchybar --set apple_menu.ws.$i drawing=off
-  else
-    TOTAL=$(echo "$APPS_ALL" | wc -l | tr -d ' ')
-    APPS=$(echo "$APPS_ALL" | head -2 | paste -sd ', ' -)
-    [ "$TOTAL" -gt 2 ] && APPS="$APPS +$(( TOTAL - 2 ))"
-    COLOR=$TEXT
-    [ "$i" = "$FOCUSED" ] && COLOR=$BLUE
-    sketchybar --set apple_menu.ws.$i \
-      drawing=on \
-      label="$i  $APPS" \
-      label.color=$COLOR \
-      background.drawing=off
-    VISIBLE="$VISIBLE $i"
-  fi
-done
+while IFS='|' read -r ws apps; do
+  [ -z "$ws" ] && continue
+  COLOR=$TEXT
+  [ "$ws" = "$FOCUSED" ] && COLOR=$BLUE
+  ARGS+=(--set "apple_menu.ws.$ws" drawing=on "label=$ws  $apps" "label.color=$COLOR" background.drawing=off)
+  VISIBLE="$VISIBLE $ws"
+done <<< "$WS_SUMMARY"
 VISIBLE="${VISIBLE# }"
+sketchybar "${ARGS[@]}"
 
 auto_close() {
   local id="$1" delay="$2"
