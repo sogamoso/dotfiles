@@ -154,7 +154,6 @@ sketchybar --add item wifi right \
 sketchybar --add item calendar right \
   --set calendar \
     icon="󰃭" \
-    icon.font="JetBrainsMono Nerd Font:Bold:13.0" \
     label.drawing=off \
     click_script="open -b 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'"
 
