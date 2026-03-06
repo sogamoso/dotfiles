@@ -55,7 +55,9 @@ sketchybar --add item apple_menu left \
     popup.background.corner_radius=6 \
     popup.background.border_width=1 \
     popup.background.border_color=$MUTED \
-    click_script="$CONFIG_DIR/plugins/workspace_menu.sh"
+    click_script="$CONFIG_DIR/plugins/workspace_menu.sh" \
+    script="sketchybar --set apple_menu popup.drawing=off" \
+  --subscribe apple_menu front_app_switched
 
 for i in {1..9}; do
   sketchybar --add item apple_menu.ws.$i popup.apple_menu \
