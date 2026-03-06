@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-PERCENTAGE=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
-CHARGING=$(pmset -g batt | grep 'AC Power')
+BATT=$(pmset -g batt)
+PERCENTAGE=$(echo "$BATT" | grep -Eo "\d+%" | cut -d% -f1)
+CHARGING=$(echo "$BATT" | grep 'AC Power')
+TIME_REMAINING=$(echo "$BATT" | grep -Eo '[0-9]+:[0-9]+ remaining' | grep -Eo '[0-9]+:[0-9]+')
 
 [ -z "$PERCENTAGE" ] && exit 0
 
@@ -48,7 +50,12 @@ else
 fi
 
 if [ "$PERCENTAGE" -le 20 ]; then
-  sketchybar --set "$NAME" drawing=on icon="$ICON" icon.color=$COLOR label="${PERCENTAGE}%" label.color=$COLOR label.drawing=on
+  if [ -z "$CHARGING" ] && [ -n "$TIME_REMAINING" ]; then
+    LABEL="$TIME_REMAINING"
+  else
+    LABEL="${PERCENTAGE}%"
+  fi
+  sketchybar --set "$NAME" drawing=on icon="$ICON" icon.color=$COLOR label="$LABEL" label.color=$COLOR label.drawing=on
 else
   sketchybar --set "$NAME" drawing=on icon="$ICON" icon.color=$COLOR label.drawing=off
 fi
