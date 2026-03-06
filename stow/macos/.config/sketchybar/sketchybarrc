@@ -47,11 +47,12 @@ for i in {1..9}; do
   sketchybar --add item space.$i left \
     --set space.$i \
       icon=$i \
+      icon.font="JetBrainsMono Nerd Font:Bold:16.0" \
       icon.padding_left=8 \
       icon.padding_right=8 \
       background.color=$SURFACE \
       background.corner_radius=5 \
-      background.height=24 \
+      background.height=28 \
       background.drawing=off \
       label.drawing=off \
       click_script="aerospace workspace $i && sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$i" \
