@@ -5,7 +5,7 @@ normal_label() {
   if [ "$HAS_EXTERNAL" -eq 1 ]; then
     date '+%b %-d   %H:%M   %A'
   else
-    date '+%b %-d  %H:%M'
+    date '+%b %-d %H:%M'
   fi
 }
 
