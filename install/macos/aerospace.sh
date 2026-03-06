@@ -2,7 +2,12 @@
 set -euo pipefail
 
 echo -e "\n==> Starting AeroSpace..."
-open -a AeroSpace
+if pgrep -x "AeroSpace" >/dev/null; then
+  echo "✓ AeroSpace already running; skipping launch"
+else
+  open -a AeroSpace
+  echo "✓ AeroSpace launched"
+fi
 
 echo -e "\n==> Workspaces:"
 echo "• 1  Chrome"
