@@ -153,7 +153,7 @@ sketchybar --add item wifi right \
 # Calendar
 sketchybar --add item calendar right \
   --set calendar \
-    icon="󰃮" \
+    icon="󰃭" \
     label.drawing=off \
     click_script="open -b 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'"
 
