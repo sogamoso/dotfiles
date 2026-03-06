@@ -5,8 +5,7 @@ CURRENT=$(sketchybar --query clock | grep -o '"label":"[^"]*"' | cut -d'"' -f4 2
 
 # If showing weekday format, switch to date format and vice versa
 if echo "$CURRENT" | grep -q "^[A-Z]"; then
-  WEEK=$(date '+%V')
-  sketchybar --set clock label="$(date "+%d %B W${WEEK} %Y")"
+  sketchybar --set clock label="$(date '+%B %-d')"
   sleep 3
   sketchybar --set clock label="$(date '+%A %H:%M')"
 else

@@ -59,10 +59,13 @@ for i in {1..9}; do
     --subscribe space.$i aerospace_workspace_change
 done
 
-# Clock (centered)
-sketchybar --add item clock center \
+# Clock — right on laptop (single display), centered on external
+DISPLAY_COUNT=$(system_profiler SPDisplaysDataType 2>/dev/null | grep -c "Resolution:")
+[ "$DISPLAY_COUNT" -le 1 ] && CLOCK_POS=right || CLOCK_POS=center
+
+sketchybar --add item clock $CLOCK_POS \
   --set clock \
-    update_freq=10 \
+    update_freq=5 \
     icon.drawing=off \
     click_script="$CONFIG_DIR/plugins/clock_alt.sh" \
     script="$CONFIG_DIR/plugins/clock.sh"
