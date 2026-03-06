@@ -1,3 +1,9 @@
+# Homebrew zsh completions
+if command -v brew >/dev/null 2>&1; then
+  fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
+fi
+typeset -U fpath
+
 # 1Password CLI completion
 if command -v op >/dev/null 2>&1 && command -v compdef >/dev/null 2>&1; then
   eval "$(op completion zsh)"
