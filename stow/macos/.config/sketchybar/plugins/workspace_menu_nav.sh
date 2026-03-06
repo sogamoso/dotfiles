@@ -36,14 +36,14 @@ case "$ACTION" in
     sketchybar --set apple_menu.ws.$NEW background.drawing=on label.color=0xff1a1b26
     ;;
   enter)
-    rm -f /tmp/sketchybar_menu_keyboard
+    rm -f /tmp/sketchybar_menu_keyboard /tmp/sketchybar_popup_open
     sketchybar --set apple_menu.ws.$SELECTED background.drawing=off
     sketchybar --set apple_menu popup.drawing=off
     aerospace workspace "$SELECTED"
     sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$SELECTED"
     ;;
   esc)
-    rm -f /tmp/sketchybar_menu_keyboard
+    rm -f /tmp/sketchybar_menu_keyboard /tmp/sketchybar_popup_open
     sketchybar --set apple_menu.ws.$SELECTED background.drawing=off
     sketchybar --set apple_menu popup.drawing=off
     ;;

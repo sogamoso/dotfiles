@@ -4,6 +4,14 @@ BLUE=0xff7aa2f7
 TEXT=0xffa9b1d6
 MODE="${1:-mouse}"
 
+# Mouse toggle: close if already open
+if [ "$MODE" = "mouse" ] && [ -f /tmp/sketchybar_popup_open ]; then
+  rm -f /tmp/sketchybar_popup_open
+  sketchybar --set apple_menu popup.drawing=off
+  aerospace mode main 2>/dev/null
+  exit 0
+fi
+
 FOCUSED=$(aerospace list-workspaces --focused 2>/dev/null)
 
 # Build rows and collect visible workspaces
@@ -31,7 +39,6 @@ VISIBLE="${VISIBLE# }"
 if [ "$MODE" = "keyboard" ]; then
   echo "$VISIBLE" > /tmp/sketchybar_menu_workspaces
 
-  # Initial selection: focused workspace if visible, else first visible
   SELECTED="$FOCUSED"
   if ! echo "$VISIBLE" | grep -qw "$FOCUSED"; then
     SELECTED=$(echo "$VISIBLE" | awk '{print $1}')
@@ -42,12 +49,17 @@ if [ "$MODE" = "keyboard" ]; then
   sketchybar --set apple_menu.ws.$SELECTED background.drawing=on label.color=0xff1a1b26
   sketchybar --set apple_menu popup.drawing=on
 else
-  sketchybar --set apple_menu popup.drawing=toggle
+  touch /tmp/sketchybar_popup_open
+  sketchybar --set apple_menu popup.drawing=on
+  aerospace mode workspace_menu 2>/dev/null
 
-  # Auto-close after 6s (covers same-app window clicks)
+  # Auto-close after 6s
   TIMER_ID=$$
   echo $TIMER_ID > /tmp/sketchybar_menu_timer
   (sleep 6
-    [ "$(cat /tmp/sketchybar_menu_timer 2>/dev/null)" = "$TIMER_ID" ] && \
-      sketchybar --set apple_menu popup.drawing=off) &
+    [ "$(cat /tmp/sketchybar_menu_timer 2>/dev/null)" = "$TIMER_ID" ] && {
+      rm -f /tmp/sketchybar_popup_open
+      sketchybar --set apple_menu popup.drawing=off
+      aerospace mode main 2>/dev/null
+    }) &
 fi
