@@ -150,6 +150,13 @@ sketchybar --add item wifi right \
     script="$CONFIG_DIR/plugins/wifi.sh" \
   --subscribe wifi wifi_change
 
+# Calendar
+sketchybar --add item calendar right \
+  --set calendar \
+    icon="󰃭" \
+    label.drawing=off \
+    click_script="open 'https://calendar.google.com'"
+
 # Display change watcher — reloads bar when displays are added/removed
 sketchybar --add item display_watcher left \
   --set display_watcher \
