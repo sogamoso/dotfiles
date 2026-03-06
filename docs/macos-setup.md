@@ -67,71 +67,11 @@ Slack → Preferences → Themes → Custom Theme → paste:
 
 ## Keybinding Reference
 
-### Window Management (Aerospace)
+> Type `!keys` in Raycast to expand the cheatsheet anywhere.
+> First-time setup: Raycast → Import Snippets → `~/.config/raycast/snippets.json`.
 
 Physical Cmd = SUPER on Omarchy (Karabiner maps Cmd → Ctrl under the hood).
 
-| Physical keys | Action | Omarchy equivalent |
-|---|---|---|
-| Cmd + 1–9 | Switch workspace | SUPER + 1–9 |
-| Cmd + 0 | Workspace 10 (scratchpad) | SUPER + 0 |
-| Cmd + Shift + 1–9 | Move window to workspace | SUPER + SHIFT + 1–9 |
-| Cmd + arrows | Focus window | SUPER + arrows |
-| Cmd + Shift + arrows | Move window | SUPER + SHIFT + arrows |
-| Cmd + W | Close window | SUPER + W |
-| Cmd + F | Fullscreen | SUPER + F |
-| Cmd + T | Toggle floating | SUPER + T |
-| Cmd + J | Toggle split direction | SUPER + J |
-| Cmd + L | Toggle layout | SUPER + L |
-| Cmd + Tab | Next workspace | SUPER + TAB |
-| Cmd + -/= | Resize width | SUPER + -/= |
-| Cmd + Space | Raycast launcher | SUPER + SPACE |
-| Cmd + Enter | New Ghostty window | SUPER + RETURN |
-| Cmd + Shift + Enter | New Chrome window | SUPER + SHIFT + RETURN |
-| Cmd + Shift + N | New Zed window | SUPER + SHIFT + N |
-| Alt + Tab | Cycle windows (AltTab) | ALT + TAB |
-
-### tmux (Prefix = Ctrl+Space, same as Omarchy)
-
-| Keys | Action | Prefix? |
-|---|---|---|
-| `prefix + h/v` | Split horizontal/vertical | Yes |
-| `prefix + x/k` | Kill pane/window | Yes |
-| `Ctrl+Alt+Arrow` | Navigate panes | No |
-| `Alt+1–9` | Switch window | No |
-| `Alt+Left/Right` | Prev/next window | No |
-| `prefix + c` | New window | Yes |
-| `prefix + r/R` | Rename window/session | Yes |
-| `prefix + [` | Copy mode (`v` select, `y` copy) | Yes |
-
-### System (after Karabiner swap)
-
-Physical Ctrl → sends Cmd to macOS.
-
-| Physical keys | macOS action |
-|---|---|
-| Ctrl + C/V/Z/S | Copy / Paste / Undo / Save |
-| Ctrl + Q | Quit app |
-| Cmd + W | Close Aerospace window (not macOS Cmd+W) |
-
----
-
-## Workspace Layout
-
-| Workspace | App |
-|---|---|
-| 1 | Chrome |
-| 2 | Ghostty |
-| 3 | Slack |
-| 4 | Gmail |
-| 5 | Google Calendar |
-| 6 | Notion |
-| 7 | Spotify |
-| 8 | YouTube |
-| 9 | (free) |
-| 10 | Scratchpad (Cmd+0) |
-
----
 
 ## Remaining Gaps vs Omarchy
 
