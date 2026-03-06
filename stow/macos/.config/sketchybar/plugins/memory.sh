@@ -8,4 +8,10 @@ case "$LEVEL" in
   *)        COLOR=0xffa9b1d6 ;;
 esac
 
-sketchybar --set "$NAME" icon="󰍛" icon.color=$COLOR label.drawing=off
+if [ "$LEVEL" = "CRITICAL" ] || [ "$LEVEL" = "WARNING" ]; then
+  TOP=$(ps -A -o pmem=,comm= -r 2>/dev/null | awk 'NR==1{print $2}')
+  [ ${#TOP} -gt 12 ] && TOP="${TOP:0:11}…"
+  sketchybar --set "$NAME" icon="󰍛" icon.color=$COLOR label="$TOP" label.drawing=on
+else
+  sketchybar --set "$NAME" icon="󰍛" icon.color=$COLOR label.drawing=off
+fi
