@@ -17,8 +17,8 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 # Gaps — matches Omarchy (gaps_in=5, gaps_out=10)
 [gaps]
-inner.horizontal = 5
-inner.vertical   = 5
+inner.horizontal = 10
+inner.vertical   = 10
 outer.left       = 10
 outer.bottom     = 10
 outer.top        = 38
