@@ -22,13 +22,14 @@ if ! tailscale status &>/dev/null; then
   echo "Tailscale is not connected. Run: tailscale up --ssh"
 fi
 
-echo -e "\n==> Finished installing Sebastian's dotfiles!"
 # Open the manual-steps guide only on first run (Typora not yet in PATH on re-runs would still work,
 # but more importantly we skip the interruption when re-running for updates)
 if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
   touch "$HOME/.dotfiles-bootstrapped"
   echo -e "\n==> Manual steps required — opening guide..."
-  open -a Typora "$REPO_DIR/docs/macos-omarchy-setup.md"
+  open -a Typora "$REPO_DIR/docs/macos-setup.md"
 fi
+
+echo -e "\n==> Finished installing Sebastian's dotfiles!"
 
 exec zsh -l
