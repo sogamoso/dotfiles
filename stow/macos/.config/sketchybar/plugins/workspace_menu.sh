@@ -14,7 +14,7 @@ for i in {1..9}; do
   if [ -z "$APPS" ]; then
     sketchybar --set apple_menu.ws.$i drawing=off
   else
-    [ ${#APPS} -gt 35 ] && APPS="${APPS:0:32}..."
+    [ ${#APPS} -gt 20 ] && APPS="${APPS:0:17}..."
     COLOR=$TEXT
     [ "$i" = "$FOCUSED" ] && COLOR=$BLUE
     sketchybar --set apple_menu.ws.$i \
