@@ -5,6 +5,13 @@ TEXT=0xffa9b1d6
 
 sketchybar --set apple_menu popup.drawing=toggle
 
+# Auto-close after 6s (covers clicking back on the same app)
+TIMER_ID=$$
+echo $TIMER_ID > /tmp/sketchybar_menu_timer
+(sleep 6
+  [ "$(cat /tmp/sketchybar_menu_timer 2>/dev/null)" = "$TIMER_ID" ] && \
+    sketchybar --set apple_menu popup.drawing=off) &
+
 FOCUSED=$(aerospace list-workspaces --focused 2>/dev/null)
 
 for i in {1..9}; do
