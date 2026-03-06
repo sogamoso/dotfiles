@@ -21,7 +21,7 @@ inner.horizontal = 5
 inner.vertical   = 5
 outer.left       = 10
 outer.bottom     = 10
-outer.top        = 8
+outer.top        = 38
 outer.right      = 10
 
 # -------------------------------------------------------
@@ -86,6 +86,19 @@ ctrl-shift-equal = 'resize height +50'
 ctrl-enter       = 'exec-and-forget open -na Ghostty'         # Omarchy: SUPER + RETURN
 ctrl-shift-enter = 'exec-and-forget open -na "Google Chrome"' # Omarchy: SUPER + SHIFT + RETURN
 ctrl-shift-n     = 'exec-and-forget open -na Zed'             # Omarchy: SUPER + SHIFT + N
+
+# Workspace menu
+ctrl-backslash = ['mode workspace_menu', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu.sh keyboard']
+
+# -------------------------------------------------------
+# Workspace menu mode
+# -------------------------------------------------------
+[mode.workspace_menu.binding]
+up    = 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh up'
+down  = 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh down'
+enter = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh enter']
+esc   = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh esc']
+ctrl-backslash = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh esc']
 
 # -------------------------------------------------------
 # Window rules

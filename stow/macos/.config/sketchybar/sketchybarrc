@@ -66,7 +66,11 @@ for i in {1..9}; do
       label.font="JetBrainsMono Nerd Font:Regular:13.0" \
       padding_left=8 \
       padding_right=12 \
-      click_script="sketchybar --set apple_menu popup.drawing=off; aerospace workspace $i; sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$i"
+      background.color=$BLUE \
+      background.corner_radius=4 \
+      background.height=22 \
+      background.drawing=off \
+      click_script="rm -f /tmp/sketchybar_menu_keyboard; sketchybar --set apple_menu.ws.$i background.drawing=off; sketchybar --set apple_menu popup.drawing=off; aerospace workspace $i; sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$i"
 done
 
 # Spaces (1-9; workspace 10 is the scratchpad, no indicator needed)
