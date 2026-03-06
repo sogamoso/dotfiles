@@ -9,7 +9,7 @@ case "$LEVEL" in
 esac
 
 if [ "$LEVEL" = "CRITICAL" ] || [ "$LEVEL" = "WARNING" ]; then
-  TOP=$(ps -A -o pmem=,comm= -r 2>/dev/null | awk '$2!="kernel_task"{print $2; exit}')
+  TOP=$(ps -A -o pmem=,comm= -m 2>/dev/null | awk '{sub(/^[[:space:]]*[[:digit:].]+[[:space:]]+/,""); n=split($0,a,"/"); name=a[n]; if(name!="kernel_task"&&name!=""){print name;exit}}')
   [ ${#TOP} -gt 12 ] && TOP="${TOP:0:11}…"
   sketchybar --set "$NAME" icon="󰍛" icon.color=$COLOR label="$TOP" label.drawing=on
 else
