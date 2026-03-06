@@ -116,4 +116,11 @@ sketchybar --add item wifi right \
     script="$CONFIG_DIR/plugins/wifi.sh" \
   --subscribe wifi wifi_change
 
+# Display change watcher — reloads bar when displays are added/removed
+sketchybar --add item display_watcher left \
+  --set display_watcher \
+    drawing=off \
+    script="sketchybar --reload" \
+  --subscribe display_watcher display_added display_removed
+
 sketchybar --update
