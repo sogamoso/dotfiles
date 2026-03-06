@@ -4,6 +4,8 @@ My personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/)
 
 Designed to work on a fresh macOS install with no prior tooling. The installer bootstraps everything from scratch — shell framework, packages, and dotfile symlinks.
 
+For macOS, this setup is heavily inspired by [Omarchy](https://github.com/basecamp/omarchy) and builds on top of [Omadots](https://github.com/omacom-io/omadots).
+
 ### Installation
 
 ```
