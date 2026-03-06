@@ -99,7 +99,7 @@ echo "$CLOCK_POS" > /tmp/sketchybar_clock_pos
 
 sketchybar --add item clock $CLOCK_POS \
   --set clock \
-    update_freq=60 \
+    update_freq=5 \
     icon.drawing=off \
     click_script="$CONFIG_DIR/plugins/clock_alt.sh" \
     script="$CONFIG_DIR/plugins/clock.sh"
