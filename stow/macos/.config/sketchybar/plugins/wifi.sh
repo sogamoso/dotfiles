@@ -1,31 +1,19 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Maps to Omarchy's network module:
-#   format-icons: ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"]
-#   format-ethernet: 󰀂
-#   format-disconnected: 󰤮
+RSSI=$(system_profiler SPAirPortDataType 2>/dev/null | awk '/Signal \/ Noise/{print $4}')
 
-WIFI_INFO=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I 2>/dev/null)
-
-if [ -z "$WIFI_INFO" ] || echo "$WIFI_INFO" | grep -q "AirPort: Off"; then
-  ICON="󰤮"
+if [ -z "$RSSI" ]; then
+  ICON="󰤭"  # disconnected
+elif [ "$RSSI" -gt -50 ]; then
+  ICON="󰤨"  # excellent
+elif [ "$RSSI" -gt -60 ]; then
+  ICON="󰤥"  # good
+elif [ "$RSSI" -gt -70 ]; then
+  ICON="󰤢"  # fair
+elif [ "$RSSI" -gt -80 ]; then
+  ICON="󰤟"  # weak
 else
-  RSSI=$(echo "$WIFI_INFO" | grep -w "agrCtlRSSI" | awk '{print $2}')
-
-  if [ -z "$RSSI" ]; then
-    # Wired / no WiFi signal → ethernet icon
-    ICON="󰀂"
-  elif [ "$RSSI" -gt -50 ]; then
-    ICON="󰤨"  # excellent
-  elif [ "$RSSI" -gt -60 ]; then
-    ICON="󰤥"  # good
-  elif [ "$RSSI" -gt -70 ]; then
-    ICON="󰤢"  # fair
-  elif [ "$RSSI" -gt -80 ]; then
-    ICON="󰤟"  # weak
-  else
-    ICON="󰤯"  # very weak
-  fi
+  ICON="󰤯"  # very weak
 fi
 
-sketchybar --set "$NAME" icon="$ICON"
+sketchybar --set "$NAME" icon="$ICON" label.drawing=off

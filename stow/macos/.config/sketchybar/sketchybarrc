@@ -93,7 +93,7 @@ sketchybar --add item memory right \
 sketchybar --add item volume right \
   --set volume \
     update_freq=5 \
-    click_script="$CONFIG_DIR/plugins/volume_click.sh" \
+    click_script="osascript -e 'set volume output muted not (output muted of (get volume settings))'" \
     script="$CONFIG_DIR/plugins/volume.sh" \
   --subscribe volume volume_change
 
@@ -109,7 +109,7 @@ sketchybar --add item bluetooth right \
 sketchybar --add item wifi right \
   --set wifi \
     update_freq=30 \
-    click_script="open 'x-apple.systempreferences:com.apple.preference.network'" \
+    click_script="open 'x-apple.systempreferences:com.apple.wifi-settings-extension'" \
     script="$CONFIG_DIR/plugins/wifi.sh" \
   --subscribe wifi wifi_change
 
