@@ -120,7 +120,7 @@ sketchybar --add item wifi right \
 sketchybar --add item display_watcher left \
   --set display_watcher \
     drawing=off \
-    script="sketchybar --reload" \
+    script="$CONFIG_DIR/plugins/display_change.sh" \
   --subscribe display_watcher display_added display_removed
 
 sketchybar --update
