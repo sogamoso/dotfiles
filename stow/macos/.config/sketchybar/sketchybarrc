@@ -45,7 +45,7 @@ sketchybar --add event aerospace_workspace_change
 # Apple workspace menu — leftmost item
 sketchybar --add item apple_menu left \
   --set apple_menu \
-    icon="" \
+    icon="⌘" \
     icon.font="JetBrainsMono Nerd Font:Bold:16.0" \
     label.drawing=off \
     padding_left=8 \
