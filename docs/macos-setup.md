@@ -15,6 +15,8 @@ Open each prompt as it appears during the install, or go here:
 - Aerospace
 - AltTab
 
+> Karabiner-EventViewer may also appear here — it's a debug tool, leave it off.
+
 **System Settings → Privacy & Security → Input Monitoring**
 - Karabiner-Core-Service
 - Karabiner-EventViewer
