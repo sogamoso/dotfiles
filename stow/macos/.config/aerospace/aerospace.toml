@@ -88,7 +88,7 @@ ctrl-shift-enter = 'exec-and-forget open -na "Google Chrome"' # Omarchy: SUPER +
 ctrl-shift-n     = 'exec-and-forget open -na Zed'             # Omarchy: SUPER + SHIFT + N
 
 # Workspace menu
-ctrl-backslash = ['mode workspace_menu', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu.sh keyboard']
+ctrl-slash = ['mode workspace_menu', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu.sh keyboard']
 
 # -------------------------------------------------------
 # Workspace menu mode
@@ -98,7 +98,7 @@ up    = 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh 
 down  = 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh down'
 enter = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh enter']
 esc   = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh esc']
-ctrl-backslash = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh esc']
+ctrl-slash = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh esc']
 
 # -------------------------------------------------------
 # Window rules
