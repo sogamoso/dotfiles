@@ -12,10 +12,6 @@ export VISUAL="nvim"
 export SUDO_EDITOR="nvim"
 
 # Enable zsh completion
-if command -v brew >/dev/null 2>&1; then
-  fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
-fi
-typeset -U fpath
 if (( ! $+functions[compdef] )); then
   autoload -Uz compinit
   compinit
