@@ -38,7 +38,7 @@ if [ "$MODE" = "keyboard" ]; then
   echo "$SELECTED" > /tmp/sketchybar_menu_selected
   touch /tmp/sketchybar_menu_keyboard
 
-  sketchybar --set apple_menu.ws.$SELECTED background.drawing=on
+  sketchybar --set apple_menu.ws.$SELECTED background.drawing=on label.color=0xff1a1b26
   sketchybar --set apple_menu popup.drawing=on
 else
   sketchybar --set apple_menu popup.drawing=toggle

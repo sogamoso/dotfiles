@@ -15,20 +15,25 @@ for idx in "${!WS_ARRAY[@]}"; do
   [ "${WS_ARRAY[$idx]}" = "$SELECTED" ] && CURRENT_IDX=$idx && break
 done
 
+restore_color() {
+  local ws="$1"
+  [ "$ws" = "$FOCUSED" ] && echo $BLUE || echo $TEXT
+}
+
 case "$ACTION" in
   up)
     NEW_IDX=$(( (CURRENT_IDX - 1 + ${#WS_ARRAY[@]}) % ${#WS_ARRAY[@]} ))
     NEW="${WS_ARRAY[$NEW_IDX]}"
-    sketchybar --set apple_menu.ws.$SELECTED background.drawing=off
+    sketchybar --set apple_menu.ws.$SELECTED background.drawing=off label.color=$(restore_color $SELECTED)
     echo "$NEW" > /tmp/sketchybar_menu_selected
-    sketchybar --set apple_menu.ws.$NEW background.drawing=on
+    sketchybar --set apple_menu.ws.$NEW background.drawing=on label.color=0xff1a1b26
     ;;
   down)
     NEW_IDX=$(( (CURRENT_IDX + 1) % ${#WS_ARRAY[@]} ))
     NEW="${WS_ARRAY[$NEW_IDX]}"
-    sketchybar --set apple_menu.ws.$SELECTED background.drawing=off
+    sketchybar --set apple_menu.ws.$SELECTED background.drawing=off label.color=$(restore_color $SELECTED)
     echo "$NEW" > /tmp/sketchybar_menu_selected
-    sketchybar --set apple_menu.ws.$NEW background.drawing=on
+    sketchybar --set apple_menu.ws.$NEW background.drawing=on label.color=0xff1a1b26
     ;;
   enter)
     rm -f /tmp/sketchybar_menu_keyboard
