@@ -1,9 +1,22 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-BT_ON=$(system_profiler SPBluetoothDataType 2>/dev/null | grep -c "State: On")
+# Maps to Omarchy's bluetooth module:
+#   format: ""
+#   format-off/disabled: "󰂲"
+#   format-connected: "󰂱"
 
-if [ "$BT_ON" -eq 0 ]; then
-  sketchybar --set "$NAME" icon="󰂲" label.drawing=off
+BT_STATUS=$(defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState 2>/dev/null)
+
+if [ "$BT_STATUS" = "0" ]; then
+  ICON="󰂲"
 else
-  sketchybar --set "$NAME" icon="󰂯" label.drawing=off
+  # Check if any device is connected
+  CONNECTED=$(system_profiler SPBluetoothDataType 2>/dev/null | grep -c "Connected: Yes")
+  if [ "$CONNECTED" -gt 0 ]; then
+    ICON="󰂱"
+  else
+    ICON=""
+  fi
 fi
+
+sketchybar --set "$NAME" icon="$ICON"
