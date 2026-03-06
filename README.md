@@ -10,7 +10,7 @@ Designed to work on a fresh macOS install with no prior tooling. The installer b
 mkdir -p ~/Code && git clone git@github.com:sogamoso/dotfiles.git ~/Code/dotfiles && ~/Code/dotfiles/bootstrap
 ```
 
-Safe to run multiple times. Everything is idempotent.
+Safe to run multiple times. The bootstrap script is idempotent.
 
 #### How it works
 
@@ -29,11 +29,14 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `brew.sh` | Installs all packages from `Brewfile` |
 | `alacritty.sh` | Installs Alacritty from latest GitHub release DMG |
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
+| `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
+| `karabiner.sh` | Starts Karabiner-Elements only if not already running |
+| `alt-tab.sh` | Starts AltTab if it is installed |
 | `security.sh` | SSH keys, GPG, 1Password setup |
 | `preferences.sh` | macOS system defaults |
 | `pwas.sh` | Installs Chrome PWAs (Gmail, Calendar, YouTube) |
 | `sketchybar.sh` | Configures SketchyBar status bar |
-| `aerospace.sh` | Configures Aerospace tiling window manager |
+| `aerospace.sh` | Starts AeroSpace only if not already running |
 
 ### Stow directory
 
@@ -93,9 +96,9 @@ The setup follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keyb
 | 7 | Spotify |
 | 8 | YouTube |
 | 9 | (free) |
-| 10 | Scratchpad |
+| 10 | (scratchpad) |
 
-#### System shortcuts (after Cmd↔Ctrl swap)
+#### System shortcuts (after Cmd ↔ Ctrl swap)
 
 Physical `Ctrl` key sends `Cmd` to macOS: copy = `Ctrl+C`, paste = `Ctrl+V`, quit = `Ctrl+Q`, etc. This matches Linux muscle memory.
 
