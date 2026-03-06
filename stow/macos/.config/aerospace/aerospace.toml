@@ -21,7 +21,7 @@ inner.horizontal = 5
 inner.vertical   = 5
 outer.left       = 10
 outer.bottom     = 10
-outer.top        = 10
+outer.top        = 30
 outer.right      = 10
 
 # -------------------------------------------------------
@@ -110,13 +110,11 @@ run = ['move-node-to-workspace --focus-follows-window 2']
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = ['move-node-to-workspace --focus-follows-window 3']
 
-# Gmail (Chrome PWA)
-[[on-window-detected]]
+[[on-window-detected]] # Gmail (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm'
 run = ['move-node-to-workspace --focus-follows-window 4']
 
-# Google Calendar (Chrome PWA)
-[[on-window-detected]]
+[[on-window-detected]] # Google Calendar (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'
 run = ['move-node-to-workspace --focus-follows-window 5']
 
@@ -128,7 +126,6 @@ run = ['move-node-to-workspace --focus-follows-window 6']
 if.app-id = 'com.spotify.client'
 run = ['move-node-to-workspace --focus-follows-window 7']
 
-# YouTube (Chrome PWA)
-[[on-window-detected]]
+[[on-window-detected]] # YouTube (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml'
 run = ['move-node-to-workspace --focus-follows-window 8']
