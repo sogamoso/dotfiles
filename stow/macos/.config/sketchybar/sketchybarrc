@@ -86,7 +86,7 @@ sketchybar --add item cpu right \
 sketchybar --add item memory right \
   --set memory \
     update_freq=5 \
-    click_script="$CONFIG_DIR/plugins/memory_click.sh" \
+    click_script="open -a 'Activity Monitor'" \
     script="$CONFIG_DIR/plugins/memory.sh"
 
 # Volume

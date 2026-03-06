@@ -10,4 +10,4 @@ else
   COLOR=0xffa9b1d6
 fi
 
-sketchybar --set "$NAME" icon="󰻠" icon.color=$COLOR label="${CPU}%"
+sketchybar --set "$NAME" icon="󰻠" icon.color=$COLOR label.drawing=off
