@@ -17,7 +17,7 @@ GAP=8
 if [ "$HAS_EXTERNAL" -eq 1 ] 2>/dev/null; then
   AEROSPACE_TOP=$(( BAR_HEIGHT + GAP ))
 else
-  AEROSPACE_TOP=$(( 10 + GAP ))
+  AEROSPACE_TOP=$GAP
 fi
 
 AEROSPACE_CFG="$HOME/.config/aerospace/aerospace.toml"
