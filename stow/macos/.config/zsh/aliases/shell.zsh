@@ -10,6 +10,10 @@ reload() {
     "$HOME/.config/sketchybar/plugins/sync_aerospace_gap.sh"
     aerospace reload-config
   fi
+  local karabiner_cli="/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli"
+  if [[ -x "$karabiner_cli" ]]; then
+    "$karabiner_cli" --select-profile 'Default profile'
+  fi
   fc -R
   clear
 }
