@@ -3,7 +3,7 @@ set -euo pipefail
 
 echo -e "\n==> Launching Karabiner-Elements..."
 # Config is stowed to ~/.config/karabiner/karabiner.json (Cmd↔Ctrl swap)
-if pgrep -x "Karabiner-Elements" >/dev/null; then
+if pgrep -f "Karabiner-Elements" >/dev/null; then
   echo "✓ Karabiner-Elements already running; skipping launch"
 else
   open -a Karabiner-Elements
