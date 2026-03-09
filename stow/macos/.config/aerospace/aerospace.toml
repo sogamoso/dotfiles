@@ -104,43 +104,64 @@ ctrl-slash = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/wor
 
 # -------------------------------------------------------
 # Window rules
-# 1: Chrome   2: Ghostty  3: Slack     4: Gmail
-# 5: Calendar 6: Notion   7: Spotify   8: YouTube
-# 9: (free)   10: scratchpad
+# 1: Ghostty + Safari
+# 2: Slack
+# 3: Todoist + Gmail + Calendar
+# 4: Notion + Linear
+# 5: HEY
+# 6: Spotify + YouTube
+# 7: (free)
+# 8: (free)   9: (free)   10: scratchpad
 # -------------------------------------------------------
 
 [[on-window-detected]]
-if.app-id = 'com.google.Chrome'
+if.app-id = 'com.mitchellh.ghostty'
 run = ['move-node-to-workspace --focus-follows-window 1']
 
 [[on-window-detected]]
-if.app-id = 'com.mitchellh.ghostty'
-run = ['move-node-to-workspace --focus-follows-window 2']
-
-[[on-window-detected]]
-if.app-id = 'io.alacritty'
-run = ['move-node-to-workspace --focus-follows-window 2']
+if.app-id = 'com.apple.Safari'
+run = ['move-node-to-workspace --focus-follows-window 1']
 
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
+run = ['move-node-to-workspace --focus-follows-window 2']
+
+[[on-window-detected]] # Todoist
+if.app-id = 'com.todoist.mac.Todoist'
+run = ['move-node-to-workspace --focus-follows-window 3']
+
+[[on-window-detected]] # Todoist (alternate bundle id)
+if.app-id = 'com.todoist.mac'
 run = ['move-node-to-workspace --focus-follows-window 3']
 
 [[on-window-detected]] # Gmail (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm'
-run = ['move-node-to-workspace --focus-follows-window 4']
+run = ['move-node-to-workspace --focus-follows-window 3']
 
 [[on-window-detected]] # Google Calendar (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'
-run = ['move-node-to-workspace --focus-follows-window 5']
+run = ['move-node-to-workspace --focus-follows-window 3']
 
 [[on-window-detected]]
 if.app-id = 'notion.id'
-run = ['move-node-to-workspace --focus-follows-window 6']
+run = ['move-node-to-workspace --focus-follows-window 4']
+
+[[on-window-detected]] # Linear
+if.app-id = 'com.linear'
+run = ['move-node-to-workspace --focus-follows-window 4']
+
+[[on-window-detected]] # Linear (alternate bundle id)
+if.app-id = 'com.linear.Linear'
+run = ['move-node-to-workspace --focus-follows-window 4']
+
+[[on-window-detected]] # HEY
+if.app-id = 'com.basecamp.hey'
+run = ['move-node-to-workspace --focus-follows-window 5']
 
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
-run = ['move-node-to-workspace --focus-follows-window 7']
+run = ['move-node-to-workspace --focus-follows-window 6']
 
 [[on-window-detected]] # YouTube (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml'
-run = ['move-node-to-workspace --focus-follows-window 8']
+run = ['move-node-to-workspace --focus-follows-window 6']
