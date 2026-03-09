@@ -89,14 +89,14 @@ The setup follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keyb
 
 | Workspace | App |
 |---|---|
-| 1 | Chrome |
-| 2 | Ghostty |
-| 3 | Slack |
-| 4 | Gmail |
-| 5 | Google Calendar |
-| 6 | Notion |
-| 7 | Spotify |
-| 8 | YouTube |
+| 1 | Ghostty |
+| 2 | Slack |
+| 3 | Todoist, Gmail, Google Calendar |
+| 4 | Notion, Linear |
+| 5 | HEY |
+| 6 | Spotify, YouTube |
+| 7 | (free) |
+| 8 | (free) |
 | 9 | (free) |
 | 10 | (scratchpad) |
 
