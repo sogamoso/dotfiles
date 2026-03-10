@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO="https://github.com/sogamoso/dotfiles.git"
+DEST="$HOME/Code/dotfiles"
+
+# Xcode CLI tools
+if ! xcode-select -p &>/dev/null; then
+  echo "==> Installing Xcode CLI tools..."
+  xcode-select --install
+  echo "    Re-run this script once the installation completes."
+  exit 0
+fi
+
+# Homebrew
+if ! command -v brew &>/dev/null; then
+  echo "==> Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Clone
+if [[ ! -d "$DEST" ]]; then
+  echo "==> Cloning dotfiles..."
+  mkdir -p "$(dirname "$DEST")"
+  git clone "$REPO" "$DEST"
+fi
+
+exec bash "$DEST/bootstrap"
