@@ -40,6 +40,16 @@ defaults write com.apple.universalaccess reduceTransparency -bool true
 # Menu bar: auto-hide on hover (both keys required on macOS 26)
 defaults write NSGlobalDomain _HIHideMenuBar -bool true
 defaults write com.apple.controlcenter AutoHideMenuBarOption -int 2
+
+# Menu bar: item visibility
+defaults write com.apple.controlcenter "NSStatusItem Visible Battery" -bool false
+defaults write com.apple.controlcenter "NSStatusItem Visible Display" -bool false
+defaults write com.apple.controlcenter "NSStatusItem Visible Sound" -bool false
+defaults write com.apple.controlcenter "NSStatusItem Visible BentoBox" -bool true
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC WiFi" -bool true
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC Bluetooth" -bool true
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC Clock" -bool true
+defaults write com.apple.controlcenter "NSStatusItem VisibleCC AudioVideoModule" -bool true
 killall SystemUIServer ControlCenter 2>/dev/null; true
 
 # Dock: position, size, autohide, instant show/hide, dwindle animation, unpin all apps
