@@ -21,8 +21,10 @@ echo -e "\n==> Installing Homebrew packages..."
 brew bundle --file "$REPO_DIR/Brewfile"
 
 # Autoupdate once a week
-brew autoupdate delete 2>/dev/null || true
-brew autoupdate start 604800 --ac-only --upgrade --cleanup --leaves-only --immediate --sudo
+if ! brew autoupdate status 2>/dev/null | grep -q "Autoupdate is installed and running"; then
+  brew autoupdate delete 2>/dev/null || true
+  brew autoupdate start 604800 --ac-only --upgrade --cleanup --leaves-only --immediate --sudo
+fi
 
 # zsh-you-should-use (installed via Brewfile, link into plugin dir)
 PLUGIN_DIR="$HOME/.config/zsh/plugins/zsh-you-should-use"
