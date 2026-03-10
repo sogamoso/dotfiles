@@ -8,6 +8,9 @@ if [[ ! -d "$DEST" ]]; then
   echo "==> Cloning dotfiles..."
   mkdir -p "$(dirname "$DEST")"
   git clone "$REPO" "$DEST"
+else
+  echo "==> Updating dotfiles..."
+  git -C "$DEST" pull --ff-only
 fi
 
 exec bash "$DEST/bootstrap"
