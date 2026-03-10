@@ -34,8 +34,9 @@ defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows selectedFolder
 defaults -currentHost write com.apple.ScreenSaver.iLifeSlideShows selectedMediaGroup -string "selectedFolderPath"
 defaults -currentHost write com.apple.screensaver showClock -bool true
 
-# Accessibility: disable UI transparency
-defaults write com.apple.universalaccess reduceTransparency -bool true
+# Accessibility: disable UI transparency (requires Full Disk Access — skipped if denied)
+defaults write com.apple.universalaccess reduceTransparency -bool true 2>/dev/null || \
+  echo "⚠ Could not set reduceTransparency — grant Full Disk Access to Terminal and rerun"
 
 # Menu bar: auto-hide on hover (both keys required on macOS 26)
 defaults write NSGlobalDomain _HIHideMenuBar -bool true
