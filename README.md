@@ -5,7 +5,7 @@ My personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/)
 ## Installation
 
 ```
-mkdir -p ~/Code && git clone git@github.com:sogamoso/dotfiles.git ~/Code/dotfiles && ~/Code/dotfiles/bootstrap
+curl -fsSL https://dotfiles.sogamo.so/install | bash
 ```
 
 Safe to run multiple times. The bootstrap script is idempotent.
