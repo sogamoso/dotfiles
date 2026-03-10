@@ -33,7 +33,7 @@ Set Raycast to respond to that:
 System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in these sections:
 
 1. **Mission Control** — conflicts with AeroSpace workspace bindings after Karabiner swap
-2. **App Shortcuts → Windows** — conflicts with AeroSpace window bindings
+2. **Windows** — conflicts with AeroSpace window bindings
 3. **Input Sources** — Globe key handles language switching instead
 4. **Spotlight** — Raycast takes that slot
 
