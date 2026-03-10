@@ -6,7 +6,7 @@ echo -e "\n==> Launching Karabiner-Elements..."
 if pgrep -f "Karabiner-Elements" >/dev/null; then
   echo "✓ Karabiner-Elements already running; skipping launch"
 else
-  open -a Karabiner-Elements
+  open -a Karabiner-Elements || open /Applications/Karabiner-Elements.app
   echo "✓ Karabiner launched"
   echo -e "\n! Grant permissions when prompted:"
   echo "• System Settings → Privacy & Security → Accessibility → Karabiner-Elements"
