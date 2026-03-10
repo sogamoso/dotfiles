@@ -12,6 +12,14 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 [[ -f "$HOME/.config/tmux/tmux.local.conf"      && ! -L "$HOME/.config/tmux/tmux.local.conf"      ]] && rm "$HOME/.config/tmux/tmux.local.conf"
 [[ -f "$HOME/.config/zed/settings.json"         && ! -L "$HOME/.config/zed/settings.json"         ]] && rm "$HOME/.config/zed/settings.json"
 
+# Pre-create directories that apps write to, so stow links files individually
+# instead of folding the whole directory into a symlink (which lets apps delete
+# files through the symlink and corrupt the repo).
+mkdir -p \
+  "$HOME/.config/aerospace" \
+  "$HOME/.config/karabiner" \
+  "$HOME/.config/sketchybar"
+
 echo -e "\n==> Stowing macOS specific dotfiles..."
 cd "$REPO_DIR/stow"
 stow --target "$HOME" --restow macos
