@@ -80,6 +80,15 @@ for id in 32 34 118 119 120 121 122 123 124 125 126; do
     ~/Library/Preferences/com.apple.symbolichotkeys.plist 2>/dev/null || true
 done
 
+# Disable input source switcher Cmd+Space (60/61) — reassign manually to a function key
+# System Settings → Keyboard → Keyboard Shortcuts → Input Sources
+/usr/libexec/PlistBuddy \
+  -c "Set :AppleSymbolicHotKeys:60:enabled false" \
+  ~/Library/Preferences/com.apple.symbolichotkeys.plist 2>/dev/null || true
+/usr/libexec/PlistBuddy \
+  -c "Set :AppleSymbolicHotKeys:61:enabled false" \
+  ~/Library/Preferences/com.apple.symbolichotkeys.plist 2>/dev/null || true
+
 # Disable Spotlight Cmd+Space (64) — Raycast takes that slot
 # After Karabiner swap, physical Ctrl+Space sends Cmd+Space to macOS → would open Spotlight
 /usr/libexec/PlistBuddy \
