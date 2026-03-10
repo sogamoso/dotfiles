@@ -20,11 +20,8 @@ echo -e "\n==> Installing Homebrew packages..."
 # Install personal packages (Omamac handles core packages)
 brew bundle --file "$REPO_DIR/Brewfile"
 
-# Autoupdate once a week
-mkdir -p "$HOME/Library/Application Support/com.github.domt4.homebrew-autoupdate"
-if ! brew autoupdate status | grep -q "Autoupdate is installed and running"; then
-  brew autoupdate start 604800 --ac-only --upgrade --cleanup --leaves-only --immediate --sudo
-fi
+# Autoupdate once a week (start is idempotent)
+brew autoupdate start 604800 --ac-only --upgrade --cleanup --leaves-only --immediate --sudo
 
 # zsh-you-should-use (installed via Brewfile, link into plugin dir)
 PLUGIN_DIR="$HOME/.config/zsh/plugins/zsh-you-should-use"
