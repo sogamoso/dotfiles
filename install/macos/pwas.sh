@@ -12,8 +12,9 @@ missing=()
 
 if (( ${#missing[@]} )); then
   echo -e "\n==> Installing PWAs..."
+  open -a "Google Chrome" "${missing[@]}"
   for url in "${missing[@]}"; do
-    open -a "Google Chrome" "$url"
-    echo "Opened $url — install via ⋮ → Cast, save, and share → Install page as app"
+    echo "• $url"
   done
+  echo "Install each via ⋮ → Cast, save, and share → Install page as app"
 fi
