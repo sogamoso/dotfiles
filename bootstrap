@@ -8,6 +8,8 @@ echo -e "\n==> Installing Sebastian's dotfiles.."
 # Cache sudo credentials upfront — some casks (e.g. karabiner-elements) need them
 sudo echo "✓ Granted"
 while true; do sudo -n true 2>/dev/null || true; sleep 60; kill -0 "$$" || exit; done &
+SUDO_LOOP_PID=$!
+trap 'kill "$SUDO_LOOP_PID" 2>/dev/null || true' EXIT
 
 # OS specific setup
 case "$(uname -s)" in
