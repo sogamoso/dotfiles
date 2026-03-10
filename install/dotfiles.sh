@@ -14,8 +14,7 @@ mkdir -p "$HOME/.ssh"
 
 # Cross-platform dotfiles
 cd "$REPO_DIR/stow"
-for config in */; do
-  [[ "$config" == "macos/" ]] && continue
+for config in git mise nvim ruby ssh zsh; do
   stow --target "$HOME" --restow "$config"
 done
 
