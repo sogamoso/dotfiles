@@ -72,23 +72,3 @@ defaults write com.apple.dock wvous-br-corner -int 1
 defaults write com.apple.WindowManager EnableTilingByEdgeDrag -bool false
 killall Dock
 
-# Disable Mission Control keyboard shortcuts (conflict with Aerospace ctrl-* after Karabiner swap)
-# 32=Mission Control, 34=Show Desktop, 118-126=Switch to Space 1-9
-for id in 32 34 118 119 120 121 122 123 124 125 126; do
-  /usr/libexec/PlistBuddy \
-    -c "Set :AppleSymbolicHotKeys:${id}:enabled false" \
-    ~/Library/Preferences/com.apple.symbolichotkeys.plist 2>/dev/null || true
-done
-
-
-# Disable Spotlight Cmd+Space (64) — Raycast takes that slot
-# After Karabiner swap, physical Ctrl+Space sends Cmd+Space to macOS → would open Spotlight
-/usr/libexec/PlistBuddy \
-  -c "Set :AppleSymbolicHotKeys:64:enabled false" \
-  ~/Library/Preferences/com.apple.symbolichotkeys.plist 2>/dev/null || true
-/usr/libexec/PlistBuddy \
-  -c "Set :AppleSymbolicHotKeys:65:enabled false" \
-  ~/Library/Preferences/com.apple.symbolichotkeys.plist 2>/dev/null || true
-
-# Apply symbolic hotkey changes
-/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
