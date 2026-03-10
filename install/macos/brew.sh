@@ -13,6 +13,8 @@ if ! command -v brew &>/dev/null; then
   fi
 fi
 
+mkdir -p "$HOME/Library/LaunchAgents"
+
 echo -e "\n==> Installing Homebrew packages..."
 
 # Install personal packages (Omamac handles core packages)
