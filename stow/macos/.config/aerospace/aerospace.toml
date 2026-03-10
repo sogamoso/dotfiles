@@ -2,8 +2,8 @@
 #
 # Karabiner swaps Cmd↔Ctrl at hardware level, so:
 #   Physical Cmd  = ctrl in this config = SUPER on Omarchy
-#   Physical Ctrl = cmd  in this config
-#   Physical Alt  = alt  in this config = ALT on Omarchy
+#   Physical Ctrl = cmd in this config
+#   Physical Alt  = alt in this config = ALT on Omarchy
 
 start-at-login = true
 
@@ -66,11 +66,11 @@ ctrl-shift-up    = 'move up'
 ctrl-shift-down  = 'move down'
 
 # Window controls
-ctrl-w = 'close'                          # Omarchy: SUPER + W
-ctrl-f = 'fullscreen'                     # Omarchy: SUPER + F
-ctrl-t = 'layout floating tiling'         # Omarchy: SUPER + T (toggle float)
+ctrl-w = 'close' # Omarchy: SUPER + W
+ctrl-f = 'fullscreen' # Omarchy: SUPER + F
+ctrl-t = 'layout floating tiling' # Omarchy: SUPER + T (toggle float)
 ctrl-j = 'layout tiles horizontal vertical' # Omarchy: SUPER + J (toggle split)
-ctrl-l = 'layout tiles accordion'         # Omarchy: SUPER + L (toggle layout)
+ctrl-l = 'layout tiles accordion' # Omarchy: SUPER + L (toggle layout)
 
 # Workspace cycling — Omarchy: SUPER + TAB
 ctrl-tab       = 'workspace next'
@@ -83,9 +83,9 @@ ctrl-shift-minus = 'resize height -50'
 ctrl-shift-equal = 'resize height +50'
 
 # App launchers
-ctrl-enter       = 'exec-and-forget open -na Ghostty'         # Omarchy: SUPER + RETURN
+ctrl-enter       = 'exec-and-forget open -na Ghostty' # Omarchy: SUPER + RETURN
 ctrl-shift-enter = 'exec-and-forget open -na "Google Chrome"' # Omarchy: SUPER + SHIFT + RETURN
-ctrl-shift-n     = 'exec-and-forget open -na Zed'                       # Omarchy: SUPER + SHIFT + N
+ctrl-shift-n     = 'exec-and-forget open -na Zed' # Omarchy: SUPER + SHIFT + N
 ctrl-shift-c     = 'exec-and-forget open -b "com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep"' # Google Calendar
 
 # Workspace menu
@@ -104,64 +104,74 @@ ctrl-slash = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/wor
 
 # -------------------------------------------------------
 # Window rules
-# 1: Ghostty + Safari
-# 2: Slack
-# 3: Todoist + Gmail + Calendar
-# 4: Notion + Linear
-# 5: HEY
-# 6: Spotify + YouTube
-# 7: (free)
-# 8: (free)   9: (free)   10: scratchpad
+# 1: Ghostty + Zed
+# 2: Chrome + Safari + GitHub
+# 3: Slack
+# 4: Todoist + Gmail + Calendar
+# 5: Notion + Linear
+# 6: HEY
+# 7: Spotify + YouTube
+# 8: (free)
+# 9: (free)
+# 10: (scratchpad)
 # -------------------------------------------------------
 
-[[on-window-detected]]
+[[on-window-detected]] # 1: Ghostty
 if.app-id = 'com.mitchellh.ghostty'
 run = ['move-node-to-workspace --focus-follows-window 1']
 
-[[on-window-detected]]
-if.app-id = 'com.apple.Safari'
+[[on-window-detected]] # 1: Zed
+if.app-id = 'dev.zed.Zed'
 run = ['move-node-to-workspace --focus-follows-window 1']
 
-[[on-window-detected]]
-if.app-id = 'com.tinyspeck.slackmacgap'
+[[on-window-detected]] # 2: Chrome
+if.app-id = 'com.google.Chrome'
 run = ['move-node-to-workspace --focus-follows-window 2']
 
-[[on-window-detected]] # Todoist
+[[on-window-detected]] # 2: Safari
+if.app-id = 'com.apple.Safari'
+run = ['move-node-to-workspace --focus-follows-window 2']
+
+[[on-window-detected]] # 3: Slack
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = ['move-node-to-workspace --focus-follows-window 3']
+
+[[on-window-detected]] # 4: Todoist
 if.app-id = 'com.todoist.mac.Todoist'
-run = ['move-node-to-workspace --focus-follows-window 3']
+run = ['move-node-to-workspace --focus-follows-window 4']
 
-[[on-window-detected]] # Todoist (alternate bundle id)
+[[on-window-detected]] # 4: Todoist (alternate bundle id)
 if.app-id = 'com.todoist.mac'
-run = ['move-node-to-workspace --focus-follows-window 3']
+run = ['move-node-to-workspace --focus-follows-window 4']
 
-[[on-window-detected]] # Gmail (Chrome PWA)
+[[on-window-detected]] # 4: Gmail (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm'
-run = ['move-node-to-workspace --focus-follows-window 3']
+run = ['move-node-to-workspace --focus-follows-window 4']
 
-[[on-window-detected]] # Google Calendar (Chrome PWA)
+[[on-window-detected]] # 4: Google Calendar (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'
-run = ['move-node-to-workspace --focus-follows-window 3']
+run = ['move-node-to-workspace --focus-follows-window 4']
 
-[[on-window-detected]]
+[[on-window-detected]] # 5: Notion
 if.app-id = 'notion.id'
-run = ['move-node-to-workspace --focus-follows-window 4']
-
-[[on-window-detected]] # Linear
-if.app-id = 'com.linear'
-run = ['move-node-to-workspace --focus-follows-window 4']
-
-[[on-window-detected]] # Linear (alternate bundle id)
-if.app-id = 'com.linear.Linear'
-run = ['move-node-to-workspace --focus-follows-window 4']
-
-[[on-window-detected]] # HEY
-if.app-id = 'com.basecamp.hey'
 run = ['move-node-to-workspace --focus-follows-window 5']
 
-[[on-window-detected]]
-if.app-id = 'com.spotify.client'
+[[on-window-detected]] # 5: Linear
+if.app-id = 'com.linear'
+run = ['move-node-to-workspace --focus-follows-window 5']
+
+[[on-window-detected]] # 5: Linear (alternate bundle id)
+if.app-id = 'com.linear.Linear'
+run = ['move-node-to-workspace --focus-follows-window 5']
+
+[[on-window-detected]] # 6: HEY
+if.app-id = 'com.basecamp.hey'
 run = ['move-node-to-workspace --focus-follows-window 6']
 
-[[on-window-detected]] # YouTube (Chrome PWA)
+[[on-window-detected]] # 7: Spotify
+if.app-id = 'com.spotify.client'
+run = ['move-node-to-workspace --focus-follows-window 7']
+
+[[on-window-detected]] # 7: YouTube (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml'
-run = ['move-node-to-workspace --focus-follows-window 6']
+run = ['move-node-to-workspace --focus-follows-window 7']

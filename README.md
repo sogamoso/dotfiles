@@ -103,13 +103,13 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 
 | Workspace | App |
 |---|---|
-| 1 | Ghostty |
-| 2 | Slack |
-| 3 | Todoist, Gmail, Google Calendar |
-| 4 | Notion, Linear |
-| 5 | HEY |
-| 6 | Spotify, YouTube |
-| 7 | (free) |
+| 1 | Ghostty, Zed |
+| 2 | Chrome, Safari |
+| 3 | Slack |
+| 4 | Todoist, Gmail, Google Calendar |
+| 5 | Notion, Linear |
+| 6 | HEY |
+| 7 | Spotify, YouTube |
 | 8 | (free) |
 | 9 | (free) |
 | 10 | (scratchpad) |
