@@ -12,6 +12,9 @@ grep -qxF "$OVERLAY" "$HOME/.zshrc" 2>/dev/null || echo "$OVERLAY" >>"$HOME/.zsh
 # Ensure .ssh exists before stowing SSH config
 mkdir -p "$HOME/.ssh"
 
+# Remove real files that stow needs to replace with symlinks
+[[ -f "$HOME/.hushlogin" && ! -L "$HOME/.hushlogin" ]] && rm "$HOME/.hushlogin"
+
 # Cross-platform dotfiles
 cd "$REPO_DIR/stow"
 for config in git mise nvim ruby ssh zsh; do
