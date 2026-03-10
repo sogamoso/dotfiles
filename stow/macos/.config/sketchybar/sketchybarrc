@@ -74,8 +74,8 @@ for i in {1..9}; do
       click_script="rm -f /tmp/sketchybar_menu_keyboard; sketchybar --set apple_menu.ws.$i background.drawing=off; sketchybar --set apple_menu popup.drawing=off; aerospace workspace $i; sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$i"
 done
 
-# Spaces (1:Ghostty/Safari, 2:Slack, 3:Todoist/Gmail/Calendar,
-# 4:Notion/Linear, 5:HEY, 6:Spotify/YouTube, 7-9:free)
+# Spaces (1:Ghostty/Zed, 2:Chrome/Safari, 3:Slack, 4:Todoist/Gmail/Calendar,
+# 5:Notion/Linear, 6:HEY, 7:Spotify/YouTube, 8-9:free)
 # Workspace 10 is the scratchpad, no indicator needed.
 for i in {1..9}; do
   sketchybar --add item space.$i left \
