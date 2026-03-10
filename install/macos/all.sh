@@ -3,6 +3,9 @@ set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Ensure Homebrew-installed tools (stow, etc.) are on PATH for all subscripts
+[[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 bash "$DIR/xcode.sh"
 bash "$DIR/omadots.sh"
 bash "$DIR/security.sh"
