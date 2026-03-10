@@ -3,6 +3,8 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 echo -e "\n==> Installing Homebrew packages..."
 
 # Install personal packages (Omamac handles core packages)
