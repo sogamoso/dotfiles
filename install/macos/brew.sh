@@ -21,6 +21,7 @@ echo -e "\n==> Installing Homebrew packages..."
 brew bundle --file "$REPO_DIR/Brewfile"
 
 # Autoupdate once a week
+mkdir -p "$HOME/Library/Application Support/com.github.domt4.homebrew-autoupdate"
 if ! brew autoupdate status | grep -q "Autoupdate is installed and running"; then
   brew autoupdate start 604800 --ac-only --upgrade --cleanup --leaves-only --immediate --sudo
 fi
