@@ -30,9 +30,17 @@ Open each prompt as it appears during the install, or go here:
 After rebooting (post-Karabiner), physical Cmd+Space sends Ctrl+Space to macOS.
 Set Raycast to respond to that:
 
-1. Disable Spotlight: System Settings → Keyboard → Keyboard Shortcuts → Spotlight → uncheck all
-2. Open Raycast → Settings → General
-3. Set **Raycast Hotkey** to `Ctrl+Space`
+System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in these sections:
+
+1. **Mission Control** — conflicts with AeroSpace workspace bindings after Karabiner swap
+2. **App Shortcuts → Windows** — conflicts with AeroSpace window bindings
+3. **Input Sources** — Globe key handles language switching instead
+4. **Spotlight** — Raycast takes that slot
+
+Then set Raycast as the launcher:
+
+5. Open Raycast → Settings → General
+6. Set **Raycast Hotkey** to `Ctrl+Space`
 
 ---
 
