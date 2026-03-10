@@ -1,12 +1,8 @@
-## Dotfiles
+# Dotfiles
 
 My personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
-Designed to work on a fresh macOS install with no prior tooling. The installer bootstraps everything from scratch — shell framework, packages, and dotfile symlinks.
-
-For macOS, this setup is heavily inspired by [Omarchy](https://github.com/basecamp/omarchy) and builds on top of [Omadots](https://github.com/omacom-io/omadots).
-
-### Installation
+## Installation
 
 ```
 mkdir -p ~/Code && git clone git@github.com:sogamoso/dotfiles.git ~/Code/dotfiles && ~/Code/dotfiles/bootstrap
@@ -14,33 +10,7 @@ mkdir -p ~/Code && git clone git@github.com:sogamoso/dotfiles.git ~/Code/dotfile
 
 Safe to run multiple times. The bootstrap script is idempotent.
 
-#### How it works
-
-`bootstrap` runs two phases:
-
-1. **OS setup** — dispatches by `uname -s`.
-2. **Dotfiles** (`install/dotfiles.sh`) — cross-platform config symlinks via stow.
-
-After both phases it checks Tailscale status and drops into a fresh zsh login shell.
-
-The macOS setup (`install/macos/all.sh`) runs these scripts in order:
-
-| Script | What it does |
-|--------|-------------|
-| `omadots.sh` | Installs [Omadots](https://github.com/omacom-io/omadots) shell framework |
-| `brew.sh` | Installs all packages from `Brewfile` |
-| `alacritty.sh` | Installs Alacritty from latest GitHub release DMG |
-| `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
-| `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
-| `karabiner.sh` | Starts Karabiner-Elements only if not already running |
-| `alt-tab.sh` | Starts AltTab if it is installed |
-| `security.sh` | SSH keys, GPG, 1Password setup |
-| `preferences.sh` | macOS system defaults |
-| `pwas.sh` | Installs Chrome PWAs (Gmail, Calendar, YouTube) |
-| `sketchybar.sh` | Configures SketchyBar status bar |
-| `aerospace.sh` | Starts AeroSpace only if not already running |
-
-### Stow directory
+## Stow directory
 
 Each folder under `stow/` is a stow package. Running `stow --target $HOME --restow <package>` symlinks its contents into `$HOME`.
 
@@ -56,7 +26,49 @@ stow/
   zsh/                     # Shell aliases (git, gh, bundler, rails, npm)
 ```
 
-### Hotkeys
+### How it works
+
+`bootstrap` runs two phases:
+
+1. **OS setup** — dispatches by `uname -s`.
+2. **Dotfiles** (`install/dotfiles.sh`) — cross-platform config symlinks via stow.
+
+After both phases it checks Tailscale status and drops into a fresh zsh login shell.
+
+## Cross-platform design
+
+The stow packages under `stow/` are cross-platform by default.
+
+Two patterns keep configs portable:
+
+- **Git**: `.gitconfig` uses `[include] path = ~/.config/git/config.macos`. Git silently ignores the include if the file doesn't exist (i.e. on Linux).
+- **Shell**: `supplement.zsh` conditionally sources `supplement.macos.zsh` only if the file is readable. On Linux, the macOS stow package won't be installed so the file won't exist.
+
+### macOS
+
+Designed to work on a fresh macOS install with no prior tooling. The installer bootstraps everything from scratch — shell framework, packages, and dotfile symlinks.
+
+The setup is heavily inspired by [Omarchy](https://github.com/basecamp/omarchy) and builds on top of [Omadots](https://github.com/omacom-io/omadots).
+
+The macOS setup (`install/macos/all.sh`) runs these scripts in order:
+
+| Script | What it does |
+|--------|-------------|
+| `xcode.sh` | Checks for Xcode Command Line Tools, opens installer if missing, then exits so you can rerun setup after install |
+| `omadots.sh` | Installs [Omadots](https://github.com/omacom-io/omadots) shell framework |
+| `brew.sh` | Installs all packages from `Brewfile` |
+| `alacritty.sh` | Installs Alacritty from latest GitHub release DMG |
+| `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
+| `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
+| `karabiner.sh` | Starts Karabiner-Elements only if not already running |
+| `alt-tab.sh` | Starts AltTab if it is installed |
+| `security.sh` | SSH keys, GPG, 1Password setup |
+| `preferences.sh` | macOS system defaults |
+| `pwas.sh` | Installs Chrome PWAs (Gmail, Calendar, YouTube) |
+| `sketchybar.sh` | Configures SketchyBar status bar |
+| `aerospace.sh` | Starts AeroSpace only if not already running |
+
+#### Hotkeys
 
 The setup follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding model on macOS. Karabiner-Elements swaps Cmd↔Ctrl so the physical `Cmd` key maps to `SUPER` on Omarchy.
 
@@ -105,12 +117,3 @@ The setup follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keyb
 Physical `Ctrl` key sends `Cmd` to macOS: copy = `Ctrl+C`, paste = `Ctrl+V`, quit = `Ctrl+Q`, etc. This matches Linux muscle memory.
 
 For the full setup guide including Karabiner config, tmux, SketchyBar, and Tokyo Night theming: [`docs/macos-omarchy-setup.md`](docs/macos-omarchy-setup.md).
-
-### Cross-platform design
-
-The stow packages under `stow/` are cross-platform by default. macOS-specific configs live in `stow/macos/` and are only stowed on Darwin.
-
-Two patterns keep configs portable:
-
-- **Git**: `.gitconfig` uses `[include] path = ~/.config/git/config.macos`. Git silently ignores the include if the file doesn't exist (i.e. on Linux).
-- **Shell**: `supplement.zsh` conditionally sources `supplement.macos.zsh` only if the file is readable. On Linux, the macOS stow package won't be installed so the file won't exist.
