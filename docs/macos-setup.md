@@ -44,12 +44,39 @@ Then set Raycast as the launcher:
 
 ---
 
-## 3. Slack Tokyo Night Theme
+## 3. Login Items
+
+System Settings → General → Login Items — add:
+
+- AeroSpace
+- cctop
+- CleanShot X
+- Dropbox
+- Freedom
+- Gmail
+- Google Calendar
+- Google Drive
+- Monologue
+- Raycast
+
+---
+
+## 4. Slack Tokyo Night Theme
 
 Slack → Preferences → Themes → Custom Theme → paste:
 
 ```
 #1a1b26,#32344a,#7aa2f7,#a9b1d6,#444b6a,#a9b1d6,#9ece6a,#7aa2f7,#1a1b26,#a9b1d6
+```
+
+---
+
+## 5. Authenticate GitHub CLI
+
+Open a terminal and run:
+
+```
+gh auth login
 ```
 
 ---
