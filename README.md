@@ -1,6 +1,6 @@
 # Dotfiles
 
-My personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
 ## Installation
 
@@ -46,31 +46,33 @@ Two patterns keep configs portable:
 
 ### macOS
 
-Designed to work on a fresh macOS install with no prior tooling. The installer bootstraps everything from scratch — shell framework, packages, and dotfile symlinks.
+Works on a fresh macOS install with no prior tooling. The installer bootstraps everything from scratch — shell framework, packages, and dotfile symlinks.
 
-The setup is heavily inspired by [Omarchy](https://github.com/basecamp/omarchy) and builds on top of [Omadots](https://github.com/omacom-io/omadots).
+Heavily inspired by [Omarchy](https://github.com/basecamp/omarchy), built on top of [Omadots](https://github.com/omacom-io/omadots).
 
 The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 
 | Script | What it does |
 |--------|-------------|
-| `xcode.sh` | Checks for Xcode Command Line Tools, opens installer if missing, then exits so you can rerun setup after install |
+| `xcode.sh` | Checks for Xcode Command Line Tools, opens installer if missing, then exits for rerun after install |
 | `omadots.sh` | Installs [Omadots](https://github.com/omacom-io/omadots) shell framework |
+| `security.sh` | Enables SSH/firewall and applies sshd hardening |
+| `onepassword.sh` | Opens 1Password for sign-in and SSH agent setup |
 | `brew.sh` | Installs all packages from `Brewfile` |
 | `alacritty.sh` | Installs Alacritty from latest GitHub release DMG |
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
 | `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
 | `karabiner.sh` | Starts Karabiner-Elements only if not already running |
-| `alt-tab.sh` | Starts AltTab if it is installed |
-| `security.sh` | SSH keys, GPG, 1Password setup |
+| `alt-tab.sh` | Configures AltTab window switcher |
 | `preferences.sh` | macOS system defaults |
 | `pwas.sh` | Installs Chrome PWAs (Gmail, Calendar, YouTube) |
 | `sketchybar.sh` | Configures SketchyBar status bar |
 | `aerospace.sh` | Starts AeroSpace only if not already running |
+| `raycast.sh` | Opens Raycast for first-time setup |
 
 #### Hotkeys
 
-The setup follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding model on macOS. Karabiner-Elements swaps Cmd↔Ctrl so the physical `Cmd` key maps to `SUPER` on Omarchy.
+Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding model on macOS. Karabiner-Elements swaps Cmd↔Ctrl so the physical `Cmd` key maps to `SUPER` on Omarchy.
 
 #### Window management (Aerospace)
 
@@ -114,6 +116,6 @@ The setup follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keyb
 
 #### System shortcuts (after Cmd ↔ Ctrl swap)
 
-Physical `Ctrl` key sends `Cmd` to macOS: copy = `Ctrl+C`, paste = `Ctrl+V`, quit = `Ctrl+Q`, etc. This matches Linux muscle memory.
+Physical `Ctrl` key sends `Cmd` to macOS: copy = `Ctrl+C`, paste = `Ctrl+V`, quit = `Ctrl+Q`, etc. Matches Linux muscle memory.
 
 For the full setup guide including Karabiner config, tmux, SketchyBar, and Tokyo Night theming: [`docs/macos-omarchy-setup.md`](docs/macos-omarchy-setup.md).
