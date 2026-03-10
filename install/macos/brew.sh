@@ -13,7 +13,7 @@ if ! command -v brew &>/dev/null; then
   fi
 fi
 
-mkdir -p "$HOME/Library/LaunchAgents"  # required by brew services on a fresh install
+mkdir -p "$HOME/Library/LaunchAgents"  # not created by default on a fresh macOS install
 
 echo -e "\n==> Installing Homebrew packages..."
 
