@@ -3,6 +3,8 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
+echo -e "\n==> Stowing dotfiles..."
+
 # Append personal supplement to .zshrc
 OVERLAY='source $HOME/.config/zsh/supplement.zsh'
 grep -qxF "$OVERLAY" "$HOME/.zshrc" 2>/dev/null || echo "$OVERLAY" >>"$HOME/.zshrc"
@@ -15,6 +17,8 @@ cd "$REPO_DIR/stow"
 for config in git mise nvim ruby ssh zsh; do
   stow --target "$HOME" --restow "$config"
 done
+
+echo "✓ Dotfiles stowed"
 
 # Suppress "Last login" message
 touch "$HOME/.hushlogin"
