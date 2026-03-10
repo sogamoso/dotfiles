@@ -18,8 +18,16 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 # files through the symlink and corrupt the repo).
 mkdir -p \
   "$HOME/.config/aerospace" \
+  "$HOME/.config/alacritty" \
+  "$HOME/.config/btop" \
+  "$HOME/.config/ghostty" \
+  "$HOME/.config/git" \
   "$HOME/.config/karabiner" \
-  "$HOME/.config/sketchybar"
+  "$HOME/.config/raycast" \
+  "$HOME/.config/sketchybar" \
+  "$HOME/.config/tmux" \
+  "$HOME/.config/zed" \
+  "$HOME/.config/zsh"
 
 echo -e "\n==> Stowing macOS specific dotfiles..."
 cd "$REPO_DIR/stow"
