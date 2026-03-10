@@ -1,7 +1,8 @@
 # General shell utilities
 
 reload() {
-  (cd "$HOME/Code/dotfiles/stow" && stow --target "$HOME" --restow */) || return
+  bash "$HOME/Code/dotfiles/install/dotfiles.sh" || return
+  bash "$HOME/Code/dotfiles/install/macos/dotfiles.sh" || return
   source "$HOME/.zshrc" || return
   if command -v sketchybar &>/dev/null; then
     sketchybar --reload
