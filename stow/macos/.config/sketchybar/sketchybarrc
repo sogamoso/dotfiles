@@ -94,7 +94,12 @@ for i in {1..9}; do
     --subscribe space.$i aerospace_workspace_change
 done
 
-sketchybar --add item clock center \
+# Clock — right on laptop (single display), centered on external
+HAS_EXTERNAL=$(cat /tmp/sketchybar_has_external 2>/dev/null || echo 0)
+[ "$HAS_EXTERNAL" -eq 1 ] && CLOCK_POS=center || CLOCK_POS=right
+echo "$CLOCK_POS" > /tmp/sketchybar_clock_pos
+
+sketchybar --add item clock $CLOCK_POS \
   --set clock \
     update_freq=5 \
     icon.drawing=off \
