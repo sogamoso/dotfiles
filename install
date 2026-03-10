@@ -10,6 +10,7 @@ if [[ ! -d "$DEST" ]]; then
   git clone "$REPO" "$DEST"
 else
   echo "==> Updating dotfiles..."
+  git -C "$DEST" restore .  # discard stow-caused deletions before pulling
   git -C "$DEST" pull --ff-only
 fi
 
