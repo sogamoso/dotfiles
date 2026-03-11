@@ -27,6 +27,8 @@ else
 fi
 
 AEROSPACE_CFG="$HOME/.config/aerospace/aerospace.toml"
+# Resolve symlink so sed -i works (macOS sed refuses in-place edits on symlinks)
+AEROSPACE_CFG="$(readlink -f "$AEROSPACE_CFG")"
 OLD_TOP=$(grep "^outer\.top" "$AEROSPACE_CFG" | awk '{print $3}')
 sed -i '' "s/^outer\.top[[:space:]]*=.*/outer.top        = $AEROSPACE_TOP/" "$AEROSPACE_CFG"
 if [ "$OLD_TOP" != "$AEROSPACE_TOP" ] && command -v aerospace &>/dev/null; then

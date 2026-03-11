@@ -72,11 +72,17 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 
 #### Hotkeys
 
-Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding model on macOS. Karabiner-Elements swaps Cmd↔Ctrl so:
-- Physical `Cmd` key maps to `Ctrl` (`SUPER` on Omarchy).
-- Physical `Ctrl` key maps `Cmd`.
+Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding model on macOS. Karabiner-Elements remaps modifier keys:
 
-That means, `Ctrl+C` = copy, `Ctrl+V` = paste, `Ctrl+Q` = quit, etc. Matching Linux muscle memory.
+**External keyboards** — Cmd↔Ctrl swap:
+- Physical `Cmd` → `Ctrl` (`SUPER` on Omarchy).
+- Physical `Ctrl` → `Cmd`.
+
+**Built-in laptop keyboard** — Cmd↔Option swap:
+- Physical `Cmd` → `Option`.
+- Physical `Option` → `Cmd`.
+
+On external keyboards: `Ctrl+C` = copy, `Ctrl+V` = paste, etc. Matching Linux muscle memory.
 
 #### Window management (Aerospace)
 
@@ -120,4 +126,4 @@ That means, `Ctrl+C` = copy, `Ctrl+V` = paste, `Ctrl+Q` = quit, etc. Matching Li
 
 #### Manual setup guide
 
-For the manual setup guide including Privacy & Security settings, Raycast, and Tokyo Night theming: [`docs/macos-setup.md`](docs/macos-setup.md).
+For the manual setup guide including Privacy & Security settings, Raycast, and Tokyo Night theming: [`docs/macos-manual-setup.md`](docs/macos-manual-setup.md).
