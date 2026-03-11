@@ -72,7 +72,11 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 
 #### Hotkeys
 
-Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding model on macOS. Karabiner-Elements swaps Cmd↔Ctrl so the physical `Cmd` key maps to `SUPER` on Omarchy.
+Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding model on macOS. Karabiner-Elements swaps Cmd↔Ctrl so:
+- Physical `Cmd` key maps to `Ctrl` (`SUPER` on Omarchy).
+- Physical `Ctrl` key maps `Cmd`.
+
+That means, `Ctrl+C` = copy, `Ctrl+V` = paste, `Ctrl+Q` = quit, etc. Matching Linux muscle memory.
 
 #### Window management (Aerospace)
 
@@ -114,8 +118,6 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | 9 | (free) |
 | 10 | (scratchpad) |
 
-#### System shortcuts (after Cmd ↔ Ctrl swap)
+#### Manual setup guide
 
-Physical `Ctrl` key sends `Cmd` to macOS: copy = `Ctrl+C`, paste = `Ctrl+V`, quit = `Ctrl+Q`, etc. Matches Linux muscle memory.
-
-For the full setup guide including Karabiner config, tmux, SketchyBar, and Tokyo Night theming: [`docs/macos-omarchy-setup.md`](docs/macos-omarchy-setup.md).
+For the manual setup guide including Privacy & Security settings, Raycast, and Tokyo Night theming: [`docs/macos-setup.md`](docs/macos-setup.md).
