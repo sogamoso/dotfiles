@@ -9,8 +9,9 @@ bash "$DIR/security.sh"
 bash "$DIR/onepassword.sh"
 bash "$DIR/brew.sh"
 
-# Ensure Homebrew-installed tools (stow, etc.) are on PATH for all subsequent subscripts
+# Ensure Homebrew-installed tools (i.e. stow`) are on PATH for subsequent scripts
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
 bash "$DIR/alacritty.sh"
 bash "$DIR/dotfiles.sh"
 bash "$DIR/tmux.sh"
