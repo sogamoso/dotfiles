@@ -1,9 +1,9 @@
 # AeroSpace — Omarchy/Hyprland keybinding parity
 #
-# Karabiner swaps Cmd↔Ctrl at hardware level, so:
-#   Physical Cmd  = ctrl in this config = SUPER on Omarchy
-#   Physical Ctrl = cmd in this config
-#   Physical Alt  = alt in this config = ALT on Omarchy
+# Karabiner swaps Option↔Command on the built-in laptop keyboard only.
+# External keyboards use ANSI US layout (no remapping).
+#   ctrl in this config = physical Ctrl key = SUPER on Omarchy
+#   alt  in this config = physical Alt/Option key = ALT on Omarchy
 
 start-at-login = true
 
@@ -136,46 +136,46 @@ run = ['move-node-to-workspace --focus-follows-window 2']
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = ['move-node-to-workspace --focus-follows-window 3']
 
-[[on-window-detected]] # 4: Todoist
-if.app-id = 'com.todoist.mac.Todoist'
-run = ['move-node-to-workspace --focus-follows-window 4']
-
-[[on-window-detected]] # 4: Todoist (alternate bundle id)
-if.app-id = 'com.todoist.mac'
-run = ['move-node-to-workspace --focus-follows-window 4']
-
 [[on-window-detected]] # 4: Gmail (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm'
 run = ['move-node-to-workspace --focus-follows-window 4']
 
-[[on-window-detected]] # 4: Google Calendar (Chrome PWA)
+[[on-window-detected]] # 5: Todoist
+if.app-id = 'com.todoist.mac.Todoist'
+run = ['move-node-to-workspace --focus-follows-window 5']
+
+[[on-window-detected]] # 5: Todoist (alternate bundle id)
+if.app-id = 'com.todoist.mac'
+run = ['move-node-to-workspace --focus-follows-window 5']
+
+[[on-window-detected]] # 5: Google Calendar (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'
-run = ['move-node-to-workspace --focus-follows-window 4']
+run = ['move-node-to-workspace --focus-follows-window 5']
 
-[[on-window-detected]] # 5: Notion
+[[on-window-detected]] # 6: Notion
 if.app-id = 'notion.id'
-run = ['move-node-to-workspace --focus-follows-window 5']
-
-[[on-window-detected]] # 5: Linear
-if.app-id = 'com.linear'
-run = ['move-node-to-workspace --focus-follows-window 5']
-
-[[on-window-detected]] # 5: Linear (alternate bundle id)
-if.app-id = 'com.linear.Linear'
-run = ['move-node-to-workspace --focus-follows-window 5']
-
-[[on-window-detected]] # 6: HEY
-if.app-id = 'com.basecamp.hey'
 run = ['move-node-to-workspace --focus-follows-window 6']
 
-[[on-window-detected]] # 7: WhatsApp
-if.app-id = 'net.whatsapp.WhatsApp'
+[[on-window-detected]] # 6: Linear
+if.app-id = 'com.linear'
+run = ['move-node-to-workspace --focus-follows-window 6']
+
+[[on-window-detected]] # 6: Linear (alternate bundle id)
+if.app-id = 'com.linear.Linear'
+run = ['move-node-to-workspace --focus-follows-window 6']
+
+[[on-window-detected]] # 7: HEY
+if.app-id = 'com.basecamp.hey'
 run = ['move-node-to-workspace --focus-follows-window 7']
 
-[[on-window-detected]] # 8: Spotify
-if.app-id = 'com.spotify.client'
+[[on-window-detected]] # 8: WhatsApp
+if.app-id = 'net.whatsapp.WhatsApp'
 run = ['move-node-to-workspace --focus-follows-window 8']
 
-[[on-window-detected]] # 8: YouTube (Chrome PWA)
+[[on-window-detected]] # 9: Spotify
+if.app-id = 'com.spotify.client'
+run = ['move-node-to-workspace --focus-follows-window 9']
+
+[[on-window-detected]] # 9: YouTube (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml'
-run = ['move-node-to-workspace --focus-follows-window 8']
+run = ['move-node-to-workspace --focus-follows-window 9']

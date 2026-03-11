@@ -72,34 +72,28 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 
 #### Hotkeys
 
-Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding model on macOS. Karabiner-Elements remaps modifier keys:
+Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding model on macOS.
 
-**External keyboards** — Cmd↔Ctrl swap:
-- Physical `Cmd` → `Ctrl` (`SUPER` on Omarchy).
-- Physical `Ctrl` → `Cmd`.
+**External keyboards** — use an ANSI US layout keyboard (no Karabiner remapping needed).
 
-**Built-in laptop keyboard** — Cmd↔Option swap:
-- Physical `Cmd` → `Option`.
-- Physical `Option` → `Cmd`.
-
-On external keyboards: `Ctrl+C` = copy, `Ctrl+V` = paste, etc. Matching Linux muscle memory.
+**Built-in laptop keyboard** — Karabiner swaps Option↔Command so the physical key positions match an ANSI US layout.
 
 #### Window management (Aerospace)
 
 | Physical key | Action |
 |---|---|
-| `Cmd + 1-9` | Switch to workspace 1–9 |
-| `Cmd + 0` | Workspace 10 (scratchpad) |
-| `Cmd + Shift + 1-9` | Move window to workspace |
-| `Cmd + arrows` | Focus window left/right/up/down |
-| `Cmd + Shift + arrows` | Move window within workspace |
-| `Cmd + W` | Close focused window |
-| `Cmd + F` | Fullscreen |
-| `Cmd + T` | Toggle floating/tiling |
-| `Cmd + Tab` | Next workspace |
-| `Cmd + Enter` | New Ghostty window |
-| `Cmd + Shift + Enter` | New Chrome window |
-| `Cmd + Shift + N` | New Zed window |
+| `Ctrl + 1-9` | Switch to workspace 1–9 |
+| `Ctrl + 0` | Workspace 10 (scratchpad) |
+| `Ctrl + Shift + 1-9` | Move window to workspace |
+| `Ctrl + arrows` | Focus window left/right/up/down |
+| `Ctrl + Shift + arrows` | Move window within workspace |
+| `Ctrl + W` | Close focused window |
+| `Ctrl + F` | Fullscreen |
+| `Ctrl + T` | Toggle floating/tiling |
+| `Ctrl + Tab` | Next workspace |
+| `Ctrl + Enter` | New Ghostty window |
+| `Ctrl + Shift + Enter` | New Chrome window |
+| `Ctrl + Shift + N` | New Zed window |
 | `Cmd + Space` | Raycast launcher |
 
 #### Window cycling
