@@ -65,7 +65,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `karabiner.sh` | Starts Karabiner-Elements only if not already running |
 | `alt-tab.sh` | Configures AltTab window switcher |
 | `preferences.sh` | macOS system defaults |
-| `pwas.sh` | Installs Chrome PWAs (Gmail, Calendar, YouTube) |
+| `pwas.sh` | Installs Chrome PWAs (Gmail, Calendar, GitHub) |
 | `sketchybar.sh` | Configures SketchyBar status bar |
 | `aerospace.sh` | Starts AeroSpace only if not already running |
 | `raycast.sh` | Opens Raycast for first-time setup |
