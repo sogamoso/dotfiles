@@ -95,5 +95,4 @@ Physical Cmd = SUPER on Omarchy (Karabiner maps Cmd → Ctrl under the hood).
 |---|---|
 | `SUPER + O` — float & pin | Float only via Cmd+T, no pin-on-top |
 | `SUPER + SHIFT + SPACE` — toggle waybar | No SketchyBar hotkey toggle |
-| `SUPER + mouse drag` — move/resize | Keyboard resize only |
 | Per-monitor independent workspaces | Aerospace handles it, less seamless |
