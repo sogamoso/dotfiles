@@ -110,7 +110,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | 5 | Notion, Linear |
 | 6 | HEY |
 | 7 | WhatsApp |
-| 8 | Spotify, YouTube |
+| 8 | Spotify |
 | 9 | (free) |
 | 10 | (scratchpad) |
 
