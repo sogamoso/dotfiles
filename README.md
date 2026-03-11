@@ -110,12 +110,12 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | 1 | Ghostty |
 | 2 | Chrome |
 | 3 | Slack |
-| 4 | Todoist, Gmail, Google Calendar |
-| 5 | Notion, Linear |
-| 6 | HEY |
-| 7 | WhatsApp |
-| 8 | Spotify |
-| 9 | (free) |
+| 4 | Gmail |
+| 5 | Todoist, Calendar, Meet |
+| 6 | Notion, Linear, GitHub |
+| 7 | HEY |
+| 8 | WhatsApp |
+| 9 | Spotify |
 | 10 | (scratchpad) |
 
 #### Manual setup guide
