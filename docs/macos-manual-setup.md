@@ -21,17 +21,22 @@ Open each prompt as it appears during the install, or go here:
 - Karabiner-EventViewer
 
 > After granting Karabiner permissions, log out and back in (or reboot) for the modifier remaps to take effect.
-> Karabiner swaps Cmd↔Ctrl on external keyboards and Cmd↔Option on the built-in laptop keyboard.
 
 ---
 
-## 2. Set Raycast Hotkey
+## 2. Keyboard Layout
 
-After rebooting (post-Karabiner), physical Cmd+Space sends Ctrl+Space to macOS. Set Raycast to respond to that:
+**External keyboards** — use an ANSI US layout keyboard. No Karabiner remapping needed.
+
+**Built-in laptop keyboard** — Karabiner swaps Option↔Command so the physical key positions match an ANSI US layout.
+
+---
+
+## 3. Set Raycast Hotkey
 
 System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in these sections:
 
-1. **Mission Control** — conflicts with AeroSpace workspace bindings after Karabiner swap
+1. **Mission Control** — conflicts with AeroSpace workspace bindings
 2. **Windows** — conflicts with AeroSpace window bindings
 3. **Input Sources** — Globe/Fn key handles language switching instead
 4. **Spotlight** — Raycast takes that slot
@@ -39,11 +44,11 @@ System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in
 Then set Raycast as the launcher:
 
 5. Open Raycast → Settings → General
-6. Set **Raycast Hotkey** to `Ctrl+Space`
+6. Set **Raycast Hotkey** to `Cmd+Space`
 
 ---
 
-## 3. Login Items
+## 4. Login Items
 
 System Settings → General → Login Items — add:
 
@@ -60,7 +65,7 @@ System Settings → General → Login Items — add:
 
 ---
 
-## 4. Authenticate GitHub CLI
+## 5. Authenticate GitHub CLI
 
 Open a terminal and run:
 
@@ -70,7 +75,7 @@ gh auth login
 
 ---
 
-## 5. Applying a Theme
+## 6. Applying a Theme
 
 ### Wallpaper
 
@@ -110,13 +115,13 @@ Slack → Preferences → Themes → Custom Theme → paste:
 > Type `!keys` in Raycast to expand the cheatsheet anywhere.
 > First-time setup: Raycast → Import Snippets → `~/.config/raycast/snippets.json`.
 
-Physical Cmd = SUPER on Omarchy. Karabiner maps Cmd → Ctrl on external keyboards, Cmd → Option on the built-in laptop keyboard.
+Karabiner swaps Option↔Command on the built-in laptop keyboard only. External keyboards use an ANSI US layout (no remapping). `Ctrl` in shortcuts below = physical Ctrl key.
 
 
 ## Remaining Gaps vs Omarchy
 
 | Omarchy | macOS |
 |---|---|
-| `SUPER + O` — float & pin | Float only via Cmd+T, no pin-on-top |
+| `SUPER + O` — float & pin | Float only via Ctrl+T, no pin-on-top |
 | `SUPER + SHIFT + SPACE` — toggle waybar | No SketchyBar hotkey toggle |
 | Per-monitor independent workspaces | Aerospace handles it, less seamless |
