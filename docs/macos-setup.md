@@ -61,22 +61,47 @@ System Settings → General → Login Items — add:
 
 ---
 
-## 4. Slack Tokyo Night Theme
-
-Slack → Preferences → Themes → Custom Theme → paste:
-
-```
-#1a1b26,#32344a,#7aa2f7,#a9b1d6,#444b6a,#a9b1d6,#9ece6a,#7aa2f7,#1a1b26,#a9b1d6
-```
-
----
-
-## 5. Authenticate GitHub CLI
+## 4. Authenticate GitHub CLI
 
 Open a terminal and run:
 
 ```
 gh auth login
+```
+
+---
+
+## 5. Applying a Theme
+
+### Wallpaper
+
+Browse the available wallpapers and choose one.Then in System Settings → Wallpaper → Add Folder → select:
+
+```
+~/Code/dotfiles/themes/tokyo-night/backgrounds/color/
+```
+
+For the screen saver, check:
+
+```
+~/Code/dotfiles/themes/tokyo-night/backgrounds/grayscale/
+```
+
+Copy your pick into the `active` folder:
+
+```
+cp ~/Code/dotfiles/themes/tokyo-night/backgrounds/grayscale/<wallpaper> \
+   ~/Code/dotfiles/themes/tokyo-night/backgrounds/grayscale/active/
+```
+
+Then in System Settings → Wallpaper → Screen Saver → select the grayscale wallpaper you just copied.
+
+### Slack
+
+Slack → Preferences → Themes → Custom Theme → paste:
+
+```
+#1a1b26,#32344a,#7aa2f7,#a9b1d6,#444b6a,#a9b1d6,#9ece6a,#7aa2f7,#1a1b26,#a9b1d6
 ```
 
 ---
