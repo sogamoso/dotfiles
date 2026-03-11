@@ -75,7 +75,7 @@ for i in {1..9}; do
 done
 
 # Spaces (1:Ghostty/Zed, 2:Chrome/Safari, 3:Slack, 4:Todoist/Gmail/Calendar,
-# 5:Notion/Linear, 6:HEY, 7:Spotify/YouTube, 8-9:free)
+# 5:Notion/Linear, 6:HEY, 7:WhatsApp, 8:Spotify/YouTube, 9:free)
 # Workspace 10 is the scratchpad, no indicator needed.
 for i in {1..9}; do
   sketchybar --add item space.$i left \
