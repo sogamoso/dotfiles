@@ -9,3 +9,7 @@ stow/macos/.config/raycast/*
 !stow/macos/.config/raycast/snippets.json
 !stow/macos/.config/raycast/script-commands/
 !stow/macos/.config/raycast/ai/
+
+# Zed — only track settings; ignore everything Zed writes
+stow/macos/.config/zed/*
+!stow/macos/.config/zed/settings.json
