@@ -13,3 +13,4 @@ stow/macos/.config/raycast/*
 # Zed — only track settings; ignore everything Zed writes
 stow/macos/.config/zed/*
 !stow/macos/.config/zed/settings.json
+!stow/macos/.config/zed/themes/
