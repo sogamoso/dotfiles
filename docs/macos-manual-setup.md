@@ -1,7 +1,6 @@
-# macOS → Omarchy Setup — Manual Steps
+# macOS → Manual Setup
 
-Everything in this doc requires human interaction and can't be scripted.
-The installer (`bootstrap`) handled the rest automatically.
+The installer (`bootstrap`) handled everything that can be automated. Everything in this doc requires human intervention. The goal is to finalize the setup to make macOS feel like closer to Omarchy to make the transition between the two systems smoother.
 
 ---
 
@@ -21,14 +20,14 @@ Open each prompt as it appears during the install, or go here:
 - Karabiner-Core-Service
 - Karabiner-EventViewer
 
-> After granting Karabiner permissions, log out and back in (or reboot) for the Cmd↔Ctrl swap to take effect.
+> After granting Karabiner permissions, log out and back in (or reboot) for the modifier remaps to take effect.
+> Karabiner swaps Cmd↔Ctrl on external keyboards and Cmd↔Option on the built-in laptop keyboard.
 
 ---
 
 ## 2. Set Raycast Hotkey
 
-After rebooting (post-Karabiner), physical Cmd+Space sends Ctrl+Space to macOS.
-Set Raycast to respond to that:
+After rebooting (post-Karabiner), physical Cmd+Space sends Ctrl+Space to macOS. Set Raycast to respond to that:
 
 System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in these sections:
 
@@ -111,7 +110,7 @@ Slack → Preferences → Themes → Custom Theme → paste:
 > Type `!keys` in Raycast to expand the cheatsheet anywhere.
 > First-time setup: Raycast → Import Snippets → `~/.config/raycast/snippets.json`.
 
-Physical Cmd = SUPER on Omarchy (Karabiner maps Cmd → Ctrl under the hood).
+Physical Cmd = SUPER on Omarchy. Karabiner maps Cmd → Ctrl on external keyboards, Cmd → Option on the built-in laptop keyboard.
 
 
 ## Remaining Gaps vs Omarchy
