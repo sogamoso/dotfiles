@@ -109,8 +109,8 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | 4 | Todoist, Gmail, Google Calendar |
 | 5 | Notion, Linear |
 | 6 | HEY |
-| 7 | Spotify, YouTube |
-| 8 | (free) |
+| 7 | WhatsApp |
+| 8 | Spotify, YouTube |
 | 9 | (free) |
 | 10 | (scratchpad) |
 

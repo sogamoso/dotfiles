@@ -110,8 +110,8 @@ ctrl-slash = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/wor
 # 4: Todoist + Gmail + Calendar
 # 5: Notion + Linear
 # 6: HEY
-# 7: Spotify + YouTube
-# 8: (free)
+# 7: WhatsApp
+# 8: Spotify + YouTube
 # 9: (free)
 # 10: (scratchpad)
 # -------------------------------------------------------
@@ -168,10 +168,14 @@ run = ['move-node-to-workspace --focus-follows-window 5']
 if.app-id = 'com.basecamp.hey'
 run = ['move-node-to-workspace --focus-follows-window 6']
 
-[[on-window-detected]] # 7: Spotify
-if.app-id = 'com.spotify.client'
+[[on-window-detected]] # 7: WhatsApp
+if.app-id = 'net.whatsapp.WhatsApp'
 run = ['move-node-to-workspace --focus-follows-window 7']
 
-[[on-window-detected]] # 7: YouTube (Chrome PWA)
+[[on-window-detected]] # 8: Spotify
+if.app-id = 'com.spotify.client'
+run = ['move-node-to-workspace --focus-follows-window 8']
+
+[[on-window-detected]] # 8: YouTube (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml'
-run = ['move-node-to-workspace --focus-follows-window 7']
+run = ['move-node-to-workspace --focus-follows-window 8']
