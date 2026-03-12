@@ -19,7 +19,9 @@ Open each prompt as it appears during the install, or go here:
 
 System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in these sections:
 
-1. **Mission Control** — conflicts with AeroSpace workspace bindings
+1. **Mission Control** — conflicts with AeroSpace workspace bindings. After disabling, re-enable and rebind:
+   - **Show Notification Center** → `Option + ,`
+   - **Turn Do Not Disturb On/Off** → `Option + Ctrl + ,`
 2. **Windows** — conflicts with AeroSpace window bindings
 3. **Input Sources** — Globe/Fn key handles language switching instead
 4. **Spotlight** — Raycast takes that slot
@@ -93,6 +95,12 @@ Slack → Preferences → Themes → Custom Theme → paste:
 
 ---
 
+## 6. Monologue Dictation Hotkey
+
+Open Monologue → Settings → set the global hotkey to `Option+Ctrl+X` (SUPER+Ctrl+X on Omarchy).
+
+---
+
 ## Hotkeys Reference
 
 Raycast → Extensions → Script Commands → Hotkeys Cheatsheet → set hotkey to `Ctrl + Option + /`.
@@ -105,5 +113,11 @@ Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (t
 | Omarchy | macOS |
 |---|---|
 | `SUPER + O` — float & pin | Float only via Option+T, no pin-on-top |
+| `SUPER + G` — window grouping | No AeroSpace equivalent |
 | `SUPER + SHIFT + SPACE` — toggle waybar | No SketchyBar hotkey toggle |
+| `CapsLock` — quick emojis | Needs remapping tool |
+| `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | Linux-specific |
+| `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
+| `SUPER + Ctrl + X` — dictation | ✅ Option+Ctrl+X → Monologue |
+| `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |
 | Per-monitor independent workspaces | Aerospace handles it, less seamless |
