@@ -52,3 +52,24 @@ keybind = cmd+alt+6=goto_tab:6
 keybind = cmd+alt+7=goto_tab:7
 keybind = cmd+alt+8=goto_tab:8
 keybind = cmd+alt+9=goto_tab:9
+
+# Ghostty terminal splits — Omarchy parity
+keybind = ctrl+shift+e=new_split:down
+keybind = ctrl+shift+o=new_split:right
+keybind = ctrl+shift+t=new_tab
+
+# Tab navigation
+keybind = ctrl+shift+left=previous_tab
+keybind = ctrl+shift+right=next_tab
+
+# Tmux pane navigation (Ctrl+Cmd → Ctrl+Meta escape sequences)
+keybind = ctrl+cmd+left=text:\x1b[1;7D
+keybind = ctrl+cmd+right=text:\x1b[1;7C
+keybind = ctrl+cmd+up=text:\x1b[1;7A
+keybind = ctrl+cmd+down=text:\x1b[1;7B
+
+# Tmux pane resize (Ctrl+Cmd+Shift → Ctrl+Meta+Shift escape sequences)
+keybind = ctrl+cmd+shift+left=text:\x1b[1;8D
+keybind = ctrl+cmd+shift+right=text:\x1b[1;8C
+keybind = ctrl+cmd+shift+up=text:\x1b[1;8A
+keybind = ctrl+cmd+shift+down=text:\x1b[1;8B
