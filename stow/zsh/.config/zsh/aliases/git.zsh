@@ -62,3 +62,22 @@ gbD() {
   fi
   git branch -D "$branch"
 }
+
+# Override Omadots' gd (worktree remover) with git diff
+gd() { git diff "$@"; }
+
+# Omadots' worktree remover, renamed
+gwrm() {
+  if gum confirm "Remove worktree and branch?"; then
+    local cwd base branch root worktree
+    cwd="$(pwd)"
+    worktree="$(basename "$cwd")"
+    root="${worktree%%--*}"
+    branch="${worktree#*--}"
+    if [[ "$root" != "$worktree" ]]; then
+      cd "../$root"
+      git worktree remove "$cwd" --force || return 1
+      git branch -D "$branch"
+    fi
+  fi
+}
