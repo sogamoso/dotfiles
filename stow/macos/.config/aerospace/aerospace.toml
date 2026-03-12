@@ -72,8 +72,8 @@ alt-j = 'layout tiles horizontal vertical' # Omarchy: SUPER + J (toggle split)
 alt-l = 'layout tiles accordion' # Omarchy: SUPER + L (toggle layout)
 
 # Workspace cycling — Omarchy: SUPER + TAB
-alt-tab       = 'workspace next'
-alt-shift-tab = 'workspace prev'
+alt-tab       = 'exec-and-forget ~/.config/sketchybar/plugins/workspace_next.sh'
+alt-shift-tab = 'exec-and-forget ~/.config/sketchybar/plugins/workspace_prev.sh'
 
 # Resize
 alt-minus       = 'resize width -50'
