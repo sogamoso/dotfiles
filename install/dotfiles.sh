@@ -15,7 +15,7 @@ mkdir -p "$HOME/.ssh"
 # Cross-platform dotfiles
 cd "$REPO_DIR/stow"
 for config in git mise nvim ruby ssh zsh; do
-  stow --target "$HOME" --restow "$config"
+  stow --target "$HOME" --restow --no-folding "$config"
 done
 
 echo "✓ Dotfiles stowed"

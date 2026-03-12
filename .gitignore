@@ -3,14 +3,3 @@ stow/macos/.config/sketchybar/plugins/menu_bar_height
 stow/macos/.config/sketchybar/plugins/has_external_display
 stow/macos/.config/sketchybar/plugins/cpu_stats
 stow/macos/.config/karabiner/automatic_backups/
-
-# Raycast — only track files dotfiles manage; ignore everything Raycast writes
-stow/macos/.config/raycast/*
-!stow/macos/.config/raycast/snippets.json
-!stow/macos/.config/raycast/script-commands/
-!stow/macos/.config/raycast/ai/
-
-# Zed — only track settings; ignore everything Zed writes
-stow/macos/.config/zed/*
-!stow/macos/.config/zed/settings.json
-!stow/macos/.config/zed/themes/
