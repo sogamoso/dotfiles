@@ -8,4 +8,3 @@ else
 fi
 
 aerospace workspace "$NEXT"
-sketchybar --trigger aerospace_workspace_change
