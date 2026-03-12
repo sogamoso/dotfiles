@@ -4,8 +4,8 @@
 # Note: blueutil is more reliable than parsing plist files
 
 if command -v blueutil &>/dev/null; then
-  BT_STATUS=$(blueutil -p status 2>/dev/null)
-  if [ "$BT_STATUS" = "on" ]; then
+  BT_STATUS=$(blueutil -p 2>/dev/null)
+  if [ "$BT_STATUS" = "1" ]; then
     CONNECTED=$(blueutil --connected | wc -l | tr -d ' ')
     if [ "$CONNECTED" -gt 0 ]; then
       ICON="󰂱"
