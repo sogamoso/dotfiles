@@ -122,6 +122,9 @@ alt-slash = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/work
 
 # -------------------------------------------------------
 # Window rules
+# NOTE: Chrome PWA app IDs may change on reinstall or Chrome update
+# If PWA window rules stop working, reinstall the PWA to get new ID
+# -------------------------------------------------------
 # 1: Ghostty + Zed
 # 2: Chrome + Safari
 # 3: Slack
