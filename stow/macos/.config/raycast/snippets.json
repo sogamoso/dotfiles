@@ -1,7 +1,1 @@
-[
-  {
-    "name": "Hotkeys Cheatsheet",
-    "text": "── Keyboard Layout ────────────────────────────────────────\nExternal keyboards: ANSI US layout (no remapping)\nBuilt-in laptop:    Karabiner swaps Option↔Command\n\n── AeroSpace (Ctrl = SUPER) ───────────────────────────────\nCtrl + 1–9 / 0       Switch workspace (10 = scratchpad)\nCtrl + Shift + 1–9   Move window to workspace\nCtrl + arrows         Focus window\nCtrl + Shift+arrows   Move window\nCtrl + Tab / S+Tab    Next / prev workspace\nCtrl + W              Close window\nCtrl + F              Fullscreen\nCtrl + T              Toggle floating\nCtrl + J              Toggle split direction\nCtrl + L              Toggle layout\nCtrl + - / =          Resize width\nCtrl + Shift - / =    Resize height\nCtrl + Enter          New Ghostty window\nCtrl + Shift+Enter    New Chrome window\nCtrl + Shift+N        New Zed window\nAlt + Tab             Cycle windows (AltTab)\n\n── tmux (prefix = Ctrl+Space) ─────────────────────────────\nprefix + h / v      Split horizontal / vertical\nprefix + x / k      Kill pane / window\nprefix + c          New window\nprefix + r / R      Rename window / session\nprefix + [          Copy mode  (v select, y copy)\nCtrl+Alt+arrows     Navigate panes\nAlt + 1–9           Switch window\nAlt + Left/Right    Prev / next window",
-    "keyword": "!keys"
-  }
-]
+[]
