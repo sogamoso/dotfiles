@@ -62,7 +62,6 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `alacritty.sh` | Installs Alacritty from latest GitHub release DMG |
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
 | `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
-| `alt-tab.sh` | Configures AltTab window switcher |
 | `preferences.sh` | macOS system defaults |
 | `pwas.sh` | Installs Chrome PWAs (Gmail, Calendar, GitHub) |
 | `sketchybar.sh` | Configures SketchyBar status bar |
@@ -73,7 +72,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 
 Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding model on macOS.
 
-Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (tmux/AltTab).
+Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (tmux).
 
 #### Window management (Aerospace)
 
@@ -112,13 +111,6 @@ Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (t
 | `Option + Ctrl + ,` | Toggle Do Not Disturb |
 | `Option + ,` | Toggle Notification Center |
 | `Option + Space` | Raycast launcher |
-
-#### Window cycling
-
-| Physical key | Action |
-|---|---|
-| `Cmd + Tab` | Cycle windows on current workspace (AltTab) |
-| `Cmd + Shift + Tab` | Reverse cycle |
 
 #### Workspace layout
 

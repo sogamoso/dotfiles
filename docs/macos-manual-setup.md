@@ -11,7 +11,6 @@ Open each prompt as it appears during the install, or go here:
 
 **System Settings → Privacy & Security → Accessibility**
 - Aerospace
-- AltTab
 
 ---
 
@@ -105,7 +104,7 @@ Open Monologue → Settings → set the global hotkey to `Option+Ctrl+X` (SUPER+
 
 Raycast → Extensions → Script Commands → Hotkeys Cheatsheet → set hotkey to `Ctrl + Option + /`.
 
-Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (tmux/AltTab). `Option` in shortcuts below = physical Option key.
+Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (tmux). `Option` in shortcuts below = physical Option key.
 
 
 ## Remaining Gaps vs Omarchy
