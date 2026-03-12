@@ -9,8 +9,10 @@ BLUE=0xff7aa2f7
 
 export CONFIG_DIR="$HOME/.config/sketchybar"
 
-# Compile menu bar height helper if needed
-MBHEIGHT_BIN="$CONFIG_DIR/plugins/menu_bar_height"
+# Compile menu bar height helper if needed (build to ~/.cache to avoid stow conflicts)
+CACHE_DIR="$HOME/.cache/sketchybar"
+mkdir -p "$CACHE_DIR"
+MBHEIGHT_BIN="$CACHE_DIR/menu_bar_height"
 MBHEIGHT_SRC="$CONFIG_DIR/plugins/menu_bar_height.swift"
 if [ ! -f "$MBHEIGHT_BIN" ] || [ "$MBHEIGHT_SRC" -nt "$MBHEIGHT_BIN" ]; then
   swiftc "$MBHEIGHT_SRC" -o "$MBHEIGHT_BIN" 2>/dev/null

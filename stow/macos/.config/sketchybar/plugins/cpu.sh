@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
-BIN="$CONFIG_DIR/plugins/cpu_stats"
+CACHE_DIR="$HOME/.cache/sketchybar"
+mkdir -p "$CACHE_DIR"
+BIN="$CACHE_DIR/cpu_stats"
 SRC="$CONFIG_DIR/plugins/cpu_stats.swift"
 
 if [ ! -f "$BIN" ] || [ "$SRC" -nt "$BIN" ]; then
