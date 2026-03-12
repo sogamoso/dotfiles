@@ -7,7 +7,7 @@
 
 echo "── Keyboard Layout ────────────────────────────────────────
 Option key = SUPER (AeroSpace / window management)
-Command key = Alt (tmux / AltTab)
+Command key = Alt (tmux)
 
 ── AeroSpace (Option = SUPER) ────────────────────────────
 Option + 1–9 / 0       Switch workspace (10 = scratchpad)
@@ -46,7 +46,6 @@ Option + Ctrl+X         Monologue (dictation)
 Option + Ctrl+,         Toggle Do Not Disturb
 Option + ,              Toggle Notification Center
 Option + Space          Raycast launcher
-Cmd + Tab               Cycle windows (AltTab)
 
 ── tmux (prefix = Ctrl+Space) ─────────────────────────────
 prefix + h / v      Split horizontal / vertical
