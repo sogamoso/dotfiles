@@ -6,26 +6,27 @@
 # @raycast.packageName Keyboard
 
 echo "── Keyboard Layout ────────────────────────────────────────
-External keyboards: ANSI US layout (no remapping)
-Built-in laptop:    Karabiner swaps Option↔Command
+Option key = SUPER (AeroSpace / window management)
+Command key = Alt (tmux / AltTab)
 
-── AeroSpace (Ctrl = SUPER) ───────────────────────────────
-Ctrl + 1–9 / 0       Switch workspace (10 = scratchpad)
-Ctrl + Shift + 1–9   Move window to workspace
-Ctrl + arrows         Focus window
-Ctrl + Shift+arrows   Move window
-Ctrl + Tab / S+Tab    Next / prev workspace
-Ctrl + W              Close window
-Ctrl + F              Fullscreen
-Ctrl + T              Toggle floating
-Ctrl + J              Toggle split direction
-Ctrl + L              Toggle layout
-Ctrl + - / =          Resize width
-Ctrl + Shift - / =    Resize height
-Ctrl + Enter          New Ghostty window
-Ctrl + Shift+Enter    New Chrome window
-Ctrl + Shift+N        New Zed window
-Alt + Tab             Cycle windows (AltTab)
+── AeroSpace (Option = SUPER) ────────────────────────────
+Option + 1–9 / 0       Switch workspace (10 = scratchpad)
+Option + Shift + 1–9   Move window to workspace
+Option + arrows         Focus window
+Option + Shift+arrows   Move window
+Option + Tab / S+Tab    Next / prev workspace
+Option + W              Close window
+Option + F              Fullscreen
+Option + T              Toggle floating
+Option + J              Toggle split direction
+Option + L              Toggle layout
+Option + - / =          Resize width
+Option + Shift - / =    Resize height
+Option + Enter          New Ghostty window
+Option + Shift+Enter    New Chrome window
+Option + Shift+N        New Zed window
+Option + Space          Raycast launcher
+Cmd + Tab               Cycle windows (AltTab)
 
 ── tmux (prefix = Ctrl+Space) ─────────────────────────────
 prefix + h / v      Split horizontal / vertical
@@ -34,5 +35,6 @@ prefix + c          New window
 prefix + r / R      Rename window / session
 prefix + [          Copy mode  (v select, y copy)
 Ctrl+Alt+arrows     Navigate panes
-Alt + 1–9           Switch window
-Alt + Left/Right    Prev / next window"
+Cmd + 1–9           Switch window
+Cmd + Left/Right    Prev / next window
+Cmd + Up/Down       Prev / next session"
