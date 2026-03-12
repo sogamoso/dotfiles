@@ -6,12 +6,12 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 bash "$DIR/xcode.sh"
 bash "$DIR/omadots.sh"
 bash "$DIR/security.sh"
-bash "$DIR/onepassword.sh"
 bash "$DIR/brew.sh"
 
-# Ensure Homebrew-installed tools (i.e. stow`) are on PATH for subsequent scripts
+# Ensure Homebrew-installed tools (i.e. stow) are on PATH for subsequent scripts
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+bash "$DIR/onepassword.sh"
 bash "$DIR/alacritty.sh"
 bash "$DIR/dotfiles.sh"
 bash "$DIR/tmux.sh"
