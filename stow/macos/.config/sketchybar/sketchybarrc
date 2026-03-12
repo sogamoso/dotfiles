@@ -106,13 +106,13 @@ sketchybar --add item clock $CLOCK_POS \
     click_script="$CONFIG_DIR/plugins/clock_alt.sh" \
     script="$CONFIG_DIR/plugins/clock.sh"
 
-# Battery
+# Battery (NOTE: system_woke event may not fire on all macOS versions)
 sketchybar --add item battery right \
   --set battery \
     update_freq=120 \
     click_script="open 'x-apple.systempreferences:com.apple.preference.battery'" \
     script="$CONFIG_DIR/plugins/battery.sh" \
-  --subscribe battery power_source_change system_woke
+  --subscribe battery power_source_change
 
 # CPU
 sketchybar --add item cpu right \
@@ -144,13 +144,12 @@ sketchybar --add item bluetooth right \
     click_script="open 'x-apple.systempreferences:com.apple.preferences.Bluetooth'" \
     script="$CONFIG_DIR/plugins/bluetooth.sh"
 
-# WiFi
+# WiFi (NOTE: wifi_change event is fragile - removed)
 sketchybar --add item wifi right \
   --set wifi \
     update_freq=30 \
     click_script="open 'x-apple.systempreferences:com.apple.wifi-settings-extension'" \
-    script="$CONFIG_DIR/plugins/wifi.sh" \
-  --subscribe wifi wifi_change
+    script="$CONFIG_DIR/plugins/wifi.sh"
 
 # Calendar
 sketchybar --add item calendar right \
@@ -159,11 +158,11 @@ sketchybar --add item calendar right \
     label.drawing=off \
     click_script="open -b 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'"
 
-# Display change watcher — reloads bar when displays are added/removed
+# Display change watcher — reloads bar when displays are added/removed (NOTE: system_woke may not fire on all macOS)
 sketchybar --add item display_watcher left \
   --set display_watcher \
     drawing=off \
     script="$CONFIG_DIR/plugins/display_change.sh" \
-  --subscribe display_watcher display_added display_removed system_woke
+  --subscribe display_watcher display_added display_removed
 
 sketchybar --update
