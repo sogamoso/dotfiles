@@ -25,6 +25,26 @@ Option + Shift - / =    Resize height
 Option + Enter          New Ghostty window
 Option + Shift+Enter    New Chrome window
 Option + Shift+N        New Zed window
+Option + Shift+C        Open Google Calendar
+Option + Shift+E        Open Gmail
+Option + Shift+G        Open WhatsApp
+Option + Shift+M        Open Spotify
+Option + Shift+O        Open Obsidian
+Option + Shift+F        Open Finder
+Option + Shift+/        Open 1Password
+Option + Shift+A        Open Claude
+Option + Shift+D        LazyDocker in Ghostty
+Option + Cmd+Enter      Ghostty + tmux session
+Option + Shift+Cmd+B    Chrome incognito
+Option + Ctrl+Tab       Former workspace
+Option + S              Scratchpad (workspace 10)
+Option + Ctrl+C         CleanShot all-in-one
+Option + Ctrl+L         Lock screen
+Option + Ctrl+T         btop in Ghostty
+Option + Ctrl+V         Clipboard history (Raycast)
+Option + Ctrl+X         Monologue (dictation)
+Option + Ctrl+,         Toggle Do Not Disturb
+Option + ,              Toggle Notification Center
 Option + Space          Raycast launcher
 Cmd + Tab               Cycle windows (AltTab)
 
@@ -37,4 +57,12 @@ prefix + [          Copy mode  (v select, y copy)
 Ctrl+Alt+arrows     Navigate panes
 Cmd + 1–9           Switch window
 Cmd + Left/Right    Prev / next window
-Cmd + Up/Down       Prev / next session"
+Cmd + Up/Down       Prev / next session
+
+── Ghostty (terminal splits & pane nav) ──────────────────
+Ctrl+Shift + E          Split down
+Ctrl+Shift + O          Split right
+Ctrl+Shift + T          New tab
+Ctrl+Shift + Left/Right Prev / next tab
+Ctrl+Cmd + arrows       Navigate tmux panes
+Ctrl+Cmd+Shift + arrows Resize tmux panes"

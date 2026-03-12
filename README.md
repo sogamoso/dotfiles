@@ -91,6 +91,26 @@ Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (t
 | `Option + Enter` | New Ghostty window |
 | `Option + Shift + Enter` | New Chrome window |
 | `Option + Shift + N` | New Zed window |
+| `Option + Shift + C` | Open Google Calendar |
+| `Option + Shift + E` | Open Gmail |
+| `Option + Shift + G` | Open WhatsApp |
+| `Option + Shift + M` | Open Spotify |
+| `Option + Shift + O` | Open Obsidian |
+| `Option + Shift + F` | Open Finder |
+| `Option + Shift + /` | Open 1Password |
+| `Option + Shift + A` | Open Claude |
+| `Option + Cmd + Enter` | Ghostty + tmux session |
+| `Option + Shift + Cmd + B` | Chrome incognito |
+| `Option + Shift + D` | LazyDocker in Ghostty |
+| `Option + Ctrl + Tab` | Switch to former workspace |
+| `Option + S` | Scratchpad (workspace 10) |
+| `Option + Ctrl + C` | CleanShot all-in-one |
+| `Option + Ctrl + L` | Lock screen |
+| `Option + Ctrl + T` | btop in Ghostty |
+| `Option + Ctrl + V` | Clipboard history (Raycast) |
+| `Option + Ctrl + X` | Monologue (dictation) |
+| `Option + Ctrl + ,` | Toggle Do Not Disturb |
+| `Option + ,` | Toggle Notification Center |
 | `Option + Space` | Raycast launcher |
 
 #### Window cycling
@@ -114,6 +134,17 @@ Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (t
 | 8 | WhatsApp |
 | 9 | Spotify |
 | 10 | (scratchpad) |
+
+#### Terminal (Ghostty)
+
+| Physical key | Action |
+|---|---|
+| `Ctrl + Shift + E` | Split down |
+| `Ctrl + Shift + O` | Split right |
+| `Ctrl + Shift + T` | New tab |
+| `Ctrl + Shift + Left/Right` | Previous / next tab |
+| `Ctrl + Cmd + arrows` | Navigate tmux panes |
+| `Ctrl + Cmd + Shift + arrows` | Resize tmux panes |
 
 #### Manual setup guide
 
