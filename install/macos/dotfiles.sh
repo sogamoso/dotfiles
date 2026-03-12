@@ -7,7 +7,6 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 [[ -f "$HOME/.config/alacritty/alacritty.toml"  && ! -L "$HOME/.config/alacritty/alacritty.toml"  ]] && rm "$HOME/.config/alacritty/alacritty.toml"
 [[ -f "$HOME/.config/btop/btop.conf"            && ! -L "$HOME/.config/btop/btop.conf"            ]] && rm "$HOME/.config/btop/btop.conf"
 [[ -f "$HOME/.config/ghostty/config"            && ! -L "$HOME/.config/ghostty/config"            ]] && rm "$HOME/.config/ghostty/config"
-[[ -f "$HOME/.config/karabiner/karabiner.json"  && ! -L "$HOME/.config/karabiner/karabiner.json"  ]] && rm "$HOME/.config/karabiner/karabiner.json"
 [[ -f "$HOME/.config/zed/settings.json"         && ! -L "$HOME/.config/zed/settings.json"         ]] && rm "$HOME/.config/zed/settings.json"
 
 echo -e "\n==> Stowing macOS specific dotfiles..."
