@@ -1,3 +1,8 @@
+# Homebrew — prepend to PATH so brew-installed tools take precedence over /usr/bin
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # Homebrew zsh completions
 if command -v brew >/dev/null 2>&1; then
   fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
