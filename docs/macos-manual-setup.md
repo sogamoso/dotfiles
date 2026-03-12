@@ -10,29 +10,12 @@ macOS requires manual approval for any app that controls input or windows.
 Open each prompt as it appears during the install, or go here:
 
 **System Settings → Privacy & Security → Accessibility**
-- Karabiner-Elements
 - Aerospace
 - AltTab
 
-> Karabiner-EventViewer may also appear here — it's a debug tool, leave it off.
-
-**System Settings → Privacy & Security → Input Monitoring**
-- Karabiner-Core-Service
-- Karabiner-EventViewer
-
-> After granting Karabiner permissions, log out and back in (or reboot) for the modifier remaps to take effect.
-
 ---
 
-## 2. Keyboard Layout
-
-**External keyboards** — use an ANSI US layout keyboard. No Karabiner remapping needed.
-
-**Built-in laptop keyboard** — Karabiner swaps Option↔Command so the physical key positions match an ANSI US layout.
-
----
-
-## 3. Set Raycast Hotkey
+## 2. Set Raycast Hotkey
 
 System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in these sections:
 
@@ -44,11 +27,11 @@ System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in
 Then set Raycast as the launcher:
 
 5. Open Raycast → Settings → General
-6. Set **Raycast Hotkey** to `Cmd+Space`
+6. Set **Raycast Hotkey** to `Option+Space`
 
 ---
 
-## 4. Login Items
+## 3. Login Items
 
 System Settings → General → Login Items — add:
 
@@ -65,7 +48,7 @@ System Settings → General → Login Items — add:
 
 ---
 
-## 5. Authenticate GitHub CLI
+## 4. Authenticate GitHub CLI
 
 Open a terminal and run:
 
@@ -75,7 +58,7 @@ gh auth login
 
 ---
 
-## 6. Applying a Theme
+## 5. Applying a Theme
 
 ### Wallpaper
 
@@ -110,18 +93,17 @@ Slack → Preferences → Themes → Custom Theme → paste:
 
 ---
 
-## Keybinding Reference
+## Hotkeys Reference
 
-> Type `!keys` in Raycast to expand the cheatsheet anywhere.
-> First-time setup: Raycast → Import Snippets → `~/.config/raycast/snippets.json`.
+Raycast → Extensions → Script Commands → Hotkeys Cheatsheet → set hotkey to `Ctrl + Option + /`.
 
-Karabiner swaps Option↔Command on the built-in laptop keyboard only. External keyboards use an ANSI US layout (no remapping). `Ctrl` in shortcuts below = physical Ctrl key.
+Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (tmux/AltTab). `Option` in shortcuts below = physical Option key.
 
 
 ## Remaining Gaps vs Omarchy
 
 | Omarchy | macOS |
 |---|---|
-| `SUPER + O` — float & pin | Float only via Ctrl+T, no pin-on-top |
+| `SUPER + O` — float & pin | Float only via Option+T, no pin-on-top |
 | `SUPER + SHIFT + SPACE` — toggle waybar | No SketchyBar hotkey toggle |
 | Per-monitor independent workspaces | Aerospace handles it, less seamless |

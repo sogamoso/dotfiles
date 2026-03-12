@@ -62,7 +62,6 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `alacritty.sh` | Installs Alacritty from latest GitHub release DMG |
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
 | `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
-| `karabiner.sh` | Starts Karabiner-Elements only if not already running |
 | `alt-tab.sh` | Configures AltTab window switcher |
 | `preferences.sh` | macOS system defaults |
 | `pwas.sh` | Installs Chrome PWAs (Gmail, Calendar, GitHub) |
@@ -74,34 +73,32 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 
 Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding model on macOS.
 
-**External keyboards** — use an ANSI US layout keyboard (no Karabiner remapping needed).
-
-**Built-in laptop keyboard** — Karabiner swaps Option↔Command so the physical key positions match an ANSI US layout.
+Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (tmux/AltTab).
 
 #### Window management (Aerospace)
 
 | Physical key | Action |
 |---|---|
-| `Ctrl + 1-9` | Switch to workspace 1–9 |
-| `Ctrl + 0` | Workspace 10 (scratchpad) |
-| `Ctrl + Shift + 1-9` | Move window to workspace |
-| `Ctrl + arrows` | Focus window left/right/up/down |
-| `Ctrl + Shift + arrows` | Move window within workspace |
-| `Ctrl + W` | Close focused window |
-| `Ctrl + F` | Fullscreen |
-| `Ctrl + T` | Toggle floating/tiling |
-| `Ctrl + Tab` | Next workspace |
-| `Ctrl + Enter` | New Ghostty window |
-| `Ctrl + Shift + Enter` | New Chrome window |
-| `Ctrl + Shift + N` | New Zed window |
-| `Cmd + Space` | Raycast launcher |
+| `Option + 1-9` | Switch to workspace 1–9 |
+| `Option + 0` | Workspace 10 (scratchpad) |
+| `Option + Shift + 1-9` | Move window to workspace |
+| `Option + arrows` | Focus window left/right/up/down |
+| `Option + Shift + arrows` | Move window within workspace |
+| `Option + W` | Close focused window |
+| `Option + F` | Fullscreen |
+| `Option + T` | Toggle floating/tiling |
+| `Option + Tab` | Next workspace |
+| `Option + Enter` | New Ghostty window |
+| `Option + Shift + Enter` | New Chrome window |
+| `Option + Shift + N` | New Zed window |
+| `Option + Space` | Raycast launcher |
 
 #### Window cycling
 
 | Physical key | Action |
 |---|---|
-| `Alt + Tab` | Cycle windows on current workspace (AltTab) |
-| `Alt + Shift + Tab` | Reverse cycle |
+| `Cmd + Tab` | Cycle windows on current workspace (AltTab) |
+| `Cmd + Shift + Tab` | Reverse cycle |
 
 #### Workspace layout
 
