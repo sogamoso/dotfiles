@@ -21,6 +21,9 @@ defaults write NSGlobalDomain AppleICUForce24HourTime -bool true
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
+# Fn key: change input source (0=nothing, 1=input source, 2=emoji, 3=dictation)
+defaults write com.apple.HIToolbox AppleFnUsageType -int 1
+
 # Desktop wallpaper
 osascript -e 'tell application "System Events" to set picture of every desktop to POSIX file "'"$REPO_DIR/assets/desktop.png"'"'
 
