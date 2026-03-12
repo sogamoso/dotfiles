@@ -13,6 +13,8 @@ Thumbs.db
 
 # Claude
 **/.claude/settings.local.json
+**/.claude/plans/
+**/.claude/worktrees/
 
 # Ruby
 .bundle/
