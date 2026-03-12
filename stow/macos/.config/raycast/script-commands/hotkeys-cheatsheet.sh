@@ -63,6 +63,7 @@ Cmd + Up/Down       Prev / next session
 Ctrl+Shift + E          Split down
 Ctrl+Shift + O          Split right
 Ctrl+Shift + T          New tab
+Ctrl+Shift + 1–9        Go to tab 1–9
 Ctrl+Shift + Left/Right Prev / next tab
 Ctrl+Cmd + arrows       Navigate tmux panes
 Ctrl+Cmd+Shift + arrows Resize tmux panes"
