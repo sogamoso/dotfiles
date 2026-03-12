@@ -13,6 +13,12 @@ enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['exec-and-forget $HOME/.config/aerospace/on-focus-changed.sh']
+automatically-unhide-macos-hidden-apps = true
+
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
 
 # Gaps — matches Omarchy (gaps_in=5, gaps_out=10)
 [gaps]
@@ -29,15 +35,15 @@ outer.right      = 10
 [mode.main.binding]
 
 # Workspace switching — Omarchy: SUPER + 1-9,0
-alt-1 = ['workspace 1',  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=1']
-alt-2 = ['workspace 2',  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=2']
-alt-3 = ['workspace 3',  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=3']
-alt-4 = ['workspace 4',  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=4']
-alt-5 = ['workspace 5',  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=5']
-alt-6 = ['workspace 6',  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=6']
-alt-7 = ['workspace 7',  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=7']
-alt-8 = ['workspace 8',  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=8']
-alt-9 = ['workspace 9',  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=9']
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
 
 # Move window to workspace — Omarchy: SUPER + SHIFT + 1-9,0
 alt-shift-1 = 'move-node-to-workspace 1'
@@ -76,7 +82,7 @@ alt-shift-tab = 'exec-and-forget ~/.config/sketchybar/plugins/workspace_prev.sh'
 
 # Navigation extras
 alt-ctrl-tab = 'workspace-back-and-forth' # SUPER+Ctrl+Tab → former workspace
-alt-s = ['workspace 10', 'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=10'] # SUPER+S → scratchpad
+alt-s = 'workspace 10' # SUPER+S → scratchpad
 
 # Resize
 alt-minus       = 'resize width -50'
