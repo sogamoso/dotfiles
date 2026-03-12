@@ -9,6 +9,6 @@ else
   echo "✓ Raycast launched"
   echo -e "\n! Raycast setup:"
   echo "• Complete the setup wizard"
-  echo "• Set hotkey to Ctrl+Space (maps to physical Cmd+Space after Karabiner swap)"
+  echo "• Set hotkey to Option+Space"
   echo "• Import snippets: Settings → Import → ~/.config/raycast/snippets.json"
 fi
