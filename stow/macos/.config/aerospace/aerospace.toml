@@ -38,7 +38,6 @@ alt-6 = ['workspace 6',  'exec-and-forget sketchybar --trigger aerospace_workspa
 alt-7 = ['workspace 7',  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=7']
 alt-8 = ['workspace 8',  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=8']
 alt-9 = ['workspace 9',  'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=9']
-alt-0 = ['workspace 10', 'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=10']
 
 # Move window to workspace — Omarchy: SUPER + SHIFT + 1-9,0
 alt-shift-1 = 'move-node-to-workspace 1'
@@ -75,6 +74,10 @@ alt-l = 'layout tiles accordion' # Omarchy: SUPER + L (toggle layout)
 alt-tab       = 'exec-and-forget ~/.config/sketchybar/plugins/workspace_next.sh'
 alt-shift-tab = 'exec-and-forget ~/.config/sketchybar/plugins/workspace_prev.sh'
 
+# Navigation extras
+alt-ctrl-tab = 'workspace-back-and-forth' # SUPER+Ctrl+Tab → former workspace
+alt-s = ['workspace 10', 'exec-and-forget sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=10'] # SUPER+S → scratchpad
+
 # Resize
 alt-minus       = 'resize width -50'
 alt-equal       = 'resize width +50'
@@ -85,7 +88,23 @@ alt-shift-equal = 'resize height +50'
 alt-enter       = 'exec-and-forget open -na Ghostty' # Omarchy: SUPER + RETURN
 alt-shift-enter = 'exec-and-forget open -na "Google Chrome"' # Omarchy: SUPER + SHIFT + RETURN
 alt-shift-n     = 'exec-and-forget open -na Zed' # Omarchy: SUPER + SHIFT + N
-alt-shift-c     = 'exec-and-forget open -b "com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep"' # Google Calendar
+alt-shift-c     = 'exec-and-forget open -b "com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep"' # Omarchy: SUPER+SHIFT+C → Google Calendar
+alt-shift-e     = 'exec-and-forget open -b "com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm"' # Omarchy: SUPER+SHIFT+E → Gmail
+alt-shift-g     = 'exec-and-forget open -b "net.whatsapp.WhatsApp"' # Omarchy: SUPER+SHIFT+G → WhatsApp
+alt-shift-m     = 'exec-and-forget open -b "com.spotify.client"' # Omarchy: SUPER+SHIFT+M → Spotify
+alt-shift-o     = 'exec-and-forget open -b "md.obsidian"' # Omarchy: SUPER+SHIFT+O → Obsidian
+alt-shift-f     = 'exec-and-forget open -a Finder' # Omarchy: SUPER+SHIFT+F → Finder
+alt-shift-slash = 'exec-and-forget open -b "com.1password.1password"' # Omarchy: SUPER+SHIFT+/ → 1Password
+alt-shift-a     = 'exec-and-forget open -b "com.anthropic.claudefordesktop"' # SUPER+SHIFT+A → Claude
+alt-cmd-enter   = 'exec-and-forget open -na Ghostty --args -e tmux new-session -A -s main' # ALT+RETURN → Ghostty+tmux
+alt-shift-cmd-b = 'exec-and-forget open -na "Google Chrome" --args --incognito' # ALT+SHIFT+B → Chrome incognito
+alt-shift-d     = 'exec-and-forget open -na Ghostty --args -e lazydocker' # SUPER+SHIFT+D → LazyDocker
+
+# System controls
+alt-ctrl-c = 'exec-and-forget open "cleanshot://all-in-one"' # SUPER+Ctrl+C → CleanShot all-in-one
+alt-ctrl-l = 'exec-and-forget pmset displaysleepnow' # SUPER+Ctrl+L → Lock screen
+alt-ctrl-t = 'exec-and-forget open -na Ghostty --args -e btop' # SUPER+Ctrl+T → btop
+alt-ctrl-v = 'exec-and-forget open "raycast://extensions/raycast/clipboard-history/clipboard-history"' # SUPER+Ctrl+V → Clipboard history
 
 # Workspace menu
 alt-slash = ['mode workspace_menu', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu.sh keyboard']
