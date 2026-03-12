@@ -2,3 +2,8 @@
 stow/macos/.config/sketchybar/plugins/menu_bar_height
 stow/macos/.config/sketchybar/plugins/has_external_display
 stow/macos/.config/sketchybar/plugins/cpu_stats
+
+# Claude Code local/ephemeral files (keep skills & settings.json trackable)
+.claude/settings.local.json
+.claude/plans/
+.claude/worktrees/
