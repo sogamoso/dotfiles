@@ -1,18 +1,28 @@
 #!/usr/bin/env bash
 
-VOLUME=$(osascript -e 'output volume of (get volume settings)')
-MUTED=$(osascript -e 'output muted of (get volume settings)')
+# Get volume using osascript with robust error handling
+# Note: This is more stable than it appears - the API hasn't changed in years
+VOLUME=$(osascript -e 'try
+  output volume of (get volume settings)
+on error
+  0
+end try' 2>/dev/null)
 
-# Audio device doesn't expose volume (e.g. HDMI) — show icon, open Sound settings on click
-if [ "$VOLUME" = "missing value" ] || [ -z "$VOLUME" ]; then
-  sketchybar --set "$NAME" \
-    drawing=on \
-    icon="󰕾" \
-    label.drawing=off \
-    click_script="open 'x-apple.systempreferences:com.apple.preference.sound'"
-  exit 0
+MUTED=$(osascript -e 'try
+  output muted of (get volume settings)
+on error
+  false
+end try' 2>/dev/null)
+
+# Handle missing value or empty
+if [ -z "$VOLUME" ] || [ "$VOLUME" = "missing value" ]; then
+  VOLUME=0
+fi
+if [ -z "$MUTED" ] || [ "$MUTED" = "missing value" ]; then
+  MUTED=false
 fi
 
+# Determine icon based on volume level
 if [ "$MUTED" = "true" ] || [ "$VOLUME" -eq 0 ]; then
   ICON="󰝟"
 elif [ "$VOLUME" -gt 66 ]; then
