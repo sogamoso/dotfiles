@@ -7,4 +7,4 @@ echo -e "\n==> Configuring AltTab..."
 defaults write com.lwouis.alt-tab-macos spacesDisplayMode -int 1
 
 echo "✓ AltTab configured"
-echo -e "\n! Grant accessibility permissions when prompted, then set hotkey to Option+Tab in AltTab preferences"
+echo -e "\n! Grant accessibility permissions when prompted, then set hotkey to Cmd+Tab in AltTab preferences"
