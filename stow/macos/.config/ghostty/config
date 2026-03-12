@@ -25,3 +25,30 @@ shell-integration-features = no-cursor,ssh-env
 
 # Quit when last window closes
 quit-after-last-window-closed = true
+
+# Cmd → Meta translation for tmux (physical Command = ALT on Omarchy)
+# Sends ESC+key so tmux reads M-1..M-9, M-Left/Right, M-Up/Down
+keybind = cmd+1=text:\x1b1
+keybind = cmd+2=text:\x1b2
+keybind = cmd+3=text:\x1b3
+keybind = cmd+4=text:\x1b4
+keybind = cmd+5=text:\x1b5
+keybind = cmd+6=text:\x1b6
+keybind = cmd+7=text:\x1b7
+keybind = cmd+8=text:\x1b8
+keybind = cmd+9=text:\x1b9
+keybind = cmd+left=text:\x1b[1;3D
+keybind = cmd+right=text:\x1b[1;3C
+keybind = cmd+up=text:\x1b[1;3A
+keybind = cmd+down=text:\x1b[1;3B
+
+# Tab switching — Option+Command+N (physical Option+Command)
+keybind = cmd+alt+1=goto_tab:1
+keybind = cmd+alt+2=goto_tab:2
+keybind = cmd+alt+3=goto_tab:3
+keybind = cmd+alt+4=goto_tab:4
+keybind = cmd+alt+5=goto_tab:5
+keybind = cmd+alt+6=goto_tab:6
+keybind = cmd+alt+7=goto_tab:7
+keybind = cmd+alt+8=goto_tab:8
+keybind = cmd+alt+9=goto_tab:9
