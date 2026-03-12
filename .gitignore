@@ -1,4 +1,2 @@
 # Compiled sketchybar helpers (built from .swift sources at runtime)
-stow/macos/.config/sketchybar/plugins/menu_bar_height
-stow/macos/.config/sketchybar/plugins/has_external_display
-stow/macos/.config/sketchybar/plugins/cpu_stats
+# Binaries now compile to ~/.cache/sketchybar/ to avoid stow conflicts

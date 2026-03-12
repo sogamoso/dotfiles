@@ -4,13 +4,15 @@
 # aerospace reload-config, ensuring correct ordering.
 
 CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
-MBHEIGHT_BIN="$CONFIG_DIR/plugins/menu_bar_height"
+CACHE_DIR="$HOME/.cache/sketchybar"
+mkdir -p "$CACHE_DIR"
+MBHEIGHT_BIN="$CACHE_DIR/menu_bar_height"
 BAR_HEIGHT=$("$MBHEIGHT_BIN" 2>/dev/null || echo 30)
 
 # On laptop-only (builtin display, macOS auto-hides menu bar without reserving
 # space), keep a small aesthetic gap. When any external display is active, use
 # the full bar height so windows don't cover sketchybar.
-EXT_BIN="$CONFIG_DIR/plugins/has_external_display"
+EXT_BIN="$CACHE_DIR/has_external_display"
 EXT_SRC="$CONFIG_DIR/plugins/has_external_display.swift"
 if [ ! -f "$EXT_BIN" ] || [ "$EXT_SRC" -nt "$EXT_BIN" ]; then
   swiftc "$EXT_SRC" -o "$EXT_BIN" 2>/dev/null
