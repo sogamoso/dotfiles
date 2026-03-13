@@ -49,6 +49,8 @@ Option + Ctrl+W         Wi-Fi preferences
 Option + Ctrl+X         Monologue (dictation)
 Option + Ctrl+,         Toggle Do Not Disturb
 Option + ,              Toggle Notification Center
+Option + Escape         Apple menu (Raycast)
+Option + Cmd+Space      Workspace menu
 Option + Space          Raycast launcher
 
 ── tmux (prefix = Ctrl+Space) ─────────────────────────────

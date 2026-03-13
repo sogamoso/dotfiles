@@ -104,6 +104,7 @@ Open Monologue → Settings → set the global hotkey to `Option+Ctrl+X` (SUPER+
 
 Set these hotkeys in Raycast → Extensions:
 
+- **Script Commands → Apple Menu** → `Option + Escape` (Omarchy: SUPER + Escape)
 - **Script Commands → Hotkeys Cheatsheet** → `Option + K` (Omarchy: SUPER + K)
 - **Emoji & Symbols** → `Option + Ctrl + E` (Omarchy: SUPER + Ctrl + E)
 
