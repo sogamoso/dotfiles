@@ -100,9 +100,14 @@ Open Monologue → Settings → set the global hotkey to `Option+Ctrl+X` (SUPER+
 
 ---
 
-## Hotkeys Reference
+## Raycast Hotkeys
 
-Raycast → Extensions → Script Commands → Hotkeys Cheatsheet → set hotkey to `Ctrl + Option + /`.
+Set these hotkeys in Raycast → Extensions:
+
+- **Script Commands → Hotkeys Cheatsheet** → `Option + K` (Omarchy: SUPER + K)
+- **Emoji & Symbols** → `Option + Ctrl + E` (Omarchy: SUPER + Ctrl + E)
+
+## Hotkeys Reference
 
 Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (tmux). `Option` in shortcuts below = physical Option key.
 
@@ -115,7 +120,7 @@ Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (t
 | `SUPER + G` — window grouping | No AeroSpace equivalent |
 | `SUPER + SHIFT + SPACE` — toggle waybar | No SketchyBar hotkey toggle |
 | `CapsLock` — quick emojis | Needs remapping tool |
-| `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | Linux-specific |
+| `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `SUPER + Ctrl + X` — dictation | ✅ Option+Ctrl+X → Monologue |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |

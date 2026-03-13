@@ -83,6 +83,7 @@ alt-shift-tab = 'exec-and-forget ~/.config/sketchybar/plugins/workspace_prev.sh'
 # Navigation extras
 alt-ctrl-tab = 'workspace-back-and-forth' # SUPER+Ctrl+Tab → former workspace
 alt-s = 'workspace 10' # SUPER+S → scratchpad
+alt-cmd-s = 'move-node-to-workspace 10' # ALT+S → move window to scratchpad
 
 # Resize
 alt-minus       = 'resize width -50'
@@ -111,6 +112,9 @@ alt-ctrl-c = 'exec-and-forget open "cleanshot://all-in-one"' # SUPER+Ctrl+C → 
 alt-ctrl-l = 'exec-and-forget pmset displaysleepnow' # SUPER+Ctrl+L → Lock screen
 alt-ctrl-t = 'exec-and-forget open -na Ghostty --args -e btop' # SUPER+Ctrl+T → btop
 alt-ctrl-v = 'exec-and-forget open "raycast://extensions/raycast/clipboard-history/clipboard-history"' # SUPER+Ctrl+V → Clipboard history
+alt-ctrl-a = 'exec-and-forget open "x-apple.systempreferences:com.apple.preference.sound"' # SUPER+Ctrl+A → Sound preferences
+alt-ctrl-b = 'exec-and-forget open "x-apple.systempreferences:com.apple.preferences.Bluetooth"' # SUPER+Ctrl+B → Bluetooth preferences
+alt-ctrl-w = 'exec-and-forget open "x-apple.systempreferences:com.apple.wifi-settings-extension"' # SUPER+Ctrl+W → Wi-Fi preferences
 
 # Workspace menu
 alt-slash = ['mode workspace_menu', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu.sh keyboard']
