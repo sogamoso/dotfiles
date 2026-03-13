@@ -38,10 +38,14 @@ Option + Cmd+Enter      Ghostty + tmux session
 Option + Shift+Cmd+B    Chrome incognito
 Option + Ctrl+Tab       Former workspace
 Option + S              Scratchpad (workspace 10)
+Option + Cmd+S          Move window to scratchpad
 Option + Ctrl+C         CleanShot all-in-one
 Option + Ctrl+L         Lock screen
 Option + Ctrl+T         btop in Ghostty
 Option + Ctrl+V         Clipboard history (Raycast)
+Option + Ctrl+A         Sound preferences
+Option + Ctrl+B         Bluetooth preferences
+Option + Ctrl+W         Wi-Fi preferences
 Option + Ctrl+X         Monologue (dictation)
 Option + Ctrl+,         Toggle Do Not Disturb
 Option + ,              Toggle Notification Center

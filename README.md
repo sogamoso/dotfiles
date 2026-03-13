@@ -103,10 +103,14 @@ Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (t
 | `Option + Shift + D` | LazyDocker in Ghostty |
 | `Option + Ctrl + Tab` | Switch to former workspace |
 | `Option + S` | Scratchpad (workspace 10) |
+| `Option + Cmd + S` | Move window to scratchpad |
 | `Option + Ctrl + C` | CleanShot all-in-one |
 | `Option + Ctrl + L` | Lock screen |
 | `Option + Ctrl + T` | btop in Ghostty |
 | `Option + Ctrl + V` | Clipboard history (Raycast) |
+| `Option + Ctrl + A` | Sound preferences |
+| `Option + Ctrl + B` | Bluetooth preferences |
+| `Option + Ctrl + W` | Wi-Fi preferences |
 | `Option + Ctrl + X` | Monologue (dictation) |
 | `Option + Ctrl + ,` | Toggle Do Not Disturb |
 | `Option + ,` | Toggle Notification Center |
