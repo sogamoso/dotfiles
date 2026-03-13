@@ -117,7 +117,7 @@ alt-ctrl-b = 'exec-and-forget open "x-apple.systempreferences:com.apple.preferen
 alt-ctrl-w = 'exec-and-forget open "x-apple.systempreferences:com.apple.wifi-settings-extension"' # SUPER+Ctrl+W → Wi-Fi preferences
 
 # Workspace menu
-alt-slash = ['mode workspace_menu', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu.sh keyboard']
+alt-cmd-space = ['mode workspace_menu', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu.sh keyboard']
 
 # -------------------------------------------------------
 # Workspace menu mode
@@ -128,7 +128,7 @@ down  = 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh 
 space = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh enter']
 enter = 'mode main'
 esc   = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh esc']
-alt-slash = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh esc']
+alt-cmd-space = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh esc']
 
 # -------------------------------------------------------
 # Window rules
