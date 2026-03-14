@@ -14,7 +14,7 @@ CPU=$("$BIN" 2>/dev/null || echo 0)
 
 if [ "$CPU" -gt 80 ]; then
   COLOR=0xfff7768e
-  TOP=$(ps -A -o pcpu=,comm= -r 2>/dev/null | awk '$2!="kernel_task"{print $2; exit}')
+  TOP=$(ps -A -o pcpu=,comm= -r 2>/dev/null | awk '{n=split($2,a,"/"); name=a[n]; if(name!="kernel_task"&&name!=""){print name;exit}}')
   [ ${#TOP} -gt 12 ] && TOP="${TOP:0:11}…"
   sketchybar --set "$NAME" icon="󰻠" icon.color=$COLOR label="$TOP" label.drawing=on
 elif [ "$CPU" -gt 50 ]; then
