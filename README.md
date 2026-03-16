@@ -81,23 +81,26 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 
 | Physical key | Action |
 |---|---|
+| `Option + Space` | Raycast launcher |
 | `Option + 1-9` | Switch to workspace 1–9 |
-| `Option + Shift + 1-9` | Move window to workspace |
-| `Option + Shift + 0` | Move window to workspace 10 |
+| `Option + S` | Switch to scratchpad (workspace 10) |
 | `Option + arrows` | Focus window left/right/up/down |
 | `Option + Shift + arrows` | Move window within workspace |
+| `Option + Shift + 1-9` | Move window to workspace |
+| `Option + Shift + 0` | Move window to scratchpad (workspace 10) |
 | `Option + W` | Close focused window |
 | `Option + F` | Fullscreen |
 | `Option + T` | Toggle floating/tiling |
 | `Option + J` | Toggle split direction |
 | `Option + L` | Toggle layout |
+| `Option + K` | Hotkeys cheatsheet (Raycast) |
+| `Option + ,` | Toggle Notification Center |
+| `Option + Escape` | Apple menu (Raycast) |
 | `Option + - / =` | Resize width |
 | `Option + Shift + - / =` | Resize height |
 | `Option + Tab` | Next workspace |
 | `Option + Shift + Tab` | Previous workspace |
 | `Option + Ctrl + Tab` | Switch to former workspace |
-| `Option + S` | Scratchpad (workspace 10) |
-| `Option + Cmd + S` | Move window to scratchpad |
 | `Option + Enter` | New Ghostty window |
 | `Option + Shift + Enter` | New Chrome window |
 | `Option + Shift + N` | New Zed window |
@@ -109,9 +112,8 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Shift + F` | Open Finder |
 | `Option + Shift + /` | Open 1Password |
 | `Option + Shift + A` | Open Claude |
-| `Option + Cmd + Enter` | Ghostty + tmux session |
-| `Option + Shift + Cmd + B` | Chrome incognito |
 | `Option + Shift + D` | LazyDocker in Ghostty |
+| `Option + Shift + Cmd + B` | Chrome incognito |
 | `Option + Ctrl + C` | CleanShot all-in-one |
 | `Option + Ctrl + L` | Lock screen |
 | `Option + Ctrl + T` | btop in Ghostty |
@@ -119,14 +121,11 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Ctrl + A` | Sound preferences |
 | `Option + Ctrl + B` | Bluetooth preferences |
 | `Option + Ctrl + W` | Wi-Fi preferences |
-| `Option + K` | Hotkeys cheatsheet (Raycast) |
 | `Option + Ctrl + E` | Emoji picker (Raycast) |
 | `Option + Ctrl + X` | Monologue (dictation) |
 | `Option + Ctrl + ,` | Toggle Do Not Disturb |
-| `Option + ,` | Toggle Notification Center |
-| `Option + Escape` | Apple menu (Raycast) |
 | `Option + Cmd + Space` | Workspace menu |
-| `Option + Space` | Raycast launcher |
+| `Option + Cmd + Enter` | Ghostty + tmux session |
 
 #### Workspace layout
 
