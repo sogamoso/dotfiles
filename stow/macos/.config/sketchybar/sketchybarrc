@@ -153,6 +153,24 @@ sketchybar --add item wifi right \
     click_script="open 'x-apple.systempreferences:com.apple.wifi-settings-extension'" \
     script="$CONFIG_DIR/plugins/wifi.sh"
 
+# Input source
+sketchybar --add item input_source right \
+  --set input_source \
+    icon.drawing=off \
+    label.font="JetBrainsMono Nerd Font:Bold:11.0" \
+    label.color=0xff1a1b26 \
+    label.padding_left=4 \
+    label.padding_right=4 \
+    background.color=$MUTED \
+    background.corner_radius=4 \
+    background.height=18 \
+    background.drawing=on \
+    padding_left=4 \
+    padding_right=4 \
+    update_freq=3 \
+    click_script="BIN=$HOME/.cache/sketchybar/switch_input_source; SRC=$CONFIG_DIR/plugins/switch_input_source.swift; [ ! -f \$BIN ] || [ \$SRC -nt \$BIN ] && swiftc \$SRC -framework Carbon -o \$BIN 2>/dev/null; \$BIN" \
+    script="$CONFIG_DIR/plugins/input_source.sh"
+
 # Calendar
 sketchybar --add item calendar right \
   --set calendar \
