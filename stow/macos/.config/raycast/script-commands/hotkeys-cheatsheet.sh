@@ -10,19 +10,26 @@ Option key = SUPER (AeroSpace / window management)
 Command key = Alt (tmux)
 
 ── AeroSpace (Option = SUPER) ────────────────────────────
+Option + Space          Raycast launcher
 Option + 1–9           Switch workspace 1–9
-Option + Shift + 1–9   Move window to workspace
-Option + Shift+0       Move window to workspace 10
+Option + S              Switch to scratchpad (workspace 10)
 Option + arrows         Focus window
 Option + Shift+arrows   Move window
-Option + Tab / S+Tab    Next / prev workspace
+Option + Shift + 1–9   Move window to workspace
+Option + Shift+0       Move window to scratchpad (workspace 10)
 Option + W              Close window
 Option + F              Fullscreen
-Option + T              Toggle floating
+Option + T              Toggle floating/tiling
 Option + J              Toggle split direction
 Option + L              Toggle layout
+Option + K              Hotkeys cheatsheet (Raycast)
+Option + ,              Toggle Notification Center
+Option + Escape         Apple menu (Raycast)
 Option + - / =          Resize width
-Option + Shift - / =    Resize height
+Option + Shift + - / =  Resize height
+Option + Tab            Next workspace
+Option + Shift+Tab      Previous workspace
+Option + Ctrl+Tab       Former workspace
 Option + Enter          New Ghostty window
 Option + Shift+Enter    New Chrome window
 Option + Shift+N        New Zed window
@@ -35,10 +42,7 @@ Option + Shift+F        Open Finder
 Option + Shift+/        Open 1Password
 Option + Shift+A        Open Claude
 Option + Shift+D        LazyDocker in Ghostty
-Option + Cmd+Enter      Ghostty + tmux session
 Option + Shift+Cmd+B    Chrome incognito
-Option + Ctrl+Tab       Former workspace
-Option + S              Scratchpad (workspace 10)
 Option + Ctrl+C         CleanShot all-in-one
 Option + Ctrl+L         Lock screen
 Option + Ctrl+T         btop in Ghostty
@@ -46,14 +50,11 @@ Option + Ctrl+V         Clipboard history (Raycast)
 Option + Ctrl+A         Sound preferences
 Option + Ctrl+B         Bluetooth preferences
 Option + Ctrl+W         Wi-Fi preferences
-Option + K              Hotkeys cheatsheet (Raycast)
 Option + Ctrl+E         Emoji picker (Raycast)
 Option + Ctrl+X         Monologue (dictation)
 Option + Ctrl+,         Toggle Do Not Disturb
-Option + ,              Toggle Notification Center
-Option + Escape         Apple menu (Raycast)
 Option + Cmd+Space      Workspace menu
-Option + Space          Raycast launcher
+Option + Cmd+Enter      Ghostty + tmux session
 
 ── tmux (prefix = Ctrl+Space) ─────────────────────────────
 prefix + h / v      Split horizontal / vertical
