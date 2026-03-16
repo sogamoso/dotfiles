@@ -110,7 +110,10 @@ Set these hotkeys in Raycast → Extensions:
 
 ## Hotkeys Reference
 
-Physical Option = SUPER (AeroSpace/window management). Physical Command = Alt (tmux). `Option` in shortcuts below = physical Option key.
+| Physical key | macOS sends | Role | Omarchy equivalent |
+|---|---|---|---|
+| Option | Alt/Option | Window management | Super |
+| Command | Cmd | App shortcuts + tmux | Alt |
 
 
 ## Remaining Gaps vs Omarchy
