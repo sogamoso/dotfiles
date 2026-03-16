@@ -83,7 +83,6 @@ alt-shift-tab = 'exec-and-forget ~/.config/sketchybar/plugins/workspace_prev.sh'
 # Navigation extras
 alt-ctrl-tab = 'workspace-back-and-forth' # SUPER+Ctrl+Tab → former workspace
 alt-s = 'workspace 10' # SUPER+S → scratchpad
-alt-cmd-s = 'move-node-to-workspace 10' # ALT+S → move window to scratchpad
 
 # Resize
 alt-minus       = 'resize width -50'
