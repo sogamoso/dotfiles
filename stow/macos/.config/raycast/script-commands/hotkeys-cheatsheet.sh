@@ -10,8 +10,9 @@ Option key = SUPER (AeroSpace / window management)
 Command key = Alt (tmux)
 
 ── AeroSpace (Option = SUPER) ────────────────────────────
-Option + 1–9 / 0       Switch workspace (10 = scratchpad)
+Option + 1–9           Switch workspace 1–9
 Option + Shift + 1–9   Move window to workspace
+Option + Shift+0       Move window to workspace 10
 Option + arrows         Focus window
 Option + Shift+arrows   Move window
 Option + Tab / S+Tab    Next / prev workspace
@@ -46,6 +47,8 @@ Option + Ctrl+V         Clipboard history (Raycast)
 Option + Ctrl+A         Sound preferences
 Option + Ctrl+B         Bluetooth preferences
 Option + Ctrl+W         Wi-Fi preferences
+Option + K              Hotkeys cheatsheet (Raycast)
+Option + Ctrl+E         Emoji picker (Raycast)
 Option + Ctrl+X         Monologue (dictation)
 Option + Ctrl+,         Toggle Do Not Disturb
 Option + ,              Toggle Notification Center
