@@ -49,17 +49,24 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 # Display sleep: 30 min idle
 sudo pmset -a displaysleep 30
 
-# Wake at 8 AM weekdays (no forced 7 PM sleep — handled by idle-aware agent)
-sudo pmset repeat wakeorpoweron MTWRF 08:00:00
+if sysctl hw.model | grep -q "Macmini"; then
+  # Mac mini: never sleep (desktop, always on AC)
+  sudo pmset -a sleep 0 disksleep 0
+else
+  # Mac laptop: wake at 8 AM weekdays (no forced 7 PM sleep — handled by idle-aware agent)
+  sudo pmset repeat wakeorpoweron MTWRF 08:00:00
+fi
 
 killall Dock
 
-# Load work hours agents (dotfiles.sh runs first and stows the plists)
-for label in com.sogamoso.workhours.caffeinate com.sogamoso.workhours.caffeinate-run com.sogamoso.workhours.caffeinate-watch com.sogamoso.workhours.sleep-if-idle; do
-  plist="$HOME/Library/LaunchAgents/$label.plist"
-  launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
-  launchctl bootstrap "gui/$(id -u)" "$plist"
-  launchctl enable "gui/$(id -u)/$label"
-done
+# Load work hours agents on laptops only (Mac mini stays awake via pmset)
+if ! sysctl hw.model | grep -q "Macmini"; then
+  for label in com.sogamoso.workhours.caffeinate com.sogamoso.workhours.caffeinate-run com.sogamoso.workhours.caffeinate-watch com.sogamoso.workhours.sleep-if-idle; do
+    plist="$HOME/Library/LaunchAgents/$label.plist"
+    launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
+    launchctl bootstrap "gui/$(id -u)" "$plist"
+    launchctl enable "gui/$(id -u)/$label"
+  done
+fi
 
 echo "✓ macOS preferences set"
