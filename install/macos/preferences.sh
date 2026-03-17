@@ -40,6 +40,26 @@ defaults write com.apple.universalaccess reduceTransparency -bool true 2>/dev/nu
 defaults write com.apple.dock orientation -string "right"
 defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock tilesize -int 43
+
+# Screensaver: 5 min idle, lock immediately
+defaults -currentHost write com.apple.screensaver idleTime -int 300
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+# Display sleep: 30 min idle
+sudo pmset -a displaysleep 30
+
+# Wake at 8 AM weekdays (no forced 7 PM sleep — handled by idle-aware agent)
+sudo pmset repeat wakeorpoweron MTWRF 08:00:00
+
 killall Dock
+
+# Load work hours agents (dotfiles.sh runs first and stows the plists)
+for label in com.sogamoso.workhours.caffeinate com.sogamoso.workhours.caffeinate-watch com.sogamoso.workhours.sleep-if-idle; do
+  plist="$HOME/Library/LaunchAgents/$label.plist"
+  launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
+  launchctl bootstrap "gui/$(id -u)" "$plist"
+  launchctl enable "gui/$(id -u)/$label"
+done
 
 echo "✓ macOS preferences set"
