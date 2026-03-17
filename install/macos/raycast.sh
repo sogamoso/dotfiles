@@ -3,7 +3,7 @@ set -euo pipefail
 
 echo -e "\n==> Launching Raycast..."
 if pgrep -f "Raycast" >/dev/null; then
-  echo "✓ Raycast already running; skipping launch"
+  echo "✓ Raycast already running"
 else
   open -a Raycast
   echo "✓ Raycast launched"

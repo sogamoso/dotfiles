@@ -3,7 +3,7 @@ set -euo pipefail
 
 echo -e "\n==> Launching 1Password..."
 if pgrep -f "1Password" >/dev/null; then
-  echo "✓ 1Password already running; skipping launch"
+  echo "✓ 1Password already running"
 else
   open -a "1Password"
   echo "✓ 1Password launched"
