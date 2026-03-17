@@ -15,4 +15,4 @@ done
 echo -e "\n==> Stowing macOS specific dotfiles..."
 cd "$REPO_DIR/stow"
 stow --target "$HOME" --restow --no-folding macos
-echo -e "✓ macOS dotfiles stowed"
+echo "✓ macOS dotfiles stowed"

@@ -38,6 +38,7 @@ if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
   open -a Typora "$REPO_DIR/docs/macos-setup.md"
 fi
 
-echo -e "\n==> Finished installing Sebastian's dotfiles!"
+echo -e "\n==> Finishing Sebastian's dotfiles install"
+echo "✓ Done!"
 
 exec zsh -l

@@ -6,4 +6,5 @@ if [[ ! -f "$HOME/.config/shell/all" ]]; then
   curl -fsSL https://raw.githubusercontent.com/omacom-io/omadots/refs/heads/master/install.sh | zsh
 else
   echo -e "\n==> Omadots already installed..."
+  echo "✓ Skipping installation"
 fi

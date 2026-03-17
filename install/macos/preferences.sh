@@ -42,4 +42,4 @@ defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock tilesize -int 43
 killall Dock
 
-echo -e "✓ macOS preferences set"
+echo "✓ macOS preferences set"
