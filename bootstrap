@@ -26,8 +26,11 @@ esac
 bash "$REPO_DIR/install/dotfiles.sh"
 
 # Tailscale
-if ! timeout 5 tailscale status &>/dev/null; then
-  echo "Tailscale is not connected. Run: tailscale up --ssh"
+echo -e "\n==> Checking Tailscale connection..."
+if timeout 5 tailscale status &>/dev/null; then
+  echo "✓ Tailscale connected"
+else
+  echo "✗ Tailscale is not connected. Run: tailscale up --ssh"
 fi
 
 # Open the manual-steps guide only on first run (Typora not yet in PATH on re-runs would still work,
