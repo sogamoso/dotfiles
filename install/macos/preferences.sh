@@ -49,7 +49,7 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 # Display sleep: 30 min idle
 sudo pmset -a displaysleep 30
 
-if sysctl hw.model | grep -q "Macmini"; then
+if system_profiler SPHardwareDataType | grep -q "Mac mini"; then
   # Mac mini: never sleep (desktop, always on AC)
   sudo pmset -a sleep 0 disksleep 0
 else
@@ -60,7 +60,7 @@ fi
 killall Dock
 
 # Load work hours agents on laptops only (Mac mini stays awake via pmset)
-if ! sysctl hw.model | grep -q "Macmini"; then
+if ! system_profiler SPHardwareDataType | grep -q "Mac mini"; then
   for label in com.sogamoso.workhours.caffeinate com.sogamoso.workhours.caffeinate-run com.sogamoso.workhours.caffeinate-watch com.sogamoso.workhours.sleep-if-idle; do
     plist="$HOME/Library/LaunchAgents/$label.plist"
     launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
