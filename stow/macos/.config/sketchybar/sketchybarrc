@@ -119,6 +119,7 @@ sketchybar --add item battery right \
 # CPU
 sketchybar --add item cpu right \
   --set cpu \
+    icon.font="JetBrainsMono Nerd Font:Bold:19.0" \
     update_freq=5 \
     click_script="$CONFIG_DIR/plugins/cpu_click.sh" \
     script="$CONFIG_DIR/plugins/cpu.sh"
@@ -126,6 +127,7 @@ sketchybar --add item cpu right \
 # Memory
 sketchybar --add item memory right \
   --set memory \
+    icon.font="JetBrainsMono Nerd Font:Bold:19.0" \
     update_freq=5 \
     click_script="$CONFIG_DIR/plugins/memory_click.sh" \
     script="$CONFIG_DIR/plugins/memory.sh"
@@ -133,6 +135,7 @@ sketchybar --add item memory right \
 # Volume
 sketchybar --add item volume right \
   --set volume \
+    icon.font="JetBrainsMono Nerd Font:Bold:21.0" \
     update_freq=5 \
     click_script="osascript -e 'set volume output muted not (output muted of (get volume settings))'" \
     script="$CONFIG_DIR/plugins/volume.sh" \
@@ -141,6 +144,7 @@ sketchybar --add item volume right \
 # Bluetooth
 sketchybar --add item bluetooth right \
   --set bluetooth \
+    icon.font="JetBrainsMono Nerd Font:Bold:17.0" \
     update_freq=10 \
     label.drawing=off \
     click_script="open 'x-apple.systempreferences:com.apple.preferences.Bluetooth'" \
@@ -157,13 +161,13 @@ sketchybar --add item wifi right \
 sketchybar --add item input_source right \
   --set input_source \
     icon.drawing=off \
-    label.font="JetBrainsMono Nerd Font:Bold:11.0" \
+    label.font="JetBrainsMono Nerd Font:Bold:10.0" \
     label.color=0xff1a1b26 \
     label.padding_left=4 \
     label.padding_right=4 \
     background.color=$MUTED \
-    background.corner_radius=4 \
-    background.height=18 \
+    background.corner_radius=3 \
+    background.height=15 \
     background.drawing=on \
     padding_left=4 \
     padding_right=4 \
