@@ -23,7 +23,7 @@ case "$(uname -s)" in
 esac
 
 # Personal dotfiles
-bash "$REPO_DIR/install/dotfiles.sh"
+bash "$REPO_DIR/install/dotfiles/all.sh"
 
 # Tailscale
 echo -e "\n==> Checking Tailscale connection..."
