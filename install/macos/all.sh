@@ -15,7 +15,6 @@ bash "$DIR/onepassword.sh"
 bash "$DIR/alacritty.sh"
 bash "$DIR/dotfiles.sh"
 bash "$DIR/tmux.sh"
-sudo -v  # Re-validate sudo after brew (tty_tickets means the background refresh loop doesn't help)
 bash "$DIR/preferences.sh"
 bash "$DIR/pwas.sh"
 bash "$DIR/sketchybar.sh"
