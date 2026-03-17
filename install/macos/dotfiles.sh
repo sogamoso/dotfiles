@@ -11,6 +11,9 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 for f in menu_bar_height has_external_display cpu_stats; do
   [[ -f "$HOME/.config/sketchybar/plugins/$f" && ! -L "$HOME/.config/sketchybar/plugins/$f" ]] && rm "$HOME/.config/sketchybar/plugins/$f"
 done
+[[ -f "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate.plist"       && ! -L "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate.plist"       ]] && rm "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate.plist"
+[[ -f "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-watch.plist" && ! -L "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-watch.plist" ]] && rm "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-watch.plist"
+[[ -f "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"    && ! -L "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"    ]] && rm "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"
 
 echo -e "\n==> Stowing macOS specific dotfiles..."
 cd "$REPO_DIR/stow"
