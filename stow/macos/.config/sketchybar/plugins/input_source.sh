@@ -4,7 +4,7 @@ SOURCE=$(defaults read com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSource
 
 case "$SOURCE" in
   *US|*ABC)    LABEL="EN"; BG=0xffa9b1d6; RPAD=5 ;;
-  *Spanish*)   LABEL="ES"; BG=0xff565f89; RPAD=4 ;;
+  *Spanish*)   LABEL="ES"; BG=0xff7aa2f7; RPAD=4 ;;
   *)           LABEL="${SOURCE##*.}"; BG=0xffa9b1d6 ;;
 esac
 
