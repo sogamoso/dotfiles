@@ -92,13 +92,19 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | Option | Alt/Option | Window management | Super |
 | Command | Cmd | App shortcuts + tmux | Alt |
 
-##### Window management (Aerospace)
+##### Navigating
 
 | Hotkey | Action |
 |---|---|
 | `Option + Space` | Raycast launcher |
+| `Option + Escape` | Apple menu (Raycast) |
+| `Option + K` | Hotkeys cheatsheet (Raycast) |
 | `Option + 1-9` | Switch to workspace 1–9 |
 | `Option + S` | Switch to scratchpad (workspace 10) |
+| `Option + Tab` | Next workspace |
+| `Option + Shift + Tab` | Previous workspace |
+| `Option + Ctrl + Tab` | Switch to former workspace |
+| `Option + Cmd + Space` | Workspace menu |
 | `Option + arrows` | Focus window left/right/up/down |
 | `Option + Shift + arrows` | Move window within workspace |
 | `Option + Shift + 1-9` | Move window to workspace |
@@ -108,14 +114,13 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + T` | Toggle floating/tiling |
 | `Option + J` | Toggle split direction |
 | `Option + L` | Toggle layout |
-| `Option + K` | Hotkeys cheatsheet (Raycast) |
-| `Option + ,` | Toggle Notification Center |
-| `Option + Escape` | Apple menu (Raycast) |
 | `Option + - / =` | Resize width |
 | `Option + Shift + - / =` | Resize height |
-| `Option + Tab` | Next workspace |
-| `Option + Shift + Tab` | Previous workspace |
-| `Option + Ctrl + Tab` | Switch to former workspace |
+
+##### Launching apps
+
+| Hotkey | Action |
+|---|---|
 | `Option + Enter` | New Ghostty window |
 | `Option + Shift + Enter` | New Chrome window |
 | `Option + Shift + N` | New Zed window |
@@ -129,20 +134,35 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Shift + A` | Open Claude |
 | `Option + Shift + D` | LazyDocker in Ghostty |
 | `Option + Shift + Cmd + B` | Chrome incognito |
-| `Option + Ctrl + C` | CleanShot all-in-one |
+| `Option + Cmd + Enter` | Ghostty + tmux session |
+
+##### System controls
+
+| Hotkey | Action |
+|---|---|
 | `Option + Ctrl + L` | Lock screen |
-| `Option + Ctrl + T` | btop in Ghostty |
-| `Option + Ctrl + V` | Clipboard history (Raycast) |
 | `Option + Ctrl + A` | Sound preferences |
 | `Option + Ctrl + B` | Bluetooth preferences |
 | `Option + Ctrl + W` | Wi-Fi preferences |
+| `Option + Ctrl + T` | btop in Ghostty |
+| `Option + Ctrl + V` | Clipboard history (Raycast) |
 | `Option + Ctrl + E` | Emoji picker (Raycast) |
 | `Option + Ctrl + X` | Monologue (dictation) |
-| `Option + Ctrl + ,` | Toggle Do Not Disturb |
-| `Option + Cmd + Space` | Workspace menu |
-| `Option + Cmd + Enter` | Ghostty + tmux session |
 
-##### Terminal (Ghostty)
+##### Capture
+
+| Hotkey | Action |
+|---|---|
+| `Option + Ctrl + C` | CleanShot all-in-one |
+
+##### Notifications
+
+| Hotkey | Action |
+|---|---|
+| `Option + ,` | Toggle Notification Center |
+| `Option + Ctrl + ,` | Toggle Do Not Disturb |
+
+##### Ghostty
 
 | Hotkey | Action |
 |---|---|
