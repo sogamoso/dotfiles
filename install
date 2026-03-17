@@ -7,11 +7,13 @@ DEST="$HOME/Code/dotfiles"
 if [[ ! -d "$DEST" ]]; then
   echo "==> Cloning dotfiles..."
   mkdir -p "$(dirname "$DEST")"
-  git clone "$REPO" "$DEST"
+  git clone --quiet "$REPO" "$DEST"
+  echo "✓ Dotfiles cloned"
 else
   echo "==> Updating dotfiles..."
   git -C "$DEST" restore .  # discard stow-caused deletions before pulling
-  git -C "$DEST" pull --ff-only
+  git -C "$DEST" pull --ff-only --quiet
+  echo "✓ Dotfiles updated"
 fi
 
 exec bash "$DEST/bootstrap"
