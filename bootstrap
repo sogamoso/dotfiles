@@ -42,7 +42,7 @@ if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
   echo "✓ Guide opened in Typora"
 fi
 
-echo -e "\n==> Finishing Sebastian's dotfiles installation"
+echo -e "\n==> Finishing Sebastian's dotfiles installation..."
 echo "✓ Done!"
 
 exec zsh -l
