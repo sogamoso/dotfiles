@@ -7,7 +7,7 @@ echo -e "\n==> Installing Sebastian's dotfiles.."
 
 # Cache sudo credentials upfront — some casks need them
 sudo echo "✓ Granted"
-while true; do sudo -n true 2>/dev/null || true; sleep 180; kill -0 "$$" 2>/dev/null || exit; done &
+while true; do sudo -n true 2>/dev/null || true; sleep 30; kill -0 "$$" 2>/dev/null || exit; done &
 SUDO_LOOP_PID=$!
 trap 'kill "$SUDO_LOOP_PID" 2>/dev/null || true' EXIT
 
