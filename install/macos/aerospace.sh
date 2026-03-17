@@ -3,7 +3,7 @@ set -euo pipefail
 
 echo -e "\n==> Starting AeroSpace..."
 if pgrep -x "AeroSpace" >/dev/null; then
-  echo "✓ AeroSpace already running; skipping launch"
+  echo "✓ AeroSpace already running"
 else
   open -a AeroSpace
   echo "✓ AeroSpace launched"
