@@ -18,11 +18,11 @@ for config in git mise nvim ruby ssh zsh; do
   stow --target "$HOME" --restow --no-folding "$config"
 done
 
-echo "✓ Dotfiles stowed"
-
 # Suppress "Last login" message
 touch "$HOME/.hushlogin"
 
 # Coderabbit. Writes directly to the .gitconfig so we need to strip it out
 git -C "$REPO_DIR" config filter.strip-coderabbit.clean \
   "awk '/^\[coderabbit\]/{skip=1;next} /^\[/{skip=0} !skip{print}'"
+
+echo "✓ Dotfiles stowed"
