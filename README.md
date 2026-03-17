@@ -68,6 +68,21 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `aerospace.sh` | Starts AeroSpace only if not already running |
 | `raycast.sh` | Opens Raycast for first-time setup |
 
+#### Workspace layout
+
+| Workspace | App |
+|---|---|
+| 1 | Ghostty |
+| 2 | Chrome |
+| 3 | Slack |
+| 4 | Gmail |
+| 5 | Todoist, Calendar, Meet |
+| 6 | Notion, Linear, GitHub |
+| 7 | HEY |
+| 8 | WhatsApp |
+| 9 | Spotify |
+| 10 | (scratchpad) |
+
 #### Hotkeys
 
 Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding model on macOS.
@@ -77,9 +92,9 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | Option | Alt/Option | Window management | Super |
 | Command | Cmd | App shortcuts + tmux | Alt |
 
-#### Window management (Aerospace)
+##### Window management (Aerospace)
 
-| Physical key | Action |
+| Hotkey | Action |
 |---|---|
 | `Option + Space` | Raycast launcher |
 | `Option + 1-9` | Switch to workspace 1–9 |
@@ -127,24 +142,9 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Cmd + Space` | Workspace menu |
 | `Option + Cmd + Enter` | Ghostty + tmux session |
 
-#### Workspace layout
+##### Terminal (Ghostty)
 
-| Workspace | App |
-|---|---|
-| 1 | Ghostty |
-| 2 | Chrome |
-| 3 | Slack |
-| 4 | Gmail |
-| 5 | Todoist, Calendar, Meet |
-| 6 | Notion, Linear, GitHub |
-| 7 | HEY |
-| 8 | WhatsApp |
-| 9 | Spotify |
-| 10 | (scratchpad) |
-
-#### Terminal (Ghostty)
-
-| Physical key | Action |
+| Hotkey | Action |
 |---|---|
 | `Ctrl + Shift + E` | Split down |
 | `Ctrl + Shift + O` | Split right |
