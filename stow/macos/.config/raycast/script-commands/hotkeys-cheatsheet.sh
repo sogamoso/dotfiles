@@ -5,73 +5,85 @@
 # @raycast.mode fullOutput
 # @raycast.packageName Keyboard
 
-echo "── Keyboard Layout ────────────────────────────────────────
-Option key = SUPER (AeroSpace / window management)
-Command key = Alt (tmux)
+B='\033[1m'     # bold
+D='\033[2m'     # dim
+C='\033[36m'    # cyan
+Y='\033[33m'    # yellow
+R='\033[0m'     # reset
 
-── AeroSpace (Option = SUPER) ────────────────────────────
-Option + Space          Raycast launcher
-Option + 1–9           Switch workspace 1–9
-Option + S              Switch to scratchpad (workspace 10)
-Option + arrows         Focus window
-Option + Shift+arrows   Move window
-Option + Shift + 1–9   Move window to workspace
-Option + Shift+0       Move window to scratchpad (workspace 10)
-Option + W              Close window
-Option + F              Fullscreen
-Option + T              Toggle floating/tiling
-Option + J              Toggle split direction
-Option + L              Toggle layout
-Option + K              Hotkeys cheatsheet (Raycast)
-Option + ,              Toggle Notification Center
-Option + Escape         Apple menu (Raycast)
-Option + - / =          Resize width
-Option + Shift + - / =  Resize height
-Option + Tab            Next workspace
-Option + Shift+Tab      Previous workspace
-Option + Ctrl+Tab       Former workspace
-Option + Enter          New Ghostty window
-Option + Shift+Enter    New Chrome window
-Option + Shift+N        New Zed window
-Option + Shift+C        Open Google Calendar
-Option + Shift+E        Open Gmail
-Option + Shift+G        Open WhatsApp
-Option + Shift+M        Open Spotify
-Option + Shift+O        Open Obsidian
-Option + Shift+F        Open Finder
-Option + Shift+/        Open 1Password
-Option + Shift+A        Open Claude
-Option + Shift+D        LazyDocker in Ghostty
-Option + Shift+Cmd+B    Chrome incognito
-Option + Ctrl+C         CleanShot all-in-one
-Option + Ctrl+L         Lock screen
-Option + Ctrl+T         btop in Ghostty
-Option + Ctrl+V         Clipboard history (Raycast)
-Option + Ctrl+A         Sound preferences
-Option + Ctrl+B         Bluetooth preferences
-Option + Ctrl+W         Wi-Fi preferences
-Option + Ctrl+E         Emoji picker (Raycast)
-Option + Ctrl+X         Monologue (dictation)
-Option + Ctrl+,         Toggle Do Not Disturb
-Option + Cmd+Space      Workspace menu
-Option + Cmd+Enter      Ghostty + tmux session
+echo -e "
+${B}${C}── Keyboard Layout ──────────────────────────────────────${R}
+${B}Option${R}  ${D}→${R} Window management ${D}(Omarchy: Super)${R}
+${B}Command${R} ${D}→${R} App shortcuts + tmux ${D}(Omarchy: Alt)${R}
 
-── tmux (prefix = Ctrl+Space) ─────────────────────────────
-prefix + h / v      Split horizontal / vertical
-prefix + x / k      Kill pane / window
-prefix + c          New window
-prefix + r / R      Rename window / session
-prefix + [          Copy mode  (v select, y copy)
-Ctrl+Alt+arrows     Navigate panes
-Cmd + 1–9           Switch window
-Cmd + Left/Right    Prev / next window
-Cmd + Up/Down       Prev / next session
+${B}${C}── AeroSpace (Option = SUPER) ───────────────────────────${R}
+${B}Option + Space${R}          ${D}Raycast launcher${R}
+${B}Option + 1–9${R}           ${D}Switch workspace 1–9${R}
+${B}Option + S${R}              ${D}Switch to scratchpad (workspace 10)${R}
+${B}Option + arrows${R}         ${D}Focus window${R}
+${B}Option + Shift+arrows${R}   ${D}Move window${R}
+${B}Option + Shift + 1–9${R}   ${D}Move window to workspace${R}
+${B}Option + Shift+0${R}       ${D}Move window to scratchpad (workspace 10)${R}
+${B}Option + W${R}              ${D}Close window${R}
+${B}Option + F${R}              ${D}Fullscreen${R}
+${B}Option + T${R}              ${D}Toggle floating/tiling${R}
+${B}Option + J${R}              ${D}Toggle split direction${R}
+${B}Option + L${R}              ${D}Toggle layout${R}
+${B}Option + K${R}              ${D}Hotkeys cheatsheet (Raycast)${R}
+${B}Option + ,${R}              ${D}Toggle Notification Center${R}
+${B}Option + Escape${R}         ${D}Apple menu (Raycast)${R}
+${B}Option + - / =${R}          ${D}Resize width${R}
+${B}Option + Shift + - / =${R}  ${D}Resize height${R}
+${B}Option + Tab${R}            ${D}Next workspace${R}
+${B}Option + Shift+Tab${R}      ${D}Previous workspace${R}
+${B}Option + Ctrl+Tab${R}       ${D}Former workspace${R}
 
-── Ghostty (terminal splits & pane nav) ──────────────────
-Ctrl+Shift + E          Split down
-Ctrl+Shift + O          Split right
-Ctrl+Shift + T          New tab
-Ctrl+Shift + 1–9        Go to tab 1–9
-Ctrl+Shift + Left/Right Prev / next tab
-Ctrl+Cmd + arrows       Navigate tmux panes
-Ctrl+Cmd+Shift + arrows Resize tmux panes"
+${B}${Y}── App Launchers ───────────────────────────────────────${R}
+${B}Option + Enter${R}          ${D}New Ghostty window${R}
+${B}Option + Shift+Enter${R}    ${D}New Chrome window${R}
+${B}Option + Shift+N${R}        ${D}New Zed window${R}
+${B}Option + Shift+C${R}        ${D}Open Google Calendar${R}
+${B}Option + Shift+E${R}        ${D}Open Gmail${R}
+${B}Option + Shift+G${R}        ${D}Open WhatsApp${R}
+${B}Option + Shift+M${R}        ${D}Open Spotify${R}
+${B}Option + Shift+O${R}        ${D}Open Obsidian${R}
+${B}Option + Shift+F${R}        ${D}Open Finder${R}
+${B}Option + Shift+/${R}        ${D}Open 1Password${R}
+${B}Option + Shift+A${R}        ${D}Open Claude${R}
+${B}Option + Shift+D${R}        ${D}LazyDocker in Ghostty${R}
+${B}Option + Shift+Cmd+B${R}    ${D}Chrome incognito${R}
+${B}Option + Cmd+Enter${R}      ${D}Ghostty + tmux session${R}
+${B}Option + Cmd+Space${R}      ${D}Workspace menu${R}
+
+${B}${Y}── System Controls ─────────────────────────────────────${R}
+${B}Option + Ctrl+C${R}         ${D}CleanShot all-in-one${R}
+${B}Option + Ctrl+L${R}         ${D}Lock screen${R}
+${B}Option + Ctrl+T${R}         ${D}btop in Ghostty${R}
+${B}Option + Ctrl+V${R}         ${D}Clipboard history (Raycast)${R}
+${B}Option + Ctrl+A${R}         ${D}Sound preferences${R}
+${B}Option + Ctrl+B${R}         ${D}Bluetooth preferences${R}
+${B}Option + Ctrl+W${R}         ${D}Wi-Fi preferences${R}
+${B}Option + Ctrl+E${R}         ${D}Emoji picker (Raycast)${R}
+${B}Option + Ctrl+X${R}         ${D}Monologue (dictation)${R}
+${B}Option + Ctrl+,${R}         ${D}Toggle Do Not Disturb${R}
+
+${B}${C}── tmux (prefix = Ctrl+Space) ──────────────────────────${R}
+${B}prefix + h / v${R}      ${D}Split horizontal / vertical${R}
+${B}prefix + x / k${R}      ${D}Kill pane / window${R}
+${B}prefix + c${R}          ${D}New window${R}
+${B}prefix + r / R${R}      ${D}Rename window / session${R}
+${B}prefix + [${R}          ${D}Copy mode  (v select, y copy)${R}
+${B}Ctrl+Alt+arrows${R}     ${D}Navigate panes${R}
+${B}Cmd + 1–9${R}           ${D}Switch window${R}
+${B}Cmd + Left/Right${R}    ${D}Prev / next window${R}
+${B}Cmd + Up/Down${R}       ${D}Prev / next session${R}
+
+${B}${C}── Ghostty (terminal splits & pane nav) ────────────────${R}
+${B}Ctrl+Shift + E${R}          ${D}Split down${R}
+${B}Ctrl+Shift + O${R}          ${D}Split right${R}
+${B}Ctrl+Shift + T${R}          ${D}New tab${R}
+${B}Ctrl+Shift + 1–9${R}        ${D}Go to tab 1–9${R}
+${B}Ctrl+Shift + Left/Right${R} ${D}Prev / next tab${R}
+${B}Ctrl+Cmd + arrows${R}       ${D}Navigate tmux panes${R}
+${B}Ctrl+Cmd+Shift + arrows${R} ${D}Resize tmux panes${R}
+"
