@@ -55,7 +55,7 @@ sudo pmset repeat wakeorpoweron MTWRF 08:00:00
 killall Dock
 
 # Load work hours agents (dotfiles.sh runs first and stows the plists)
-for label in com.sogamoso.workhours.caffeinate com.sogamoso.workhours.caffeinate-watch com.sogamoso.workhours.sleep-if-idle; do
+for label in com.sogamoso.workhours.caffeinate com.sogamoso.workhours.caffeinate-run com.sogamoso.workhours.caffeinate-watch com.sogamoso.workhours.sleep-if-idle; do
   plist="$HOME/Library/LaunchAgents/$label.plist"
   launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
   launchctl bootstrap "gui/$(id -u)" "$plist"
