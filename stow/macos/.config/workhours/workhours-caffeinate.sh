@@ -2,20 +2,24 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LABEL="com.sogamoso.workhours.caffeinate-run"
+DOMAIN="gui/$(id -u)"
+
+running() {
+  launchctl list "$LABEL" 2>/dev/null | grep -q '"PID"'
+}
 
 if "$SCRIPT_DIR/macos-on-ac-power"; then
-  # On AC — start caffeinate if not already running
-  if pgrep -f "caffeinate -imu" >/dev/null 2>&1; then
-    echo "caffeinate already running — skipping"
-    exit 0
+  if running; then
+    echo "On AC, caffeinate already running — skipping"
+  else
+    echo "On AC — starting caffeinate"
+    launchctl kickstart "$DOMAIN/$LABEL"
   fi
-  echo "On AC — starting caffeinate"
-  # Keep system awake for 11 hours (39600s); allow display to sleep (-imu, no -d)
-  exec caffeinate -imu -t 39600
 else
-  # On battery — stop caffeinate if running
-  if pkill -f "caffeinate -imu" 2>/dev/null; then
-    echo "Switched to battery — stopped caffeinate"
+  if running; then
+    echo "On battery — stopping caffeinate"
+    launchctl kill SIGTERM "$DOMAIN/$LABEL"
   else
     echo "On battery, caffeinate not running — nothing to do"
   fi
