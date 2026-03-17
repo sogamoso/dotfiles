@@ -17,7 +17,7 @@ case "$(uname -s)" in
     bash "$REPO_DIR/install/macos/all.sh"
     ;;
   *)
-    echo "Unsupported OS"
+    echo "✗ Unsupported OS"
     exit 1
     ;;
 esac
@@ -39,9 +39,10 @@ if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
   touch "$HOME/.dotfiles-bootstrapped"
   echo -e "\n==> Manual steps required. Opening guide..."
   open -a Typora "$REPO_DIR/docs/macos-setup.md"
+  echo "✓ Guide opened in Typora"
 fi
 
-echo -e "\n==> Finishing Sebastian's dotfiles install"
+echo -e "\n==> Finishing Sebastian's dotfiles installation"
 echo "✓ Done!"
 
 exec zsh -l
