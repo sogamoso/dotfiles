@@ -1,0 +1,4 @@
+# Compiled Swift helpers — built at runtime, not committed
+plugins/menu_bar_height
+plugins/cpu_stats
+plugins/has_external_display
