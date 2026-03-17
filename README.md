@@ -31,9 +31,21 @@ stow/
 `bootstrap` runs two phases:
 
 1. **OS setup** — dispatches by `uname -s`.
-2. **Dotfiles** (`install/dotfiles.sh`) — cross-platform config symlinks via stow.
+2. **Dotfiles** (`install/dotfiles/all.sh`) — cross-platform config symlinks via stow.
 
 After both phases it checks Tailscale status and drops into a fresh zsh login shell.
+
+### Dotfiles setup
+
+The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
+
+| Script | What it does |
+|--------|-------------|
+| `zshrc.sh` | Appends personal supplement source to `.zshrc` |
+| `ssh.sh` | Ensures `~/.ssh` directory exists before stowing |
+| `stow.sh` | Stows cross-platform dotfile packages into `$HOME` |
+| `hushlogin.sh` | Suppresses "Last login" terminal message |
+| `coderabbit.sh` | Configures git filter to strip Coderabbit config from `.gitconfig` |
 
 ## Cross-platform design
 
