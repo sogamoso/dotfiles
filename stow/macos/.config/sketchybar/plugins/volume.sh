@@ -25,9 +25,9 @@ fi
 # Determine icon based on volume level
 if [ "$MUTED" = "true" ] || [ "$VOLUME" -eq 0 ]; then
   ICON="󰝟"
-elif [ "$VOLUME" -gt 66 ]; then
+elif [ "$VOLUME" -gt 60 ]; then
   ICON="󰕾"
-elif [ "$VOLUME" -gt 33 ]; then
+elif [ "$VOLUME" -gt 10 ]; then
   ICON="󰖀"
 else
   ICON="󰕿"
