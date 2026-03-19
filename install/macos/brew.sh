@@ -26,7 +26,7 @@ STALE=$(brew bundle cleanup --file "$REPO_DIR/Brewfile" 2>&1 | grep -v "^Would u
 if [[ -n "$STALE" ]]; then
   log_warn "Installed packages not in Brewfile:"
   echo "$STALE" | sed 's/^/  /'
-  log_info "  Add them to the Brewfile to keep, or run: brew bundle cleanup --force"
+  log_action "Add them to the Brewfile to keep, or run: brew bundle cleanup --force"
 fi
 
 # Autoupdate once a week
