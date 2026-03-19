@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-SOURCE=$(defaults read com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID 2>/dev/null)
+BIN="$HOME/.cache/sketchybar/current_input_source"
+SRC="$CONFIG_DIR/plugins/current_input_source.swift"
+[ ! -f "$BIN" ] || [ "$SRC" -nt "$BIN" ] && {
+  mkdir -p "$(dirname "$BIN")"
+  swiftc "$SRC" -framework Carbon -o "$BIN" 2>/dev/null
+}
+
+SOURCE=$("$BIN" 2>/dev/null)
 
 case "$SOURCE" in
   *US|*ABC)    LABEL="EN"; BG=0xffa9b1d6; RPAD=5 ;;
