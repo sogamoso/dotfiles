@@ -31,12 +31,12 @@ osascript -e 'tell application "System Events" to set picture of every desktop t
 defaults write com.apple.universalaccess reduceTransparency -bool true 2>/dev/null || \
   echo "⚠ Could not set reduceTransparency — grant Full Disk Access to Terminal and rerun"
 
-# Menu bar: auto-hide on hover (NOTE: Control Center keys change frequently with macOS versions)
-# These keys are fragile and may need updating on new macOS releases
-# defaults write NSGlobalDomain _HIHideMenuBar -bool true
-# defaults write com.apple.controlcenter AutoHideMenuBarOption -int 2
+# Menu bar: auto-hide
+osascript -e 'tell application "System Events" to tell dock preferences to set autohide menu bar to true'
 
-# Dock: position, size, autohide (stable keys)
+# Dock: clear pinned apps, position, size, autohide
+defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock persistent-others -array
 defaults write com.apple.dock orientation -string "right"
 defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock tilesize -int 43
