@@ -20,8 +20,13 @@ echo -e "\n==> Installing Homebrew packages..."
 # Install personal packages (Omamac handles core packages)
 brew bundle --file "$REPO_DIR/Brewfile"
 
-# Show packages not in the Brewfile — consider adding them or run: brew bundle cleanup --force
-brew bundle cleanup --file "$REPO_DIR/Brewfile" || true
+# Flag packages not in the Brewfile
+STALE=$(brew bundle cleanup --file "$REPO_DIR/Brewfile" 2>/dev/null) || true
+if [[ -n "$STALE" ]]; then
+  echo -e "\n⚠ Installed packages not in Brewfile:"
+  echo "$STALE" | grep "^Would uninstall" | sed 's/Would uninstall /  /'
+  echo "  Run: brew bundle cleanup --force"
+fi
 
 # Autoupdate once a week
 if ! brew autoupdate status 2>/dev/null | grep -q "Autoupdate is installed and running"; then
