@@ -40,6 +40,9 @@ if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
   echo -e "\n==> Manual steps required. Opening guide..."
   open -a Typora "$REPO_DIR/docs/macos-setup.md"
   echo "✓ Guide opened in Typora"
+  echo -e "\n==> Starting AeroSpace..."
+  open -a AeroSpace
+  echo "✓ AeroSpace launched — grant accessibility permissions when prompted"
 fi
 
 echo -e "\n==> Finishing Sebastian's dotfiles installation..."
