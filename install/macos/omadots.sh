@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
 if [[ ! -f "$HOME/.config/shell/all" ]]; then
-  echo -e "\n==> Installing Omadots..."
+  log_heading "Installing Omadots..."
   curl -fsSL https://raw.githubusercontent.com/omacom-io/omadots/refs/heads/master/install.sh | zsh
 else
-  echo -e "\n==> Omadots already installed..."
-  echo "✓ Skipping installation"
+  log_heading "Omadots already installed..."
+  log_success "Skipping installation"
 fi

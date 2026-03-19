@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
 CHROME_APPS="$HOME/Applications/Chrome Apps.localized"
 
@@ -11,10 +12,10 @@ missing=()
 [[ ! -d "$CHROME_APPS/GitHub.app" ]] && missing+=("https://github.com")
 
 if (( ${#missing[@]} )); then
-  echo -e "\n==> Installing PWAs..."
+  log_heading "Installing PWAs..."
   open -a "Google Chrome" "${missing[@]}"
   for url in "${missing[@]}"; do
-    echo "• $url"
+    log_item "$url"
   done
-  echo "Install each via ⋮ → Cast, save, and share → Install page as app"
+  log_info "Install each via ⋮ → Cast, save, and share → Install page as app"
 fi

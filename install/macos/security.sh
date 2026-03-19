@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
-echo -e "\n==> Configuring security..."
+log_heading "Configuring security..."
 
 # Enable Remote Login (SSH server)
 if ! launchctl print system/com.openssh.sshd &>/dev/null; then
@@ -20,5 +21,5 @@ fi
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
 
 # Full Disk Access reminder (TCC db access is blocked in modern macOS)
-echo -e "\n⚠ Grant Full Disk Access to Terminal/Ghostty if needed:"
-echo "  System Settings → Privacy & Security → Full Disk Access → Enable Terminal"
+log_warn "Grant Full Disk Access to Terminal/Ghostty if needed:"
+log_info "  System Settings → Privacy & Security → Full Disk Access → Enable Terminal"

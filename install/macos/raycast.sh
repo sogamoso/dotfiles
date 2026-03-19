@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
-echo -e "\n==> Launching Raycast..."
+log_heading "Launching Raycast..."
 if pgrep -f "Raycast" >/dev/null; then
-  echo "✓ Raycast already running"
+  log_success "Raycast already running"
 else
   open -a Raycast
-  echo "✓ Raycast launched"
-  echo -e "\n! Raycast setup:"
-  echo "• Complete the setup wizard"
-  echo "• Set hotkey to Option+Space"
+  log_success "Raycast launched"
+  log_action "Raycast setup:"
+  log_item "Complete the setup wizard"
+  log_item "Set hotkey to Option+Space"
 fi

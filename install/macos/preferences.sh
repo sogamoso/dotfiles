@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
-echo -e "\n==> Setting macOS preferences..."
+log_heading "Setting macOS preferences..."
 
 # Dark mode
 osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
@@ -24,7 +25,7 @@ defaults write com.apple.HIToolbox AppleFnUsageType -int 1
 
 # Accessibility: disable UI transparency (requires Full Disk Access — skipped if denied)
 defaults write com.apple.universalaccess reduceTransparency -bool true 2>/dev/null || \
-  echo "⚠ Could not set reduceTransparency — grant Full Disk Access to Terminal and rerun"
+  log_warn "Could not set reduceTransparency — grant Full Disk Access to Terminal and rerun"
 
 # Menu bar: auto-hide
 osascript -e 'tell application "System Events" to tell dock preferences to set autohide menu bar to true'
@@ -64,4 +65,4 @@ if ! system_profiler SPHardwareDataType | grep -q "Mac mini"; then
   done
 fi
 
-echo "✓ macOS preferences set"
+log_success "macOS preferences set"
