@@ -6,6 +6,6 @@ if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
   touch "$HOME/.dotfiles-bootstrapped"
   REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
   echo -e "\n==> Manual steps required. Opening guide..."
-  open "$REPO_DIR/docs/macos-setup.md"
+  open "$REPO_DIR/docs/macos-manual-setup.md"
   echo "✓ Guide opened"
 fi
