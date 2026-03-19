@@ -1,6 +1,6 @@
 # Personal additions for Omadots-managed shells.
 # Assumes Omadots have already been installed.
-# Sourced from ~/.zshrc by install/omadots_supplement.sh.
+# Sourced from ~/.zshrc via install/dotfiles/zshrc.sh.
 # Only includes things Omadots doesn't provide.
 
 # Locale (needed for SSH to remote hosts)

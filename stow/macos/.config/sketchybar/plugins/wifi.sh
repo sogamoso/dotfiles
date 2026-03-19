@@ -21,8 +21,8 @@ else
     if [ -z "$WIFI_SSID" ] || [ "$WIFI_SSID" = "off" ]; then
       ICON="󰤭"
     else
-      # Get signal strength using airport command
-      RSSI=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I 2>/dev/null | grep "agrCtlRSSI" | awk '{print $2}')
+      # Get signal strength using system_profiler (airport was removed in macOS 15+)
+      RSSI=$(system_profiler SPAirPortDataType 2>/dev/null | awk -F': ' '/Signal \/ Noise/{split($2, a, " "); print a[1]; exit}')
       
       if [ -z "$RSSI" ]; then
         ICON="󰤨"

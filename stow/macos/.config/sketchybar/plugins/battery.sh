@@ -29,7 +29,7 @@ if [ -n "$CHARGING" ]; then
   exit 0
 fi
 
-if [ "$PERCENTAGE" -gt 80 ]; then
+if [ "$PERCENTAGE" -gt 60 ]; then
   ICON="󰁹"
 elif [ "$PERCENTAGE" -gt 60 ]; then
   ICON="󰂀"
