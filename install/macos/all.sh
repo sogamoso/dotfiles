@@ -20,12 +20,4 @@ bash "$DIR/pwas.sh"
 bash "$DIR/sketchybar.sh"
 bash "$DIR/aerospace.sh"
 bash "$DIR/raycast.sh"
-
-# Open the manual-steps guide only on first run — skip the interruption when re-running for updates
-if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
-  touch "$HOME/.dotfiles-bootstrapped"
-  REPO_DIR="$(cd "$DIR/../.." && pwd)"
-  echo -e "\n==> Manual steps required. Opening guide..."
-  open "$REPO_DIR/docs/macos-setup.md"
-  echo "✓ Guide opened"
-fi
+bash "$DIR/manual_steps.sh"
