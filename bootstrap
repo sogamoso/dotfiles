@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/install/lib/log.sh"
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-echo -e "\n==> Installing Sebastian's dotfiles.."
+log_heading "Installing Sebastian's dotfiles.."
 
 # Cache sudo credentials upfront — some casks need them
 sudo echo "✓ Granted"
@@ -17,7 +18,7 @@ case "$(uname -s)" in
     bash "$REPO_DIR/install/macos/all.sh"
     ;;
   *)
-    echo "✗ Unsupported OS"
+    log_warn "Unsupported OS"
     exit 1
     ;;
 esac
@@ -26,14 +27,14 @@ esac
 bash "$REPO_DIR/install/dotfiles/all.sh"
 
 # Tailscale
-echo -e "\n==> Checking Tailscale connection..."
+log_heading "Checking Tailscale connection..."
 if timeout 5 tailscale status &>/dev/null; then
-  echo "✓ Tailscale connected"
+  log_success "Tailscale connected"
 else
-  echo "✗ Tailscale is not connected. Run: tailscale up --ssh"
+  log_warn "Tailscale is not connected. Run: tailscale up --ssh"
 fi
 
-echo -e "\n==> Finishing Sebastian's dotfiles installation..."
-echo "✓ Done!"
+log_heading "Finishing Sebastian's dotfiles installation..."
+log_success "Done!"
 
 exec zsh -l
