@@ -22,4 +22,4 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on
 
 # Full Disk Access reminder (TCC db access is blocked in modern macOS)
 log_warn "Grant Full Disk Access to Terminal/Ghostty if needed:"
-log_info "  System Settings → Privacy & Security → Full Disk Access → Enable Terminal"
+log_info "     System Settings → Privacy & Security → Full Disk Access → Enable Terminal"
