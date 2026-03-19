@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
-echo -e "\n==> Installing Alacritty..."
+log_heading "Installing Alacritty..."
 
 if [[ ! -d "/Applications/Alacritty.app" ]]; then
   ALACRITTY_URL=$(curl -s https://api.github.com/repos/alacritty/alacritty/releases/latest \
@@ -14,4 +15,4 @@ if [[ ! -d "/Applications/Alacritty.app" ]]; then
   rm "$ALACRITTY_DMG"
 fi
 
-echo "✓ Alacritty"
+log_success "Alacritty"

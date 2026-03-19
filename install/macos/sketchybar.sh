@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
-echo -e "\n==> Restarting SketchyBar..."
+log_heading "Restarting SketchyBar..."
 brew services restart sketchybar
-echo "✓ Done"
+log_success "Done"

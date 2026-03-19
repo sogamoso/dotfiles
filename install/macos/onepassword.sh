@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
-echo -e "\n==> Launching 1Password..."
+log_heading "Launching 1Password..."
 if pgrep -f "1Password" >/dev/null; then
-  echo "✓ 1Password already running"
+  log_success "1Password already running"
 else
   open -a "1Password"
-  echo "✓ 1Password launched"
-  echo -e "\n! 1Password setup:"
-  echo "• Sign in to your account"
-  echo "• Enable the SSH agent: Settings → Developer → Use the SSH agent"
+  log_success "1Password launched"
+  log_action "1Password setup:"
+  log_item "Sign in to your account"
+  log_item "Enable the SSH agent: Settings → Developer → Use the SSH agent"
 fi

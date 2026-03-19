@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
@@ -7,7 +8,7 @@ if ! command -v brew &>/dev/null; then
   if [[ -x /opt/homebrew/bin/brew ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
   else
-    echo "==> Installing Homebrew..."
+    log_heading "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
@@ -15,7 +16,7 @@ fi
 
 mkdir -p "$HOME/Library/LaunchAgents"  # not created by default on a fresh macOS install
 
-echo -e "\n==> Installing Homebrew packages..."
+log_heading "Installing Homebrew packages..."
 
 # Install personal packages (Omamac handles core packages)
 brew bundle --file "$REPO_DIR/Brewfile"
@@ -23,9 +24,9 @@ brew bundle --file "$REPO_DIR/Brewfile"
 # Flag packages not in the Brewfile
 STALE=$(brew bundle cleanup --file "$REPO_DIR/Brewfile" 2>&1 | grep -v "^Would uninstall\|^Run \`brew") || true
 if [[ -n "$STALE" ]]; then
-  echo -e "\n⚠ Installed packages not in Brewfile:"
+  log_warn "Installed packages not in Brewfile:"
   echo "$STALE" | sed 's/^/  /'
-  echo "  Add them to the Brewfile to keep, or run: brew bundle cleanup --force"
+  log_info "  Add them to the Brewfile to keep, or run: brew bundle cleanup --force"
 fi
 
 # Autoupdate once a week

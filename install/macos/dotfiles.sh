@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
@@ -16,7 +17,7 @@ done
 [[ -f "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-watch.plist" && ! -L "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-watch.plist" ]] && rm "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-watch.plist"
 [[ -f "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"    && ! -L "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"    ]] && rm "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"
 
-echo -e "\n==> Stowing macOS specific dotfiles..."
+log_heading "Stowing macOS specific dotfiles..."
 cd "$REPO_DIR/stow"
 stow --target "$HOME" --restow --no-folding macos
-echo "✓ macOS dotfiles stowed"
+log_success "macOS dotfiles stowed"
