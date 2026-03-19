@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo -e "\n==> Starting AeroSpace..."
-if pgrep -x "AeroSpace" >/dev/null; then
-  echo "✓ AeroSpace already running"
-else
-  open -a AeroSpace
-  echo "✓ AeroSpace launched"
-fi
-
 echo -e "\n==> Workspaces:"
 echo "• 1  Ghostty / Zed"
 echo "• 2  Chrome / Safari"
