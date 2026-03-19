@@ -10,5 +10,4 @@ else
   echo -e "\n! Raycast setup:"
   echo "• Complete the setup wizard"
   echo "• Set hotkey to Option+Space"
-  echo "• Import snippets: Settings → Import → ~/.config/raycast/snippets.json"
 fi

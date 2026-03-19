@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-
 echo -e "\n==> Setting macOS preferences..."
 
 # Dark mode
@@ -23,9 +21,6 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 # Fn key: change input source (0=nothing, 1=input source, 2=emoji, 3=dictation)
 defaults write com.apple.HIToolbox AppleFnUsageType -int 1
-
-# Desktop wallpaper
-osascript -e 'tell application "System Events" to set picture of every desktop to POSIX file "'"$REPO_DIR/assets/desktop.png"'"'
 
 # Accessibility: disable UI transparency (requires Full Disk Access — skipped if denied)
 defaults write com.apple.universalaccess reduceTransparency -bool true 2>/dev/null || \
