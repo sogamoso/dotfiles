@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
+  echo -e "\n==> Starting AeroSpace..."
+  open -a AeroSpace
+  echo "✓ AeroSpace launched — grant accessibility permissions when prompted"
+fi
+
 echo -e "\n==> Workspaces:"
 echo "• 1  Ghostty / Zed"
 echo "• 2  Chrome / Safari"
