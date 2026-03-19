@@ -14,7 +14,7 @@ Open each prompt as it appears during the install, or go here:
 
 ---
 
-## 2. Set Raycast Hotkey
+## 2. Disable Keyboard Shortcuts
 
 System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in these sections:
 
@@ -45,7 +45,9 @@ System Settings → General → Login Items — add:
 - Google Calendar
 - Google Drive
 - Monologue
+- Notion
 - Raycast
+- Slack
 
 ---
 
@@ -100,21 +102,15 @@ Open Monologue → Settings → set the global hotkey to `Option+Ctrl+X` (SUPER+
 
 ---
 
-## Raycast Hotkeys
+## 7. Raycast Hotkeys
 
 Set these hotkeys in Raycast → Extensions:
 
 - **Script Commands → Apple Menu** → `Option + Escape` (Omarchy: SUPER + Escape)
 - **Script Commands → Hotkeys Cheatsheet** → `Option + K` (Omarchy: SUPER + K)
-- **Emoji & Symbols** → `Option + Ctrl + E` (Omarchy: SUPER + Ctrl + E)
+- **Search Emoji & Symbols** → `Option + Ctrl + E` (Omarchy: SUPER + Ctrl + E)
 
-## Hotkeys Reference
-
-| Physical key | macOS sends | Role | Omarchy equivalent |
-|---|---|---|---|
-| Option | Alt/Option | Window management | Super |
-| Command | Cmd | App shortcuts + tmux | Alt |
-
+---
 
 ## Remaining Gaps vs Omarchy
 
