@@ -121,7 +121,7 @@ sketchybar --add item cpu right \
   --set cpu \
     icon.font="JetBrainsMono Nerd Font:Bold:19.0" \
     update_freq=5 \
-    click_script="$CONFIG_DIR/plugins/cpu_click.sh" \
+    click_script="$CONFIG_DIR/plugins/activity_monitor.sh" \
     script="$CONFIG_DIR/plugins/cpu.sh"
 
 # Memory
@@ -129,7 +129,7 @@ sketchybar --add item memory right \
   --set memory \
     icon.font="JetBrainsMono Nerd Font:Bold:19.0" \
     update_freq=5 \
-    click_script="$CONFIG_DIR/plugins/memory_click.sh" \
+    click_script="$CONFIG_DIR/plugins/activity_monitor.sh" \
     script="$CONFIG_DIR/plugins/memory.sh"
 
 # Volume
