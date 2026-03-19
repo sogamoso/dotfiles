@@ -4,16 +4,22 @@ set -euo pipefail
 REPO="https://github.com/sogamoso/dotfiles.git"
 DEST="$HOME/Code/dotfiles"
 
+# Use gum-styled logging when available (re-runs), plain echo on first run
+LOG_SH="$DEST/install/lib/log.sh"
+[[ -f "$LOG_SH" ]] && source "$LOG_SH"
+command -v log_heading &>/dev/null || log_heading() { echo -e "\n==> $1"; }
+command -v log_success &>/dev/null || log_success() { echo "✓ $1"; }
+
 if [[ ! -d "$DEST" ]]; then
-  echo "==> Cloning dotfiles..."
+  log_heading "Cloning dotfiles..."
   mkdir -p "$(dirname "$DEST")"
   git clone --quiet "$REPO" "$DEST"
-  echo "✓ Dotfiles cloned"
+  log_success "Dotfiles cloned"
 else
-  echo "==> Updating dotfiles..."
+  log_heading "Updating dotfiles..."
   git -C "$DEST" restore .  # discard stow-caused deletions before pulling
   git -C "$DEST" pull --ff-only --quiet
-  echo "✓ Dotfiles updated"
+  log_success "Dotfiles updated"
 fi
 
 exec bash "$DEST/bootstrap"
