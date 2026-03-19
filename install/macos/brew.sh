@@ -21,7 +21,7 @@ echo -e "\n==> Installing Homebrew packages..."
 brew bundle --file "$REPO_DIR/Brewfile"
 
 # Flag packages not in the Brewfile
-STALE=$(brew bundle cleanup --file "$REPO_DIR/Brewfile" 2>/dev/null | grep "^Would uninstall" | sed 's/Would uninstall /  /') || true
+STALE=$(brew bundle cleanup --file "$REPO_DIR/Brewfile" 2>&1 | grep "^Would uninstall" | sed 's/Would uninstall /  /') || true
 if [[ -n "$STALE" ]]; then
   echo -e "\n⚠ Installed packages not in Brewfile:"
   echo "$STALE"
