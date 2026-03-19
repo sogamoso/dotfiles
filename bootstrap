@@ -38,8 +38,8 @@ fi
 if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
   touch "$HOME/.dotfiles-bootstrapped"
   echo -e "\n==> Manual steps required. Opening guide..."
-  open -a Typora "$REPO_DIR/docs/macos-setup.md"
-  echo "✓ Guide opened in Typora"
+  open "$REPO_DIR/docs/macos-setup.md"
+  echo "✓ Guide opened"
 fi
 
 echo -e "\n==> Finishing Sebastian's dotfiles installation..."
