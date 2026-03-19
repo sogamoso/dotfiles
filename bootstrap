@@ -33,15 +33,6 @@ else
   echo "✗ Tailscale is not connected. Run: tailscale up --ssh"
 fi
 
-# Open the manual-steps guide only on first run (Typora not yet in PATH on re-runs would still work,
-# but more importantly we skip the interruption when re-running for updates)
-if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
-  touch "$HOME/.dotfiles-bootstrapped"
-  echo -e "\n==> Manual steps required. Opening guide..."
-  open "$REPO_DIR/docs/macos-setup.md"
-  echo "✓ Guide opened"
-fi
-
 echo -e "\n==> Finishing Sebastian's dotfiles installation..."
 echo "✓ Done!"
 
