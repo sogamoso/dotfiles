@@ -25,7 +25,7 @@ STALE=$(brew bundle cleanup --file "$REPO_DIR/Brewfile" 2>/dev/null) || true
 if [[ -n "$STALE" ]]; then
   echo -e "\n⚠ Installed packages not in Brewfile:"
   echo "$STALE" | grep "^Would uninstall" | sed 's/Would uninstall /  /'
-  echo "  Run: brew bundle cleanup --force"
+  echo "  Add them to the Brewfile to keep, or run: brew bundle cleanup --force"
 fi
 
 # Autoupdate once a week
