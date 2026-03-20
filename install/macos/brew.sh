@@ -24,9 +24,9 @@ brew bundle --file "$REPO_DIR/Brewfile"
 # Flag packages not in the Brewfile
 STALE=$(brew bundle cleanup --file "$REPO_DIR/Brewfile" 2>&1 | grep -v "^Would uninstall\|^Run \`brew") || true
 if [[ -n "$STALE" ]]; then
-  log_warn "Installed packages not in Brewfile:"
+  log_success "Installed packages not in Brewfile:"
   echo "$STALE" | sed 's/^/  /'
-  log_action "Add them to the Brewfile to keep, or run: brew bundle cleanup --force"
+  log_warn "Add them to the Brewfile to keep, or run: brew bundle cleanup --force"
 fi
 
 # Autoupdate once a week
