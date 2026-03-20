@@ -7,8 +7,7 @@ if pgrep -f "Raycast" >/dev/null; then
   log_success "Raycast already running"
 else
   open -a Raycast
-  log_success "Raycast launched"
-  log_action "Raycast setup:"
+  log_warn "Raycast launched. Now:"
   log_item "Complete the setup wizard"
   log_item "Set hotkey to Option+Space"
 fi

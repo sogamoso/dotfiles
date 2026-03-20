@@ -27,6 +27,8 @@ if [[ -n "$STALE" ]]; then
   log_success "Installed packages not in Brewfile:"
   echo "$STALE" | sed 's/^/  /'
   log_warn "Add them to the Brewfile to keep, or run: brew bundle cleanup --force"
+else
+  log_success "All installed packages are in the Brewfile"
 fi
 
 # Autoupdate once a week
