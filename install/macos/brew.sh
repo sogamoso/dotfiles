@@ -31,10 +31,10 @@ else
   log_success "All installed packages are in the Brewfile"
 fi
 
-# Autoupdate once a week
+# Autoupdate once a day
 if ! brew autoupdate status 2>/dev/null | grep -q "Autoupdate is installed and running"; then
   brew autoupdate delete 2>/dev/null || true
-  brew autoupdate start 604800 --ac-only --upgrade --cleanup --leaves-only --immediate --sudo
+  brew autoupdate start 86400 --ac-only --upgrade --cleanup --leaves-only --immediate --sudo
 fi
 
 # zsh-you-should-use (installed via Brewfile, link into plugin dir)
