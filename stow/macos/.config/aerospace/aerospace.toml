@@ -187,8 +187,10 @@ if.app-id = 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'
 run = ['move-node-to-workspace --focus-follows-window 5']
 
 [[on-window-detected]] # 6: Notion
+# No --focus-follows-window: Notion spawns transient windows (e.g. meeting
+# transcription) that would yank focus to workspace 6 unexpectedly.
 if.app-id = 'notion.id'
-run = ['move-node-to-workspace --focus-follows-window 6']
+run = ['move-node-to-workspace 6']
 
 [[on-window-detected]] # 6: Linear
 if.app-id = 'com.linear'
