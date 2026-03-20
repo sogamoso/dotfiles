@@ -84,10 +84,10 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | Workspace | App |
 |---|---|
 | 1 | Ghostty |
-| 2 | Chrome |
+| 2 | Chrome, Meet |
 | 3 | Slack |
 | 4 | Gmail |
-| 5 | Todoist, Calendar, Meet |
+| 5 | Todoist, Calendar |
 | 6 | Notion, Linear, GitHub |
 | 7 | HEY |
 | 8 | WhatsApp |

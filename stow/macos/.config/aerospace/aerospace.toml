@@ -135,10 +135,10 @@ alt-cmd-space = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/
 # If PWA window rules stop working, reinstall the PWA to get new ID
 # -------------------------------------------------------
 # 1: Ghostty + Zed
-# 2: Chrome + Safari
+# 2: Chrome + Safari + Meet
 # 3: Slack
 # 4: Gmail
-# 5: Todoist + Calendar + Meet
+# 5: Todoist + Calendar
 # 6: Notion + Linear + GitHub
 # 7: HEY
 # 8: WhatsApp
@@ -162,6 +162,10 @@ run = ['move-node-to-workspace --focus-follows-window 2']
 if.app-id = 'com.apple.Safari'
 run = ['move-node-to-workspace --focus-follows-window 2']
 
+[[on-window-detected]] # 2: Google Meet (Chrome PWA)
+if.app-id = 'com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan'
+run = ['move-node-to-workspace --focus-follows-window 2']
+
 [[on-window-detected]] # 3: Slack
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = ['move-node-to-workspace --focus-follows-window 3']
@@ -180,10 +184,6 @@ run = ['move-node-to-workspace --focus-follows-window 5']
 
 [[on-window-detected]] # 5: Google Calendar (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'
-run = ['move-node-to-workspace --focus-follows-window 5']
-
-[[on-window-detected]] # 5: Google Meet (Chrome PWA)
-if.app-id = 'com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan'
 run = ['move-node-to-workspace --focus-follows-window 5']
 
 [[on-window-detected]] # 6: Notion
