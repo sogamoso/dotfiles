@@ -26,7 +26,7 @@ inner.horizontal = 10
 inner.vertical   = 10
 outer.left       = 10
 outer.bottom     = 10
-outer.top        = 38
+outer.top        = 8
 outer.right      = 10
 
 # -------------------------------------------------------
@@ -63,11 +63,11 @@ alt-right = 'focus right'
 alt-up    = 'focus up'
 alt-down  = 'focus down'
 
-# Move windows — Omarchy: SUPER + SHIFT + arrows
-alt-shift-left  = 'move left'
-alt-shift-right = 'move right'
-alt-shift-up    = 'move up'
-alt-shift-down  = 'move down'
+# Move windows — Omarchy: SUPER + SHIFT + arrows (remapped to free Option+Shift+Arrow for word selection)
+alt-ctrl-left  = 'move left'
+alt-ctrl-right = 'move right'
+alt-ctrl-up    = 'move up'
+alt-ctrl-down  = 'move down'
 
 # Window controls
 alt-w = 'close' # Omarchy: SUPER + W
