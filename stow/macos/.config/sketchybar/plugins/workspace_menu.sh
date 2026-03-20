@@ -32,20 +32,26 @@ WS_SUMMARY=$(aerospace list-windows --all --format "%{workspace} %{app-name}" 2>
     }
   ' | sort)
 
-# Hide all rows, then show occupied ones — all in one sketchybar call
-ARGS=(--set apple_menu.ws.1 drawing=off --set apple_menu.ws.2 drawing=off
-      --set apple_menu.ws.3 drawing=off --set apple_menu.ws.4 drawing=off
-      --set apple_menu.ws.5 drawing=off --set apple_menu.ws.6 drawing=off
-      --set apple_menu.ws.7 drawing=off --set apple_menu.ws.8 drawing=off
-      --set apple_menu.ws.9 drawing=off)
-VISIBLE=""
+# Build a lookup of workspace → app summary
+declare -A WS_APPS
 while IFS='|' read -r ws apps; do
   [ -z "$ws" ] && continue
+  WS_APPS[$ws]="$apps"
+done <<< "$WS_SUMMARY"
+
+# Show all workspaces (1-9), with app labels for occupied ones
+ARGS=()
+VISIBLE=""
+for ws in $(seq 1 9); do
   COLOR=$TEXT
   [ "$ws" = "$FOCUSED" ] && COLOR=$BLUE
-  ARGS+=(--set "apple_menu.ws.$ws" drawing=on "label=$ws  $apps" "label.color=$COLOR" background.drawing=off)
+  if [ -n "${WS_APPS[$ws]}" ]; then
+    ARGS+=(--set "apple_menu.ws.$ws" drawing=on "label=$ws  ${WS_APPS[$ws]}" "label.color=$COLOR" background.drawing=off)
+  else
+    ARGS+=(--set "apple_menu.ws.$ws" drawing=on "label=$ws" "label.color=$COLOR" background.drawing=off)
+  fi
   VISIBLE="$VISIBLE $ws"
-done <<< "$WS_SUMMARY"
+done
 VISIBLE="${VISIBLE# }"
 sketchybar "${ARGS[@]}"
 
