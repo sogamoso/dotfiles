@@ -135,5 +135,6 @@ Set these hotkeys in Raycast → Extensions:
 | `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `SUPER + Ctrl + X` — dictation | ✅ Option+Ctrl+X → Monologue |
+| `SUPER + SHIFT + arrows` — move window | Option+Ctrl+arrows (remapped to free Option+Shift for word selection) |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |
 | Per-monitor independent workspaces | Aerospace handles it, less seamless |
