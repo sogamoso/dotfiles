@@ -74,7 +74,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
 | `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
 | `preferences.sh` | macOS system defaults |
-| `pwas.sh` | Installs Chrome PWAs (Gmail, Calendar, GitHub) |
+| `pwas.sh` | Installs Chrome PWAs (Gmail, Calendar, Meet) |
 | `sketchybar.sh` | Configures SketchyBar status bar |
 | `aerospace.sh` | Starts AeroSpace only if not already running |
 | `raycast.sh` | Opens Raycast for first-time setup |
@@ -88,7 +88,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 3 | Slack |
 | 4 | Gmail |
 | 5 | Todoist, Calendar |
-| 6 | Notion, Linear, GitHub |
+| 6 | Notion, Linear |
 | 7 | HEY |
 | 8 | WhatsApp |
 | 9 | Spotify |
