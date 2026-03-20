@@ -139,7 +139,7 @@ alt-cmd-space = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/
 # 3: Slack
 # 4: Gmail
 # 5: Todoist + Calendar
-# 6: Notion + Linear + GitHub
+# 6: Notion + Linear
 # 7: HEY
 # 8: WhatsApp
 # 9: Spotify + YouTube
@@ -196,10 +196,6 @@ run = ['move-node-to-workspace --focus-follows-window 6']
 
 [[on-window-detected]] # 6: Linear (alternate bundle id)
 if.app-id = 'com.linear.Linear'
-run = ['move-node-to-workspace --focus-follows-window 6']
-
-[[on-window-detected]] # 6: GitHub (Chrome PWA)
-if.app-id = 'com.google.Chrome.app.mjoklplbddabcmpepnokjaffbmgbkkgg'
 run = ['move-node-to-workspace --focus-follows-window 6']
 
 [[on-window-detected]] # 7: HEY
