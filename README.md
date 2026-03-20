@@ -119,7 +119,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + arrows` | Focus window left/right/up/down |
 | `Option + Shift + arrows` | Move window within workspace |
 | `Option + Shift + 1-9` | Move window to workspace |
-| `Option + Shift + 0` | Move window to scratchpad (workspace 10) |
+| `Option + Shift + S` | Move window to scratchpad (workspace 10) |
 | `Option + W` | Close focused window |
 | `Option + F` | Fullscreen |
 | `Option + T` | Toggle floating/tiling |
