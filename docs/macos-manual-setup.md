@@ -51,7 +51,19 @@ System Settings → General → Login Items — add:
 
 ---
 
-## 4. Authenticate GitHub CLI
+## 4. Menu Bar
+
+System Settings → Control Center → Menu Bar Only — enable only:
+
+- Wi-Fi
+- Bluetooth
+- Text Input
+
+Disable everything else (Siri, Spotlight, Battery, AirDrop, Focus, Screen Mirroring, Display, Sound, Now Playing, Fast User Switching, Time Machine, Keyboard Brightness, Timer, Weather).
+
+---
+
+## 5. Authenticate GitHub CLI
 
 Open a terminal and run:
 
@@ -61,7 +73,7 @@ gh auth login
 
 ---
 
-## 5. Applying a Theme
+## 6. Applying a Theme
 
 ### Wallpaper
 
@@ -96,13 +108,13 @@ Slack → Preferences → Themes → Custom Theme → paste:
 
 ---
 
-## 6. Monologue Dictation Hotkey
+## 7. Monologue Dictation Hotkey
 
 Open Monologue → Settings → set the global hotkey to `Option+Ctrl+X` (SUPER+Ctrl+X on Omarchy).
 
 ---
 
-## 7. Raycast Hotkeys
+## 8. Raycast Hotkeys
 
 Set these hotkeys in Raycast → Extensions:
 
