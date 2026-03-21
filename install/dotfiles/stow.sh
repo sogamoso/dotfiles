@@ -7,7 +7,7 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 log_heading "Stowing dotfiles..."
 
 cd "$REPO_DIR/stow"
-for config in git mise nvim ruby ssh zsh; do
+for config in claude git mise nvim ruby ssh zsh; do
   stow --target "$HOME" --restow --no-folding "$config"
 done
 
