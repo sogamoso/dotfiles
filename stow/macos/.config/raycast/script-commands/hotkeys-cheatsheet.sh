@@ -77,7 +77,6 @@ ${B}prefix + x / k${R}      ${D}Kill pane / window${R}
 ${B}prefix + c${R}          ${D}New window${R}
 ${B}prefix + r / R${R}      ${D}Rename window / session${R}
 ${B}prefix + [${R}          ${D}Copy mode  (v select, y copy)${R}
-${B}Ctrl+Alt+arrows${R}     ${D}Navigate panes${R}
 ${B}Cmd + 1–9${R}           ${D}Switch window${R}
 ${B}Cmd + Left/Right${R}    ${D}Prev / next window${R}
 ${B}Cmd + Up/Down${R}       ${D}Prev / next session${R}
