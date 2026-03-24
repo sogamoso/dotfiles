@@ -12,6 +12,9 @@
 [tag]
   gpgSign = true
 
+[alias]
+  sw = switch
+
 [init]
   defaultBranch = main
 
