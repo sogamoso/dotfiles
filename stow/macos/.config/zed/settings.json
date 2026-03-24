@@ -1,4 +1,18 @@
 {
+  "which_key": {
+    "enabled": true
+  },
+  "ui_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "when_closing_with_no_tabs": "close_window",
+  "session": {
+    "trust_all_worktrees": true
+  },
+  "telemetry": {
+    "diagnostics": true,
+    "metrics": false
+  },
+  "icon_theme": "Zed (Default)",
   "agent_servers": {
     "opencode": {
       "type": "registry"
@@ -13,9 +27,5 @@
   "vim_mode": true,
   "ui_font_size": 16,
   "buffer_font_size": 15,
-  "theme": {
-    "mode": "system",
-    "light": "One Light",
-    "dark": "Tokyo Night"
-  }
+  "theme": "Tokyo Night"
 }
