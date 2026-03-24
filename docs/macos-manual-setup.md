@@ -121,6 +121,7 @@ Set these hotkeys in Raycast → Extensions:
 - **Script Commands → Apple Menu** → `Option + Escape` (Omarchy: SUPER + Escape)
 - **Script Commands → Hotkeys Cheatsheet** → `Option + K` (Omarchy: SUPER + K)
 - **Search Emoji & Symbols** → `Option + Ctrl + E` (Omarchy: SUPER + Ctrl + E)
+- **Clipboard History** → `Option + Ctrl + V` (Omarchy: SUPER + Ctrl + V)
 
 ---
 
