@@ -137,8 +137,8 @@ alt-cmd-space = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/
 # 2: Chrome + Safari + Meet
 # 3: Slack
 # 4: Gmail
-# 5: Todoist + Calendar
-# 6: Notion + Linear
+# 5: Calendar
+# 6: Todoist + Notion + Linear
 # 7: HEY
 # 8: WhatsApp
 # 9: Spotify + YouTube
@@ -173,17 +173,17 @@ run = ['move-node-to-workspace --focus-follows-window 3']
 if.app-id = 'com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm'
 run = ['move-node-to-workspace --focus-follows-window 4']
 
-[[on-window-detected]] # 5: Todoist
-if.app-id = 'com.todoist.mac.Todoist'
-run = ['move-node-to-workspace --focus-follows-window 5']
-
-[[on-window-detected]] # 5: Todoist (alternate bundle id)
-if.app-id = 'com.todoist.mac'
-run = ['move-node-to-workspace --focus-follows-window 5']
-
 [[on-window-detected]] # 5: Google Calendar (Chrome PWA)
 if.app-id = 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'
 run = ['move-node-to-workspace --focus-follows-window 5']
+
+[[on-window-detected]] # 6: Todoist
+if.app-id = 'com.todoist.mac.Todoist'
+run = ['move-node-to-workspace --focus-follows-window 6']
+
+[[on-window-detected]] # 6: Todoist (alternate bundle id)
+if.app-id = 'com.todoist.mac'
+run = ['move-node-to-workspace --focus-follows-window 6']
 
 [[on-window-detected]] # 6: Notion
 # No --focus-follows-window: Notion spawns transient windows (e.g. meeting
