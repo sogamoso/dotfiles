@@ -12,7 +12,7 @@ alias gcb='git checkout -b'
 alias gb='git branch'
 alias gbd='git branch -d'
 alias gsw='git switch'
-alias gsc='git switch -c'
+alias gswc='git switch -c'
 alias gp='git push -u origin HEAD'
 alias gpf='git push --force-with-lease'
 alias gf='git fetch --prune'
@@ -25,8 +25,8 @@ alias grba='git rebase --abort'
 # Sync current branch safely
 gsync() { git fetch origin --prune && git pull --ff-only; }
 
-# Keep main clean and updated
-gbase() {
+# Switch to main/master and sync
+gswm() {
   local base
 
   if git show-ref --verify --quiet refs/heads/main || git show-ref --verify --quiet refs/remotes/origin/main; then
