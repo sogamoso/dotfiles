@@ -42,13 +42,13 @@ gswm() {
   gsync
 }
 
-# New branch off latest main
-gnew() {
+# New branch off latest main/master
+gbc() {
   if [[ -z "${1-}" ]]; then
-    echo "Usage: gnew <branch-name>"
+    echo "Usage: gbc <branch-name>"
     return 1
   fi
-  gbase && git switch -c "$1"
+  gswm && gswc "$1"
 }
 
 # Force-delete a branch, removing its worktree first if one exists
