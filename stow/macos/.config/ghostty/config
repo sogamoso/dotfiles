@@ -28,15 +28,15 @@ quit-after-last-window-closed = true
 
 # Cmd → Meta translation for tmux (physical Command = ALT on Omarchy)
 # Sends ESC+key so tmux reads M-1..M-9, M-Left/Right, M-Up/Down
-keybind = cmd+digit_1=text:\x1b1
-keybind = cmd+digit_2=text:\x1b2
-keybind = cmd+digit_3=text:\x1b3
-keybind = cmd+digit_4=text:\x1b4
-keybind = cmd+digit_5=text:\x1b5
-keybind = cmd+digit_6=text:\x1b6
-keybind = cmd+digit_7=text:\x1b7
-keybind = cmd+digit_8=text:\x1b8
-keybind = cmd+digit_9=text:\x1b9
+keybind = cmd+digit_1=text:\x1b\x31
+keybind = cmd+digit_2=text:\x1b\x32
+keybind = cmd+digit_3=text:\x1b\x33
+keybind = cmd+digit_4=text:\x1b\x34
+keybind = cmd+digit_5=text:\x1b\x35
+keybind = cmd+digit_6=text:\x1b\x36
+keybind = cmd+digit_7=text:\x1b\x37
+keybind = cmd+digit_8=text:\x1b\x38
+keybind = cmd+digit_9=text:\x1b\x39
 keybind = cmd+left=text:\x1b[1;3D
 keybind = cmd+right=text:\x1b[1;3C
 keybind = cmd+up=text:\x1b[1;3A
