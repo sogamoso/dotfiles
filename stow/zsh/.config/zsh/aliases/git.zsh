@@ -55,7 +55,7 @@ gbc() {
 gbD() {
   local branch="${1:?Usage: gbD <branch>}"
   local worktree
-  worktree=$(git worktree list --porcelain | awk '/^worktree /{wt=$2} /^branch refs\/heads\/'"$branch"'$/{print wt}')
+  worktree=$(git worktree list --porcelain | awk -v b="$branch" '/^worktree /{wt=$2} $0 == "branch refs/heads/" b {print wt}')
   if [[ -n "$worktree" ]]; then
     echo "Removing worktree: $worktree"
     git worktree remove --force "$worktree"
