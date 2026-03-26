@@ -107,6 +107,7 @@ alt-shift-cmd-b = 'exec-and-forget open -na "Google Chrome" --args --incognito' 
 alt-shift-d     = 'exec-and-forget open -na Ghostty --args -e lazydocker' # SUPER+SHIFT+D → LazyDocker
 
 # System controls
+alt-ctrl-c = 'exec-and-forget open "cleanshot://all-in-one"' # SUPER+Ctrl+C → CleanShot all-in-one
 alt-ctrl-t = 'exec-and-forget open -na Ghostty --args -e btop' # SUPER+Ctrl+T → btop
 
 # Workspace menu
