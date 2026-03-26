@@ -108,7 +108,7 @@ alt-shift-d     = 'exec-and-forget open -na Ghostty --args -e lazydocker' # SUPE
 
 # System controls
 alt-ctrl-c = 'exec-and-forget open "cleanshot://all-in-one"' # SUPER+Ctrl+C → CleanShot all-in-one
-alt-ctrl-l = 'exec-and-forget osascript -e "tell application \"System Events\" to keystroke \"q\" using {command down, control down}"' # SUPER+Ctrl+L → Lock screen
+alt-ctrl-l = 'exec-and-forget open raycast://extensions/raycast/system/lock-screen' # SUPER+Ctrl+L → Lock screen
 alt-ctrl-t = 'exec-and-forget open -na Ghostty --args -e btop' # SUPER+Ctrl+T → btop
 alt-ctrl-a = 'exec-and-forget open "x-apple.systempreferences:com.apple.preference.sound"' # SUPER+Ctrl+A → Sound preferences
 alt-ctrl-b = 'exec-and-forget open "x-apple.systempreferences:com.apple.preferences.Bluetooth"' # SUPER+Ctrl+B → Bluetooth preferences
