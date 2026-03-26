@@ -108,13 +108,19 @@ Slack → Preferences → Themes → Custom Theme → paste:
 
 ---
 
-## 7. Monologue Dictation Hotkey
+## 7. CleanShot Hotkey
+
+Open CleanShot X → Preferences → Shortcuts → set **All-In-One** to `Option+Ctrl+C` (SUPER+Ctrl+C on Omarchy).
+
+---
+
+## 8. Monologue Dictation Hotkey
 
 Open Monologue → Settings → set the global hotkey to `Option+Ctrl+X` (SUPER+Ctrl+X on Omarchy).
 
 ---
 
-## 8. Raycast Hotkeys
+## 9. Raycast Hotkeys
 
 Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud Sync — hotkeys sync across machines after that):
 
@@ -123,6 +129,9 @@ Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud S
 - **Search Emoji & Symbols** → `Option + Ctrl + E` (Omarchy: SUPER + Ctrl + E)
 - **Clipboard History** → `Option + Ctrl + V` (Omarchy: SUPER + Ctrl + V)
 - **Lock Screen** → `Option + Ctrl + L` (Omarchy: SUPER + Ctrl + L)
+- **Sound** → `Option + Ctrl + A` (Omarchy: SUPER + Ctrl + A)
+- **Bluetooth** → `Option + Ctrl + B` (Omarchy: SUPER + Ctrl + B)
+- **Wi-Fi** → `Option + Ctrl + W` (Omarchy: SUPER + Ctrl + W)
 
 ---
 
