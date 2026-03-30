@@ -46,8 +46,8 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 sudo pmset -a displaysleep 30
 
 if system_profiler SPHardwareDataType 2>/dev/null | grep -q "Mac mini"; then
-  # Mac mini: never sleep (desktop, always on AC)
-  sudo pmset -a sleep 0 disksleep 0
+  # Mac mini: never sleep (desktop, always on AC), restart after power failure
+  sudo pmset -a sleep 0 disksleep 0 autorestart 1
 else
   # Mac laptop: wake at 8 AM weekdays (no forced 7 PM sleep — handled by idle-aware agent)
   sudo pmset repeat wakeorpoweron MTWRF 08:00:00
