@@ -21,12 +21,12 @@ WS_SUMMARY=$(aerospace list-windows --all --format "%{workspace} %{app-name}" 2>
       ws = $1; app = substr($0, length(ws) + 2)
       if (!(ws SUBSEP app in seen)) {
         seen[ws SUBSEP app] = 1; count[ws]++
-        if (count[ws] <= 2) label[ws] = (label[ws] ? label[ws] ", " app : app)
+        if (count[ws] <= 3) label[ws] = (label[ws] ? label[ws] ", " app : app)
       }
     }
     END {
       for (ws in count) {
-        extra = count[ws] > 2 ? " +" (count[ws] - 2) : ""
+        extra = count[ws] > 3 ? " +" (count[ws] - 3) : ""
         print ws "|" label[ws] extra
       }
     }
