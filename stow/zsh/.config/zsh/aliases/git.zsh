@@ -22,6 +22,9 @@ alias grbi='git rebase -i'
 alias grbc='git rebase --continue'
 alias grba='git rebase --abort'
 
+# Show diff of unpushed commits
+gdnp() { git diff "origin/$(git rev-parse --abbrev-ref HEAD)..HEAD"; }
+
 # Sync current branch safely
 gsync() { git fetch origin --prune && git pull --ff-only; }
 
