@@ -22,9 +22,6 @@ alias grbi='git rebase -i'
 alias grbc='git rebase --continue'
 alias grba='git rebase --abort'
 
-# Show diff of unpushed commits
-gdnp() { git diff "origin/$(git rev-parse --abbrev-ref HEAD)..HEAD"; }
-
 # Delete local branches already merged into HEAD
 gbdm() { git branch -d $(git branch --merged | grep -v '^*' | grep -v -E '^\s*(main|master)\s*$' | tr -d '\n'); }
 
