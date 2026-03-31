@@ -25,6 +25,9 @@ alias grba='git rebase --abort'
 # Show diff of unpushed commits
 gdnp() { git diff "origin/$(git rev-parse --abbrev-ref HEAD)..HEAD"; }
 
+# Delete local branches already merged into HEAD
+gbdm() { git branch -d $(git branch --merged | grep -v '^*' | grep -v -E '^\s*(main|master)\s*$' | tr -d '\n'); }
+
 # Sync current branch safely
 gsync() { git fetch origin --prune && git pull --ff-only; }
 
