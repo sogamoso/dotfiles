@@ -12,6 +12,7 @@ log_heading "Adding Claude Code marketplaces..."
 marketplaces=(
   "obra/superpowers-marketplace"
   "SawyerHood/dev-browser"
+  "jarrodwatts/claude-hud"
 )
 
 for marketplace in "${marketplaces[@]}"; do
@@ -39,6 +40,7 @@ plugins=(
   "dev-browser@dev-browser-marketplace"
   "superpowers@superpowers-marketplace"
   "episodic-memory@superpowers-marketplace"
+  "claude-hud@claude-hud"
 )
 
 for plugin in "${plugins[@]}"; do
