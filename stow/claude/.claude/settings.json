@@ -17,7 +17,8 @@
     "ruby-lsp@claude-plugins-official": true,
     "dev-browser@dev-browser-marketplace": true,
     "superpowers@superpowers-marketplace": false,
-    "episodic-memory@superpowers-marketplace": true
+    "episodic-memory@superpowers-marketplace": true,
+    "claude-hud@claude-hud": true
   },
   "extraKnownMarketplaces": {
     "dev-browser-marketplace": {
@@ -30,6 +31,12 @@
       "source": {
         "source": "github",
         "repo": "obra/superpowers-marketplace"
+      }
+    },
+    "claude-hud": {
+      "source": {
+        "source": "github",
+        "repo": "jarrodwatts/claude-hud"
       }
     }
   },
