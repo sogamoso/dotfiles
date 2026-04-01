@@ -16,6 +16,7 @@ Each folder under `stow/` is a stow package. Running `stow --target $HOME --rest
 
 ```
 stow/
+  claude/                  # Claude Code settings, plugins, and status line
   git/                     # .gitconfig + global .gitignore
   macos/                   # macOS-only configs (stowed only on Darwin)
   mise/                    # mise config (node + ruby via latest)
@@ -45,6 +46,7 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `stow.sh` | Stows cross-platform dotfile packages into `$HOME` |
 | `hushlogin.sh` | Suppresses "Last login" terminal message |
 | `coderabbit.sh` | Configures git filter to strip Coderabbit config from `.gitconfig` |
+| `claude-code.sh` | Installs Claude Code marketplaces, plugins, and configures claude-hud |
 
 ## Cross-platform design
 
