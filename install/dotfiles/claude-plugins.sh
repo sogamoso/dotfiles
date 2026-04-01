@@ -51,4 +51,21 @@ for plugin in "${plugins[@]}"; do
   fi
 done
 
+log_heading "Configuring claude-hud..."
+
+CLAUDE_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
+HUD_CONFIG_DIR="$CLAUDE_DIR/plugins/claude-hud"
+mkdir -p "$HUD_CONFIG_DIR"
+cat > "$HUD_CONFIG_DIR/config.json" << 'JSON'
+{
+  "gitStatus": {
+    "showAheadBehind": true
+  },
+  "display": {
+    "showTodos": true
+  }
+}
+JSON
+log_success "claude-hud configured"
+
 log_success "Claude Code plugins installed"
