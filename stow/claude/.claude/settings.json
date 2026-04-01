@@ -3,5 +3,35 @@
   "statusLine": {
     "type": "command",
     "command": "bash -c 'input=$(cat); cwd=$(echo \"$input\" | jq -r \".cwd\"); dir=$(basename \"$cwd\"); time=$(date \"+%H:%M\"); out=\"\\033[36m[$time] $dir\\033[0m\"; if git -C \"$cwd\" rev-parse --git-dir >/dev/null 2>&1; then branch=$(git -C \"$cwd\" branch --show-current 2>/dev/null); [ -z \"$branch\" ] && branch=$(git -C \"$cwd\" rev-parse --short HEAD 2>/dev/null); out=\"$out \\033[3;36m$branch\\033[0m\"; ahead=$(git -C \"$cwd\" rev-list --count @{u}..HEAD 2>/dev/null); behind=$(git -C \"$cwd\" rev-list --count HEAD..@{u} 2>/dev/null); untracked=$(git -C \"$cwd\" ls-files --others --exclude-standard \"$cwd\" 2>/dev/null | head -1); status=\"\"; if [ \"${ahead:-0}\" -gt 0 ] && [ \"${behind:-0}\" -gt 0 ]; then status=\"⇕⇡${ahead}⇣${behind}\"; elif [ \"${ahead:-0}\" -gt 0 ]; then status=\"⇡${ahead}\"; elif [ \"${behind:-0}\" -gt 0 ]; then status=\"⇣${behind}\"; fi; [ -n \"$untracked\" ] && status=\"${status:+$status }?\"; [ -n \"$status\" ] && out=\"$out \\033[36m$status\\033[0m\"; main=$(git -C \"$cwd\" rev-parse --path-format=absolute --git-common-dir 2>/dev/null); gitdir=$(git -C \"$cwd\" rev-parse --path-format=absolute --git-dir 2>/dev/null); [ \"$main\" != \"$gitdir\" ] && out=\"$out \\033[36m[worktree]\\033[0m\"; fi; printf \"$out\"'"
+  },
+  "extraKnownMarketplaces": {
+    "dev-browser-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "SawyerHood/dev-browser"
+      }
+    },
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-code-plugins": true,
+    "ralph-wiggum@claude-code-plugins": true,
+    "feature-dev@claude-code-plugins": true,
+    "hookify@claude-code-plugins": true,
+    "pr-review-toolkit@claude-code-plugins": true,
+    "plugin-dev@claude-code-plugins": true,
+    "dev-browser@dev-browser-marketplace": true,
+    "superpowers@superpowers-marketplace": false,
+    "security-guidance@claude-code-plugins": true,
+    "code-simplifier@claude-code-plugins": true,
+    "stagehand@claude-code-plugins": true,
+    "episodic-memory@superpowers-marketplace": true,
+    "typescript@claude-code-plugins": true,
+    "ruby@claude-code-plugins": true
   }
 }
