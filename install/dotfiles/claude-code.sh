@@ -62,7 +62,8 @@ cat > "$HUD_CONFIG_DIR/config.json" << 'JSON'
     "showAheadBehind": true
   },
   "display": {
-    "showTodos": true
+    "showTodos": true,
+    "showModel": false
   }
 }
 JSON
