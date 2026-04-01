@@ -1,7 +1,7 @@
 {
   "statusLine": {
     "type": "command",
-    "command": "bash -c 'input=$(cat); cwd=$(echo \"$input\" | jq -r \".cwd\"); dir=$(basename \"$cwd\"); out=\"$dir\"; if git -C \"$cwd\" rev-parse --git-dir >/dev/null 2>&1; then branch=$(git -C \"$cwd\" branch --show-current 2>/dev/null || git -C \"$cwd\" rev-parse --short HEAD 2>/dev/null); out=\"$out $branch\"; main=$(git -C \"$cwd\" rev-parse --path-format=absolute --git-common-dir 2>/dev/null); gitdir=$(git -C \"$cwd\" rev-parse --path-format=absolute --git-dir 2>/dev/null); [ \"$main\" != \"$gitdir\" ] && out=\"$out [worktree]\"; fi; printf \"$out\"'"
+    "command": "bash -c 'plugin_dir=$(ls -d \"${CLAUDE_CONFIG_DIR:-$HOME/.claude}\"/plugins/cache/claude-hud/claude-hud/*/ 2>/dev/null | awk -F/ '\"'\"'{ print $(NF-1) \"\\t\" $(0) }'\"'\"' | sort -t. -k1,1n -k2,2n -k3,3n -k4,4n | tail -1 | cut -f2-); exec \"/opt/homebrew/bin/node\" \"${plugin_dir}dist/index.js\"'"
   },
   "enabledPlugins": {
     "frontend-design@claude-plugins-official": true,
@@ -16,7 +16,7 @@
     "typescript-lsp@claude-plugins-official": true,
     "ruby-lsp@claude-plugins-official": true,
     "dev-browser@dev-browser-marketplace": true,
-    "superpowers@superpowers-marketplace": false,
+    "superpowers@superpowers-marketplace": true,
     "episodic-memory@superpowers-marketplace": true,
     "claude-hud@claude-hud": true
   },
