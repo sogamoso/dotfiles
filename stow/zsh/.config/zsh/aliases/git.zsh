@@ -23,7 +23,12 @@ alias grbc='git rebase --continue'
 alias grba='git rebase --abort'
 
 # Delete local branches already merged into HEAD
-gbdm() { git branch -d $(git branch --merged | grep -v '^*' | grep -v -E '^\s*(main|master)\s*$' | tr -d '\n'); }
+gbdm() {
+  local branches
+  branches=$(git branch --merged | grep -v '^*' | grep -v -E '^\s*(main|master)\s*$' | tr -d ' \n')
+  [[ -z "$branches" ]] && echo "No merged branches to delete." && return 0
+  echo "$branches" | xargs git branch -d
+}
 
 # Sync current branch safely
 gsync() { git fetch origin --prune && git pull --ff-only; }
