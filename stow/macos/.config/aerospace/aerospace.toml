@@ -180,9 +180,9 @@ if.app-id = 'com.todoist.mac'
 run = ['move-node-to-workspace --focus-follows-window 6']
 
 [[on-window-detected]] # 6: Notion
+if.app-id = 'notion.id'
 # No --focus-follows-window: Notion spawns transient windows (e.g. meeting
 # transcription) that would yank focus to workspace 6 unexpectedly.
-if.app-id = 'notion.id'
 run = ['move-node-to-workspace 6']
 
 [[on-window-detected]] # 6: Linear
