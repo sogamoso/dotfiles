@@ -6,11 +6,10 @@
 
 start-at-login = true
 
-# Dwindle/Fibonacci tiling — matches Hyprland's "layout = dwindle"
-# opposite-orientation: nested containers alternate H/V automatically
-# flatten-containers: removes redundant single-child nesting
-enable-normalization-flatten-containers = true
-enable-normalization-opposite-orientation-for-nested-containers = true
+# Tiling: windows open on the current workspace (like Omarchy).
+# split opposite on every new window produces dwindle/fibonacci layout.
+default-root-container-orientation = 'vertical'
+enable-normalization-flatten-containers = false
 
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 on-focus-changed = ['exec-and-forget $HOME/.config/aerospace/on-focus-changed.sh']
@@ -76,6 +75,7 @@ alt-f = 'fullscreen' # Omarchy: SUPER + F
 alt-t = 'layout floating tiling' # Omarchy: SUPER + T (toggle float)
 alt-j = 'layout tiles horizontal vertical' # Omarchy: SUPER + J (toggle split)
 alt-l = 'layout tiles accordion' # Omarchy: SUPER + L (toggle layout)
+alt-b = 'balance-sizes' # Balance all windows in workspace
 
 # Workspace cycling — Omarchy: SUPER + TAB
 alt-tab       = 'exec-and-forget ~/.config/sketchybar/plugins/workspace_next.sh'
@@ -123,88 +123,7 @@ esc   = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspac
 alt-cmd-space = ['mode main', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu_nav.sh esc']
 
 # -------------------------------------------------------
-# Window rules
-# NOTE: Chrome PWA app IDs may change on reinstall or Chrome update
-# If PWA window rules stop working, reinstall the PWA to get new ID
+# Dwindle: split opposite for every new window
 # -------------------------------------------------------
-# 1: Ghostty + Zed
-# 2: Chrome + Safari + Meet
-# 3: Slack
-# 4: Gmail
-# 5: Calendar
-# 6: Todoist + Notion + Linear
-# 7: HEY
-# 8: WhatsApp
-# 9: Spotify + YouTube
-# 10: (scratchpad)
-# -------------------------------------------------------
-
-[[on-window-detected]] # 1: Ghostty
-if.app-id = 'com.mitchellh.ghostty'
-run = ['move-node-to-workspace --focus-follows-window 1']
-
-[[on-window-detected]] # 1: Zed
-if.app-id = 'dev.zed.Zed'
-run = ['move-node-to-workspace --focus-follows-window 1']
-
-[[on-window-detected]] # 2: Chrome
-if.app-id = 'com.google.Chrome'
-run = ['move-node-to-workspace --focus-follows-window 2']
-
-[[on-window-detected]] # 2: Safari
-if.app-id = 'com.apple.Safari'
-run = ['move-node-to-workspace --focus-follows-window 2']
-
-[[on-window-detected]] # 2: Google Meet (Chrome PWA)
-if.app-id = 'com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan'
-run = ['move-node-to-workspace --focus-follows-window 2']
-
-[[on-window-detected]] # 3: Slack
-if.app-id = 'com.tinyspeck.slackmacgap'
-run = ['move-node-to-workspace --focus-follows-window 3']
-
-[[on-window-detected]] # 4: Gmail (Chrome PWA)
-if.app-id = 'com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm'
-run = ['move-node-to-workspace --focus-follows-window 4']
-
-[[on-window-detected]] # 5: Google Calendar (Chrome PWA)
-if.app-id = 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'
-run = ['move-node-to-workspace --focus-follows-window 5']
-
-[[on-window-detected]] # 6: Todoist
-if.app-id = 'com.todoist.mac.Todoist'
-run = ['move-node-to-workspace --focus-follows-window 6']
-
-[[on-window-detected]] # 6: Todoist (alternate bundle id)
-if.app-id = 'com.todoist.mac'
-run = ['move-node-to-workspace --focus-follows-window 6']
-
-[[on-window-detected]] # 6: Notion
-if.app-id = 'notion.id'
-# No --focus-follows-window: Notion spawns transient windows (e.g. meeting
-# transcription) that would yank focus to workspace 6 unexpectedly.
-run = ['move-node-to-workspace 6']
-
-[[on-window-detected]] # 6: Linear
-if.app-id = 'com.linear'
-run = ['move-node-to-workspace --focus-follows-window 6']
-
-[[on-window-detected]] # 6: Linear (alternate bundle id)
-if.app-id = 'com.linear.Linear'
-run = ['move-node-to-workspace --focus-follows-window 6']
-
-[[on-window-detected]] # 7: HEY
-if.app-id = 'com.basecamp.hey'
-run = ['move-node-to-workspace --focus-follows-window 7']
-
-[[on-window-detected]] # 8: WhatsApp
-if.app-id = 'net.whatsapp.WhatsApp'
-run = ['move-node-to-workspace --focus-follows-window 8']
-
-[[on-window-detected]] # 9: Spotify
-if.app-id = 'com.spotify.client'
-run = ['move-node-to-workspace --focus-follows-window 9']
-
-[[on-window-detected]] # 9: YouTube (Chrome PWA)
-if.app-id = 'com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml'
-run = ['move-node-to-workspace --focus-follows-window 9']
+[[on-window-detected]]
+run = ['split opposite']
