@@ -89,4 +89,16 @@ ${B}Ctrl+Shift + 1–9${R}        ${D}Go to tab 1–9${R}
 ${B}Ctrl+Shift + Left/Right${R} ${D}Prev / next tab${R}
 ${B}Ctrl+Cmd + arrows${R}       ${D}Navigate tmux panes${R}
 ${B}Ctrl+Cmd+Shift + arrows${R} ${D}Resize tmux panes${R}
+
+${B}${C}── Workspace Layout ────────────────────────────────────${R}
+${B}1${R}  ${D}Ghostty + Zed${R}
+${B}2${R}  ${D}Chrome + Safari + Meet${R}
+${B}3${R}  ${D}Slack${R}
+${B}4${R}  ${D}Gmail${R}
+${B}5${R}  ${D}Calendar${R}
+${B}6${R}  ${D}Todoist + Notion + Linear${R}
+${B}7${R}  ${D}HEY${R}
+${B}8${R}  ${D}WhatsApp${R}
+${B}9${R}  ${D}Spotify + YouTube${R}
+${B}10${R} ${D}Scratchpad${R}
 "
