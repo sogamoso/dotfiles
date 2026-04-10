@@ -90,7 +90,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 5 | Calendar |
 | 6 | Todoist, Notion, Linear |
 | 7 | HEY |
-| 8 | WhatsApp |
+| 8 | WhatsApp, Discord |
 | 9 | Spotify |
 | 10 | (scratchpad) |
 
