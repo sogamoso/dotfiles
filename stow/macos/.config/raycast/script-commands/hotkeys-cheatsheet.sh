@@ -98,7 +98,7 @@ ${B}4${R}  ${D}Gmail${R}
 ${B}5${R}  ${D}Calendar${R}
 ${B}6${R}  ${D}Todoist + Notion + Linear${R}
 ${B}7${R}  ${D}HEY${R}
-${B}8${R}  ${D}WhatsApp${R}
+${B}8${R}  ${D}WhatsApp + Discord${R}
 ${B}9${R}  ${D}Spotify + YouTube${R}
 ${B}10${R} ${D}Scratchpad${R}
 "
