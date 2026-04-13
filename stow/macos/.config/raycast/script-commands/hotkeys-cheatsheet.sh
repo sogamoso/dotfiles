@@ -50,6 +50,8 @@ ${B}Option + Shift+O${R}        ${D}Open Obsidian${R}
 ${B}Option + Shift+F${R}        ${D}Open Finder${R}
 ${B}Option + Shift+/${R}        ${D}Open 1Password${R}
 ${B}Option + Shift+A${R}        ${D}Open Claude${R}
+${B}Option + Shift+I${R}        ${D}Open Notion${R}
+${B}Option + Shift+L${R}        ${D}Open Linear${R}
 ${B}Option + Shift+D${R}        ${D}LazyDocker in Ghostty${R}
 ${B}Option + Shift+Cmd+B${R}    ${D}Chrome incognito${R}
 ${B}Option + Cmd+Enter${R}      ${D}Ghostty + tmux session${R}
