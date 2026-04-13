@@ -97,7 +97,7 @@ ${B}1${R}  ${D}Ghostty + Zed${R}
 ${B}2${R}  ${D}Chrome + Safari + Meet${R}
 ${B}3${R}  ${D}Slack${R}
 ${B}4${R}  ${D}Gmail${R}
-${B}5${R}  ${D}Calendar${R}
+${B}5${R}  ${D}Calendar + Akiflow${R}
 ${B}6${R}  ${D}Todoist + Notion + Linear${R}
 ${B}7${R}  ${D}HEY${R}
 ${B}8${R}  ${D}WhatsApp + Discord${R}
