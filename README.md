@@ -87,7 +87,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 2 | Chrome, Meet |
 | 3 | Slack |
 | 4 | Gmail |
-| 5 | Calendar |
+| 5 | Calendar, Akiflow |
 | 6 | Todoist, Notion, Linear |
 | 7 | HEY |
 | 8 | WhatsApp, Discord |
