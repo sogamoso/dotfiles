@@ -135,6 +135,15 @@ Open Akiflow → Settings (`Cmd + ,`) → Shortcuts → General → set **Show/H
 
 ---
 
+## 10. Set HEY as Default Email Client
+
+1. Open the **Mail** app
+2. From the **Mail** menu in the menu bar, choose **Settings** (or Preferences)
+3. Click **General**
+4. Choose **HEY** from the **Default email reader** pop-up menu
+
+---
+
 ## Remaining Gaps vs Omarchy
 
 | Omarchy | macOS |
