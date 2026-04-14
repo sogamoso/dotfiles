@@ -105,6 +105,7 @@ alt-shift-cmd-b = 'exec-and-forget open -na "Google Chrome" --args --incognito' 
 alt-shift-d     = 'exec-and-forget open -na Ghostty --args -e lazydocker' # SUPER+SHIFT+D → LazyDocker
 alt-shift-i     = 'exec-and-forget open -b "notion.id"' # SUPER+SHIFT+I → Notion
 alt-shift-l     = 'exec-and-forget open -b "com.linear"' # SUPER+SHIFT+L → Linear
+alt-shift-k     = 'exec-and-forget open -b "com.akiflow.akiflow"' # SUPER+SHIFT+K → Akiflow
 
 # System controls
 alt-ctrl-c = 'exec-and-forget open "cleanshot://all-in-one"' # SUPER+Ctrl+C → CleanShot all-in-one

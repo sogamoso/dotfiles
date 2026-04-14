@@ -129,6 +129,12 @@ Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud S
 
 ---
 
+## 9. Akiflow Command Bar Hotkey
+
+Open Akiflow → Settings (`Cmd + ,`) → Shortcuts → General → set **Show/Hide Command Bar** to `Option + E` (SUPER + E on Omarchy).
+
+---
+
 ## Remaining Gaps vs Omarchy
 
 | Omarchy | macOS |
