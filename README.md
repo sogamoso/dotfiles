@@ -88,7 +88,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 3 | Slack |
 | 4 | Gmail |
 | 5 | Calendar, Akiflow |
-| 6 | Todoist, Notion, Linear |
+| 6 | Notion, Linear |
 | 7 | HEY |
 | 8 | WhatsApp, Discord |
 | 9 | Spotify |
