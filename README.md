@@ -145,6 +145,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Shift + A` | Open Claude |
 | `Option + Shift + I` | Open Notion |
 | `Option + Shift + L` | Open Linear |
+| `Option + Shift + K` | Open Akiflow |
 | `Option + Shift + D` | LazyDocker in Ghostty |
 | `Option + Shift + Cmd + B` | Chrome incognito |
 | `Option + Cmd + Enter` | Ghostty + tmux session |
