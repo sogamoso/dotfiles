@@ -2,12 +2,12 @@ alias ts='tailscale'
 alias tsed='tailscale set --exit-node='
 
 tsel() {
-  local filter="${1-}"
+  local country="${1-}"
 
-  if [[ -z "$filter" ]]; then
+  if [[ -z "$country" ]]; then
     tailscale exit-node list
   else
-    tailscale exit-node list -filter="$filter"
+    tailscale exit-node list -filter="$country"
   fi
 }
 
@@ -27,12 +27,12 @@ tsec() {
 alias tsvpnd='tsed'
 
 tsvpnl() {
-  local filter="${1-}"
+  local country="${1-}"
 
-  if [[ -z "$filter" ]]; then
+  if [[ -z "$country" ]]; then
     tsel | grep mullvad
   else
-    tsel "$filter" | grep mullvad
+    tsel "$country" | grep mullvad
   fi
 }
 
