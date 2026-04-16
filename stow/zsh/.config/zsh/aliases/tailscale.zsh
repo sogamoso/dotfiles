@@ -1,5 +1,12 @@
 alias ts='tailscale'
-alias tsed='tailscale set --exit-node='
+
+tss() {
+  tailscale status
+}
+
+tse() {
+  tailscale status --json | jq -r ".Peer[] | select(.ExitNode == true) | .DNSName"
+}
 
 tsel() {
   local country="${1-}"
@@ -23,8 +30,30 @@ tsec() {
   tailscale set --exit-node="$node"
 }
 
+tsed() {
+  tailscale set --exit-node=
+}
+
 # Aliases to use Mullvad VPN
-alias tsvpnd='tsed'
+tsvpn() {
+  local cmd="${1-}"
+  shift 2>/dev/null
+
+  case "$cmd" in
+    list|l)       tsvpnl "$@" ;;
+    connect|c)    tsvpnc "$@" ;;
+    disconnect|d) tsvpnd ;;
+    help|*)
+      echo "Usage: tsvpn <command> [args]"
+      echo ""
+      echo "Commands:"
+      echo "  list       [country]   List Mullvad exit nodes (optionally filter by country)"
+      echo "  connect    [country]   Connect to an exit node (uses suggested if no country given)"
+      echo "  disconnect             Disconnect from current exit node"
+      return 1
+      ;;
+  esac
+}
 
 tsvpnl() {
   local country="${1-}"
@@ -56,4 +85,17 @@ tsvpnc() {
 
   tsec "$hostname"
   echo "Connected to $label through $hostname"
+}
+
+tsvpnd() {
+  local current
+  current=$(tse)
+
+  tsed
+
+  if [[ -n "$current" ]]; then
+    echo "Disconnected from $current"
+  else
+    echo "No exit node was active"
+  fi
 }
