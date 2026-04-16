@@ -1,4 +1,6 @@
 alias ts='tailscale'
+alias tsu='tailscale up --ssh'
+alias tsd='tailscale down'
 
 tss() {
   tailscale status "$@"
