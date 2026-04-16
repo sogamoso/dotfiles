@@ -1,11 +1,11 @@
 alias ts='tailscale'
 
 tss() {
-  tailscale status
+  tailscale status "$@"
 }
 
 tse() {
-  tailscale status --json | jq -r ".Peer[] | select(.ExitNode == true) | .DNSName"
+  tss --json | jq -r ".Peer[] | select(.ExitNode == true) | .DNSName"
 }
 
 tsel() {
