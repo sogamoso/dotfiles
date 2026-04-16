@@ -33,7 +33,7 @@ stow/
 1. **OS setup** — dispatches by `uname -s`.
 2. **Dotfiles** (`install/dotfiles/all.sh`) — cross-platform config symlinks via stow.
 
-After both phases it checks Tailscale status and drops into a fresh zsh login shell.
+After both phases it drops into a fresh zsh login shell.
 
 ### Dotfiles setup
 
@@ -76,6 +76,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `preferences.sh` | macOS system defaults |
 | `pwas.sh` | Installs Chrome PWAs (Gmail, Calendar, Meet) |
 | `sketchybar.sh` | Configures SketchyBar status bar |
+| `tailscale.sh` | Starts Tailscale daemon and connects with SSH enabled |
 | `aerospace.sh` | Starts AeroSpace only if not already running |
 | `raycast.sh` | Opens Raycast for first-time setup |
 
