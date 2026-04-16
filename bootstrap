@@ -27,14 +27,6 @@ esac
 # Personal dotfiles
 bash "$REPO_DIR/install/dotfiles/all.sh"
 
-# Tailscale
-log_heading "Checking Tailscale connection..."
-if timeout 5 tailscale status &>/dev/null; then
-  log_success "Tailscale connected"
-else
-  log_warn "Tailscale is not connected. Run: tailscale up --ssh"
-fi
-
 log_heading "Finishing Sebastian's dotfiles installation..."
 log_success "Done!"
 
