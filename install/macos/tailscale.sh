@@ -3,6 +3,6 @@ set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
 log_heading "Starting Tailscale daemon..."
-sudo brew services start tailscale
-sudo tailscale up
+brew services start tailscale
+tailscale up
 log_success "Done"
