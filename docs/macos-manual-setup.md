@@ -77,26 +77,17 @@ gh auth login
 
 ### Wallpaper
 
-Browse the available wallpapers and choose one.Then in System Settings → Wallpaper → Add Folder → select:
+Browse the available wallpapers and choose one. Then in System Settings → Wallpaper → Add Folder → select:
 
 ```
-~/Code/dotfiles/themes/tokyo-night/backgrounds/color/
+~/Code/dotfiles/themes/tokyo-night/backgrounds/
 ```
 
-For the screen saver, check:
+### Screen Saver
 
-```
-~/Code/dotfiles/themes/tokyo-night/backgrounds/grayscale/
-```
-
-Copy your pick into the `active` folder:
-
-```
-cp ~/Code/dotfiles/themes/tokyo-night/backgrounds/grayscale/<wallpaper> \
-   ~/Code/dotfiles/themes/tokyo-night/backgrounds/grayscale/active/
-```
-
-Then in System Settings → Wallpaper → Screen Saver → select the grayscale wallpaper you just copied.
+1. Visit https://fliqlo.com/screensaver/
+2. Download and install Fliqlo
+3. System Settings → Screen Saver → select **Fliqlo**
 
 ### Slack
 
