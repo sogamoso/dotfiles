@@ -88,6 +88,7 @@ Browse the available wallpapers and choose one. Then in System Settings → Wall
 1. Visit https://fliqlo.com/screensaver/
 2. Download and install Fliqlo
 3. System Settings → Screen Saver → select **Fliqlo**
+4. System Settings → Wallpaper → Clock Appearance → set **Show large clock** to **Never** (prevents the system clock from overlapping with Fliqlo)
 
 ### Slack
 
