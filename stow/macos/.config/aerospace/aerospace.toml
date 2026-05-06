@@ -70,7 +70,7 @@ alt-ctrl-up    = 'move up'
 alt-ctrl-down  = 'move down'
 
 # Window controls
-alt-w = 'close' # Omarchy: SUPER + W
+alt-w = ['close', 'exec-and-forget aerospace workspace $AEROSPACE_FOCUSED_WORKSPACE'] # Omarchy: SUPER + W — stay on workspace even if empty
 alt-f = 'fullscreen' # Omarchy: SUPER + F
 alt-t = 'layout floating tiling' # Omarchy: SUPER + T (toggle float)
 alt-j = 'layout tiles horizontal vertical' # Omarchy: SUPER + J (toggle split)
