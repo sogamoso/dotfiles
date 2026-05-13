@@ -8,7 +8,7 @@ start-at-login = true
 
 # Tiling: windows open on the current workspace (like Omarchy).
 # split opposite on every new window produces dwindle/fibonacci layout.
-default-root-container-orientation = 'vertical'
+default-root-container-orientation = 'horizontal'
 enable-normalization-flatten-containers = false
 
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
@@ -25,7 +25,7 @@ inner.horizontal = 10
 inner.vertical   = 10
 outer.left       = 10
 outer.bottom     = 10
-outer.top        = 8
+outer.top        = 38
 outer.right      = 10
 
 # -------------------------------------------------------
