@@ -30,8 +30,7 @@
       "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
       "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
       "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-s": "workspace::Save",
-      "ctrl-/": "workspace::ToggleBottomDock"
+      "ctrl-s": "workspace::Save"
     }
   }
 ]
