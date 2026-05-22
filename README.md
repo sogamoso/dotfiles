@@ -90,7 +90,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 4 | Gmail |
 | 5 | Google Calendar |
 | 6 | Notion, Linear |
-| 7 | HEY |
+| 7 | Claude, ChatGPT, Codex, Gemini |
 | 8 | WhatsApp, Discord |
 | 9 | Spotify |
 | 10 | (scratchpad) |
