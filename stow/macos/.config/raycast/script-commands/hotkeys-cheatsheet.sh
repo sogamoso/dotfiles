@@ -99,7 +99,7 @@ ${B}3${R}  ${D}Slack${R}
 ${B}4${R}  ${D}Gmail${R}
 ${B}5${R}  ${D}Google Calendar${R}
 ${B}6${R}  ${D}Notion + Linear${R}
-${B}7${R}  ${D}HEY${R}
+${B}7${R}  ${D}Claude + ChatGPT + Codex + Gemini${R}
 ${B}8${R}  ${D}WhatsApp + Discord${R}
 ${B}9${R}  ${D}Spotify + YouTube${R}
 ${B}10${R} ${D}Scratchpad${R}
