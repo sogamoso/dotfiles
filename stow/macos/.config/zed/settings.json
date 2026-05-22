@@ -59,6 +59,29 @@
     }
   },
   "vim_mode": true,
+  "vim": {
+    "use_system_clipboard": "always",
+    "use_multiline_find": true
+  },
+  "relative_line_numbers": true,
+  "format_on_save": "on",
+  "current_line_highlight": "all",
+  "cursor_blink": false,
+  "scrollbar": {
+    "show": "never"
+  },
+  "inlay_hints": {
+    "enabled": true
+  },
+  "diagnostics": {
+    "inline": {
+      "enabled": true
+    }
+  },
+  "show_whitespaces": "selection",
+  "toolbar": {
+    "breadcrumbs": true
+  },
   "ui_font_size": 16,
   "buffer_font_size": 15,
   "theme": "Tokyo Night"
