@@ -47,6 +47,7 @@
     "git-firefly": true,
     "html": true,
     "mdx": true,
+    "ruby": true,
     "tokyo-night": true,
     "toml": true
   },
