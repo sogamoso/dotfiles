@@ -120,13 +120,7 @@ Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud S
 
 ---
 
-## 9. Akiflow Command Bar Hotkey
-
-Open Akiflow → Settings (`Cmd + ,`) → Shortcuts → General → set **Show/Hide Command Bar** to `Option + E` (SUPER + E on Omarchy).
-
----
-
-## 10. Set HEY as Default Email Client
+## 9. Set HEY as Default Email Client
 
 1. Open the **Mail** app
 2. From the **Mail** menu in the menu bar, choose **Settings** (or Preferences)

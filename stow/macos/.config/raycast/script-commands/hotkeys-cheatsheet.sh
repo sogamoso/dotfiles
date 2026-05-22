@@ -52,7 +52,6 @@ ${B}Option + Shift+/${R}        ${D}Open 1Password${R}
 ${B}Option + Shift+A${R}        ${D}Open Claude${R}
 ${B}Option + Shift+I${R}        ${D}Open Notion${R}
 ${B}Option + Shift+L${R}        ${D}Open Linear${R}
-${B}Option + Shift+K${R}        ${D}Open Akiflow${R}
 ${B}Option + Shift+D${R}        ${D}LazyDocker in Ghostty${R}
 ${B}Option + Shift+Cmd+B${R}    ${D}Chrome incognito${R}
 ${B}Option + Cmd+Enter${R}      ${D}Ghostty + tmux session${R}
@@ -98,7 +97,7 @@ ${B}1${R}  ${D}Ghostty + Zed${R}
 ${B}2${R}  ${D}Chrome + Safari + Meet${R}
 ${B}3${R}  ${D}Slack${R}
 ${B}4${R}  ${D}Gmail${R}
-${B}5${R}  ${D}Calendar + Akiflow${R}
+${B}5${R}  ${D}Google Calendar${R}
 ${B}6${R}  ${D}Notion + Linear${R}
 ${B}7${R}  ${D}HEY${R}
 ${B}8${R}  ${D}WhatsApp + Discord${R}
