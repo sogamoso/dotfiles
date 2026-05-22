@@ -45,7 +45,6 @@ System Settings → General → Login Items — add:
 - Google Calendar
 - Google Drive
 - Monologue
-- Notion
 - Raycast
 - Slack
 
