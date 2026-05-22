@@ -11,6 +11,9 @@ export LANG="en_US.UTF-8"
 export VISUAL="nvim"
 export SUDO_EDITOR="nvim"
 
+# Homebrew: auto-update at most every 4 hours
+export HOMEBREW_AUTO_UPDATE_SECS=14400
+
 # Enable zsh completion
 if (( ! $+functions[compdef] )); then
   autoload -Uz compinit
