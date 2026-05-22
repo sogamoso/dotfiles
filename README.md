@@ -74,7 +74,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
 | `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
 | `preferences.sh` | macOS system defaults |
-| `pwas.sh` | Installs Chrome PWAs (Gmail, Google Calendar, Meet) |
+| `pwas.sh` | Installs Chrome PWAs (Gmail, Google Calendar, YouTube) |
 | `sketchybar.sh` | Configures SketchyBar status bar |
 | `tailscale.sh` | Starts Tailscale daemon and connects with SSH enabled |
 | `aerospace.sh` | Starts AeroSpace only if not already running |
@@ -85,7 +85,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | Workspace | App |
 |---|---|
 | 1 | Ghostty |
-| 2 | Chrome, Meet |
+| 2 | Chrome, Safari |
 | 3 | Slack |
 | 4 | Gmail |
 | 5 | Google Calendar |
