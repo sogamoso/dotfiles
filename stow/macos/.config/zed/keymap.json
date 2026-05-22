@@ -1,0 +1,37 @@
+[
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "space space": "file_finder::Toggle",
+      "space f f": "file_finder::Toggle",
+      "space /": "pane::DeploySearch",
+      "space s g": "pane::DeploySearch",
+      "space ,": "tab_switcher::Toggle",
+      "space f b": "tab_switcher::Toggle",
+      "space f r": "projects::OpenRecent",
+      "space e": "project_panel::ToggleFocus",
+      "space c a": "editor::ToggleCodeActions",
+      "space c r": "editor::Rename",
+      "space c f": "editor::Format",
+      "space b d": "pane::CloseActiveItem",
+      "space q q": "zed::Quit",
+      "space x x": "diagnostics::Deploy",
+      "space g g": ["task::Spawn", { "task_name": "lazygit" }],
+      "space g b": "editor::ToggleGitBlame",
+      "space f k": "command_palette::Toggle",
+      "shift-h": "pane::ActivatePrevItem",
+      "shift-l": "pane::ActivateNextItem"
+    }
+  },
+  {
+    "context": "Workspace && !Terminal",
+    "bindings": {
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-s": "workspace::Save",
+      "ctrl-/": "workspace::ToggleBottomDock"
+    }
+  }
+]
