@@ -28,7 +28,6 @@ brew "zsh-you-should-use"
 
 cask "1password"
 cask "1password-cli"
-cask "akiflow"
 cask "st0012/cctop/cctop"
 cask "chatgpt"
 cask "claude"
