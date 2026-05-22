@@ -42,6 +42,12 @@
       "type": "registry"
     }
   },
+  "auto_install_extensions": {
+    "git-firefly": true,
+    "html": true,
+    "tokyo-night": true,
+    "toml": true
+  },
   "vim_mode": true,
   "ui_font_size": 16,
   "buffer_font_size": 15,
