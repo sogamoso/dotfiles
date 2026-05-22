@@ -43,8 +43,10 @@
     }
   },
   "auto_install_extensions": {
+    "dockerfile": true,
     "git-firefly": true,
     "html": true,
+    "mdx": true,
     "tokyo-night": true,
     "toml": true
   },
