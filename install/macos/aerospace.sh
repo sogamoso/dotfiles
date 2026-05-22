@@ -10,7 +10,7 @@ fi
 
 log_heading "Workspaces:"
 log_info " 1  Ghostty / Zed"
-log_info " 2  Chrome / Safari / Meet"
+log_info " 2  Chrome / Safari"
 log_info " 3  Slack"
 log_info " 4  Gmail"
 log_info " 5  Google Calendar"

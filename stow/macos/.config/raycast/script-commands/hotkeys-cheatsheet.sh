@@ -94,7 +94,7 @@ ${B}Ctrl+Cmd+Shift + arrows${R} ${D}Resize tmux panes${R}
 
 ${B}${C}── Workspace Layout ────────────────────────────────────${R}
 ${B}1${R}  ${D}Ghostty + Zed${R}
-${B}2${R}  ${D}Chrome + Safari + Meet${R}
+${B}2${R}  ${D}Chrome + Safari${R}
 ${B}3${R}  ${D}Slack${R}
 ${B}4${R}  ${D}Gmail${R}
 ${B}5${R}  ${D}Google Calendar${R}
