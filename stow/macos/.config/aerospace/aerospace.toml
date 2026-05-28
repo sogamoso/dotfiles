@@ -43,7 +43,7 @@ alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
-alt-s = 'workspace 9' # SUPER+S → scratchpad
+alt-s = 'workspace 10' # SUPER+S → scratchpad
 
 # Move window to workspace — Omarchy: SUPER + SHIFT + 1-9,0
 alt-shift-1 = 'move-node-to-workspace 1'
@@ -55,7 +55,7 @@ alt-shift-6 = 'move-node-to-workspace 6'
 alt-shift-7 = 'move-node-to-workspace 7'
 alt-shift-8 = 'move-node-to-workspace 8'
 alt-shift-9 = 'move-node-to-workspace 9'
-alt-shift-s = 'move-node-to-workspace 9'
+alt-shift-s = 'move-node-to-workspace 10'
 
 # Focus navigation — Omarchy: SUPER + arrows
 alt-left  = 'focus left'

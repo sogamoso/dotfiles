@@ -21,7 +21,7 @@ ${B}Option + Space${R}          ${D}Raycast launcher${R}
 ${B}Option + Escape${R}         ${D}Apple menu (Raycast)${R}
 ${B}Option + K${R}              ${D}Hotkeys cheatsheet (Raycast)${R}
 ${B}Option + 1–9${R}           ${D}Switch workspace 1–9${R}
-${B}Option + S${R}              ${D}Switch to scratchpad (workspace 9)${R}
+${B}Option + S${R}              ${D}Switch to scratchpad (workspace 10)${R}
 ${B}Option + Tab${R}            ${D}Next workspace${R}
 ${B}Option + Shift+Tab${R}      ${D}Previous workspace${R}
 ${B}Option + Ctrl+Tab${R}       ${D}Former workspace${R}
@@ -29,7 +29,7 @@ ${B}Option + Cmd+Space${R}      ${D}Workspace menu${R}
 ${B}Option + arrows${R}         ${D}Focus window${R}
 ${B}Option + Ctrl+arrows${R}    ${D}Move window within workspace${R}
 ${B}Option + Shift + 1–9${R}   ${D}Move window to workspace${R}
-${B}Option + Shift+S${R}       ${D}Move window to scratchpad (workspace 9)${R}
+${B}Option + Shift+S${R}       ${D}Move window to scratchpad (workspace 10)${R}
 ${B}Option + W${R}              ${D}Close window${R}
 ${B}Option + F${R}              ${D}Fullscreen${R}
 ${B}Option + T${R}              ${D}Toggle floating/tiling${R}
@@ -99,5 +99,6 @@ ${B}5${R}  ${D}Notion + Linear${R}
 ${B}6${R}  ${D}Claude + ChatGPT + Codex + Gemini${R}
 ${B}7${R}  ${D}WhatsApp + Discord + Telegram${R}
 ${B}8${R}  ${D}Spotify + YouTube${R}
-${B}9${R}  ${D}Scratchpad${R}
+${B}9${R}  ${D}(free)${R}
+${B}10${R} ${D}Scratchpad${R}
 "

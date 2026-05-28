@@ -92,7 +92,8 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 6 | Claude, ChatGPT, Codex, Gemini |
 | 7 | WhatsApp, Discord, Telegram |
 | 8 | Spotify |
-| 9 | (scratchpad) |
+| 9 | (free) |
+| 10 | (scratchpad) |
 
 #### Hotkeys
 
@@ -111,7 +112,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Escape` | Apple menu (Raycast) |
 | `Option + K` | Hotkeys cheatsheet (Raycast) |
 | `Option + 1-9` | Switch to workspace 1–9 |
-| `Option + S` | Switch to scratchpad (workspace 9) |
+| `Option + S` | Switch to scratchpad (workspace 10) |
 | `Option + Tab` | Next workspace |
 | `Option + Shift + Tab` | Previous workspace |
 | `Option + Ctrl + Tab` | Switch to former workspace |
@@ -119,7 +120,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + arrows` | Focus window left/right/up/down |
 | `Option + Ctrl + arrows` | Move window within workspace |
 | `Option + Shift + 1-9` | Move window to workspace |
-| `Option + Shift + S` | Move window to scratchpad (workspace 9) |
+| `Option + Shift + S` | Move window to scratchpad (workspace 10) |
 | `Option + W` | Close focused window |
 | `Option + F` | Fullscreen |
 | `Option + T` | Toggle floating/tiling |
