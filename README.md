@@ -136,6 +136,8 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Enter` | New Ghostty window |
 | `Option + Shift + Enter` | New Chrome window |
 | `Option + Shift + N` | New Zed window |
+| `Option + Shift + C` | Open Fastmail (calendar) |
+| `Option + Shift + E` | Open Fastmail (mail) |
 | `Option + Shift + G` | Open WhatsApp |
 | `Option + Shift + M` | Open Spotify |
 | `Option + Shift + O` | Open Obsidian |
