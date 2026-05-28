@@ -87,11 +87,11 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 1 | Ghostty |
 | 2 | Chrome, Safari |
 | 3 | Slack |
-| 4 | Gmail |
+| 4 | Gmail, Fastmail |
 | 5 | Google Calendar |
 | 6 | Notion, Linear |
 | 7 | Claude, ChatGPT, Codex, Gemini |
-| 8 | WhatsApp, Discord |
+| 8 | WhatsApp, Discord, Telegram |
 | 9 | Spotify |
 | 10 | (scratchpad) |
 
