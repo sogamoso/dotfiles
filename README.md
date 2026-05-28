@@ -74,7 +74,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
 | `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
 | `preferences.sh` | macOS system defaults |
-| `pwas.sh` | Installs Chrome PWAs (Gmail, Google Calendar, YouTube) |
+| `pwas.sh` | Installs Chrome PWAs (YouTube) |
 | `sketchybar.sh` | Configures SketchyBar status bar |
 | `tailscale.sh` | Starts Tailscale daemon and connects with SSH enabled |
 | `aerospace.sh` | Starts AeroSpace only if not already running |
@@ -87,13 +87,12 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 1 | Ghostty |
 | 2 | Chrome, Safari |
 | 3 | Slack |
-| 4 | Gmail, Fastmail |
-| 5 | Google Calendar |
-| 6 | Notion, Linear |
-| 7 | Claude, ChatGPT, Codex, Gemini |
-| 8 | WhatsApp, Discord, Telegram |
-| 9 | Spotify |
-| 10 | (scratchpad) |
+| 4 | Fastmail |
+| 5 | Notion, Linear |
+| 6 | Claude, ChatGPT, Codex, Gemini |
+| 7 | WhatsApp, Discord, Telegram |
+| 8 | Spotify |
+| 9 | (scratchpad) |
 
 #### Hotkeys
 
@@ -112,7 +111,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Escape` | Apple menu (Raycast) |
 | `Option + K` | Hotkeys cheatsheet (Raycast) |
 | `Option + 1-9` | Switch to workspace 1–9 |
-| `Option + S` | Switch to scratchpad (workspace 10) |
+| `Option + S` | Switch to scratchpad (workspace 9) |
 | `Option + Tab` | Next workspace |
 | `Option + Shift + Tab` | Previous workspace |
 | `Option + Ctrl + Tab` | Switch to former workspace |
@@ -120,7 +119,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + arrows` | Focus window left/right/up/down |
 | `Option + Ctrl + arrows` | Move window within workspace |
 | `Option + Shift + 1-9` | Move window to workspace |
-| `Option + Shift + S` | Move window to scratchpad (workspace 10) |
+| `Option + Shift + S` | Move window to scratchpad (workspace 9) |
 | `Option + W` | Close focused window |
 | `Option + F` | Fullscreen |
 | `Option + T` | Toggle floating/tiling |
@@ -136,8 +135,6 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Enter` | New Ghostty window |
 | `Option + Shift + Enter` | New Chrome window |
 | `Option + Shift + N` | New Zed window |
-| `Option + Shift + C` | Open Google Calendar |
-| `Option + Shift + E` | Open Gmail |
 | `Option + Shift + G` | Open WhatsApp |
 | `Option + Shift + M` | Open Spotify |
 | `Option + Shift + O` | Open Obsidian |

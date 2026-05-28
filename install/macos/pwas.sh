@@ -5,8 +5,6 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 CHROME_APPS="$HOME/Applications/Chrome Apps.localized"
 
 missing=()
-[[ ! -d "$CHROME_APPS/Gmail.app" ]] && missing+=("https://mail.google.com")
-[[ ! -d "$CHROME_APPS/Google Calendar.app" ]] && missing+=("https://calendar.google.com")
 [[ ! -d "$CHROME_APPS/YouTube.app" ]] && missing+=("https://youtube.com")
 
 if (( ${#missing[@]} )); then
