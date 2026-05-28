@@ -43,7 +43,7 @@ alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
-alt-s = 'workspace 10' # SUPER+S → scratchpad
+alt-s = 'workspace 9' # SUPER+S → scratchpad
 
 # Move window to workspace — Omarchy: SUPER + SHIFT + 1-9,0
 alt-shift-1 = 'move-node-to-workspace 1'
@@ -55,7 +55,7 @@ alt-shift-6 = 'move-node-to-workspace 6'
 alt-shift-7 = 'move-node-to-workspace 7'
 alt-shift-8 = 'move-node-to-workspace 8'
 alt-shift-9 = 'move-node-to-workspace 9'
-alt-shift-s = 'move-node-to-workspace 10'
+alt-shift-s = 'move-node-to-workspace 9'
 
 # Focus navigation — Omarchy: SUPER + arrows
 alt-left  = 'focus left'
@@ -92,8 +92,6 @@ alt-shift-equal = 'resize height +50'
 alt-enter       = 'exec-and-forget open -na Ghostty' # Omarchy: SUPER + RETURN
 alt-shift-enter = 'exec-and-forget open -na "Google Chrome"' # Omarchy: SUPER + SHIFT + RETURN
 alt-shift-n     = 'exec-and-forget open -na Zed' # Omarchy: SUPER + SHIFT + N
-alt-shift-c     = 'exec-and-forget open -b "com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep"' # Omarchy: SUPER+SHIFT+C → Google Calendar
-alt-shift-e     = 'exec-and-forget open -b "com.google.Chrome.app.fmgjjmmmlfnkbppncabfkddbjimcfncm"' # Omarchy: SUPER+SHIFT+E → Gmail
 alt-shift-g     = 'exec-and-forget open -b "net.whatsapp.WhatsApp"' # Omarchy: SUPER+SHIFT+G → WhatsApp
 alt-shift-m     = 'exec-and-forget open -b "com.spotify.client"' # Omarchy: SUPER+SHIFT+M → Spotify
 alt-shift-o     = 'exec-and-forget open -b "md.obsidian"' # Omarchy: SUPER+SHIFT+O → Obsidian

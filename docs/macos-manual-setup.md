@@ -40,9 +40,8 @@ System Settings → General → Login Items — add:
 - cctop
 - CleanShot X
 - Dropbox
+- Fastmail
 - Freedom
-- Gmail
-- Google Calendar
 - Google Drive
 - Monologue
 - Raycast
@@ -120,12 +119,11 @@ Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud S
 
 ---
 
-## 9. Set Gmail as Default Email Client
+## 9. Set Fastmail as Default Email Client
 
 1. Open the **Mail** app (one-time, to expose the default-mail-client setting)
 2. From the **Mail** menu, choose **Settings** → **General**
-3. Set **Default email reader** to **Google Chrome**
-4. In Chrome, visit https://mail.google.com — when prompted, allow Gmail to handle `mailto:` links (or set it manually at `chrome://settings/handlers`)
+3. Set **Default email reader** to **Fastmail**
 
 ---
 
