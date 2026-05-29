@@ -44,37 +44,18 @@ sketchybar --default \
 # Custom events
 sketchybar --add event aerospace_workspace_change
 
-# Apple workspace menu — leftmost item
+# Launcher anchor — leftmost item (Omarchy parity: left = launcher, right = terminal)
 sketchybar --add item apple_menu left \
   --set apple_menu \
-    icon="⌘" \
+    icon="" \
     icon.font="JetBrainsMono Nerd Font:Bold:16.0" \
     label.drawing=off \
     padding_left=8 \
     padding_right=4 \
-    popup.align=left \
-    popup.background.color=$SURFACE \
-    popup.background.corner_radius=6 \
-    popup.background.border_width=1 \
-    popup.background.border_color=$MUTED \
-    click_script="$CONFIG_DIR/plugins/workspace_menu.sh" \
-    script="$CONFIG_DIR/plugins/workspace_menu_close.sh" \
-  --subscribe apple_menu front_app_switched mouse.exited.global
-
-for i in {1..9}; do
-  sketchybar --add item apple_menu.ws.$i popup.apple_menu \
-    --set apple_menu.ws.$i \
-      label="$i" \
-      label.font="JetBrainsMono Nerd Font:Regular:13.0" \
-      padding_left=8 \
-      padding_right=12 \
-      width=280 \
-      background.color=$BLUE \
-      background.corner_radius=4 \
-      background.height=22 \
-      background.drawing=off \
-      click_script="rm -f /tmp/sketchybar_menu_keyboard; sketchybar --set apple_menu.ws.$i background.drawing=off; sketchybar --set apple_menu popup.drawing=off; aerospace workspace $i; sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$i"
-done
+    click_script='case "$BUTTON" in
+      right) open -na Ghostty ;;
+      *)     open -a Raycast ;;
+    esac'
 
 # Workspace indicators (1–9, 10 is scratchpad with no indicator)
 # Styling handled dynamically in plugins/space.sh (Omarchy parity)
