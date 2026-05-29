@@ -8,8 +8,8 @@
 #   reminder.sh show
 #   reminder.sh clear
 #
-# Reminder fire: banner + Submarine played via afplay so it uses output volume
-# (bypasses macOS alert-volume cap), making it hard to miss.
+# Reminder fire: banner + Funk played twice at 2x via afplay so it uses
+# output volume (bypasses macOS alert-volume cap) and is hard to miss.
 set -euo pipefail
 
 STATE_DIR="${TMPDIR:-/tmp}/dotfiles-reminders"
@@ -46,7 +46,8 @@ cmd_set() {
     wait $sleep_pid
     terminal-notifier -title "Reminder" -subtitle "Set $minutes min ago" \
       -message "$message" -group "$GROUP_ID" >/dev/null 2>&1
-    afplay /System/Library/Sounds/Submarine.aiff 2>/dev/null &
+    ( afplay -v 2 /System/Library/Sounds/Funk.aiff; \
+      afplay -v 2 /System/Library/Sounds/Funk.aiff ) >/dev/null 2>&1 &
     rm -f "$STATE_DIR/$BASHPID.reminder"
   ) </dev/null >/dev/null 2>&1 &
   local pid=$!
