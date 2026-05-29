@@ -32,11 +32,16 @@ cmd_set() {
   mkdir -p "$STATE_DIR"
   local due=$(( $(date +%s) + minutes * 60 ))
   (
-    sleep $(( minutes * 60 ))
+    sleep_pid=
+    trap 'kill $sleep_pid 2>/dev/null; rm -f "$STATE_DIR/$BASHPID.reminder"; exit 0' TERM
+    sleep $(( minutes * 60 )) &
+    sleep_pid=$!
+    wait $sleep_pid
     osascript -e "display notification \"$message\" with title \"Reminder\" sound name \"Glass\""
     rm -f "$STATE_DIR/$BASHPID.reminder"
-  ) &
+  ) </dev/null >/dev/null 2>&1 &
   local pid=$!
+  disown "$pid"
   printf '%s|%s\n' "$due" "$message" >"$STATE_DIR/$pid.reminder"
   notify "Reminder set for $minutes min" "Reminding at $(date -r "$due" +%H:%M)"
 }
