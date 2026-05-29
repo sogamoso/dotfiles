@@ -46,8 +46,8 @@ cmd_set() {
     wait $sleep_pid
     terminal-notifier -title "Reminder" -subtitle "Set $minutes min ago" \
       -message "$message" -group "$GROUP_ID" >/dev/null 2>&1
-    ( afplay -v 2 /System/Library/Sounds/Funk.aiff; \
-      afplay -v 2 /System/Library/Sounds/Submarine.aiff ) >/dev/null 2>&1 &
+    ( afplay -v 2 -r 1.5 -t 0.4 /System/Library/Sounds/Funk.aiff; \
+      afplay -v 2 -r 1.5 -t 1.0 /System/Library/Sounds/Submarine.aiff ) >/dev/null 2>&1 &
     rm -f "$STATE_DIR/$BASHPID.reminder"
   ) </dev/null >/dev/null 2>&1 &
   local pid=$!
