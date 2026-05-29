@@ -8,9 +8,9 @@ if [ "$STATE" = "normal" ]; then
   echo "week" > /tmp/sketchybar_clock_alt
   sketchybar --set clock label="Week $(date '+%-V')"
   sleep 3
-  sketchybar --set clock label="$(date '+%H:%M')"
+  sketchybar --set clock label="$(date '+%A %H:%M')"
   echo "normal" > /tmp/sketchybar_clock_alt
 else
-  sketchybar --set clock label="$(date '+%H:%M')"
+  sketchybar --set clock label="$(date '+%A %H:%M')"
   echo "normal" > /tmp/sketchybar_clock_alt
 fi
