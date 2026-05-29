@@ -7,9 +7,8 @@
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 
-# Editors (override Omadots' EDITOR=nvim from ~/.config/shell/envs)
-export EDITOR="zed --wait"
-export VISUAL="zed --wait"
+# Editors — Omadots sets EDITOR=nvim in ~/.config/shell/envs; set the rest here
+export VISUAL="nvim"
 export SUDO_EDITOR="nvim"
 
 # Homebrew: auto-update at most every 4 hours
