@@ -103,7 +103,11 @@ Open Monologue → Settings → set the global hotkey to `Option+Ctrl+X` (SUPER+
 
 ---
 
-## 8. Raycast Hotkeys
+## 8. Manually-Assigned Hotkeys
+
+Hotkeys assigned inside specific apps (per-machine, not in dotfiles).
+
+### Raycast
 
 Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud Sync — hotkeys sync across machines after that):
 
@@ -119,6 +123,12 @@ Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud S
 - **Sound** → `Option + Ctrl + A` (Omarchy: SUPER + Ctrl + A)
 - **Bluetooth** → `Option + Ctrl + B` (Omarchy: SUPER + Ctrl + B)
 - **Wi-Fi** → `Option + Ctrl + W` (Omarchy: SUPER + Ctrl + W)
+
+### CleanShot
+
+Set in CleanShot → Settings → Shortcuts:
+
+- **Capture Text (OCR)** → `Cmd + Shift + 6` (Omarchy: SUPER + Ctrl + PrtSc — the PrtSc key sends `3` with modifiers on Lofree keyboards, so this combo replaces the AeroSpace `f13` binding)
 
 ---
 
