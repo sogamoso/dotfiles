@@ -32,6 +32,7 @@ ${B}Option + Shift+S${R}       ${D}Move window to scratchpad (follow)${R}
 ${B}Option + Shift+Cmd + 1–9${R} ${D}Move window to workspace (stay)${R}
 ${B}Option + Shift+Cmd+S${R}   ${D}Move window to scratchpad (stay)${R}
 ${B}Option + W${R}              ${D}Close window${R}
+${B}Ctrl + Cmd+Del${R}          ${D}Close all windows, jump to workspace 1${R}
 ${B}Option + F${R}              ${D}Fullscreen${R}
 ${B}Option + T${R}              ${D}Toggle floating/tiling${R}
 ${B}Option + J${R}              ${D}Toggle split direction${R}

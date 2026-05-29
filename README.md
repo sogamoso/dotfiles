@@ -139,6 +139,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Shift + Cmd + 1-9` | Move window to workspace without following |
 | `Option + Shift + Cmd + S` | Move window to scratchpad without following |
 | `Option + W` | Close focused window |
+| `Ctrl + Cmd + Del` | Close all windows, jump to workspace 1 |
 | `Option + F` | Fullscreen |
 | `Option + T` | Toggle floating/tiling |
 | `Option + J` | Toggle split direction |
