@@ -65,4 +65,12 @@ if ! system_profiler SPHardwareDataType 2>/dev/null | grep -q "Mac mini"; then
   done
 fi
 
+# Apply user key remappings via hidutil at login (Lofree mic-mute → F14)
+for label in com.sogamoso.keymap; do
+  plist="$HOME/Library/LaunchAgents/$label.plist"
+  launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
+  launchctl bootstrap "gui/$(id -u)" "$plist"
+  launchctl enable "gui/$(id -u)/$label"
+done
+
 log_success "macOS preferences set"
