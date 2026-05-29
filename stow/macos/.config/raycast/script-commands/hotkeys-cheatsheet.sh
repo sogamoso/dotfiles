@@ -27,8 +27,10 @@ ${B}Option + Shift+Tab${R}      ${D}Previous workspace${R}
 ${B}Option + Ctrl+Tab${R}       ${D}Former workspace${R}
 ${B}Option + arrows${R}         ${D}Focus window${R}
 ${B}Option + Ctrl+arrows${R}    ${D}Move window within workspace${R}
-${B}Option + Shift + 1–9${R}   ${D}Move window to workspace${R}
-${B}Option + Shift+S${R}       ${D}Move window to scratchpad (workspace 10)${R}
+${B}Option + Shift + 1–9${R}   ${D}Move window to workspace (follow)${R}
+${B}Option + Shift+S${R}       ${D}Move window to scratchpad (follow)${R}
+${B}Option + Shift+Cmd + 1–9${R} ${D}Move window to workspace (stay)${R}
+${B}Option + Shift+Cmd+S${R}   ${D}Move window to scratchpad (stay)${R}
 ${B}Option + W${R}              ${D}Close window${R}
 ${B}Option + F${R}              ${D}Fullscreen${R}
 ${B}Option + T${R}              ${D}Toggle floating/tiling${R}
@@ -50,6 +52,7 @@ ${B}Option + Shift+O${R}        ${D}Open Obsidian${R}
 ${B}Option + Shift+F${R}        ${D}Open Finder${R}
 ${B}Option + Shift+/${R}        ${D}Open 1Password${R}
 ${B}Option + Shift+A${R}        ${D}Open Claude${R}
+${B}Option + Shift+Y${R}        ${D}Open YouTube${R}
 ${B}Option + Shift+I${R}        ${D}Open Notion${R}
 ${B}Option + Shift+L${R}        ${D}Open Linear${R}
 ${B}Option + Shift+D${R}        ${D}LazyDocker in Ghostty${R}

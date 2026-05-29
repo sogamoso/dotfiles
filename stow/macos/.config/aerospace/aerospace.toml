@@ -49,17 +49,29 @@ alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
 alt-s = 'workspace 10' # SUPER+S → scratchpad
 
-# Move window to workspace — Omarchy: SUPER + SHIFT + 1-9,0
-alt-shift-1 = 'move-node-to-workspace 1'
-alt-shift-2 = 'move-node-to-workspace 2'
-alt-shift-3 = 'move-node-to-workspace 3'
-alt-shift-4 = 'move-node-to-workspace 4'
-alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-6 = 'move-node-to-workspace 6'
-alt-shift-7 = 'move-node-to-workspace 7'
-alt-shift-8 = 'move-node-to-workspace 8'
-alt-shift-9 = 'move-node-to-workspace 9'
-alt-shift-s = 'move-node-to-workspace 10'
+# Move window to workspace and follow — Omarchy: SUPER + SHIFT + 1-9,0
+alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
+alt-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
+alt-shift-3 = 'move-node-to-workspace --focus-follows-window 3'
+alt-shift-4 = 'move-node-to-workspace --focus-follows-window 4'
+alt-shift-5 = 'move-node-to-workspace --focus-follows-window 5'
+alt-shift-6 = 'move-node-to-workspace --focus-follows-window 6'
+alt-shift-7 = 'move-node-to-workspace --focus-follows-window 7'
+alt-shift-8 = 'move-node-to-workspace --focus-follows-window 8'
+alt-shift-9 = 'move-node-to-workspace --focus-follows-window 9'
+alt-shift-s = 'move-node-to-workspace --focus-follows-window 10'
+
+# Move window to workspace without following — Omarchy: SUPER + SHIFT + ALT + 1-9,0
+alt-shift-cmd-1 = 'move-node-to-workspace 1'
+alt-shift-cmd-2 = 'move-node-to-workspace 2'
+alt-shift-cmd-3 = 'move-node-to-workspace 3'
+alt-shift-cmd-4 = 'move-node-to-workspace 4'
+alt-shift-cmd-5 = 'move-node-to-workspace 5'
+alt-shift-cmd-6 = 'move-node-to-workspace 6'
+alt-shift-cmd-7 = 'move-node-to-workspace 7'
+alt-shift-cmd-8 = 'move-node-to-workspace 8'
+alt-shift-cmd-9 = 'move-node-to-workspace 9'
+alt-shift-cmd-s = 'move-node-to-workspace 10'
 
 # Focus navigation — Omarchy: SUPER + arrows
 alt-left  = 'focus left'
@@ -105,6 +117,7 @@ alt-shift-o     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh md
 alt-shift-f     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh Finder' # Omarchy: SUPER+SHIFT+F → Finder
 alt-shift-slash = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh com.1password.1password' # Omarchy: SUPER+SHIFT+/ → 1Password
 alt-shift-a     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh com.anthropic.claudefordesktop' # SUPER+SHIFT+A → Claude
+alt-shift-y     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh YouTube' # Omarchy: SUPER+SHIFT+Y → YouTube
 alt-cmd-enter   = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e tmux new-session -A -s main' # ALT+RETURN → Ghostty+tmux
 alt-shift-cmd-b = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new "Google Chrome" --args --incognito' # ALT+SHIFT+B → Chrome incognito
 alt-shift-d     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e lazydocker' # SUPER+SHIFT+D → LazyDocker
