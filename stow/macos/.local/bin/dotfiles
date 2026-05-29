@@ -48,6 +48,9 @@ cmd_reload() {
     [[ -x $gap_sync ]] && run "$gap_sync"
     run aerospace reload-config
   fi
+  if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/zed.sh" ]]; then
+    run "$DOTFILES/install/macos/zed.sh"
+  fi
 }
 
 cmd_update() {
