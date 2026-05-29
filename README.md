@@ -35,6 +35,22 @@ stow/
 
 After both phases it drops into a fresh zsh login shell.
 
+## CLI
+
+A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day maintenance:
+
+| Command | Action |
+|---|---|
+| `dotfiles update` | Pull, sync Brewfile, restow, reload services |
+| `dotfiles pull` | Git pull only |
+| `dotfiles brew` | Sync Brewfile via `brew bundle` |
+| `dotfiles stow` | Re-stow all packages |
+| `dotfiles reload` | Restart SketchyBar and reload AeroSpace |
+| `dotfiles status` | Branch, ahead/behind, dirty files |
+| `dotfiles edit` | Open the repo in `$VISUAL` |
+
+Set `$DOTFILES` to override the repo location (default: `~/Code/dotfiles`).
+
 ### Dotfiles setup
 
 The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:

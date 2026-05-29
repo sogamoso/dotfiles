@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+# dotfiles — convenience CLI for managing this dotfiles repo.
+# Override the repo location via $DOTFILES (default: ~/Code/dotfiles).
+set -euo pipefail
+
+DOTFILES="${DOTFILES:-$HOME/Code/dotfiles}"
+
+usage() {
+  cat <<EOF
+Usage: dotfiles <command>
+
+Commands:
+  update    Pull, sync Brewfile, restow, reload services
+  pull      Git pull only
+  brew      Sync Brewfile via brew bundle
+  stow      Re-stow all dotfile packages
+  reload    Restart SketchyBar and reload AeroSpace
+  status    Show repo state (branch, ahead/behind, dirty files)
+  edit      Open the repo in \$VISUAL (defaults to nvim)
+  help      Show this message
+EOF
+}
+
+run() { echo "==> $*"; "$@"; }
+
+cmd_pull() {
+  run git -C "$DOTFILES" pull --ff-only
+}
+
+cmd_brew() {
+  run brew bundle install --file="$DOTFILES/Brewfile"
+}
+
+cmd_stow() {
+  run "$DOTFILES/install/dotfiles/stow.sh"
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    run "$DOTFILES/install/macos/dotfiles.sh"
+  fi
+}
+
+cmd_reload() {
+  if command -v sketchybar >/dev/null 2>&1; then
+    run sketchybar --reload
+  fi
+  if command -v aerospace >/dev/null 2>&1; then
+    run aerospace reload-config
+  fi
+}
+
+cmd_update() {
+  cmd_pull
+  cmd_brew
+  cmd_stow
+  cmd_reload
+}
+
+cmd_status() {
+  cd "$DOTFILES"
+  echo "==> Repo: $DOTFILES"
+  echo "==> Branch: $(git rev-parse --abbrev-ref HEAD)"
+  git fetch --quiet origin 2>/dev/null || true
+  local upstream ahead behind
+  upstream=$(git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null || echo "")
+  if [[ -n $upstream ]]; then
+    ahead=$(git rev-list --count "$upstream..HEAD" 2>/dev/null || echo "?")
+    behind=$(git rev-list --count "HEAD..$upstream" 2>/dev/null || echo "?")
+    echo "==> Vs $upstream: $ahead ahead, $behind behind"
+  fi
+  echo "==> Working tree:"
+  git status --short
+}
+
+cmd_edit() {
+  ${VISUAL:-nvim} "$DOTFILES"
+}
+
+case "${1:-help}" in
+  update)         cmd_update ;;
+  pull)           cmd_pull ;;
+  brew)           cmd_brew ;;
+  stow)           cmd_stow ;;
+  reload)         cmd_reload ;;
+  status)         cmd_status ;;
+  edit)           cmd_edit ;;
+  help|-h|--help) usage ;;
+  *)              echo "Unknown command: $1" >&2; usage >&2; exit 64 ;;
+esac
