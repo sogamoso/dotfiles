@@ -170,6 +170,16 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Ctrl + C` | CleanShot all-in-one |
 | `Option + Ctrl + PrtSc` | CleanShot OCR text extraction (external PC keyboards; F13 on macOS) |
 
+##### Reminders
+
+Ephemeral kitchen-timer-style reminders (die on logout/reboot). Assign hotkeys to each Raycast script command in Raycast → Settings → Extensions → Script Commands.
+
+| Hotkey | Action |
+|---|---|
+| `Option + Ctrl + R` | Set Reminder (Raycast — prompts for minutes + message) |
+| `Option + Ctrl + Cmd + R` | Show Reminders (Raycast) |
+| `Option + Ctrl + Shift + R` | Clear Reminders (Raycast) |
+
 ##### Notifications
 
 | Hotkey | Action |
