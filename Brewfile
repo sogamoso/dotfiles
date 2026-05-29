@@ -26,7 +26,6 @@ brew "starship"
 brew "stow"
 brew "tailscale"
 brew "tmux"
-brew "try"
 brew "zoxide"
 brew "zsh-you-should-use"
 
