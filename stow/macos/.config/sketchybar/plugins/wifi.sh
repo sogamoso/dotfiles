@@ -4,6 +4,10 @@
 #   format (wifi)       → 5-bucket signal: ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"]
 #   format-ethernet     → 󰀂
 #   format-disconnected → 󰤮
+#
+# Detection avoids `networksetup -getairportnetwork` because macOS 14+ silently
+# returns empty unless the calling process has Location Services permission.
+# Interface status + IP address is a permission-free, reliable substitute.
 
 # Ethernet check — show ethernet icon if a wired interface is active
 ETH_ACTIVE=$(networksetup -listallhardwareports 2>/dev/null | awk '
@@ -19,21 +23,17 @@ if [ -n "$ETH_ACTIVE" ]; then
   exit 0
 fi
 
-WIFI_SERVICE=$(networksetup -listallhardwareports | awk '/Wi-Fi/{getline; print $2}')
+WIFI_DEV=$(networksetup -listallhardwareports 2>/dev/null | awk '/Wi-Fi/{getline; print $2}')
 
-if [ -z "$WIFI_SERVICE" ]; then
+if [ -z "$WIFI_DEV" ]; then
   sketchybar --set "$NAME" drawing=on icon="󰤮" label.drawing=off
   exit 0
 fi
 
-WIFI_POWER=$(networksetup -getairportpower "$WIFI_SERVICE" 2>/dev/null | awk '{print $NF}')
-if [ "$WIFI_POWER" != "On" ]; then
-  sketchybar --set "$NAME" drawing=on icon="󰤮" label.drawing=off
-  exit 0
-fi
+WIFI_STATUS=$(ifconfig "$WIFI_DEV" 2>/dev/null | awk '/status:/ {print $2}')
+WIFI_IP=$(ipconfig getifaddr "$WIFI_DEV" 2>/dev/null)
 
-WIFI_SSID=$(networksetup -getairportnetwork "$WIFI_SERVICE" 2>/dev/null | sed 's/Current Wi-Fi Network: //')
-if [ -z "$WIFI_SSID" ] || [ "$WIFI_SSID" = "off" ] || echo "$WIFI_SSID" | grep -qi "not associated"; then
+if [ "$WIFI_STATUS" != "active" ] || [ -z "$WIFI_IP" ]; then
   sketchybar --set "$NAME" drawing=on icon="󰤮" label.drawing=off
   exit 0
 fi
