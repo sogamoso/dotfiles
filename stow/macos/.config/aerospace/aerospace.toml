@@ -92,7 +92,6 @@ alt-t = 'layout floating tiling' # Omarchy: SUPER + T (toggle float)
 alt-j = 'layout tiles horizontal vertical' # Omarchy: SUPER + J (toggle split)
 alt-l = 'layout tiles accordion' # Omarchy: SUPER + L (toggle layout)
 alt-b = 'balance-sizes' # Balance all windows in workspace
-alt-r = 'flatten-workspace-tree' # SUPER+R → reset workspace layout
 
 # Workspace cycling — Omarchy: SUPER + TAB
 alt-tab       = 'exec-and-forget ~/.config/sketchybar/plugins/workspace_next.sh'

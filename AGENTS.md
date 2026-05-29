@@ -26,7 +26,11 @@ Conventions for this repo. Match these over general best practices when they con
 
 - **Omarchy parity is a stated goal.** AeroSpace bindings cross-reference their Omarchy equivalent in the trailing comment (e.g. `# Omarchy: SUPER+CTRL+R → set reminder`). Preserve this when adding bindings.
 - **Modifier mapping:** in `aerospace.toml`, `alt` = physical Option key = Omarchy's SUPER, `cmd` = physical Command = Omarchy's ALT. Comments at the top of the file are the source of truth.
-- **Hotkey documentation lives in three places.** Keep them in sync: README.md hotkey tables, `stow/macos/.config/raycast/script-commands/hotkeys-cheatsheet.sh`, and `docs/macos-manual-setup.md` Section 8 for hotkeys assigned inside Raycast.
+- **Hotkeys live in four places — keep them in sync on both add AND remove.** Adding without updating all of them produces phantom bindings; removing without updating all of them produces phantom docs. The four:
+  1. `stow/macos/.config/aerospace/aerospace.toml` — the binding itself (skip when the hotkey is assigned inside Raycast instead of AeroSpace).
+  2. `README.md` — hotkey reference table.
+  3. `stow/macos/.config/raycast/script-commands/hotkeys-cheatsheet.sh` — in-Raycast cheatsheet.
+  4. `docs/macos-manual-setup.md` Section 8 — only for hotkeys assigned inside Raycast (per-machine, not in dotfiles).
 - **Raycast hotkey assignments are not in dotfiles.** Raycast stores them per-machine. Document them in `docs/macos-manual-setup.md` Section 8.
 - **macOS notification pattern:** `notify() { osascript -e "display notification \"\${2:-}\" with title \"\$1\""; }`. Title is required; body optional.
 - **Ephemeral state** goes under `${TMPDIR:-/tmp}/dotfiles-*` (e.g. `dotfiles-reminders/`, `dotfiles-mic-mute.state`). State that should persist across reboots doesn't belong there.
