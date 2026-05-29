@@ -11,7 +11,9 @@ set -euo pipefail
 
 STATE_DIR="${TMPDIR:-/tmp}/dotfiles-reminders"
 
-notify() { osascript -e "display notification \"${2:-}\" with title \"$1\""; }
+notify() {
+  terminal-notifier -title "$1" -message "${2:-}"
+}
 
 prune() {
   [[ -d $STATE_DIR ]] || return 0
@@ -37,7 +39,7 @@ cmd_set() {
     sleep $(( minutes * 60 )) &
     sleep_pid=$!
     wait $sleep_pid
-    osascript -e "display notification \"$message\" with title \"Reminder\" sound name \"Glass\""
+    terminal-notifier -title "Reminder" -message "$message" -sound Glass
     rm -f "$STATE_DIR/$BASHPID.reminder"
   ) </dev/null >/dev/null 2>&1 &
   local pid=$!
@@ -48,15 +50,21 @@ cmd_set() {
 
 cmd_show() {
   prune
-  local body="" f due msg now
+  local count=0 lines="" f due msg now
   now=$(date +%s)
   for f in "$STATE_DIR"/*.reminder; do
     [[ -e $f ]] || continue
     IFS='|' read -r due msg <"$f"
     (( due > now )) || continue
-    body+="$msg in $(( (due - now) / 60 ))m ($(date -r "$due" +%H:%M))"$'\n'
+    count=$((count + 1))
+    [[ -n $lines ]] && lines+=$'\n'
+    lines+="$msg — $(date -r "$due" +%H:%M)"
   done
-  notify "Upcoming reminders" "${body:-No outstanding reminders}"
+  if (( count == 0 )); then
+    notify "Reminders" "None outstanding"
+  else
+    notify "$count upcoming reminder$( (( count == 1 )) || echo s )" "$lines"
+  fi
 }
 
 cmd_clear() {
