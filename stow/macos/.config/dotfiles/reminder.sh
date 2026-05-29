@@ -7,12 +7,17 @@
 #   reminder.sh set <minutes> [message]
 #   reminder.sh show
 #   reminder.sh clear
+#
+# Reminder fire: banner + Submarine played via afplay so it uses output volume
+# (bypasses macOS alert-volume cap), making it hard to miss.
 set -euo pipefail
 
 STATE_DIR="${TMPDIR:-/tmp}/dotfiles-reminders"
+GROUP_ID="dotfiles-reminder"
 
 notify() {
-  terminal-notifier -title "$1" -message "${2:-}"
+  terminal-notifier -title "$1" -message "${2:-}" \
+    -group "$GROUP_ID"
 }
 
 prune() {
@@ -39,7 +44,9 @@ cmd_set() {
     sleep $(( minutes * 60 )) &
     sleep_pid=$!
     wait $sleep_pid
-    terminal-notifier -title "Reminder" -message "$message" -sound Glass
+    terminal-notifier -title "Reminder" -subtitle "Set $minutes min ago" \
+      -message "$message" -group "$GROUP_ID" 2>/dev/null
+    afplay /System/Library/Sounds/Submarine.aiff 2>/dev/null &
     rm -f "$STATE_DIR/$BASHPID.reminder"
   ) </dev/null >/dev/null 2>&1 &
   local pid=$!
