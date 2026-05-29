@@ -100,7 +100,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 
 | Workspace | App |
 |---|---|
-| 1 | Ghostty |
+| 1 | Ghostty, Zed, Solo |
 | 2 | Chrome, Safari |
 | 3 | Slack |
 | 4 | Fastmail |
