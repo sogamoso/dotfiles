@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.sogamoso.keymap</string>
+  <string>com.sogamoso.keyboard.remap</string>
 
   <key>ProgramArguments</key>
   <array>
@@ -17,8 +17,8 @@
   <true/>
 
   <key>StandardOutPath</key>
-  <string>/tmp/com.sogamoso.keymap.out</string>
+  <string>/tmp/com.sogamoso.keyboard.remap.out</string>
   <key>StandardErrorPath</key>
-  <string>/tmp/com.sogamoso.keymap.err</string>
+  <string>/tmp/com.sogamoso.keyboard.remap.err</string>
 </dict>
 </plist>
