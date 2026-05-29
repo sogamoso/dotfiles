@@ -172,7 +172,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 
 ##### Reminders
 
-Ephemeral kitchen-timer-style reminders (die on logout/reboot). Assign hotkeys to each Raycast script command in Raycast → Settings → Extensions → Script Commands.
+Ephemeral kitchen-timer-style reminders (die on logout/reboot).
 
 | Hotkey | Action |
 |---|---|

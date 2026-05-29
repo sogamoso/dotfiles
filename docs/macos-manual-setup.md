@@ -110,6 +110,9 @@ Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud S
 
 - **Script Commands → Apple Menu** → `Option + Escape` (Omarchy: SUPER + Escape)
 - **Script Commands → Hotkeys Cheatsheet** → `Option + K` (Omarchy: SUPER + K)
+- **Script Commands → Set Reminder** → `Option + Ctrl + R` (Omarchy: SUPER + Ctrl + R)
+- **Script Commands → Show Reminders** → `Option + Ctrl + Cmd + R` (Omarchy: SUPER + Ctrl + Alt + R)
+- **Script Commands → Clear Reminders** → `Option + Ctrl + Shift + R` (Omarchy: SUPER + Shift + Ctrl + R)
 - **Search Emoji & Symbols** → `Option + Ctrl + E` (Omarchy: SUPER + Ctrl + E)
 - **Clipboard History** → `Option + Ctrl + V` (Omarchy: SUPER + Ctrl + V)
 - **Lock Screen** → `Option + Ctrl + L` (Omarchy: SUPER + Ctrl + L)
