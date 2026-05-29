@@ -122,14 +122,6 @@ sketchybar --add item cpu right \
     click_script="$CONFIG_DIR/plugins/activity_monitor.sh" \
     script="$CONFIG_DIR/plugins/cpu.sh"
 
-# Memory
-sketchybar --add item memory right \
-  --set memory \
-    icon.font="JetBrainsMono Nerd Font:Bold:19.0" \
-    update_freq=5 \
-    click_script="$CONFIG_DIR/plugins/activity_monitor.sh" \
-    script="$CONFIG_DIR/plugins/memory.sh"
-
 # Volume
 sketchybar --add item volume right \
   --set volume \
@@ -139,6 +131,13 @@ sketchybar --add item volume right \
     script="$CONFIG_DIR/plugins/volume.sh" \
   --subscribe volume volume_change
 
+# WiFi (NOTE: wifi_change event is fragile - removed)
+sketchybar --add item wifi right \
+  --set wifi \
+    update_freq=30 \
+    click_script="open 'x-apple.systempreferences:com.apple.wifi-settings-extension'" \
+    script="$CONFIG_DIR/plugins/wifi.sh"
+
 # Bluetooth
 sketchybar --add item bluetooth right \
   --set bluetooth \
@@ -147,13 +146,6 @@ sketchybar --add item bluetooth right \
     label.drawing=off \
     click_script="open 'x-apple.systempreferences:com.apple.preferences.Bluetooth'" \
     script="$CONFIG_DIR/plugins/bluetooth.sh"
-
-# WiFi (NOTE: wifi_change event is fragile - removed)
-sketchybar --add item wifi right \
-  --set wifi \
-    update_freq=30 \
-    click_script="open 'x-apple.systempreferences:com.apple.wifi-settings-extension'" \
-    script="$CONFIG_DIR/plugins/wifi.sh"
 
 # Input source
 sketchybar --add item input_source right \
@@ -172,13 +164,6 @@ sketchybar --add item input_source right \
     update_freq=3 \
     click_script="BIN=$HOME/.cache/sketchybar/switch_input_source; SRC=$CONFIG_DIR/plugins/switch_input_source.swift; [ ! -f \$BIN ] || [ \$SRC -nt \$BIN ] && swiftc \$SRC -framework Carbon -o \$BIN 2>/dev/null; \$BIN" \
     script="$CONFIG_DIR/plugins/input_source.sh"
-
-# Calendar
-sketchybar --add item calendar right \
-  --set calendar \
-    icon="󰃭" \
-    label.drawing=off \
-    click_script="open -b 'com.google.Chrome.app.kjbdgfilnfhdoflbpgamdcdgpehopbep'"
 
 # Display change watcher — reloads bar when displays are added/removed (NOTE: system_woke may not fire on all macOS)
 sketchybar --add item display_watcher left \
