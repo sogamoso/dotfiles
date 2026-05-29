@@ -14,7 +14,7 @@ Commands:
   pull      Git pull only
   brew      Sync Brewfile via brew bundle
   stow      Re-stow all dotfile packages
-  reload    Restart SketchyBar and reload AeroSpace
+  reload    Re-stow, restart SketchyBar, reload AeroSpace
   status    Show repo state (branch, ahead/behind, dirty files)
   edit      Open the repo in \$VISUAL (defaults to nvim)
   help      Show this message
@@ -39,10 +39,13 @@ cmd_stow() {
 }
 
 cmd_reload() {
+  cmd_stow
   if command -v sketchybar >/dev/null 2>&1; then
     run sketchybar --reload
   fi
   if command -v aerospace >/dev/null 2>&1; then
+    local gap_sync="$HOME/.config/sketchybar/plugins/sync_aerospace_gap.sh"
+    [[ -x $gap_sync ]] && run "$gap_sync"
     run aerospace reload-config
   fi
 }
