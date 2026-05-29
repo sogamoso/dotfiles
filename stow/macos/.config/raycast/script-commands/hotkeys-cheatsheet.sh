@@ -108,7 +108,7 @@ ${B}Ctrl+Cmd + arrows${R}       ${D}Navigate tmux panes${R}
 ${B}Ctrl+Cmd+Shift + arrows${R} ${D}Resize tmux panes${R}
 
 ${B}${C}── Workspace Layout ────────────────────────────────────${R}
-${B}1${R}  ${D}Ghostty + Zed${R}
+${B}1${R}  ${D}Ghostty + Zed + Solo${R}
 ${B}2${R}  ${D}Chrome + Safari${R}
 ${B}3${R}  ${D}Slack${R}
 ${B}4${R}  ${D}Fastmail${R}
