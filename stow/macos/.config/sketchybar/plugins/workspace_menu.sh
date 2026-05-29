@@ -39,10 +39,14 @@ while IFS='|' read -r ws apps; do
   WS_APPS[$ws]="$apps"
 done <<< "$WS_SUMMARY"
 
-# Show all workspaces (1-9), with app labels for occupied ones
+# Omarchy parity: workspaces 1-5 always visible; 6-9 only if populated or focused
 ARGS=()
 VISIBLE=""
 for ws in $(seq 1 9); do
+  if [ "$ws" -gt 5 ] && [ -z "${WS_APPS[$ws]}" ] && [ "$ws" != "$FOCUSED" ]; then
+    ARGS+=(--set "apple_menu.ws.$ws" drawing=off)
+    continue
+  fi
   COLOR=$TEXT
   [ "$ws" = "$FOCUSED" ] && COLOR=$BLUE
   if [ -n "${WS_APPS[$ws]}" ]; then
