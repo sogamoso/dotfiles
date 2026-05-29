@@ -163,6 +163,14 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Ctrl + E` | Emoji picker (Raycast) |
 | `Option + Ctrl + X` | Monologue (dictation) |
 
+##### Status notifications
+
+| Hotkey | Action |
+|---|---|
+| `Option + Ctrl + Cmd + T` | Time, date, ISO week (notification) |
+| `Option + Ctrl + Cmd + B` | Battery level + state (notification) |
+| `Option + Ctrl + Cmd + W` | Weather from wttr.in (notification) |
+
 ##### Capture
 
 | Hotkey | Action |

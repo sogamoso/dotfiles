@@ -116,6 +116,11 @@ alt-ctrl-c   = 'exec-and-forget open "cleanshot://all-in-one"' # SUPER+Ctrl+C �
 alt-ctrl-f13 = 'exec-and-forget open "cleanshot://capture-text"' # Omarchy: SUPER+CTRL+PRINT → OCR text extraction (PrtSc on external PC keyboards = F13 on macOS)
 alt-ctrl-t   = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e btop' # SUPER+Ctrl+T → btop
 
+# Status notifications — Omarchy: SUPER+CTRL+ALT+{T,B,W}
+alt-ctrl-cmd-t = 'exec-and-forget $HOME/.config/dotfiles/status.sh time'
+alt-ctrl-cmd-b = 'exec-and-forget $HOME/.config/dotfiles/status.sh battery'
+alt-ctrl-cmd-w = 'exec-and-forget $HOME/.config/dotfiles/status.sh weather'
+
 # -------------------------------------------------------
 # Dwindle: split opposite for every new window
 # -------------------------------------------------------
