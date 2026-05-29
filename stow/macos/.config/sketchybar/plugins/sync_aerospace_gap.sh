@@ -18,7 +18,6 @@ if [ ! -f "$EXT_BIN" ] || [ "$EXT_SRC" -nt "$EXT_BIN" ]; then
   swiftc "$EXT_SRC" -o "$EXT_BIN" 2>/dev/null
 fi
 HAS_EXTERNAL=$("$EXT_BIN" 2>/dev/null || echo 0)
-echo "$HAS_EXTERNAL" > /tmp/sketchybar_has_external
 
 GAP=8
 
