@@ -35,6 +35,22 @@ stow/
 
 After both phases it drops into a fresh zsh login shell.
 
+## CLI
+
+A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day maintenance:
+
+| Command | Action |
+|---|---|
+| `dotfiles update` | Pull, sync Brewfile, restow, reload services |
+| `dotfiles pull` | Git pull only |
+| `dotfiles brew` | Sync Brewfile via `brew bundle` |
+| `dotfiles stow` | Re-stow all packages |
+| `dotfiles reload` | Restart SketchyBar and reload AeroSpace |
+| `dotfiles status` | Branch, ahead/behind, dirty files |
+| `dotfiles edit` | Open the repo in `$VISUAL` |
+
+Set `$DOTFILES` to override the repo location (default: `~/Code/dotfiles`).
+
 ### Dotfiles setup
 
 The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
@@ -162,12 +178,32 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Ctrl + V` | Clipboard history (Raycast) |
 | `Option + Ctrl + E` | Emoji picker (Raycast) |
 | `Option + Ctrl + X` | Monologue (dictation) |
+| `Mic Mute (F14)` | Toggle microphone mute (Lofree mic-mute key; dead on built-in keyboard) |
+
+##### Status notifications
+
+| Hotkey | Action |
+|---|---|
+| `Option + Ctrl + Cmd + T` | Time, date, ISO week (notification) |
+| `Option + Ctrl + Cmd + B` | Battery level + state (notification) |
+| `Option + Ctrl + Cmd + W` | Weather from wttr.in (notification) |
 
 ##### Capture
 
 | Hotkey | Action |
 |---|---|
 | `Option + Ctrl + C` | CleanShot all-in-one |
+| `Option + Ctrl + PrtSc` | CleanShot OCR text extraction (external PC keyboards; F13 on macOS) |
+
+##### Reminders
+
+Ephemeral kitchen-timer-style reminders (die on logout/reboot).
+
+| Hotkey | Action |
+|---|---|
+| `Option + Ctrl + R` | Set Reminder (Raycast — prompts for minutes + message) |
+| `Option + Ctrl + Cmd + R` | Show Reminders (Raycast) |
+| `Option + Ctrl + Shift + R` | Clear Reminders (Raycast) |
 
 ##### Notifications
 
