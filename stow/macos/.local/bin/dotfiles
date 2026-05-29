@@ -10,16 +10,14 @@ usage() {
 Usage: dotfiles <command>
 
 Commands:
-  update          Pull, sync Brewfile, restow, run migrations, reload services
-  pull            Git pull only
-  brew            Sync Brewfile via brew bundle
-  stow            Re-stow all dotfile packages
-  reload          Restart SketchyBar and reload AeroSpace
-  migrate         Apply pending migrations from migrations/
-  migrate-new     Create a new migration stub (\`dotfiles migrate-new "description"\`)
-  status          Show repo state (branch, ahead/behind, dirty files)
-  edit            Open the repo in \$VISUAL (defaults to nvim)
-  help            Show this message
+  update    Pull, sync Brewfile, restow, reload services
+  pull      Git pull only
+  brew      Sync Brewfile via brew bundle
+  stow      Re-stow all dotfile packages
+  reload    Restart SketchyBar and reload AeroSpace
+  status    Show repo state (branch, ahead/behind, dirty files)
+  edit      Open the repo in \$VISUAL (defaults to nvim)
+  help      Show this message
 EOF
 }
 
@@ -49,71 +47,10 @@ cmd_reload() {
   fi
 }
 
-cmd_migrate() {
-  local migrations_dir="$DOTFILES/migrations"
-  local state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
-  local watermark="$state_dir/last-migration"
-
-  [[ -d $migrations_dir ]] || { echo "No migrations directory."; return 0; }
-
-  mkdir -p "$state_dir"
-  local last_applied applied=0
-  last_applied=$(cat "$watermark" 2>/dev/null || echo 0)
-
-  shopt -s nullglob
-  for file in "$migrations_dir"/*.sh; do
-    local base ts
-    base=$(basename "$file")
-    ts="${base%%-*}"
-    [[ $ts =~ ^[0-9]+$ ]] || continue
-    (( ts <= last_applied )) && continue
-
-    echo "==> Applying migration: $base"
-    if ( source "$file" ); then
-      echo "$ts" >"$watermark"
-      ((applied+=1)) || true
-    else
-      echo "Migration failed: $base" >&2
-      return 1
-    fi
-  done
-  shopt -u nullglob
-
-  if (( applied == 0 )); then
-    echo "No new migrations to apply."
-  fi
-}
-
-cmd_migrate_new() {
-  local name="${1:-}"
-  [[ -n $name ]] || { echo "Usage: dotfiles migrate-new <description>" >&2; return 64; }
-
-  local ts slug file
-  ts=$(date +%s)
-  slug=$(echo "$name" | tr '[:upper:]' '[:lower:]' | tr ' _' '-' | tr -cd 'a-z0-9-')
-  file="$DOTFILES/migrations/${ts}-${slug}.sh"
-
-  mkdir -p "$DOTFILES/migrations"
-  cat >"$file" <<MIGRATION
-# Migration: $name
-# Created: $(date -u +%Y-%m-%dT%H:%M:%SZ)
-#
-# This file is sourced (not executed). No shebang. Use \$DOTFILES
-# to reference the repo root.
-
-echo "$name"
-
-# Migration code here.
-MIGRATION
-  chmod 644 "$file"
-  echo "Created: $file"
-}
-
 cmd_update() {
   cmd_pull
   cmd_brew
   cmd_stow
-  cmd_migrate
   cmd_reload
 }
 
@@ -143,8 +80,6 @@ case "${1:-help}" in
   brew)           cmd_brew ;;
   stow)           cmd_stow ;;
   reload)         cmd_reload ;;
-  migrate)        cmd_migrate ;;
-  migrate-new)    shift; cmd_migrate_new "${1:-}" ;;
   status)         cmd_status ;;
   edit)           cmd_edit ;;
   help|-h|--help) usage ;;
