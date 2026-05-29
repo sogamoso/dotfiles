@@ -88,27 +88,27 @@ alt-equal       = 'resize width +50'
 alt-shift-minus = 'resize height -50'
 alt-shift-equal = 'resize height +50'
 
-# App launchers
-alt-enter       = 'exec-and-forget open -na Ghostty' # Omarchy: SUPER + RETURN
-alt-shift-enter = 'exec-and-forget open -na "Google Chrome"' # Omarchy: SUPER + SHIFT + RETURN
-alt-shift-n     = 'exec-and-forget open -na Zed' # Omarchy: SUPER + SHIFT + N
+# App launchers — see launch-or-focus.sh
+alt-enter       = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty' # Omarchy: SUPER + RETURN
+alt-shift-enter = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new "Google Chrome"' # Omarchy: SUPER + SHIFT + RETURN
+alt-shift-n     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Zed' # Omarchy: SUPER + SHIFT + N
 alt-shift-c     = 'exec-and-forget $HOME/.config/aerospace/open-fastmail.sh c' # SUPER+SHIFT+C → Fastmail (calendar)
 alt-shift-e     = 'exec-and-forget $HOME/.config/aerospace/open-fastmail.sh m' # SUPER+SHIFT+E → Fastmail (mail)
-alt-shift-g     = 'exec-and-forget open -b "net.whatsapp.WhatsApp"' # Omarchy: SUPER+SHIFT+G → WhatsApp
-alt-shift-m     = 'exec-and-forget open -b "com.spotify.client"' # Omarchy: SUPER+SHIFT+M → Spotify
-alt-shift-o     = 'exec-and-forget open -b "md.obsidian"' # Omarchy: SUPER+SHIFT+O → Obsidian
-alt-shift-f     = 'exec-and-forget open -a Finder' # Omarchy: SUPER+SHIFT+F → Finder
-alt-shift-slash = 'exec-and-forget open -b "com.1password.1password"' # Omarchy: SUPER+SHIFT+/ → 1Password
-alt-shift-a     = 'exec-and-forget open -b "com.anthropic.claudefordesktop"' # SUPER+SHIFT+A → Claude
-alt-cmd-enter   = 'exec-and-forget open -na Ghostty --args -e tmux new-session -A -s main' # ALT+RETURN → Ghostty+tmux
-alt-shift-cmd-b = 'exec-and-forget open -na "Google Chrome" --args --incognito' # ALT+SHIFT+B → Chrome incognito
-alt-shift-d     = 'exec-and-forget open -na Ghostty --args -e lazydocker' # SUPER+SHIFT+D → LazyDocker
-alt-shift-i     = 'exec-and-forget open -b "notion.id"' # SUPER+SHIFT+I → Notion
-alt-shift-l     = 'exec-and-forget open -b "com.linear"' # SUPER+SHIFT+L → Linear
+alt-shift-g     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh net.whatsapp.WhatsApp' # Omarchy: SUPER+SHIFT+G → WhatsApp
+alt-shift-m     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh com.spotify.client' # Omarchy: SUPER+SHIFT+M → Spotify
+alt-shift-o     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh md.obsidian' # Omarchy: SUPER+SHIFT+O → Obsidian
+alt-shift-f     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh Finder' # Omarchy: SUPER+SHIFT+F → Finder
+alt-shift-slash = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh com.1password.1password' # Omarchy: SUPER+SHIFT+/ → 1Password
+alt-shift-a     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh com.anthropic.claudefordesktop' # SUPER+SHIFT+A → Claude
+alt-cmd-enter   = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e tmux new-session -A -s main' # ALT+RETURN → Ghostty+tmux
+alt-shift-cmd-b = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new "Google Chrome" --args --incognito' # ALT+SHIFT+B → Chrome incognito
+alt-shift-d     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e lazydocker' # SUPER+SHIFT+D → LazyDocker
+alt-shift-i     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh notion.id' # SUPER+SHIFT+I → Notion
+alt-shift-l     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh com.linear' # SUPER+SHIFT+L → Linear
 
 # System controls
 alt-ctrl-c = 'exec-and-forget open "cleanshot://all-in-one"' # SUPER+Ctrl+C → CleanShot all-in-one
-alt-ctrl-t = 'exec-and-forget open -na Ghostty --args -e btop' # SUPER+Ctrl+T → btop
+alt-ctrl-t = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e btop' # SUPER+Ctrl+T → btop
 
 # Workspace menu
 alt-cmd-space = ['mode workspace_menu', 'exec-and-forget $HOME/.config/sketchybar/plugins/workspace_menu.sh keyboard']
