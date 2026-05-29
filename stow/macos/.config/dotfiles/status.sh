@@ -9,7 +9,12 @@
 #   status.sh weather
 set -euo pipefail
 
-notify() { osascript -e "display notification \"${2:-}\" with title \"$1\""; }
+GROUP_ID="dotfiles-status"
+
+notify() {
+  terminal-notifier -title "$1" -message "${2:-}" \
+    -group "$GROUP_ID" >/dev/null 2>&1
+}
 
 cmd_time() {
   notify "$(date +'%A %H:%M')" "$(date +'%d %B %Y  ·  Week %V')"
