@@ -87,6 +87,7 @@ alt-ctrl-down  = 'move down'
 
 # Window controls
 alt-w = ['close', 'exec-and-forget aerospace workspace $AEROSPACE_FOCUSED_WORKSPACE'] # Omarchy: SUPER + W — stay on workspace even if empty
+ctrl-cmd-forwardDelete = 'exec-and-forget $HOME/.config/aerospace/close-all-windows.sh' # Omarchy: CTRL + ALT + DEL — close all windows across workspaces, jump to 1
 alt-f = 'fullscreen' # Omarchy: SUPER + F
 alt-t = 'layout floating tiling' # Omarchy: SUPER + T (toggle float)
 alt-j = 'layout tiles horizontal vertical' # Omarchy: SUPER + J (toggle split)
