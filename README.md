@@ -41,11 +41,13 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 
 | Command | Action |
 |---|---|
-| `dotfiles update` | Pull, sync Brewfile, restow, reload services |
+| `dotfiles update` | Pull, sync Brewfile, restow, run migrations, reload services |
 | `dotfiles pull` | Git pull only |
 | `dotfiles brew` | Sync Brewfile via `brew bundle` |
 | `dotfiles stow` | Re-stow all packages |
 | `dotfiles reload` | Restart SketchyBar and reload AeroSpace |
+| `dotfiles migrate` | Apply pending migrations from `migrations/` (see [migrations/README.md](migrations/README.md)) |
+| `dotfiles migrate-new "<name>"` | Create a new migration stub |
 | `dotfiles status` | Branch, ahead/behind, dirty files |
 | `dotfiles edit` | Open the repo in `$VISUAL` |
 

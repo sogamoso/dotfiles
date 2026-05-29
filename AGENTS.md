@@ -31,7 +31,8 @@ Conventions for this repo. Match these over general best practices when they con
 - **macOS notification pattern:** `notify() { osascript -e "display notification \"\${2:-}\" with title \"\$1\""; }`. Title is required; body optional.
 - **Ephemeral state** goes under `${TMPDIR:-/tmp}/dotfiles-*` (e.g. `dotfiles-reminders/`, `dotfiles-mic-mute.state`). State that should persist across reboots doesn't belong there.
 - **App launchers go through `launch-or-focus.sh`.** Don't inline `open -na/-b/-a` in new bindings — call the helper so failed launches surface a notification instead of silently no-op'ing.
-- **Repo maintenance via the `dotfiles` CLI.** Lives at `stow/macos/.local/bin/dotfiles`, symlinked to `~/.local/bin/dotfiles`. Subcommands: `update`, `pull`, `brew`, `stow`, `reload`, `status`, `edit`. Add new subcommands here rather than scattering one-off scripts.
+- **Repo maintenance via the `dotfiles` CLI.** Lives at `stow/macos/.local/bin/dotfiles`, symlinked to `~/.local/bin/dotfiles`. Subcommands: `update`, `pull`, `brew`, `stow`, `reload`, `migrate`, `migrate-new`, `status`, `edit`. Add new subcommands here rather than scattering one-off scripts.
+- **Migrations** — one-shot cleanup scripts under `migrations/`, sourced (not executed) in timestamp order. Conventions and the runner contract live in `migrations/README.md`. Create new ones via `dotfiles migrate-new "description"`. Use migrations for breaking changes that need to apply to existing installs (deprecated config removal, state file moves) — not for normal install-time setup.
 
 ## Adding a new shared helper script
 
