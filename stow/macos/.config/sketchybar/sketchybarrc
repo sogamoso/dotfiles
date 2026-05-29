@@ -139,6 +139,19 @@ sketchybar --add item input_source right \
     click_script="BIN=$HOME/.cache/sketchybar/switch_input_source; SRC=$CONFIG_DIR/plugins/switch_input_source.swift; [ ! -f \$BIN ] || [ \$SRC -nt \$BIN ] && swiftc \$SRC -framework Carbon -o \$BIN 2>/dev/null; \$BIN" \
     script="$CONFIG_DIR/plugins/input_source.sh"
 
+# Dotfiles update indicator — visible only when local repo is behind origin
+sketchybar --add item dotfiles_update right \
+  --set dotfiles_update \
+    icon="󰚰" \
+    icon.color=$BLUE \
+    icon.font="JetBrainsMono Nerd Font:Bold:16.0" \
+    label.color=$BLUE \
+    label.padding_left=2 \
+    drawing=off \
+    update_freq=21600 \
+    click_script="$HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e dotfiles update" \
+    script="$CONFIG_DIR/plugins/dotfiles_update.sh"
+
 # Display change watcher — reloads bar when displays are added/removed (NOTE: system_woke may not fire on all macOS)
 sketchybar --add item display_watcher left \
   --set display_watcher \
