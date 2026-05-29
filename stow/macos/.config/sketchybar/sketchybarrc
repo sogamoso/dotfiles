@@ -121,13 +121,6 @@ sketchybar --add item bluetooth right \
     click_script="open 'x-apple.systempreferences:com.apple.preferences.Bluetooth'" \
     script="$CONFIG_DIR/plugins/bluetooth.sh"
 
-# Weather (wttr.in; hides on network failure)
-sketchybar --add item weather right \
-  --set weather \
-    update_freq=600 \
-    click_script="open -a Weather" \
-    script="$CONFIG_DIR/plugins/weather.sh"
-
 # Input source
 sketchybar --add item input_source right \
   --set input_source \
