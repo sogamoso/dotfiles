@@ -31,6 +31,7 @@ Conventions for this repo. Match these over general best practices when they con
 - **macOS notification pattern:** `notify() { osascript -e "display notification \"\${2:-}\" with title \"\$1\""; }`. Title is required; body optional.
 - **Ephemeral state** goes under `${TMPDIR:-/tmp}/dotfiles-*` (e.g. `dotfiles-reminders/`, `dotfiles-mic-mute.state`). State that should persist across reboots doesn't belong there.
 - **App launchers go through `launch-or-focus.sh`.** Don't inline `open -na/-b/-a` in new bindings — call the helper so failed launches surface a notification instead of silently no-op'ing.
+- **Repo maintenance via the `dotfiles` CLI.** Lives at `stow/macos/.local/bin/dotfiles`, symlinked to `~/.local/bin/dotfiles`. Subcommands: `update`, `pull`, `brew`, `stow`, `reload`, `status`, `edit`. Add new subcommands here rather than scattering one-off scripts.
 
 ## Adding a new shared helper script
 
