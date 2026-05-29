@@ -134,8 +134,10 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Ctrl + Tab` | Switch to former workspace |
 | `Option + arrows` | Focus window left/right/up/down |
 | `Option + Ctrl + arrows` | Move window within workspace |
-| `Option + Shift + 1-9` | Move window to workspace |
-| `Option + Shift + S` | Move window to scratchpad (workspace 10) |
+| `Option + Shift + 1-9` | Move window to workspace and follow |
+| `Option + Shift + S` | Move window to scratchpad (workspace 10) and follow |
+| `Option + Shift + Cmd + 1-9` | Move window to workspace without following |
+| `Option + Shift + Cmd + S` | Move window to scratchpad without following |
 | `Option + W` | Close focused window |
 | `Option + F` | Fullscreen |
 | `Option + T` | Toggle floating/tiling |
@@ -160,6 +162,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Shift + F` | Open Finder |
 | `Option + Shift + /` | Open 1Password |
 | `Option + Shift + A` | Open Claude |
+| `Option + Shift + Y` | Open YouTube |
 | `Option + Shift + I` | Open Notion |
 | `Option + Shift + L` | Open Linear |
 | `Option + Shift + D` | LazyDocker in Ghostty |
