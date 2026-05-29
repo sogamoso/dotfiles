@@ -109,6 +109,7 @@ Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud S
 
 - **Script Commands → Apple Menu** → `Option + Escape` (Omarchy: SUPER + Escape)
 - **Script Commands → Hotkeys Cheatsheet** → `Option + K` (Omarchy: SUPER + K)
+- **Script Commands → Zed Cheatsheet** → `Option + Shift + K`
 - **Script Commands → Set Reminder** → `Option + Ctrl + R` (Omarchy: SUPER + Ctrl + R)
 - **Script Commands → Show Reminders** → `Option + Ctrl + Cmd + R` (Omarchy: SUPER + Ctrl + Alt + R)
 - **Script Commands → Clear Reminders** → `Option + Ctrl + Shift + R` (Omarchy: SUPER + Shift + Ctrl + R)
@@ -134,6 +135,24 @@ Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud S
 By default macOS pins notification/alert sounds to a fixed device, so they leak out of monitor speakers when audio is on AirPods.
 
 System Settings → Sound → set **Play sound effects through** to **Selected sound output device**.
+
+---
+
+## 11. Allow terminal-notifier Notifications
+
+`reminder.sh` (and any future script that uses `terminal-notifier`) needs notification permission. On first invocation macOS pops a permission prompt — accept it. If you missed the prompt:
+
+System Settings → Notifications → **terminal-notifier** → enable **Allow Notifications**.
+
+---
+
+## 12. First Launch of Solo
+
+`install/macos/solo.sh` copies `Solo.app` into `/Applications` but doesn't bypass Gatekeeper or activate the license.
+
+1. First open: right-click `Solo.app` in Finder → **Open** → confirm the Gatekeeper prompt (the app was downloaded from the internet, not signed via the App Store).
+2. Sign in / activate license via Solo's onboarding (free beta as of writing; sign-in is required).
+3. Subsequent updates happen in-app via **Solo → Check for Updates**.
 
 ---
 
