@@ -37,7 +37,6 @@ Then set Raycast as the launcher:
 System Settings → General → Login Items — add:
 
 - AeroSpace
-- cctop
 - CleanShot X
 - Dropbox
 - Fastmail
@@ -127,6 +126,14 @@ Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud S
 1. Open the **Mail** app (one-time, to expose the default-mail-client setting)
 2. From the **Mail** menu, choose **Settings** → **General**
 3. Set **Default email reader** to **Fastmail**
+
+---
+
+## 10. Route Sound Effects to the Active Output
+
+By default macOS pins notification/alert sounds to a fixed device, so they leak out of monitor speakers when audio is on AirPods.
+
+System Settings → Sound → set **Play sound effects through** to **Selected sound output device**.
 
 ---
 
