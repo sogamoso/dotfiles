@@ -168,6 +168,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | Hotkey | Action |
 |---|---|
 | `Option + Ctrl + C` | CleanShot all-in-one |
+| `Option + Ctrl + PrtSc` | CleanShot OCR text extraction (external PC keyboards; F13 on macOS) |
 
 ##### Notifications
 
