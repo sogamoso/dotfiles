@@ -5,6 +5,7 @@ tap "st0012/cctop"
 
 brew "blueutil"
 brew "btop"
+brew "duti"
 brew "eza"
 brew "fd"
 brew "FelixKratz/formulae/borders"
