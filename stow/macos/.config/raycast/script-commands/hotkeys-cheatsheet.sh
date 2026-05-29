@@ -25,7 +25,6 @@ ${B}Option + S${R}              ${D}Switch to scratchpad (workspace 10)${R}
 ${B}Option + Tab${R}            ${D}Next workspace${R}
 ${B}Option + Shift+Tab${R}      ${D}Previous workspace${R}
 ${B}Option + Ctrl+Tab${R}       ${D}Former workspace${R}
-${B}Option + Cmd+Space${R}      ${D}Workspace menu${R}
 ${B}Option + arrows${R}         ${D}Focus window${R}
 ${B}Option + Ctrl+arrows${R}    ${D}Move window within workspace${R}
 ${B}Option + Shift + 1–9${R}   ${D}Move window to workspace${R}

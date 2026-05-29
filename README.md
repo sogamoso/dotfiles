@@ -116,7 +116,6 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Tab` | Next workspace |
 | `Option + Shift + Tab` | Previous workspace |
 | `Option + Ctrl + Tab` | Switch to former workspace |
-| `Option + Cmd + Space` | Workspace menu |
 | `Option + arrows` | Focus window left/right/up/down |
 | `Option + Ctrl + arrows` | Move window within workspace |
 | `Option + Shift + 1-9` | Move window to workspace |
