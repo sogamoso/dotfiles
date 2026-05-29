@@ -115,6 +115,7 @@ alt-shift-l     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh co
 alt-ctrl-c   = 'exec-and-forget open "cleanshot://all-in-one"' # SUPER+Ctrl+C → CleanShot all-in-one
 alt-ctrl-f13 = 'exec-and-forget open "cleanshot://capture-text"' # Omarchy: SUPER+CTRL+PRINT → OCR text extraction (PrtSc on external PC keyboards = F13 on macOS)
 alt-ctrl-t   = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e btop' # SUPER+Ctrl+T → btop
+alt-ctrl-m   = 'exec-and-forget $HOME/.config/dotfiles/mic-mute.sh' # Omarchy: XF86AudioMicMute → toggle mic mute
 
 # Status notifications — Omarchy: SUPER+CTRL+ALT+{T,B,W}
 alt-ctrl-cmd-t = 'exec-and-forget $HOME/.config/dotfiles/status.sh time'
