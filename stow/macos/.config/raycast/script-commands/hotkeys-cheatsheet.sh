@@ -68,6 +68,12 @@ ${B}Option + Ctrl+X${R}         ${D}Monologue (dictation)${R}
 
 ${B}${Y}── Capture ─────────────────────────────────────────────${R}
 ${B}Option + Ctrl+C${R}         ${D}CleanShot all-in-one${R}
+${B}Option + Ctrl+PrtSc${R}     ${D}CleanShot OCR (F13 on external PC keyboards)${R}
+
+${B}${Y}── Reminders ───────────────────────────────────────────${R}
+${B}Option + Ctrl+R${R}         ${D}Set Reminder (Raycast)${R}
+${B}Option + Ctrl+Cmd+R${R}     ${D}Show Reminders (Raycast)${R}
+${B}Option + Ctrl+Shift+R${R}   ${D}Clear Reminders (Raycast)${R}
 
 ${B}${Y}── Notifications ───────────────────────────────────────${R}
 ${B}Option + ,${R}              ${D}Toggle Notification Center${R}
