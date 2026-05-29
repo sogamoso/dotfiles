@@ -126,6 +126,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + T` | Toggle floating/tiling |
 | `Option + J` | Toggle split direction |
 | `Option + L` | Toggle layout |
+| `Option + R` | Reset workspace layout |
 | `Option + - / =` | Resize width |
 | `Option + Shift + - / =` | Resize height |
 

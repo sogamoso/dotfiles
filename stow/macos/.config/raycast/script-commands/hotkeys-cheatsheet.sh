@@ -35,6 +35,7 @@ ${B}Option + F${R}              ${D}Fullscreen${R}
 ${B}Option + T${R}              ${D}Toggle floating/tiling${R}
 ${B}Option + J${R}              ${D}Toggle split direction${R}
 ${B}Option + L${R}              ${D}Toggle layout${R}
+${B}Option + R${R}              ${D}Reset workspace layout${R}
 ${B}Option + - / =${R}          ${D}Resize width${R}
 ${B}Option + Shift + - / =${R}  ${D}Resize height${R}
 
