@@ -1,7 +1,6 @@
 tap "domt4/autoupdate"
 tap "FelixKratz/formulae"
 tap "nikitabobko/tap"
-tap "st0012/cctop"
 
 brew "blueutil"
 brew "btop"
@@ -33,7 +32,6 @@ brew "zsh-you-should-use"
 
 cask "1password"
 cask "1password-cli"
-cask "st0012/cctop/cctop"
 cask "chatgpt"
 cask "claude"
 cask "claude-code"
