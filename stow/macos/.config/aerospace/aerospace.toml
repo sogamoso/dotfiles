@@ -7,7 +7,7 @@
 start-at-login = true
 
 after-startup-command = [
-    'exec-and-forget borders active_color=0xffbb9af7 inactive_color=0xff414868 width=2.0'
+    'exec-and-forget borders active_color=0xffff9e64 inactive_color=0xff414868 width=4.0'
 ]
 
 # Tiling: windows open on the current workspace (like Omarchy).
