@@ -66,6 +66,11 @@ ${B}Option + Ctrl+V${R}         ${D}Clipboard history (Raycast)${R}
 ${B}Option + Ctrl+E${R}         ${D}Emoji picker (Raycast)${R}
 ${B}Option + Ctrl+X${R}         ${D}Monologue (dictation)${R}
 
+${B}${Y}── Status Notifications ────────────────────────────────${R}
+${B}Option + Ctrl+Cmd+T${R}     ${D}Time / date / week${R}
+${B}Option + Ctrl+Cmd+B${R}     ${D}Battery level + state${R}
+${B}Option + Ctrl+Cmd+W${R}     ${D}Weather (wttr.in)${R}
+
 ${B}${Y}── Capture ─────────────────────────────────────────────${R}
 ${B}Option + Ctrl+C${R}         ${D}CleanShot all-in-one${R}
 ${B}Option + Ctrl+PrtSc${R}     ${D}CleanShot OCR (F13 on external PC keyboards)${R}
