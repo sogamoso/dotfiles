@@ -34,8 +34,8 @@ sketchybar --bar \
 
 # Defaults
 sketchybar --default \
-  padding_left=4 \
-  padding_right=4 \
+  padding_left=6 \
+  padding_right=6 \
   icon.font="JetBrainsMono Nerd Font:Bold:16.0" \
   label.font="JetBrainsMono Nerd Font:Regular:13.0" \
   icon.color=$TEXT \
@@ -160,7 +160,7 @@ sketchybar --add item input_source right \
     background.height=15 \
     background.drawing=on \
     padding_left=4 \
-    padding_right=4 \
+    padding_right=8 \
     update_freq=3 \
     click_script="BIN=$HOME/.cache/sketchybar/switch_input_source; SRC=$CONFIG_DIR/plugins/switch_input_source.swift; [ ! -f \$BIN ] || [ \$SRC -nt \$BIN ] && swiftc \$SRC -framework Carbon -o \$BIN 2>/dev/null; \$BIN" \
     script="$CONFIG_DIR/plugins/input_source.sh"
