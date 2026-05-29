@@ -30,8 +30,8 @@ Conventions for this repo. Match these over general best practices when they con
   1. `stow/macos/.config/aerospace/aerospace.toml` — the binding itself (skip when the hotkey is assigned inside Raycast instead of AeroSpace).
   2. `README.md` — hotkey reference table.
   3. `stow/macos/.config/raycast/script-commands/hotkeys-cheatsheet.sh` — in-Raycast cheatsheet.
-  4. `docs/macos-manual-setup.md` Section 8 — only for hotkeys assigned inside Raycast (per-machine, not in dotfiles).
-- **Raycast hotkey assignments are not in dotfiles.** Raycast stores them per-machine. Document them in `docs/macos-manual-setup.md` Section 8.
+  4. `docs/macos-manual-setup.md` Section 8 — for hotkeys assigned inside specific apps (Raycast, CleanShot, etc.) that are per-machine, not in dotfiles.
+- **App-level hotkey assignments are not in dotfiles.** Raycast and CleanShot store them per-machine. Document them in `docs/macos-manual-setup.md` Section 8 under the appropriate subsection.
 - **macOS notification pattern:** `notify() { osascript -e "display notification \"\${2:-}\" with title \"\$1\""; }`. Title is required; body optional.
 - **Ephemeral state** goes under `${TMPDIR:-/tmp}/dotfiles-*` (e.g. `dotfiles-reminders/`, `dotfiles-mic-mute.state`). State that should persist across reboots doesn't belong there.
 - **App launchers go through `launch-or-focus.sh`.** Don't inline `open -na/-b/-a` in new bindings — call the helper so failed launches surface a notification instead of silently no-op'ing.

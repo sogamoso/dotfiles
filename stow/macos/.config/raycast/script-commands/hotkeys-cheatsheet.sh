@@ -76,7 +76,7 @@ ${B}Option + Ctrl+Cmd+W${R}     ${D}Weather (wttr.in)${R}
 
 ${B}${Y}── Capture ─────────────────────────────────────────────${R}
 ${B}Option + Ctrl+C${R}         ${D}CleanShot all-in-one${R}
-${B}Option + Ctrl+PrtSc${R}     ${D}CleanShot OCR (F13 on external PC keyboards)${R}
+${B}Cmd + Shift+6${R}           ${D}CleanShot OCR (assigned in CleanShot)${R}
 
 ${B}${Y}── Reminders ───────────────────────────────────────────${R}
 ${B}Option + Ctrl+R${R}         ${D}Set Reminder (Raycast)${R}
