@@ -65,7 +65,7 @@ ${B}Option + Ctrl+T${R}         ${D}btop in Ghostty${R}
 ${B}Option + Ctrl+V${R}         ${D}Clipboard history (Raycast)${R}
 ${B}Option + Ctrl+E${R}         ${D}Emoji picker (Raycast)${R}
 ${B}Option + Ctrl+X${R}         ${D}Monologue (dictation)${R}
-${B}Option + Ctrl+M${R}         ${D}Toggle microphone mute${R}
+${B}Mic Mute (F14)${R}          ${D}Toggle mic mute (Lofree mic key)${R}
 
 ${B}${Y}── Status Notifications ────────────────────────────────${R}
 ${B}Option + Ctrl+Cmd+T${R}     ${D}Time / date / week${R}
