@@ -98,18 +98,16 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 
 #### Workspace layout
 
-| Workspace | App |
-|---|---|
-| 1 | Ghostty, Zed, Solo |
-| 2 | Chrome, Safari |
-| 3 | Slack |
-| 4 | Fastmail |
-| 5 | Notion, Linear |
-| 6 | Claude, ChatGPT, Codex, Gemini |
-| 7 | WhatsApp, Discord, Telegram |
-| 8 | Spotify |
-| 9 | (free) |
-| 10 | (scratchpad) |
+| Workspace | Purpose | Apps |
+|---|---|---|
+| 1 | Browsing | Chrome, Safari |
+| 2 | Dev | Ghostty, Zed, Solo |
+| 3 | Chat | Slack, WhatsApp, Discord, Telegram |
+| 4 | Mail | Fastmail |
+| 5 | Work | Notion |
+| 6 | Entertainment | Spotify, YouTube, Podcasts |
+| 7–9 | Misc | Whatever |
+| 10 | Scratchpad | Temporary |
 
 #### Hotkeys
 
