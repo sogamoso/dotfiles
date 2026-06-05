@@ -139,10 +139,3 @@ alt-ctrl-cmd-w = 'exec-and-forget $HOME/.config/dotfiles/status.sh weather'
 # -------------------------------------------------------
 [[on-window-detected]]
 run = ['split opposite']
-
-# -------------------------------------------------------
-# Workspace assignments
-# -------------------------------------------------------
-[[on-window-detected]]
-if.app-id = 'com.soloterm.solo'
-run = ['move-node-to-workspace 1']
