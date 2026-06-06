@@ -20,6 +20,7 @@ log_heading "Installing Homebrew packages..."
 
 # Install personal packages (Omamac handles core packages)
 brew bundle --file "$REPO_DIR/Brewfile"
+brew cleanup
 
 # Flag packages not in the Brewfile
 STALE=$(brew bundle cleanup --file "$REPO_DIR/Brewfile" 2>&1 | grep -v "^Would uninstall\|^Run \`brew") || true
