@@ -108,14 +108,14 @@ ${B}Ctrl+Cmd + arrows${R}       ${D}Navigate tmux panes${R}
 ${B}Ctrl+Cmd+Shift + arrows${R} ${D}Resize tmux panes${R}
 
 ${B}${C}── Workspace Layout ────────────────────────────────────${R}
-${B}1${R}  ${D}Ghostty + Zed + Solo${R}
-${B}2${R}  ${D}Chrome + Safari${R}
-${B}3${R}  ${D}Slack${R}
-${B}4${R}  ${D}Fastmail${R}
-${B}5${R}  ${D}Notion + Linear${R}
-${B}6${R}  ${D}Claude + ChatGPT + Codex + Gemini${R}
-${B}7${R}  ${D}WhatsApp + Discord + Telegram${R}
-${B}8${R}  ${D}Spotify + YouTube${R}
-${B}9${R}  ${D}(free)${R}
+${B}1${R}  ${D}Browsing (Chrome, Safari)${R}
+${B}2${R}  ${D}Dev (Ghostty, Zed, Solo, Conductor)${R}
+${B}3${R}  ${D}Chat (Slack, WhatsApp, Discord, Telegram)${R}
+${B}4${R}  ${D}Mail (Fastmail)${R}
+${B}5${R}  ${D}Work (Notion)${R}
+${B}6${R}  ${D}Entertainment (Spotify, YouTube, Podcasts)${R}
+${B}7${R}  ${D}Misc${R}
+${B}8${R}  ${D}Misc${R}
+${B}9${R}  ${D}Misc${R}
 ${B}10${R} ${D}Scratchpad${R}
 "
