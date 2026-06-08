@@ -9,7 +9,7 @@ if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
 fi
 
 log_heading "Workspaces:"
-log_info " 1  Browsing       — Chrome, Safari"
+log_info " 1  Browse         — Chrome, Safari"
 log_info " 2  Dev            — Ghostty, Zed, Solo, Conductor"
 log_info " 3  Chat           — Slack, WhatsApp, Discord, Telegram"
 log_info " 4  Mail           — Fastmail"
