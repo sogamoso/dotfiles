@@ -105,7 +105,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 3 | Chat | Slack, WhatsApp, Discord, Telegram |
 | 4 | Mail | Fastmail |
 | 5 | Work | Notion |
-| 6 | Entertainment | Spotify, YouTube, Podcasts |
+| 6 | Entertainment | Spotify, Podcasts |
 | 7–9 | Misc | Whatever |
 | 10 | Scratchpad | Temporary |
 
