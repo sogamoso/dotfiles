@@ -160,7 +160,7 @@ sketchybar --add item dotfiles_update right \
     label.padding_left=2 \
     drawing=off \
     update_freq=21600 \
-    click_script="$HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e dotfiles update" \
+    click_script="$HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e $HOME/.local/bin/dotfiles update" \
     script="$CONFIG_DIR/plugins/dotfiles_update.sh"
 
 # Display change watcher — reloads bar when displays are added/removed (NOTE: system_woke may not fire on all macOS)
