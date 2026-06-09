@@ -110,7 +110,7 @@ ${B}Ctrl+Cmd+Shift + arrows${R} ${D}Resize tmux panes${R}
 ${B}${C}── Workspace Layout ────────────────────────────────────${R}
 ${B}1${R}  ${D}Browse (Chrome, Safari)${R}
 ${B}2${R}  ${D}Dev (Ghostty, Zed, Solo, Conductor)${R}
-${B}3${R}  ${D}Chat (Slack, WhatsApp, Discord, Telegram)${R}
+${B}3${R}  ${D}Chat (Slack, WhatsApp, Discord)${R}
 ${B}4${R}  ${D}Mail (Fastmail)${R}
 ${B}5${R}  ${D}Work (Notion)${R}
 ${B}6${R}  ${D}Entertainment (Spotify, Podcasts)${R}
