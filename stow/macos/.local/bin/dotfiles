@@ -29,6 +29,11 @@ cmd_pull() {
 
 cmd_brew() {
   run brew bundle install --file="$DOTFILES/Brewfile"
+  # Restart tailscaled if brew upgraded the client past the running daemon.
+  # Only prompts for sudo when a mismatch is actually detected.
+  if command -v tailscale >/dev/null 2>&1 && tailscale version 2>&1 | grep -q "!= tailscaled"; then
+    run sudo brew services restart tailscale
+  fi
 }
 
 cmd_stow() {
