@@ -11,7 +11,7 @@ fi
 log_heading "Workspaces:"
 log_info " 1  Browse         — Chrome, Safari"
 log_info " 2  Dev            — Ghostty, Zed, Solo, Conductor"
-log_info " 3  Chat           — Slack, WhatsApp, Discord, Telegram"
+log_info " 3  Chat           — Slack, WhatsApp, Discord"
 log_info " 4  Mail           — Fastmail"
 log_info " 5  Work           — Notion"
 log_info " 6  Entertainment  — Spotify, Podcasts"
