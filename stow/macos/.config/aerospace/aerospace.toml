@@ -147,3 +147,7 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml' # YouTube
 run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.todoist.mac.Todoist'
+run = 'layout floating'
