@@ -19,8 +19,10 @@ if [ ! -f "$MBHEIGHT_BIN" ] || [ "$MBHEIGHT_SRC" -nt "$MBHEIGHT_BIN" ]; then
 fi
 BAR_HEIGHT=$("$MBHEIGHT_BIN" 2>/dev/null || echo 30)
 
-# Sync AeroSpace outer.top gap with the bar height (no reload — reload() handles that)
+# Sync AeroSpace outer.top gap with the bar height (no reload — reload() handles that).
+# Side effect: compiles $CACHE_DIR/has_external_display, which we reuse below.
 "$CONFIG_DIR/plugins/sync_aerospace_gap.sh"
+HAS_EXTERNAL=$("$CACHE_DIR/has_external_display" 2>/dev/null || echo 0)
 
 # Bar
 sketchybar --bar \
@@ -72,8 +74,17 @@ for i in {1..9}; do
     --subscribe space.$i aerospace_workspace_change
 done
 
-# Clock — centered (Omarchy parity), time only
-sketchybar --add item clock center \
+# Clock — centered when an external display is connected (Omarchy parity).
+# On laptop-only, macOS auto-hides the system menu bar, taking the system clock
+# with it; place ours at the rightmost of the right group so it sits where the
+# system clock would have been. Position re-evaluates on display change because
+# display_change.sh reloads sketchybar, which re-runs this whole file.
+if [ "$HAS_EXTERNAL" -eq 1 ] 2>/dev/null; then
+  CLOCK_POSITION=center
+else
+  CLOCK_POSITION=right
+fi
+sketchybar --add item clock "$CLOCK_POSITION" \
   --set clock \
     update_freq=5 \
     icon.drawing=off \
