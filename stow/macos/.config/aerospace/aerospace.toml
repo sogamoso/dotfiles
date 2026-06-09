@@ -138,16 +138,19 @@ alt-ctrl-cmd-w = 'exec-and-forget $HOME/.config/dotfiles/status.sh weather'
 # Dwindle: split opposite for every new window
 # -------------------------------------------------------
 [[on-window-detected]]
+# check-further-callbacks lets the per-app rules below also fire; without it
+# AeroSpace stops after the first match and the floating rules never run.
+check-further-callbacks = true
 run = ['split opposite']
 
 [[on-window-detected]]
 if.app-id = 'com.1password.1password'
-run = 'layout floating'
+run = ['layout floating']
 
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml' # YouTube
-run = 'layout floating'
+run = ['layout floating']
 
 [[on-window-detected]]
 if.app-id = 'com.todoist.mac.Todoist'
-run = 'layout floating'
+run = ['layout floating']
