@@ -41,6 +41,8 @@ System Settings → General → Login Items — add:
 - Dropbox
 - Fastmail
 - Freedom
+- Gmail
+- Google Calendar
 - Google Drive
 - Monologue
 - Raycast
@@ -132,11 +134,29 @@ Set in CleanShot → Settings → Shortcuts:
 
 ---
 
-## 9. Set Fastmail as Default Email Client
+## 9. Set Gmail and Google Calendar as Defaults
 
-1. Open the **Mail** app (one-time, to expose the default-mail-client setting)
-2. From the **Mail** menu, choose **Settings** → **General**
-3. Set **Default email reader** to **Fastmail**
+### Default email (Gmail)
+
+There is no System Settings panel for the default email app — the control lives inside Mail, and it stays greyed out until Mail has at least one account. Since mail routes through Gmail/Fastmail in the browser, Apple Mail may have no account; add a throwaway one to unlock the setting if needed.
+
+The system-level `mailto:` handler is **Google Chrome the browser**, not the Gmail PWA — a Chrome-installed PWA doesn't register as a mail client and won't appear by name. Chrome then hands `mailto:` to Gmail's web handler.
+
+1. Confirm Google Chrome is installed at `/Applications/Google Chrome.app`.
+2. Open the **Mail** app. If it has no account, the default-reader control is greyed out — add any account (e.g. **Other Mail Account**) with throwaway credentials so the setting unlocks; remove it afterward.
+3. **Mail → Settings → General**, set **Default email reader** to **Google Chrome** (if it isn't listed, choose **Select…** and pick `/Applications/Google Chrome.app`). Quit Mail and remove the throwaway account if you added one.
+4. In Chrome, open https://mail.google.com and click the protocol-handler (double-diamond) icon at the right of the address bar → allow Gmail to open email links. If the icon is missing, open `chrome://settings/handlers`, ensure "Sites can ask to handle protocols" is on, remove any blocked `mail.google.com` entry, reload Gmail, and retry.
+5. Test: `open mailto:test@example.com` in a terminal should land in a Gmail compose tab.
+
+`mailto:` clicks open in a Chrome tab, not the standalone Gmail PWA window — the two are separate.
+
+### Default calendar (Google Calendar)
+
+macOS cannot make a Chrome PWA the default calendar app. Only `Calendar.app` registers the `webcal://` and `.ics` handlers (verified via `lsregister` — Chrome claims neither), and the picker at **Calendar.app → Settings → General → Default calendar app** lists only native apps that register those handlers, so Chrome and the PWA never appear. Best achievable compromise:
+
+- **`.ics` invite files:** in Finder, select an `.ics`, press **Cmd+I (Get Info) → Open with → Other… → All Applications → Google Chrome.app → Change All**. Target full Chrome.app, not the PWA — the PWA declares no document types and its bundle id changes on reinstall. Opening an `.ics` in Chrome only downloads it; add it via **Google Calendar → Settings → Import & export → Import**.
+- **`webcal://` subscription links:** no OS-level path to a PWA. Copy the link, change `webcal://` to `https://`, and subscribe via **Google Calendar → Other calendars (+) → From URL**. Usually works, not guaranteed for every publisher.
+- Calendar links clicked in other apps (Mail, Slack) still open `Calendar.app`, which is SIP-protected and can't be removed.
 
 ---
 

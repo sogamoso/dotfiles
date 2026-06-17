@@ -6,6 +6,8 @@ CHROME_APPS="$HOME/Applications/Chrome Apps.localized"
 
 names=()
 urls=()
+[[ ! -d "$CHROME_APPS/Gmail.app" ]] && { names+=("Gmail"); urls+=("https://mail.google.com"); }
+[[ ! -d "$CHROME_APPS/Google Calendar.app" ]] && { names+=("Google Calendar"); urls+=("https://calendar.google.com"); }
 [[ ! -d "$CHROME_APPS/YouTube.app" ]] && { names+=("YouTube"); urls+=("https://youtube.com"); }
 
 if (( ${#urls[@]} )); then

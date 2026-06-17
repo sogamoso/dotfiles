@@ -111,9 +111,10 @@ ${B}${C}── Workspace Layout ────────────────
 ${B}1${R}  ${D}Browse (Chrome, Safari)${R}
 ${B}2${R}  ${D}Dev (Ghostty, Zed, Solo, Conductor)${R}
 ${B}3${R}  ${D}Chat (Slack, WhatsApp, Discord)${R}
-${B}4${R}  ${D}Mail (Fastmail)${R}
-${B}5${R}  ${D}Work (Notion)${R}
-${B}6${R}  ${D}Entertainment (Spotify, Podcasts)${R}
+${B}4${R}  ${D}Work email & calendar (Gmail, Google Calendar)${R}
+${B}5${R}  ${D}Other work apps (Notion)${R}
+${B}6${R}  ${D}Personal mail & calendar (Fastmail)${R}
+${B}7${R}  ${D}Entertainment (Spotify, Podcasts)${R}
 ${B}7${R}  ${D}Misc${R}
 ${B}8${R}  ${D}Misc${R}
 ${B}9${R}  ${D}Misc${R}
