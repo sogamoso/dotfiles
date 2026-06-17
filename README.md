@@ -90,7 +90,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
 | `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
 | `preferences.sh` | macOS system defaults |
-| `pwas.sh` | Installs Chrome PWAs (YouTube) |
+| `pwas.sh` | Installs Chrome PWAs (Gmail, Google Calendar, YouTube) |
 | `sketchybar.sh` | Configures SketchyBar status bar |
 | `tailscale.sh` | Starts Tailscale daemon and connects with SSH enabled |
 | `aerospace.sh` | Starts AeroSpace only if not already running |
@@ -103,10 +103,11 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 1 | Browse | Chrome, Safari |
 | 2 | Dev | Ghostty, Zed, Solo, Conductor |
 | 3 | Chat | Slack, WhatsApp, Discord |
-| 4 | Mail | Fastmail |
-| 5 | Work | Notion |
-| 6 | Entertainment | Spotify, Podcasts |
-| 7–9 | Misc | Whatever |
+| 4 | Work email & calendar | Gmail, Google Calendar |
+| 5 | Other work apps | Notion |
+| 6 | Personal mail & calendar | Fastmail |
+| 7 | Entertainment | Spotify, Podcasts |
+| 8–9 | Misc | Whatever |
 | 10 | Scratchpad | Temporary |
 
 #### Hotkeys
