@@ -27,7 +27,6 @@ log_heading "Installing Claude Code plugins..."
 
 plugins=(
   "frontend-design@claude-plugins-official"
-  "ralph-loop@claude-plugins-official"
   "feature-dev@claude-plugins-official"
   "hookify@claude-plugins-official"
   "pr-review-toolkit@claude-plugins-official"
