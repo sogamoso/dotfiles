@@ -34,7 +34,6 @@ plugins=(
   "plugin-dev@claude-plugins-official"
   "security-guidance@claude-plugins-official"
   "code-simplifier@claude-plugins-official"
-  "stagehand@claude-plugins-official"
   "typescript-lsp@claude-plugins-official"
   "ruby-lsp@claude-plugins-official"
   "dev-browser@dev-browser-marketplace"
