@@ -28,7 +28,7 @@ if brew trust --help &>/dev/null; then
   done < <(grep -E '^tap "' "$REPO_DIR/Brewfile" | sed -E 's/^tap "([^"]+)".*/\1/')
 fi
 
-# Install personal packages (Omamac handles core packages)
+# Install personal packages (Omadots handles core packages)
 brew bundle --file "$REPO_DIR/Brewfile"
 brew cleanup
 
