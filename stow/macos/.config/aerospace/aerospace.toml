@@ -154,3 +154,7 @@ run = ['layout floating']
 [[on-window-detected]]
 if.app-id = 'com.todoist.mac.Todoist'
 run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.voiceos.app' # VoiceOS — float so AeroSpace stops fighting the sticky overlay widgets (flicker on workspace switch)
+run = ['layout floating']
