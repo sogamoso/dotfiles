@@ -67,7 +67,8 @@ ${B}Option + Ctrl+W${R}         ${D}Wi-Fi preferences${R}
 ${B}Option + Ctrl+T${R}         ${D}btop in Ghostty${R}
 ${B}Option + Ctrl+V${R}         ${D}Clipboard history (Raycast)${R}
 ${B}Option + Ctrl+E${R}         ${D}Emoji picker (Raycast)${R}
-${B}Option + Ctrl+X${R}         ${D}Monologue (dictation)${R}
+${B}Option + Ctrl+X${R}         ${D}VoiceOS (dictation)${R}
+${B}Option + Ctrl+Z${R}         ${D}VoiceOS (agent)${R}
 ${B}Mic Mute (F14)${R}          ${D}Toggle mic mute (Lofree mic key)${R}
 
 ${B}${Y}── Status Notifications ────────────────────────────────${R}
@@ -115,7 +116,6 @@ ${B}4${R}  ${D}Work email & calendar (Gmail, Google Calendar)${R}
 ${B}5${R}  ${D}Other work apps (Notion)${R}
 ${B}6${R}  ${D}Personal mail & calendar (Fastmail)${R}
 ${B}7${R}  ${D}Entertainment (Spotify, Podcasts)${R}
-${B}7${R}  ${D}Misc${R}
 ${B}8${R}  ${D}Misc${R}
 ${B}9${R}  ${D}Misc${R}
 ${B}10${R} ${D}Scratchpad${R}
