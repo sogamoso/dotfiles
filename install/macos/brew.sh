@@ -30,7 +30,7 @@ fi
 
 # Install personal packages (Omadots handles core packages)
 brew bundle --file "$REPO_DIR/Brewfile"
-brew cleanup
+brew cleanup || log_warn "brew cleanup had errors (often root-owned kegs from sudo services); continuing"
 
 # Flag packages not in the Brewfile
 STALE=$(brew bundle cleanup --file "$REPO_DIR/Brewfile" 2>&1 | grep -v "^Would uninstall\|^Run \`brew") || true
