@@ -67,8 +67,7 @@ ${B}Option + Ctrl+W${R}         ${D}Wi-Fi preferences${R}
 ${B}Option + Ctrl+T${R}         ${D}btop in Ghostty${R}
 ${B}Option + Ctrl+V${R}         ${D}Clipboard history (Raycast)${R}
 ${B}Option + Ctrl+E${R}         ${D}Emoji picker (Raycast)${R}
-${B}Option + Ctrl+X${R}         ${D}VoiceOS (dictation)${R}
-${B}Option + Ctrl+Z${R}         ${D}VoiceOS (agent)${R}
+${B}Option + Ctrl+X${R}         ${D}Monologue (dictation)${R}
 ${B}Mic Mute (F14)${R}          ${D}Toggle mic mute (Lofree mic key)${R}
 
 ${B}${Y}── Status Notifications ────────────────────────────────${R}
