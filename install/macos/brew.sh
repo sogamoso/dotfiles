@@ -42,6 +42,9 @@ else
   log_success "All installed packages are in the Brewfile"
 fi
 
+# herdr runs as a login-persistent background service (idempotent if already started)
+brew services start herdr
+
 # Autoupdate once a day
 if ! brew autoupdate status 2>/dev/null | grep -q "Autoupdate is installed and running"; then
   brew autoupdate delete 2>/dev/null || true
