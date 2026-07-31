@@ -1,0 +1,29 @@
+# herdr keybindings, mapped to mirror the tmux muscle memory this replaces.
+# Ghostty translates the physical Command key into Meta/Alt escape sequences
+# (cmd+1 -> alt+1, cmd+left -> alt+left, ctrl+cmd+left -> ctrl+alt+left), so the
+# no-prefix Cmd navigation from tmux arrives here as alt+... / ctrl+alt+... chords.
+[keys]
+# tmux primary prefix was C-Space; herdr's default is ctrl+b. Only one prefix exists.
+prefix = "ctrl+space"
+
+# Tabs = tmux windows. Keep herdr's prefix defaults and layer the Cmd chords on top.
+switch_tab   = ["prefix+1..9", "alt+1..9"]  # Cmd+1..9 -> jump to tab
+previous_tab = ["prefix+p", "alt+left"]     # Cmd+Left  -> previous tab
+next_tab     = ["prefix+n", "alt+right"]    # Cmd+Right -> next tab
+
+# Workspaces = tmux sessions.
+previous_workspace = "alt+up"               # Cmd+Up   -> previous workspace
+next_workspace     = "alt+down"             # Cmd+Down -> next workspace
+
+# Directional pane focus, matching the Ctrl+Cmd+arrows used in tmux.
+focus_pane_left  = ["prefix+h", "ctrl+alt+left"]
+focus_pane_down  = ["prefix+j", "ctrl+alt+down"]
+focus_pane_up    = ["prefix+k", "ctrl+alt+up"]
+focus_pane_right = ["prefix+l", "ctrl+alt+right"]
+
+[theme]
+name = "tokyo-night"
+
+# Match the exact Tokyo Night blue used in the tmux status line.
+[theme.custom]
+accent = "#7aa2f7"
