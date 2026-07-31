@@ -226,6 +226,23 @@ Ephemeral kitchen-timer-style reminders (die on logout/reboot).
 | `Ctrl + Cmd + arrows` | Navigate tmux panes |
 | `Ctrl + Cmd + Shift + arrows` | Resize tmux panes |
 
+##### herdr
+
+Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate the tmux-style navigation (`Cmd + digits` for tabs, `Cmd + arrows` for tabs and workspaces). Config lives in [`stow/macos/.config/herdr/config.toml`](stow/macos/.config/herdr/config.toml).
+
+| Hotkey | Action |
+|---|---|
+| `prefix + v / -` | Split pane right / down |
+| `prefix + h/j/k/l` | Focus pane (also `Ctrl + Cmd + arrows`) |
+| `prefix + z / x` | Zoom / close pane |
+| `prefix + r / [` | Resize mode / copy mode (`v` select, `y` copy) |
+| `prefix + c` | New tab |
+| `Cmd + 1-9` | Switch tab (also `prefix + 1-9`) |
+| `Cmd + Left/Right` | Previous / next tab |
+| `Cmd + Up/Down` | Previous / next workspace |
+| `prefix + w / b` | Workspace picker / toggle sidebar |
+| `prefix + q / ?` | Detach / show all bindings |
+
 #### Manual setup guide
 
 For the manual setup guide including Privacy & Security settings, Raycast, and Tokyo Night theming: [`docs/macos-manual-setup.md`](docs/macos-manual-setup.md).

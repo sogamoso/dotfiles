@@ -98,6 +98,18 @@ ${B}Cmd + 1–9${R}           ${D}Switch window${R}
 ${B}Cmd + Left/Right${R}    ${D}Prev / next window${R}
 ${B}Cmd + Up/Down${R}       ${D}Prev / next session${R}
 
+${B}${C}── herdr (prefix = Ctrl+Space) ─────────────────────────${R}
+${B}prefix + v / -${R}      ${D}Split pane right / down${R}
+${B}prefix + h/j/k/l${R}    ${D}Focus pane  (also Ctrl+Cmd+arrows)${R}
+${B}prefix + z / x${R}      ${D}Zoom / close pane${R}
+${B}prefix + r / [${R}      ${D}Resize mode / copy mode (v, y)${R}
+${B}prefix + c${R}          ${D}New tab${R}
+${B}prefix + w / b${R}      ${D}Workspace picker / toggle sidebar${R}
+${B}prefix + q / ?${R}      ${D}Detach / show all bindings${R}
+${B}Cmd + 1–9${R}           ${D}Switch tab${R}
+${B}Cmd + Left/Right${R}    ${D}Prev / next tab${R}
+${B}Cmd + Up/Down${R}       ${D}Prev / next workspace${R}
+
 ${B}${C}── Ghostty ─────────────────────────────────────────────${R}
 ${B}Ctrl+Shift + E${R}          ${D}Split down${R}
 ${B}Ctrl+Shift + O${R}          ${D}Split right${R}
