@@ -49,7 +49,7 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles status` | Branch, ahead/behind, dirty files |
 | `dotfiles edit` | Open the repo in `$VISUAL` |
 
-Set `$DOTFILES` to override the repo location (default: `~/Code/dotfiles`).
+Set `$DOTFILES` to override the repo location (default: `~/Code/personal/dotfiles`).
 
 ### Dotfiles setup
 
