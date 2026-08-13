@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # dotfiles — convenience CLI for managing this dotfiles repo.
-# Override the repo location via $DOTFILES (default: ~/Code/dotfiles).
+# Override the repo location via $DOTFILES (default: ~/Code/personal/dotfiles).
 set -euo pipefail
 
-DOTFILES="${DOTFILES:-$HOME/Code/dotfiles}"
+DOTFILES="${DOTFILES:-$HOME/Code/personal/dotfiles}"
 
 usage() {
   cat <<EOF
