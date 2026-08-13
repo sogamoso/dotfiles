@@ -16,7 +16,8 @@
     "dev-browser@dev-browser-marketplace": true,
     "superpowers@superpowers-marketplace": true,
     "episodic-memory@superpowers-marketplace": true,
-    "claude-hud@claude-hud": true
+    "claude-hud@claude-hud": true,
+    "code-review@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "dev-browser-marketplace": {
@@ -38,5 +39,8 @@
       }
     }
   },
-  "skipDangerousModePermissionPrompt": true
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true
 }
