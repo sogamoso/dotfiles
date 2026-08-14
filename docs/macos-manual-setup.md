@@ -79,7 +79,7 @@ gh auth login
 Browse the available wallpapers and choose one. Then in System Settings → Wallpaper → Add Folder → select:
 
 ```
-~/Code/dotfiles/themes/tokyo-night/backgrounds/
+~/Code/personal/dotfiles/themes/tokyo-night/backgrounds/
 ```
 
 ### Screen Saver
