@@ -3,7 +3,7 @@
 # Hidden when in sync, when not a git repo, or when the upstream is unreachable.
 set -u
 
-DOTFILES="${DOTFILES:-$HOME/Code/dotfiles}"
+DOTFILES="${DOTFILES:-$HOME/Code/personal/dotfiles}"
 
 hide() { sketchybar --set "$NAME" drawing=off; exit 0; }
 
