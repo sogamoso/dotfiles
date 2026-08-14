@@ -63,6 +63,7 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `hushlogin.sh` | Suppresses "Last login" terminal message |
 | `coderabbit.sh` | Configures git filter to strip Coderabbit config from `.gitconfig` |
 | `claude-code.sh` | Installs Claude Code marketplaces, plugins, and configures claude-hud |
+| `skills.sh` | Clones [sogamoso/skills](https://github.com/sogamoso/skills) and symlinks each skill into `~/.claude/skills` |
 
 ## Cross-platform design
 
