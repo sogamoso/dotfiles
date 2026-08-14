@@ -9,6 +9,11 @@ if command -v brew >/dev/null 2>&1; then
 fi
 typeset -U fpath
 
+# Omadots defines open() as a wrapper around xdg-open, which does not exist on
+# macOS. Because the wrapper redirects to /dev/null, it fails silently and
+# shadows /usr/bin/open. Drop it so the native command wins.
+unset -f open 2>/dev/null
+
 # 1Password CLI completion — guard with -t 1 to skip non-interactive shells
 # (prevents TCC "op would like to access data from other apps" dialog in background processes)
 if [[ -t 1 ]] && command -v op >/dev/null 2>&1 && command -v compdef >/dev/null 2>&1; then
