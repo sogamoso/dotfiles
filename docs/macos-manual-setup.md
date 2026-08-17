@@ -192,7 +192,7 @@ System Settings → Notifications → **terminal-notifier** → enable **Allow N
 |---|---|
 | `SUPER + O` — float & pin | Float only via Option+T, no pin-on-top |
 | `SUPER + G` — window grouping | No AeroSpace equivalent |
-| `SUPER + SHIFT + SPACE` — toggle waybar | No SketchyBar hotkey toggle |
+| Bar transparency / repositioning (double-click and drag in Quattro) | No SketchyBar equivalent; height and position are set in `sketchybarrc` |
 | `CapsLock` — quick emojis | Needs remapping tool |
 | `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
@@ -200,3 +200,21 @@ System Settings → Notifications → **terminal-notifier** → enable **Allow N
 | `SUPER + SHIFT + arrows` — move window | Option+Ctrl+arrows (remapped to free Option+Shift for word selection) |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |
 | Per-monitor independent workspaces | Aerospace handles it, less seamless |
+
+### Omarchy 4 (Quattro)
+
+Quattro moved the whole desktop shell into [Quickshell](https://quickshell.org), so most of that release has no macOS analogue — the shell itself, the Hyprland Lua configs, the ISO installer, pacman packaging, and PAM fingerprint flows are all Linux-only. Another tier is already native here: Raycast covers the launcher, clipboard manager and emoji picker, and macOS provides Notification Center, Control Center and Touch ID.
+
+What remains:
+
+| Quattro | macOS |
+|---|---|
+| Model-usage bar widget | ✅ Claude usage item, via `ccusage` |
+| Microphone state indicator | ✅ Mic item, visible while muted |
+| Stay-awake indicator | ✅ Stay awake item, tracks caffeinate |
+| Herdr layouts (`hdl`/`hds`/`hdlm`/`hsl`) | ✅ Ported to zsh in `stow/zsh/.config/zsh/aliases/herdr.zsh` |
+| SSH reconnect and terminal cleanup on drop | ✅ Keepalives surface a dead link in ~45s; no terminal-state reset |
+| Themes generating nvim/btop/VS Code colors from one colorset | `themes/tokyo-night/colors.toml` exists but nothing consumes it |
+| Window position save/restore per workspace | No AeroSpace equivalent |
+| Control panels on `SUPER + CTRL + D` / `P` (display, power) | Only A/B/W are mapped |
+| Visual theme and background switchers | No equivalent |

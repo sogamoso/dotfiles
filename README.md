@@ -17,13 +17,13 @@ Each folder under `stow/` is a stow package. Running `stow --target $HOME --rest
 ```
 stow/
   claude/                  # Claude Code settings, plugins, and status line
-  git/                     # .gitconfig + global .gitignore
+  git/                     # .gitconfig, global .gitignore, SSH allowed signers
   macos/                   # macOS-only configs (stowed only on Darwin)
   mise/                    # mise config (node + ruby via latest)
   nvim/                    # Neovim plugin overrides
   ruby/                    # .gemrc, .irbrc, .default-gems
   ssh/                     # SSH client config + signing key
-  zsh/                     # Shell aliases (git, gh, bundler, rails, npm)
+  zsh/                     # Shell supplement + per-tool aliases and functions
 ```
 
 ### How it works
@@ -45,7 +45,7 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles pull` | Git pull only |
 | `dotfiles brew` | Sync Brewfile via `brew bundle` |
 | `dotfiles stow` | Re-stow all packages |
-| `dotfiles reload` | Restart SketchyBar and reload AeroSpace |
+| `dotfiles reload` | Restart SketchyBar, reload AeroSpace, restart a stale herdr server |
 | `dotfiles status` | Branch, ahead/behind, dirty files |
 | `dotfiles edit` | Open the repo in `$VISUAL` |
 
@@ -110,6 +110,21 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 7 | Entertainment | Spotify, Podcasts |
 | 8–9 | Misc | Whatever |
 | 10 | Scratchpad | Temporary |
+
+#### Status bar
+
+SketchyBar, configured in [`stow/macos/.config/sketchybar/`](stow/macos/.config/sketchybar/). The left side holds the launcher anchor and workspace indicators, the right side holds status items. Several stay hidden until they have something to report, so the bar is quiet when everything is normal.
+
+| Item | Shows | Visible |
+|---|---|---|
+| Workspaces 1–9 | Focused workspace | Always |
+| Clock | Date and time (centered when an external display is attached) | Always |
+| CPU, volume, Wi-Fi, Bluetooth, input source | System state | Always |
+| Battery | Charge, plus time remaining under 20% | While discharging |
+| Mic | Microphone is muted; click toggles | While muted |
+| Stay awake | A caffeinate assertion is held (workhours or manual) | While held |
+| Claude usage | Spend and time left in the active billing block, via `ccusage` | While a block is active |
+| Dotfiles update | Commits behind origin; click runs `dotfiles update` | While behind |
 
 #### Hotkeys
 
