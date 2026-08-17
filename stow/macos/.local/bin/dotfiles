@@ -53,6 +53,15 @@ cmd_reload() {
     [[ -x $gap_sync ]] && run "$gap_sync"
     run aerospace reload-config
   fi
+  # herdr's server keeps running the old binary after an upgrade, which leaves
+  # the CLI failing with protocol_mismatch until the service is restarted.
+  # Restarting exits pane processes, so only do it once that has actually
+  # happened rather than on every reload.
+  if command -v herdr >/dev/null 2>&1; then
+    if herdr tab list 2>&1 | grep -q protocol_mismatch; then
+      run brew services restart herdr
+    fi
+  fi
   if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/zed.sh" ]]; then
     run "$DOTFILES/install/macos/zed.sh"
   fi
