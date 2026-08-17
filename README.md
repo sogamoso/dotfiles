@@ -98,7 +98,6 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `aerospace.sh` | Starts AeroSpace only if not already running |
 | `raycast.sh` | Opens Raycast for first-time setup |
 | `zed.sh` | Sets Zed as the default editor for text and code file types (via `duti`) |
-| `solo.sh` | Installs Solo from the latest release, unless already present |
 | `manual_steps.sh` | Opens the manual setup guide, first run only |
 
 #### Workspace layout
@@ -106,7 +105,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | Workspace | Purpose | Apps |
 |---|---|---|
 | 1 | Browse | Chrome, Safari |
-| 2 | Dev | Ghostty, Zed, Solo, Conductor |
+| 2 | Dev | Ghostty, Zed, Conductor |
 | 3 | Chat | Slack, WhatsApp, Discord |
 | 4 | Work email & calendar | Gmail, Google Calendar |
 | 5 | Other work apps | Notion |

@@ -121,7 +121,7 @@ ${B}Ctrl+Cmd+Shift + arrows${R} ${D}Resize tmux panes${R}
 
 ${B}${C}── Workspace Layout ────────────────────────────────────${R}
 ${B}1${R}  ${D}Browse (Chrome, Safari)${R}
-${B}2${R}  ${D}Dev (Ghostty, Zed, Solo, Conductor)${R}
+${B}2${R}  ${D}Dev (Ghostty, Zed, Conductor)${R}
 ${B}3${R}  ${D}Chat (Slack, WhatsApp, Discord)${R}
 ${B}4${R}  ${D}Work email & calendar (Gmail, Google Calendar)${R}
 ${B}5${R}  ${D}Other work apps (Notion)${R}
