@@ -188,33 +188,28 @@ System Settings → Notifications → **terminal-notifier** → enable **Allow N
 
 ## Remaining Gaps vs Omarchy
 
+Omarchy's desktop shell runs on [Quickshell](https://quickshell.org) and Hyprland, so a large part of it has no macOS analogue and is out of scope here: the shell process itself, the Hyprland configs, the ISO installer, pacman packaging, and the PAM fingerprint flows. Another tier is already native — Raycast covers the launcher, clipboard manager and emoji picker, and macOS provides Notification Center, Control Center and Touch ID.
+
+What is left worth tracking:
+
 | Omarchy | macOS |
 |---|---|
 | `SUPER + O` — float & pin | Float only via Option+T, no pin-on-top |
 | `SUPER + G` — window grouping | No AeroSpace equivalent |
-| Bar transparency / repositioning (double-click and drag in Quattro) | No SketchyBar equivalent; height and position are set in `sketchybarrc` |
-| `CapsLock` — quick emojis | Needs remapping tool |
-| `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
-| `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
-| `SUPER + Ctrl + X` — dictation | ✅ Option+Ctrl+X → Monologue |
 | `SUPER + SHIFT + arrows` — move window | Option+Ctrl+arrows (remapped to free Option+Shift for word selection) |
-| `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |
+| Window position save/restore per workspace | No AeroSpace equivalent |
 | Per-monitor independent workspaces | Aerospace handles it, less seamless |
-
-### Omarchy 4 (Quattro)
-
-Quattro moved the whole desktop shell into [Quickshell](https://quickshell.org), so most of that release has no macOS analogue — the shell itself, the Hyprland Lua configs, the ISO installer, pacman packaging, and PAM fingerprint flows are all Linux-only. Another tier is already native here: Raycast covers the launcher, clipboard manager and emoji picker, and macOS provides Notification Center, Control Center and Touch ID.
-
-What remains:
-
-| Quattro | macOS |
-|---|---|
+| Bar transparency and repositioning by double-click and drag | No SketchyBar equivalent; height and position are set in `sketchybarrc` |
 | Model-usage bar widget | ✅ Claude usage item, via `ccusage` |
 | Microphone state indicator | ✅ Mic item, visible while muted |
 | Stay-awake indicator | ✅ Stay awake item, tracks caffeinate |
 | Herdr layouts (`hdl`/`hds`/`hdlm`/`hsl`) | ✅ Ported to zsh in `stow/zsh/.config/zsh/aliases/herdr.zsh` |
 | SSH reconnect and terminal cleanup on drop | ✅ Keepalives surface a dead link in ~45s; no terminal-state reset |
 | Themes generating nvim/btop/VS Code colors from one colorset | `themes/tokyo-night/colors.toml` exists but nothing consumes it |
-| Window position save/restore per workspace | No AeroSpace equivalent |
-| Control panels on `SUPER + CTRL + D` / `P` (display, power) | Only A/B/W are mapped |
 | Visual theme and background switchers | No equivalent |
+| `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
+| `SUPER + Ctrl + D` / `P` — display and power panels | Only A/B/W are mapped |
+| `SUPER + Ctrl + X` — dictation | ✅ Option+Ctrl+X → Monologue |
+| `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
+| `CapsLock` — quick emojis | Needs remapping tool |
+| `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |
