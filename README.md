@@ -244,6 +244,17 @@ Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate th
 | `prefix + w / b` | Workspace picker / toggle sidebar |
 | `prefix + q / ?` | Detach / show all bindings |
 
+##### herdr layouts
+
+Shell functions that build a whole herdr layout in one command, ported from Omarchy. They run inside a herdr pane and live in [`stow/zsh/.config/zsh/aliases/herdr.zsh`](stow/zsh/.config/zsh/aliases/herdr.zsh).
+
+| Command | Layout |
+|---|---|
+| `hdl <agent> [<agent2>]` | Editor left, agent in a 30% column right, terminal strip along the bottom |
+| `hds` | 2×2: editor, lazygit, terminal, opencode |
+| `hdlm <agent> [<agent2>]` | One `hdl` tab per subdirectory of the current directory |
+| `hsl <count> <command>` | Tile into a grid and run the same command in every pane |
+
 #### Manual setup guide
 
 For the manual setup guide including Privacy & Security settings, Raycast, and Tokyo Night theming: [`docs/macos-manual-setup.md`](docs/macos-manual-setup.md).
