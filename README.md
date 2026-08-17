@@ -17,6 +17,7 @@ Each folder under `stow/` is a stow package. Running `stow --target $HOME --rest
 ```
 stow/
   claude/                  # Claude Code settings, plugins, and status line
+  editorconfig/            # .editorconfig
   git/                     # .gitconfig, global .gitignore, SSH allowed signers
   macos/                   # macOS-only configs (stowed only on Darwin)
   mise/                    # mise config (node + ruby via latest)
@@ -57,9 +58,9 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 
 | Script | What it does |
 |--------|-------------|
-| `zshrc.sh` | Appends personal supplement source to `.zshrc` |
 | `ssh.sh` | Ensures `~/.ssh` directory exists before stowing |
 | `stow.sh` | Stows cross-platform dotfile packages into `$HOME` |
+| `zshrc.sh` | Appends personal supplement source to `.zshrc` |
 | `hushlogin.sh` | Suppresses "Last login" terminal message |
 | `coderabbit.sh` | Configures git filter to strip Coderabbit config from `.gitconfig` |
 | `claude-code.sh` | Installs Claude Code marketplaces, plugins, and configures claude-hud |
@@ -85,8 +86,8 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `xcode.sh` | Checks for Xcode Command Line Tools, opens installer if missing, then exits for rerun after install |
 | `omadots.sh` | Installs [Omadots](https://github.com/omacom-io/omadots) shell framework |
 | `security.sh` | Enables SSH/firewall and applies sshd hardening |
-| `onepassword.sh` | Opens 1Password for sign-in and SSH agent setup |
 | `brew.sh` | Installs all packages from `Brewfile` |
+| `onepassword.sh` | Opens 1Password for sign-in and SSH agent setup |
 | `alacritty.sh` | Installs Alacritty from latest GitHub release DMG |
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
 | `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
@@ -96,6 +97,9 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `tailscale.sh` | Starts Tailscale daemon and connects with SSH enabled |
 | `aerospace.sh` | Starts AeroSpace only if not already running |
 | `raycast.sh` | Opens Raycast for first-time setup |
+| `zed.sh` | Sets Zed as the default editor for text and code file types (via `duti`) |
+| `solo.sh` | Installs Solo from the latest release, unless already present |
+| `manual_steps.sh` | Opens the manual setup guide, first run only |
 
 #### Workspace layout
 
