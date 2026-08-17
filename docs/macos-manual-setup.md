@@ -176,16 +176,6 @@ System Settings → Notifications → **terminal-notifier** → enable **Allow N
 
 ---
 
-## 12. First Launch of Solo
-
-`install/macos/solo.sh` copies `Solo.app` into `/Applications` but doesn't bypass Gatekeeper or activate the license.
-
-1. First open: right-click `Solo.app` in Finder → **Open** → confirm the Gatekeeper prompt (the app was downloaded from the internet, not signed via the App Store).
-2. Sign in / activate license via Solo's onboarding (free beta as of writing; sign-in is required).
-3. Subsequent updates happen in-app via **Solo → Check for Updates**.
-
----
-
 ## Remaining Gaps vs Omarchy
 
 Omarchy's desktop shell runs on [Quickshell](https://quickshell.org) and Hyprland, so a large part of it has no macOS analogue and is out of scope here: the shell process itself, the Hyprland configs, the ISO installer, pacman packaging, and the PAM fingerprint flows. Another tier is already native — Raycast covers the launcher, clipboard manager and emoji picker, and macOS provides Notification Center, Control Center and Touch ID.
