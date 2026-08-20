@@ -53,6 +53,11 @@ ${B}Option + Shift+F${R}        ${D}Open Finder${R}
 ${B}Option + Shift+/${R}        ${D}Open 1Password${R}
 ${B}Option + Shift+A${R}        ${D}Open Claude${R}
 ${B}Option + Shift+Y${R}        ${D}Open YouTube${R}
+${B}Option + Shift+B${R}        ${D}New Chrome window${R}
+${B}Option + Shift+W${R}        ${D}Open Typora${R}
+${B}Option + Shift+X${R}        ${D}Open X${R}
+${B}Option + Shift+Cmd+X${R}    ${D}New X post${R}
+${B}Option + Shift+Cmd+A${R}    ${D}Open ChatGPT${R}
 ${B}Option + Shift+I${R}        ${D}Open Notion${R}
 ${B}Option + Shift+L${R}        ${D}Open Linear${R}
 ${B}Option + Shift+D${R}        ${D}LazyDocker in Ghostty${R}

@@ -203,3 +203,4 @@ What is left worth tracking:
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `CapsLock` — quick emojis | Needs remapping tool |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |
+| `SUPER + ALT + SHIFT + F` — file manager at terminal cwd | Not mapped; `open .` in the shell does the same. A port needs `aerospace list-windows --focused --format '%{app-pid}'` plus `lsof -d cwd` (no `/proc` on macOS), and the parent-child descent misses the shell entirely under tmux or herdr |

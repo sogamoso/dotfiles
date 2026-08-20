@@ -92,7 +92,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
 | `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
 | `preferences.sh` | macOS system defaults |
-| `pwas.sh` | Installs Chrome PWAs (Gmail, Google Calendar, YouTube) |
+| `pwas.sh` | Installs Chrome PWAs (Gmail, Google Calendar, YouTube, Audible, GitHub, X) |
 | `sketchybar.sh` | Configures SketchyBar status bar |
 | `tailscale.sh` | Starts Tailscale daemon and connects with SSH enabled |
 | `aerospace.sh` | Starts AeroSpace only if not already running |
@@ -181,6 +181,11 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Shift + /` | Open 1Password |
 | `Option + Shift + A` | Open Claude |
 | `Option + Shift + Y` | Open YouTube |
+| `Option + Shift + B` | New Chrome window |
+| `Option + Shift + W` | Open Typora |
+| `Option + Shift + X` | Open X |
+| `Option + Shift + Cmd + X` | New X post |
+| `Option + Shift + Cmd + A` | Open ChatGPT |
 | `Option + Shift + I` | Open Notion |
 | `Option + Shift + L` | Open Linear |
 | `Option + Shift + D` | LazyDocker in Ghostty |
