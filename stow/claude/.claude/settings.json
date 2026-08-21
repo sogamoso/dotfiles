@@ -39,6 +39,10 @@
       }
     }
   },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "inputNeededNotifEnabled": true,
