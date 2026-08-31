@@ -41,7 +41,8 @@
   },
   "attribution": {
     "commit": "",
-    "pr": ""
+    "pr": "",
+    "sessionUrl": false
   },
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
