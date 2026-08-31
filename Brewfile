@@ -31,6 +31,7 @@ brew "tailscale"
 brew "terminal-notifier"
 brew "tlrc"
 brew "tmux"
+brew "yt-dlp"
 brew "zoxide"
 brew "zsh-you-should-use"
 
