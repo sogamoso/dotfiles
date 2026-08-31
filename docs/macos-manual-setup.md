@@ -204,3 +204,8 @@ What is left worth tracking:
 | `CapsLock` — quick emojis | Needs remapping tool |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |
 | `SUPER + ALT + SHIFT + F` — file manager at terminal cwd | Not mapped; `open .` in the shell does the same. A port needs `aerospace list-windows --focused --format '%{app-pid}'` plus `lsof -d cwd` (no `/proc` on macOS), and the parent-child descent misses the shell entirely under tmux or herdr |
+| `SUPER + SHIFT + G` — Signal | Not mapped; Signal is not installed. Option+Shift+G opens WhatsApp, which upstream puts on `SUPER + SHIFT + ALT + G` |
+| `SUPER + SHIFT + CTRL + G` — Google Messages | Not mapped; no PWA installed |
+| `SUPER + SHIFT + P` — Google Photos | Not mapped; no PWA installed |
+| `SUPER + SHIFT + ALT + M` — cliamp music TUI | No macOS equivalent; Spotify is on Option+Shift+M |
+| `SUPER + SHIFT + ALT + A` — Grok | Option+Shift+Cmd+A opens ChatGPT instead |
