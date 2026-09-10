@@ -11,9 +11,11 @@ set -euo pipefail
 
 GROUP_ID="dotfiles-status"
 
+# `|| true` so a failing notifier does not abort the script under `set -e`;
+# terminal-notifier exits non-zero when its notification permission is off.
 notify() {
   terminal-notifier -title "$1" -message "${2:-}" \
-    -group "$GROUP_ID" >/dev/null 2>&1
+    -group "$GROUP_ID" >/dev/null 2>&1 || true
 }
 
 cmd_time() {
