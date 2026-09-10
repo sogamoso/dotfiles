@@ -178,6 +178,18 @@ System Settings → Notifications → **terminal-notifier** → enable **Allow N
 
 ---
 
+## 12. Store the ui.sh Token
+
+The `ui`, `brand-kit` and `markup-from-image` skills are stowed as stubs that fetch their instructions from ui.sh over MCP, so they do nothing until `uidotsh.sh` can find an account token. The token can't be generated non-interactively — copy it from an existing machine's `~/.claude.json` (`mcpServers.uidotsh.headers.Authorization`) or from the ui.sh account page, then store it in 1Password as a password item titled **ui.sh**:
+
+```
+op item create --category=password --title='ui.sh' password=-
+```
+
+Rerun `bash install/dotfiles/uidotsh.sh` afterwards, then confirm with `claude mcp get uidotsh`. To keep the item somewhere else, point `UIDOTSH_OP_ITEM` at it; to skip 1Password entirely, set `UIDOTSH_TOKEN` in the environment.
+
+---
+
 ## Remaining Gaps vs Omarchy
 
 Omarchy's desktop shell runs on [Quickshell](https://quickshell.org) and Hyprland, so a large part of it has no macOS analogue and is out of scope here: the shell process itself, the Hyprland configs, the ISO installer, pacman packaging, and the PAM fingerprint flows. Another tier is already native — Raycast covers the launcher, clipboard manager and emoji picker, and macOS provides Notification Center, Control Center and Touch ID.

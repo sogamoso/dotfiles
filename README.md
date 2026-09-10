@@ -65,6 +65,7 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `coderabbit.sh` | Configures git filter to strip Coderabbit config from `.gitconfig` |
 | `claude-code.sh` | Installs Claude Code marketplaces, plugins, and configures claude-hud |
 | `skills.sh` | Clones [sogamoso/skills](https://github.com/sogamoso/skills) and symlinks each skill into `~/.claude/skills` |
+| `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server that serves the stowed `ui`, `brand-kit` and `markup-from-image` skills |
 
 ## Cross-platform design
 
