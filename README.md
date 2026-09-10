@@ -214,6 +214,19 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Ctrl + Cmd + B` | Battery level + state (notification) |
 | `Option + Ctrl + Cmd + W` | Weather from wttr.in (notification) |
 
+##### Secure Input
+
+While macOS Secure Input is active no other app can read key events, so every
+AeroSpace hotkey goes dead and AeroSpace shows its "cannot respond to keyboard
+shortcuts" panel. Run **Secure Input** from Raycast (or
+`~/.config/dotfiles/secure-input.sh` in a terminal) to name the app holding it
+— usually a focused password field, Terminal's Secure Keyboard Entry, or the
+lock screen. Quitting or defocusing that app is the only fix; nothing can
+release it from outside.
+
+It has no hotkey on purpose: AeroSpace reads keys through an event tap, which
+is exactly what Secure Input blocks, so a binding would be dead when needed.
+
 ##### Capture
 
 | Hotkey | Action |

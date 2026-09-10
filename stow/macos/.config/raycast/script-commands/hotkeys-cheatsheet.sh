@@ -80,6 +80,9 @@ ${B}Option + Ctrl+Cmd+T${R}     ${D}Time / date / week${R}
 ${B}Option + Ctrl+Cmd+B${R}     ${D}Battery level + state${R}
 ${B}Option + Ctrl+Cmd+W${R}     ${D}Weather (wttr.in)${R}
 
+${B}${Y}── Diagnostics ─────────────────────────────────────────${R}
+${B}Raycast → Secure Input${R}  ${D}Name the app holding Secure Input${R}
+
 ${B}${Y}── Capture ─────────────────────────────────────────────${R}
 ${B}Option + Ctrl+C${R}         ${D}CleanShot all-in-one${R}
 ${B}Cmd + Shift+6${R}           ${D}CleanShot OCR (assigned in CleanShot)${R}
