@@ -19,6 +19,7 @@ Conventions for this repo. Match these over general best practices when they con
 - `install/dotfiles/*.sh` — cross-platform setup that runs on every host.
 - `stow/<pkg>/` — each directory is a stow package. Contents are symlinked into `$HOME`. Cross-platform by default; macOS-only goes under `stow/macos/` and is only stowed on Darwin.
 - `stow/macos/.config/dotfiles/` — shared helper scripts not tied to a specific tool (e.g. `reminder.sh`, `status.sh`, `mic-mute.sh`). Invoked from AeroSpace bindings or Raycast script commands.
+- `homebrew/Casks/*.rb` — local Homebrew tap, symlinked by `install/macos/brew.sh` to `sogamoso/dotfiles`. Casks for direct-download apps with no upstream formula. Reference them in the `Brewfile` as `cask "sogamoso/dotfiles/<name>"`.
 - `themes/<name>/colors.toml` — theme tokens. Wallpapers go under `themes/<name>/backgrounds/`.
 - `docs/` — manual setup notes that can't be automated.
 
