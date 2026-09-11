@@ -93,7 +93,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
 | `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
 | `preferences.sh` | macOS system defaults |
-| `pwas.sh` | Installs Chrome PWAs (Gmail, Google Calendar, YouTube, Audible, GitHub, X) |
+| `pwas.sh` | Installs Chrome PWAs (YouTube, Audible, GitHub, X) |
 | `sketchybar.sh` | Configures SketchyBar status bar |
 | `tailscale.sh` | Starts Tailscale daemon and connects with SSH enabled |
 | `aerospace.sh` | Starts AeroSpace only if not already running |
@@ -108,9 +108,9 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 1 | Browse | Chrome, Safari |
 | 2 | Dev | Ghostty, Zed, Conductor |
 | 3 | Chat | Slack, WhatsApp, Discord |
-| 4 | Work email & calendar | Gmail, Google Calendar |
+| 4 | Mail & calendar | Epistles |
 | 5 | Other work apps | Notion |
-| 6 | Personal mail & calendar | Fastmail |
+| 6 | Misc | Whatever |
 | 7 | Entertainment | Spotify, Podcasts |
 | 8–9 | Misc | Whatever |
 | 10 | Scratchpad | Temporary |
@@ -173,8 +173,8 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Enter` | New Ghostty window |
 | `Option + Shift + Enter` | New Chrome window |
 | `Option + Shift + N` | New Zed window |
-| `Option + Shift + C` | Open Google Calendar |
-| `Option + Shift + E` | Open Gmail |
+| `Option + Shift + C` | Open Epistles (calendar) |
+| `Option + Shift + E` | Open Epistles (email) |
 | `Option + Shift + G` | Open WhatsApp |
 | `Option + Shift + M` | Open Spotify |
 | `Option + Shift + O` | Open Obsidian |

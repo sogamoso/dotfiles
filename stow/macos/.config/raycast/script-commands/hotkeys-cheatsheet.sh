@@ -44,8 +44,8 @@ ${B}${Y}── Launching Apps ────────────────�
 ${B}Option + Enter${R}          ${D}New Ghostty window${R}
 ${B}Option + Shift+Enter${R}    ${D}New Chrome window${R}
 ${B}Option + Shift+N${R}        ${D}New Zed window${R}
-${B}Option + Shift+C${R}        ${D}Open Google Calendar${R}
-${B}Option + Shift+E${R}        ${D}Open Gmail${R}
+${B}Option + Shift+C${R}        ${D}Open Epistles (calendar)${R}
+${B}Option + Shift+E${R}        ${D}Open Epistles (email)${R}
 ${B}Option + Shift+G${R}        ${D}Open WhatsApp${R}
 ${B}Option + Shift+M${R}        ${D}Open Spotify${R}
 ${B}Option + Shift+O${R}        ${D}Open Obsidian${R}
@@ -131,9 +131,9 @@ ${B}${C}── Workspace Layout ────────────────
 ${B}1${R}  ${D}Browse (Chrome, Safari)${R}
 ${B}2${R}  ${D}Dev (Ghostty, Zed, Conductor)${R}
 ${B}3${R}  ${D}Chat (Slack, WhatsApp, Discord)${R}
-${B}4${R}  ${D}Work email & calendar (Gmail, Google Calendar)${R}
+${B}4${R}  ${D}Mail & calendar (Epistles)${R}
 ${B}5${R}  ${D}Other work apps (Notion)${R}
-${B}6${R}  ${D}Personal mail & calendar (Fastmail)${R}
+${B}6${R}  ${D}Misc${R}
 ${B}7${R}  ${D}Entertainment (Spotify, Podcasts)${R}
 ${B}8${R}  ${D}Misc${R}
 ${B}9${R}  ${D}Misc${R}
