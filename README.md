@@ -87,7 +87,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `xcode.sh` | Checks for Xcode Command Line Tools, opens installer if missing, then exits for rerun after install |
 | `omadots.sh` | Installs [Omadots](https://github.com/omacom-io/omadots) shell framework |
 | `security.sh` | Enables SSH/firewall and applies sshd hardening |
-| `brew.sh` | Installs all packages from `Brewfile` |
+| `brew.sh` | Installs all packages from `Brewfile`, including the local `homebrew/` tap |
 | `onepassword.sh` | Opens 1Password for sign-in and SSH agent setup |
 | `alacritty.sh` | Installs Alacritty from latest GitHub release DMG |
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
