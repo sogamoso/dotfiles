@@ -4,8 +4,11 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
 if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
   log_heading "Starting AeroSpace..."
-  open -a AeroSpace
-  log_success "AeroSpace launched — grant accessibility permissions when prompted"
+  if open -a AeroSpace; then
+    log_success "AeroSpace launched — grant accessibility permissions when prompted"
+  else
+    log_warn "Could not launch AeroSpace — start it manually, then grant accessibility permissions"
+  fi
 fi
 
 log_heading "Workspaces:"

@@ -7,6 +7,9 @@ if [[ ! -f "$HOME/.dotfiles-bootstrapped" ]]; then
   touch "$HOME/.dotfiles-bootstrapped"
   REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
   log_heading "Manual steps required. Opening guide..."
-  open "$REPO_DIR/docs/macos-manual-setup.md"
-  log_success "Guide opened"
+  if open "$REPO_DIR/docs/macos-manual-setup.md"; then
+    log_success "Guide opened"
+  else
+    log_warn "Could not open the guide — read docs/macos-manual-setup.md"
+  fi
 fi
