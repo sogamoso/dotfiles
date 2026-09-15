@@ -48,7 +48,10 @@ brew services start herdr
 # Autoupdate once a day
 if ! brew autoupdate status 2>/dev/null | grep -q "Autoupdate is installed and running"; then
   brew autoupdate delete 2>/dev/null || true
-  brew autoupdate start 86400 --ac-only --upgrade --cleanup --leaves-only --immediate --sudo
+  # --sudo needs pinentry-mac (installed via Brewfile above). Don't let a failure
+  # here abort the run — all.sh aborts with it, skipping every later install script.
+  brew autoupdate start 86400 --ac-only --upgrade --cleanup --leaves-only --immediate --sudo ||
+    log_warn "brew autoupdate start failed; continuing without daily autoupdate"
 fi
 
 # zsh-you-should-use (installed via Brewfile, link into plugin dir)
