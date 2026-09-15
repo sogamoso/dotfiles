@@ -87,7 +87,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `xcode.sh` | Checks for Xcode Command Line Tools, opens installer if missing, then exits for rerun after install |
 | `omadots.sh` | Installs [Omadots](https://github.com/omacom-io/omadots) shell framework |
 | `security.sh` | Enables SSH/firewall and applies sshd hardening |
-| `brew.sh` | Installs all packages from `Brewfile`, including the local `homebrew/` tap |
+| `brew.sh` | Installs all packages from `Brewfile` |
 | `onepassword.sh` | Opens 1Password for sign-in and SSH agent setup |
 | `alacritty.sh` | Installs Alacritty from latest GitHub release DMG |
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
@@ -108,7 +108,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 1 | Browse | Chrome, Safari |
 | 2 | Dev | Ghostty, Zed, Conductor |
 | 3 | Chat | Slack, WhatsApp, Discord |
-| 4 | Mail & calendar | Epistles |
+| 4 | Mail & calendar | Thunderbird |
 | 5 | Other work apps | Notion |
 | 6 | Misc | Whatever |
 | 7 | Entertainment | Spotify, Podcasts |
@@ -173,8 +173,8 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Enter` | New Ghostty window |
 | `Option + Shift + Enter` | New Chrome window |
 | `Option + Shift + N` | New Zed window |
-| `Option + Shift + C` | Open Epistles (calendar) |
-| `Option + Shift + E` | Open Epistles (email) |
+| `Option + Shift + C` | Open Thunderbird (calendar) |
+| `Option + Shift + E` | Open Thunderbird (email) |
 | `Option + Shift + G` | Open WhatsApp |
 | `Option + Shift + M` | Open Spotify |
 | `Option + Shift + O` | Open Obsidian |
