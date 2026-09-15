@@ -39,12 +39,12 @@ System Settings → General → Login Items — add:
 - AeroSpace
 - CleanShot X
 - Dropbox
-- Epistles
 - Freedom
 - Google Drive
 - Monologue
 - Raycast
 - Slack
+- Thunderbird
 
 ---
 
@@ -134,39 +134,29 @@ Set in CleanShot → Settings → Shortcuts:
 
 ---
 
-## 9. Set Epistles as the Default Email and Calendar
+## 9. Set Thunderbird as the Default Email Client
 
-Epistles is a native app, so unlike the Gmail and Google Calendar PWAs it replaces, it can hold the system handlers itself — no Chrome protocol-handler detour, and no `.ics` import dance. It installs from the repo-local tap (`cask "sogamoso/dotfiles/epistles"` in the `Brewfile`), so it is already present by the time you reach this step.
-
-### Default email
-
-Epistles registers the `mailto:` scheme and claims `com.apple.default-app.mail-client`, so it appears by name in Mail's picker.
+Thunderbird installs from the `Brewfile` (`cask "thunderbird"`), so it is already present by the time you reach this step. It claims `com.apple.default-app.mail-client` and registers the `mailto:` scheme — along with `news:` and `feed:` — so it appears by name in Mail's picker.
 
 1. Open the **Mail** app. If it has no account the default-reader control stays greyed out — add any account (e.g. **Other Mail Account**) with throwaway credentials to unlock the setting, then remove it afterward.
-2. **Mail → Settings → General**, set **Default email reader** to **Epistles**. Quit Mail.
-3. Test: `open mailto:test@example.com` should open a compose window in Epistles.
+2. **Mail → Settings → General**, set **Default email reader** to **Thunderbird**. Quit Mail.
+3. Test: `open mailto:test@example.com` should open a compose window in Thunderbird.
 
-### Default calendar
-
-**Calendar.app → Settings → General → Default calendar app → Epistles**. macOS assigns `webcal://`, `.ics` and `.vcs` in one move, so invite files and subscription links both follow.
-
-### Scripted alternative
-
-Both pickers just write LaunchServices handler entries, which `duti` (already in the `Brewfile`) can set directly:
+Scripted equivalent, since `duti` is already in the `Brewfile`:
 
 ```bash
-duti -s com.epistles com.apple.default-app.mail-client all
-duti -s com.epistles mailto
-duti -s com.epistles com.apple.ical.ics all
-duti -s com.epistles com.apple.ical.vcs all
-duti -s com.epistles webcal
+duti -s org.mozilla.thunderbird mailto
 ```
 
-Verify with `duti -x ics`, which should print `Epistles`.
+Setting the scheme is enough — macOS updates the `com.apple.default-app.mail-client` entry to match. Don't try to set that entry with `duti` directly; it isn't a real UTI and `duti` rejects it.
 
-Epistles declares no `CFBundleDocumentTypes` in its `Info.plist` — it takes the calendar handlers at runtime rather than advertising them. macOS will therefore hand it an `.ics`, but the app never declared that it opens one. Open a real invite once and confirm the behavior before trusting it for meeting invites.
+### The calendar stays with Calendar.app
 
-Epistles replaces the Gmail and Google Calendar PWAs and the Fastmail cask outright — none of the three are installed any more. Workspace 4 is now Epistles alone, and `Option + Shift + E` and `Option + Shift + C` both open it.
+Thunderbird ships a calendar, but its macOS build declares no `webcal://` scheme and no `.ics` document type. Ask LaunchServices which apps can open either and it answers Calendar.app, Chrome and the system CalendarFileHandler — never Thunderbird. It therefore never appears in **Calendar.app → Settings → General → Default calendar app**, and `duti` has nothing to bind it to.
+
+So `.ics` invites and `webcal://` links keep opening Calendar.app. To get an invite into Thunderbird's own calendar, import it from inside Thunderbird rather than double-clicking the file.
+
+`Option + Shift + E` and `Option + Shift + C` both open Thunderbird, and workspace 4 is where it lives.
 
 ---
 

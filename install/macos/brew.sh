@@ -18,12 +18,6 @@ mkdir -p "$HOME/Library/LaunchAgents"  # not created by default on a fresh macOS
 
 log_heading "Installing Homebrew packages..."
 
-# `homebrew/` is a tap that only exists in this repo (casks for apps with no
-# upstream formula). Symlinking it into place makes `sogamoso/dotfiles/<cask>`
-# resolvable without publishing a homebrew-dotfiles repo to GitHub.
-mkdir -p "$(brew --repository)/Library/Taps/sogamoso"
-ln -sfn "$REPO_DIR/homebrew" "$(brew --repository)/Library/Taps/sogamoso/homebrew-dotfiles"
-
 # Homebrew 6+ refuses to load formulae/casks from non-official taps unless
 # they're trusted. Trust the taps declared in the Brewfile before bundling so
 # the install works non-interactively. `brew trust` only records names, so the
