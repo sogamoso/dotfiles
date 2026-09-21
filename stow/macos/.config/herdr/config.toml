@@ -1,3 +1,7 @@
+# Set by herdr itself when the first-run tour is dismissed. Root-level, so it
+# has to stay above the first table header.
+onboarding = false
+
 # herdr keybindings, mapped to mirror the tmux muscle memory this replaces.
 # Ghostty translates the physical Command key into Meta/Alt escape sequences
 # (cmd+1 -> alt+1, cmd+left -> alt+left, ctrl+cmd+left -> ctrl+alt+left), so the
@@ -27,3 +31,14 @@ name = "tokyo-night"
 # Match the exact Tokyo Night blue used in the tmux status line.
 [theme.custom]
 accent = "#7aa2f7"
+
+[ui]
+status_indicators = "symbols"
+show_agent_labels_on_pane_borders = false
+agent_panel_sort = "spaces"
+
+[ui.sound]
+enabled = false
+
+[ui.toast]
+delivery = "system"
