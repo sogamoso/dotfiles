@@ -21,6 +21,11 @@
 [init]
   defaultBranch = main
 
+[pull]
+  # Recover cleanly from an upstream history rewrite: rebase drops commits
+  # that are patch-equivalent to the new history instead of refusing to merge.
+  rebase = true
+
 [include]
   path = ~/.config/git/config.macos
 [credential "https://github.com"]
