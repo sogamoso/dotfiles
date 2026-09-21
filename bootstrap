@@ -6,17 +6,23 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 log_heading "Installing Sebastian's dotfiles.."
 
-# Cache sudo credentials upfront — some casks need them
-sudo true
-log_success "Granted"
-while true; do sudo -n true 2>/dev/null || true; sleep 30; kill -0 "$$" 2>/dev/null || exit; done &
-SUDO_LOOP_PID=$!
-trap 'kill "$SUDO_LOOP_PID" 2>/dev/null || true' EXIT
+# Cache sudo credentials upfront — some casks need them. The Linux path only
+# stows configs and touches ~/.bashrc, so it never needs root.
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  sudo true
+  log_success "Granted"
+  while true; do sudo -n true 2>/dev/null || true; sleep 30; kill -0 "$$" 2>/dev/null || exit; done &
+  SUDO_LOOP_PID=$!
+  trap 'kill "$SUDO_LOOP_PID" 2>/dev/null || true' EXIT
+fi
 
 # OS specific setup
 case "$(uname -s)" in
   Darwin)
     bash "$REPO_DIR/install/macos/all.sh"
+    ;;
+  Linux)
+    bash "$REPO_DIR/install/linux/all.sh"
     ;;
   *)
     log_warn "Unsupported OS"
@@ -30,4 +36,7 @@ bash "$REPO_DIR/install/dotfiles/all.sh"
 log_heading "Finishing Sebastian's dotfiles installation..."
 log_success "Done!"
 
-exec zsh -l
+case "$(uname -s)" in
+  Darwin) exec zsh -l ;;
+  *)      exec bash -l ;;
+esac
