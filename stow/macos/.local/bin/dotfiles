@@ -24,7 +24,50 @@ EOF
 run() { echo "==> $*"; "$@"; }
 
 cmd_pull() {
-  run git -C "$DOTFILES" pull --ff-only
+  if run git -C "$DOTFILES" pull --ff-only; then
+    return
+  fi
+  explain_pull_failure
+  return 1
+}
+
+# `git pull --ff-only` prints the same "Not possible to fast-forward" whether you
+# have local commits to push or upstream history was rewritten under you — and the
+# fixes are opposites. Say which one it is and name the command that resolves it.
+explain_pull_failure() {
+  local upstream ahead
+  upstream=$(git -C "$DOTFILES" rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null || echo "")
+
+  if [[ -n $(git -C "$DOTFILES" status --porcelain) ]]; then
+    echo "==> Uncommitted changes are in the way:"
+    git -C "$DOTFILES" status --short | sed 's/^/    /'
+    echo "    Commit or stash them, then: dotfiles pull"
+    return
+  fi
+
+  if [[ -z $upstream ]]; then
+    echo "==> No upstream is configured for this branch"
+    echo "    Set one with: git -C $DOTFILES branch --set-upstream-to=origin/main"
+    return
+  fi
+
+  if ! git -C "$DOTFILES" merge-base HEAD "$upstream" >/dev/null 2>&1; then
+    echo "==> $upstream shares no history with this checkout — it was rewritten"
+    echo "    Discard local history: git -C $DOTFILES reset --hard $upstream"
+    echo "    Or re-clone the repo for a smaller .git"
+    return
+  fi
+
+  ahead=$(git -C "$DOTFILES" rev-list --count "$upstream..HEAD")
+  if (( ahead > 0 )); then
+    echo "==> $ahead local commit(s) are not on $upstream"
+    echo "    Rebase them on top: git -C $DOTFILES pull"
+    echo "    Then publish them:  git -C $DOTFILES push"
+    return
+  fi
+
+  echo "==> Branch is not ahead of $upstream — see the git error above"
+  echo "    Usually network or SSH auth. Retry with: dotfiles pull"
 }
 
 cmd_brew() {
