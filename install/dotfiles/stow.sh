@@ -10,7 +10,15 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 log_heading "Stowing dotfiles..."
 
 cd "$REPO_DIR/stow"
-for config in claude editorconfig git mise nvim ruby ssh zsh; do
+packages=(claude editorconfig git mise nvim ruby ssh)
+
+# Omarchy is bash-based and ships its own alias/function layer, so the zsh
+# package is macOS only. Its bash counterpart lives in the linux package.
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  packages+=(zsh)
+fi
+
+for config in "${packages[@]}"; do
   stow --target "$HOME" --restow --no-folding "$config"
 done
 

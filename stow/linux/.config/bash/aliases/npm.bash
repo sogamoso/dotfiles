@@ -1,0 +1,7 @@
+alias ni="npm install"
+alias nr="npm run"
+alias ndev="npm run dev"
+alias nbuild="npm run build"
+alias ntest="npm run test"
+alias nlint="npm run lint"
+alias nci="npm ci"
