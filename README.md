@@ -19,12 +19,13 @@ stow/
   claude/                  # Claude Code settings, plugins, and status line
   editorconfig/            # .editorconfig
   git/                     # .gitconfig, global .gitignore, SSH allowed signers
+  linux/                   # Omarchy-only configs (stowed only on Linux)
   macos/                   # macOS-only configs (stowed only on Darwin)
   mise/                    # mise config (node + ruby via latest)
   nvim/                    # Neovim plugin overrides
   ruby/                    # .gemrc, .irbrc, .default-gems
   ssh/                     # SSH client config + signing key
-  zsh/                     # Shell supplement + per-tool aliases and functions
+  zsh/                     # Shell supplement + per-tool aliases (macOS; bash twin lives in linux/)
 ```
 
 ### How it works
@@ -34,7 +35,7 @@ stow/
 1. **OS setup** — dispatches by `uname -s`.
 2. **Dotfiles** (`install/dotfiles/all.sh`) — cross-platform config symlinks via stow.
 
-After both phases it drops into a fresh zsh login shell.
+After both phases it drops into a fresh login shell — zsh on macOS, bash on Omarchy.
 
 ## CLI
 
@@ -76,6 +77,7 @@ Two patterns keep configs portable:
 
 - **Git**: `.gitconfig` uses `[include] path = ~/.config/git/config.macos`. Git silently ignores the include if the file doesn't exist (i.e. on Linux).
 - **Shell**: `supplement.zsh` conditionally sources `supplement.macos.zsh` only if the file is readable. On Linux, the macOS stow package won't be installed so the file won't exist.
+- **Shells differ by OS**: macOS runs zsh, Omarchy runs bash. The `zsh` package is stowed only on Darwin; its bash counterpart ships in the `linux` package. See AGENTS.md for the rule that keeps the two in sync.
 
 ### macOS
 
@@ -298,3 +300,52 @@ Shell functions that build a whole herdr layout in one command, ported from Omar
 #### Manual setup guide
 
 For the manual setup guide including Privacy & Security settings, Raycast, and Tokyo Night theming: [`docs/macos-manual-setup.md`](docs/macos-manual-setup.md).
+
+### Linux (Omarchy)
+
+Targets [Omarchy](https://github.com/omacom/omarchy) 4 "Quattro". Omarchy owns the
+desktop: its Quickshell bar, `omarchy menu`, themes, and bash alias/function layer
+are used as shipped. These dotfiles only add the deltas.
+
+The macOS side was modelled on Omarchy to begin with, so most of it needs no
+translation — workspaces 1–10, tiling, the scratchpad, terminal and browser
+bindings all already match upstream.
+
+The Linux setup (`install/linux/all.sh`) runs these scripts in order:
+
+| Script | What it does |
+|--------|-------------|
+| `dotfiles.sh` | Stows the `linux` package, taking `~/.config/hypr/bindings.lua` over from `/etc/skel` |
+| `bashrc.sh` | Appends the personal supplement source to `.bashrc` |
+
+#### What gets customized
+
+| Area | Approach |
+|---|---|
+| Keybindings | `~/.config/hypr/bindings.lua` — only the app deltas, via `o.rebind` / `o.bind` |
+| Shell | `~/.config/bash/supplement.bash` plus per-tool aliases, sourced from Omarchy's own bashrc slot |
+| Theme | Stock `tokyo-night`; Omarchy already ships it and the colors match |
+| Bar, menu, notifications | Omarchy stock — nothing ported |
+
+#### Binding deltas
+
+Everything else matches Omarchy's defaults.
+
+| Binding | Omarchy default | Here |
+|---|---|---|
+| `Super + Shift + A` | ChatGPT | Claude |
+| `Super + Shift + Alt + A` | Grok | ChatGPT |
+| `Super + Shift + C` | HEY calendar | Google Calendar |
+| `Super + Shift + E` | HEY email | Gmail |
+| `Super + Shift + Alt + E` | HEY new email | Gmail compose |
+| `Super + Shift + G` | Signal | WhatsApp |
+| `Super + Shift + W` | Omawrite | Typora |
+| `Super + Shift + N` | Default editor | Zed |
+| `Super + Shift + I` | — | Notion |
+| `Super + Shift + L` | — | Linear |
+
+#### What is deliberately not ported
+
+- **`herdr.zsh`** — Omarchy ships `default/bash/fns/herdr` natively. The zsh file is a hand-port for macOS; re-porting it would shadow the real thing.
+- **sketchybar plugins and Raycast script commands** — Omarchy's bar and `omarchy menu` already cover reminders, the keybinding cheatsheet, and system toggles.
+- **ghostty, btop, herdr, git, lazygit configs** — Omarchy ships its own and rewrites them on every theme switch. Stowing the macOS versions would fight its theming.
