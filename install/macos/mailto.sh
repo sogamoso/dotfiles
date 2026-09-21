@@ -18,7 +18,7 @@ source_script="$(mktemp -t gmail-mailto)"
 cat > "$source_script" <<'APPLESCRIPT'
 on open location this_URL
   set encoded to do shell script "printf %s " & quoted form of this_URL & " | /usr/bin/perl -pe 's/([^A-Za-z0-9._~-])/sprintf(\"%%%02X\",ord($1))/ge'"
-  do shell script "/usr/bin/open -b com.google.Chrome " & quoted form of ("https://mail.google.com/mail/?extsrc=mailto&url=" & encoded)
+  do shell script "/usr/bin/open -b com.google.Chrome " & quoted form of ("https://mail.google.com/mail/u/0/?extsrc=mailto&url=" & encoded)
 end open location
 APPLESCRIPT
 

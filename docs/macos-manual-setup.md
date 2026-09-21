@@ -155,9 +155,12 @@ and Chrome never shows up in the scheme dump however it is set.
 it is eligible to be the system handler, and LaunchServices delivers a clicked link as a
 GetURL Apple Event — which only `on open location` receives, so a shell script in a bundle
 would get nothing. It percent-encodes the URI, opens
-`https://mail.google.com/mail/?extsrc=mailto&url=…` in Chrome, and exits. `LSUIElement`
-keeps it out of the Dock. With **Opening supported links → Open in Gmail** set on the PWA,
-Chrome hands the compose view to the Gmail window; without it you get a tab.
+`https://mail.google.com/mail/u/0/?extsrc=mailto&url=…` in Chrome, and exits. `LSUIElement`
+keeps it out of the Dock. The `u/0` segment pins the compose view to the first account
+signed into that Chrome profile; a bare `/mail/` follows whatever Gmail treats as default
+at the time, which shifts if you sign accounts in and out in a different order. With
+**Opening supported links → Open in Gmail** set on the PWA, Chrome hands the compose view
+to the Gmail window; without it you get a tab.
 
 The script builds the app only when it is missing. Delete the bundle and rerun to rebuild.
 
