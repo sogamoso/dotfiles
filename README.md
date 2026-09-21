@@ -99,6 +99,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `aerospace.sh` | Starts AeroSpace only if not already running |
 | `raycast.sh` | Opens Raycast for first-time setup |
 | `zed.sh` | Sets Zed as the default editor for text and code file types (via `duti`) |
+| `hermes.sh` | Removes any Hermes gateway launch agent so Hermes runs only while the desktop app is open |
 | `manual_steps.sh` | Opens the manual setup guide, first run only |
 
 #### Workspace layout
