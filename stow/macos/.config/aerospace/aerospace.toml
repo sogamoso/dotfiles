@@ -165,3 +165,17 @@ run = ['layout floating']
 [[on-window-detected]]
 if.app-id = 'com.granola.app'
 run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
+run = ['layout floating']
+
+[[on-window-detected]]
+# ChatGPT.app and Codex.app both ship as com.openai.codex, so an app-id rule
+# would float Codex too. Match the name, as the launcher binding does.
+if.app-name-regex-substring = 'ChatGPT'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = ['layout floating']
