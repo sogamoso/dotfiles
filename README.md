@@ -108,7 +108,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 1 | Browse | Chrome, Safari |
 | 2 | Dev | Ghostty, Zed, Conductor |
 | 3 | Chat | Slack, WhatsApp, Discord |
-| 4 | Mail & calendar | Thunderbird |
+| 4 | Mail & calendar | Gmail, Google Calendar |
 | 5 | Other work apps | Notion |
 | 6 | Misc | Whatever |
 | 7 | Entertainment | Spotify, Podcasts |
@@ -173,8 +173,8 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Enter` | New Ghostty window |
 | `Option + Shift + Enter` | New Chrome window |
 | `Option + Shift + N` | New Zed window |
-| `Option + Shift + C` | Open Thunderbird (calendar) |
-| `Option + Shift + E` | Open Thunderbird (email) |
+| `Option + Shift + C` | Open Google Calendar |
+| `Option + Shift + E` | Open Gmail |
 | `Option + Shift + G` | Open WhatsApp |
 | `Option + Shift + M` | Open Spotify |
 | `Option + Shift + O` | Open Obsidian |

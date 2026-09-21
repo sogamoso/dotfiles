@@ -44,7 +44,6 @@ System Settings → General → Login Items — add:
 - Monologue
 - Raycast
 - Slack
-- Thunderbird
 
 ---
 
@@ -134,29 +133,59 @@ Set in CleanShot → Settings → Shortcuts:
 
 ---
 
-## 9. Set Thunderbird as the Default Email Client
+## 9. Set the Default Email Client
 
-Thunderbird installs from the `Brewfile` (`cask "thunderbird"`), so it is already present by the time you reach this step. It claims `com.apple.default-app.mail-client` and registers the `mailto:` scheme — along with `news:` and `feed:` — so it appears by name in Mail's picker.
+Mail and calendar both run as Chrome PWAs (`install/macos/pwas.sh` installs Gmail and
+Google Calendar), so there is no native mail client to hand `mailto:` to.
 
-1. Open the **Mail** app. If it has no account the default-reader control stays greyed out — add any account (e.g. **Other Mail Account**) with throwaway credentials to unlock the setting, then remove it afterward.
-2. **Mail → Settings → General**, set **Default email reader** to **Thunderbird**. Quit Mail.
-3. Test: `open mailto:test@example.com` should open a compose window in Thunderbird.
+A Chrome-installed PWA does not register as a mail client. It gets a bundle ID of the form
+`com.google.Chrome.app.<extension-id>`, claims no URL schemes, and so never appears in
+Mail's **Default email reader** picker. Asking LaunchServices which apps claim `mailto:`
+returns only Apple Mail and Zoom — not Chrome, and not the Gmail PWA.
 
-Scripted equivalent, since `duti` is already in the `Brewfile`:
+Chrome cannot take `mailto:` from its bundle alone either. Its `Info.plist` declares only
+`http`, `https`, `file` and `google-chrome` — no `mailto` — so `duti -s com.google.Chrome
+mailto` exits 0 but changes nothing, and Chrome does not appear in Mail's picker. Chrome
+registers the scheme at *runtime*, via `LSSetDefaultHandlerForURLScheme`, only once you
+allow Gmail to handle email links inside the browser.
 
-```bash
-duti -s org.mozilla.thunderbird mailto
-```
+So the Chrome-side step is not optional and must come first:
 
-Setting the scheme is enough — macOS updates the `com.apple.default-app.mail-client` entry to match. Don't try to set that entry with `duti` directly; it isn't a real UTI and `duti` rejects it.
+1. In Chrome, open <https://mail.google.com>. Click the double-diamond **protocol handler**
+   icon at the right of the address bar and allow `mail.google.com` to open email links. If
+   the icon is absent, go to **Settings → Privacy and security → Site settings → Additional
+   permissions → Protocol handlers** and confirm Gmail is listed. Accept Chrome's prompt to
+   become the default mail client if it offers one.
+2. Confirm the registration took:
 
-### The calendar stays with Calendar.app
+   ```bash
+   lsregister -dump | awk '/^[[:space:]]*path:/{p=$2} /claimed schemes:.*mailto/{print p}' | sort -u
+   ```
 
-Thunderbird ships a calendar, but its macOS build declares no `webcal://` scheme and no `.ics` document type. Ask LaunchServices which apps can open either and it answers Calendar.app, Chrome and the system CalendarFileHandler — never Thunderbird. It therefore never appears in **Calendar.app → Settings → General → Default calendar app**, and `duti` has nothing to bind it to.
+   (`lsregister` lives in
+   `/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/`.)
+   Chrome should now be listed alongside Apple Mail. Until it is, no amount of `duti` or
+   Mail-picker fiddling will bind the scheme.
+3. Once Chrome claims `mailto:`, either set **Mail → Settings → General → Default email
+   reader** to **Google Chrome**, or run `duti -s com.google.Chrome mailto`. If Mail has no
+   account the control stays greyed out — add any account (e.g. **Other Mail Account**) with
+   throwaway credentials to unlock it, then remove the account afterward.
 
-So `.ics` invites and `webcal://` links keep opening Calendar.app. To get an invite into Thunderbird's own calendar, import it from inside Thunderbird rather than double-clicking the file.
+Test with `open mailto:test@example.com`. It should land in a Gmail compose view.
 
-`Option + Shift + E` and `Option + Shift + C` both open Thunderbird, and workspace 4 is where it lives.
+Note that `mailto:` opens a Chrome **tab**, not the standalone Gmail PWA window — the
+browser and the PWA are separate LaunchServices clients, and only the browser can take the
+scheme.
+
+### Calendar
+
+`.ics` invites and `webcal://` links open Calendar.app. The Google Calendar PWA has the same
+limitation as Gmail's: no claimed schemes, no document types, so it never appears in
+**Calendar.app → Settings → General → Default calendar app**. Import invites from inside
+Google Calendar rather than double-clicking the file.
+
+`Option + Shift + E` opens the Gmail PWA and `Option + Shift + C` opens the Google Calendar
+PWA. Workspace 4 is where both live.
 
 ---
 

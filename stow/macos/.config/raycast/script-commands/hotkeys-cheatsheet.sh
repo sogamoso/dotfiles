@@ -44,8 +44,8 @@ ${B}${Y}── Launching Apps ────────────────�
 ${B}Option + Enter${R}          ${D}New Ghostty window${R}
 ${B}Option + Shift+Enter${R}    ${D}New Chrome window${R}
 ${B}Option + Shift+N${R}        ${D}New Zed window${R}
-${B}Option + Shift+C${R}        ${D}Open Thunderbird (calendar)${R}
-${B}Option + Shift+E${R}        ${D}Open Thunderbird (email)${R}
+${B}Option + Shift+C${R}        ${D}Open Google Calendar${R}
+${B}Option + Shift+E${R}        ${D}Open Gmail${R}
 ${B}Option + Shift+G${R}        ${D}Open WhatsApp${R}
 ${B}Option + Shift+M${R}        ${D}Open Spotify${R}
 ${B}Option + Shift+O${R}        ${D}Open Obsidian${R}
@@ -131,7 +131,7 @@ ${B}${C}── Workspace Layout ────────────────
 ${B}1${R}  ${D}Browse (Chrome, Safari)${R}
 ${B}2${R}  ${D}Dev (Ghostty, Zed, Conductor)${R}
 ${B}3${R}  ${D}Chat (Slack, WhatsApp, Discord)${R}
-${B}4${R}  ${D}Mail & calendar (Thunderbird)${R}
+${B}4${R}  ${D}Mail & calendar (Gmail, Google Calendar)${R}
 ${B}5${R}  ${D}Other work apps (Notion)${R}
 ${B}6${R}  ${D}Misc${R}
 ${B}7${R}  ${D}Entertainment (Spotify, Podcasts)${R}
