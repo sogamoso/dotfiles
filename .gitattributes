@@ -1,1 +1,2 @@
 stow/git/.gitconfig filter=strip-coderabbit
+stow/macos/.config/aerospace/aerospace.toml filter=pin-aerospace-gap
