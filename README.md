@@ -63,6 +63,7 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `zshrc.sh` | Appends personal supplement source to `.zshrc` |
 | `hushlogin.sh` | Suppresses "Last login" terminal message |
 | `coderabbit.sh` | Configures git filter to strip Coderabbit config from `.gitconfig` |
+| `aerospace-gap.sh` | Configures git filter to pin the sketchybar-rewritten `outer.top` gap |
 | `claude-code.sh` | Installs Claude Code marketplaces, plugins, and configures claude-hud |
 | `skills.sh` | Clones [sogamoso/skills](https://github.com/sogamoso/skills) and symlinks each skill into `~/.claude/skills` |
 | `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server that serves the stowed `ui`, `brand-kit` and `markup-from-image` skills |
@@ -89,7 +90,6 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `security.sh` | Enables SSH/firewall and applies sshd hardening |
 | `brew.sh` | Installs all packages from `Brewfile` |
 | `onepassword.sh` | Opens 1Password for sign-in and SSH agent setup |
-| `alacritty.sh` | Installs Alacritty from latest GitHub release DMG |
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
 | `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
 | `preferences.sh` | macOS system defaults |

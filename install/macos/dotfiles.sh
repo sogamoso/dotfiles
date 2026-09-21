@@ -7,7 +7,6 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 # Take ownership of configs from any real files → let stow manage them as symlinks
 [[ -f "$HOME/.claude/keybindings.json"           && ! -L "$HOME/.claude/keybindings.json"           ]] && rm "$HOME/.claude/keybindings.json"
 [[ -f "$HOME/.claude/settings.json"              && ! -L "$HOME/.claude/settings.json"              ]] && rm "$HOME/.claude/settings.json"
-[[ -f "$HOME/.config/alacritty/alacritty.toml"  && ! -L "$HOME/.config/alacritty/alacritty.toml"  ]] && rm "$HOME/.config/alacritty/alacritty.toml"
 [[ -f "$HOME/.config/btop/btop.conf"            && ! -L "$HOME/.config/btop/btop.conf"            ]] && rm "$HOME/.config/btop/btop.conf"
 [[ -f "$HOME/.config/ghostty/config"            && ! -L "$HOME/.config/ghostty/config"            ]] && rm "$HOME/.config/ghostty/config"
 [[ -f "$HOME/.config/zed/settings.json"         && ! -L "$HOME/.config/zed/settings.json"         ]] && rm "$HOME/.config/zed/settings.json"
