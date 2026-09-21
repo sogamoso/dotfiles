@@ -110,7 +110,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | Workspace | Purpose | Apps |
 |---|---|---|
 | 1 | Browse | Chrome, Safari |
-| 2 | Dev | Ghostty, Zed, Conductor |
+| 2 | Dev | Ghostty, Zed |
 | 3 | Chat | Slack, WhatsApp, Discord |
 | 4 | Mail & calendar | Gmail, Google Calendar |
 | 5 | Other work apps | Notion |
