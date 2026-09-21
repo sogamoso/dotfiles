@@ -167,6 +167,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + L` | Toggle layout |
 | `Option + - / =` | Resize width |
 | `Option + Shift + - / =` | Resize height |
+| `Option + B` | Balance window sizes |
 
 ##### Launching apps
 
