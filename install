@@ -2,7 +2,7 @@
 set -euo pipefail
 
 REPO="https://github.com/sogamoso/dotfiles.git"
-DEST="$HOME/Code/dotfiles"
+DEST="$HOME/Code/sogamoso/dotfiles"
 
 # Use gum-styled logging when available (re-runs), plain echo on first run
 LOG_SH="$DEST/install/lib/log.sh"
