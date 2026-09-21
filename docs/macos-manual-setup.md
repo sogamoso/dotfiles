@@ -155,12 +155,18 @@ and Chrome never shows up in the scheme dump however it is set.
 it is eligible to be the system handler, and LaunchServices delivers a clicked link as a
 GetURL Apple Event — which only `on open location` receives, so a shell script in a bundle
 would get nothing. It percent-encodes the URI, opens
-`https://mail.google.com/mail/u/sebastian@sogamo.so/?extsrc=mailto&url=…` in Chrome, and
-exits. `LSUIElement` keeps it out of the Dock. The address in the `u/` segment pins the
-compose view to that mailbox. A bare `/mail/` follows whatever Gmail treats as the default
-account for the Chrome profile, and `u/0` follows sign-in order — both resolve to the work
-account on this machine. With **Opening supported links → Open in Gmail** set on the PWA,
-Chrome hands the compose view to the Gmail window; without it you get a tab.
+`https://mail.google.com/mail/?extsrc=mailto&url=…` through `open -na 'Google Chrome'
+--args --app=`, and exits. `LSUIElement` keeps it out of the Dock.
+
+`--app=` gives a chromeless window — no tab strip, no address bar — so compose opens in
+something that looks like the Gmail PWA rather than a tab. It is not the installed PWA: the
+`Gmail.app` shim is an `app_mode_loader` that ignores a URL argument, so `open -a` activates
+that window without navigating it. A fresh app window opens per `mailto:` link.
+
+The URL carries no account selector, so Gmail uses the default account for the Chrome
+profile. Do not try to pin it with an address — `/mail/u/<address>/` is not a valid
+selector and Gmail answers it with *Temporary Error (404)*. Only a numeric index (`u/0`)
+works there, and that follows sign-in order rather than naming a mailbox.
 
 The script builds the app only when it is missing. Delete the bundle and rerun to rebuild.
 
@@ -226,6 +232,49 @@ op item create --category=password --title='ui.sh' password=-
 ```
 
 Rerun `bash install/dotfiles/uidotsh.sh` afterwards, then confirm with `claude mcp get uidotsh`. To keep the item somewhere else, point `UIDOTSH_OP_ITEM` at it; to skip 1Password entirely, set `UIDOTSH_TOKEN` in the environment.
+
+---
+
+## 13. Sign In to Hermes and Set Its Defaults
+
+`hermes-desktop` installs from the `Brewfile`, but its account and settings are not in
+dotfiles. The sign-in is a browser OAuth flow that writes credentials to
+`~/.hermes/auth.json` and `~/.hermes/.env` — per-machine secrets that must never be
+committed. Run it by hand:
+
+```bash
+hermes portal login
+```
+
+Confirm with `hermes portal status`: it should report logged in, Nous as the inference
+provider, and the Tool Gateway routing web tools, image generation, TTS and browser
+automation through Nous.
+
+`~/.hermes/config.yaml` holds the settings below. It contains no secrets, but Hermes
+rewrites it as the agent runs — `model.default` changes whenever you switch models — so it
+is recorded here rather than stowed, to avoid a permanently dirty tracked file:
+
+| Key | Value |
+|---|---|
+| `model.default` | `z-ai/glm-5.2` |
+| `model.provider` | `nous` |
+| `model.base_url` | `https://inference-api.nousresearch.com/v1` |
+| `model.api_mode` | `chat_completions` |
+| `web.backend` | `nous` |
+| `browser.cloud_provider` | `nous` |
+| `agent.max_turns` | `500` |
+| `agent.reasoning_effort` | `medium` |
+
+Set them with `hermes config` or the desktop app's settings. Revisit stowing the file if
+Hermes ever grows a non-interactive config import.
+
+To connect the desktop app to a Hermes Cloud instance, use **Settings → Gateways → Add
+connection → Hermes Cloud** (Cmd+, then Gateways) and complete the portal sign-in. The
+flow discovers instances automatically; there are no URL or token fields to fill.
+
+Note that `install/macos/hermes.sh` deletes any `ai.hermes.gateway` launch agent on every
+bootstrap, so Hermes runs only while the desktop app is open. If you later want a gateway
+persisting in the background, that script has to change first.
 
 ---
 
