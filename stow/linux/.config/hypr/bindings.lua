@@ -21,9 +21,9 @@ o.rebind("SUPER + SHIFT + ALT + E", "New email", { webapp = "https://mail.google
 -- on SUPER + SHIFT + ALT + G too, so that chord still works.
 o.rebind("SUPER + SHIFT + G", "WhatsApp", { webapp = "https://web.whatsapp.com/", focus = true })
 
--- Typora rather than Omawrite for markdown, and Zed rather than the default
--- editor, matching Option+Shift+W and Option+Shift+N on macOS.
-o.rebind("SUPER + SHIFT + W", "Typora", { launch = "typora" })
+-- Zed rather than the default editor, matching Option+Shift+N on macOS.
+-- SUPER + SHIFT + W keeps Omarchy's Omawrite; Typora is a macOS-only habit
+-- and there is no reason to install it here.
 o.rebind("SUPER + SHIFT + N", "Editor", { launch = "zed" })
 
 -- Apps Omarchy has no default binding for. Both keys are free upstream.

@@ -339,7 +339,6 @@ Everything else matches Omarchy's defaults.
 | `Super + Shift + E` | HEY email | Gmail |
 | `Super + Shift + Alt + E` | HEY new email | Gmail compose |
 | `Super + Shift + G` | Signal | WhatsApp |
-| `Super + Shift + W` | Omawrite | Typora |
 | `Super + Shift + N` | Default editor | Zed |
 | `Super + Shift + I` | — | Notion |
 | `Super + Shift + L` | — | Linear |
@@ -347,5 +346,6 @@ Everything else matches Omarchy's defaults.
 #### What is deliberately not ported
 
 - **`herdr.zsh`** — Omarchy ships `default/bash/fns/herdr` natively. The zsh file is a hand-port for macOS; re-porting it would shadow the real thing.
+- **Typora** — `Super + Shift + W` keeps Omarchy's Omawrite. Typora is a macOS habit, not a reason to add a package here.
 - **sketchybar plugins and Raycast script commands** — Omarchy's bar and `omarchy menu` already cover reminders, the keybinding cheatsheet, and system toggles.
 - **ghostty, btop, herdr, git, lazygit configs** — Omarchy ships its own and rewrites them on every theme switch. Stowing the macOS versions would fight its theming.
