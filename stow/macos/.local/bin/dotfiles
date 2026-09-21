@@ -86,6 +86,18 @@ cmd_status() {
     behind=$(git rev-list --count "HEAD..$upstream" 2>/dev/null || echo "?")
     echo "==> Vs $upstream: $ahead ahead, $behind behind"
   fi
+  # A clean filter's command lives in .git/config, which is never cloned, so a
+  # machine that hasn't bootstrapped shows filtered files as dirty for no
+  # visible reason. Name the missing ones instead.
+  local missing=()
+  while IFS= read -r name; do
+    git config --get "filter.$name.clean" >/dev/null || missing+=("$name")
+  done < <(sed -n 's/.*filter=\([A-Za-z0-9_-]*\).*/\1/p' .gitattributes | sort -u)
+  if (( ${#missing[@]} )); then
+    echo "==> Missing git filters: ${missing[*]}"
+    echo "    Run install/dotfiles/all.sh to configure them"
+  fi
+
   echo "==> Working tree:"
   git status --short
 }
