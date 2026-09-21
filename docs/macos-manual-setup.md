@@ -138,44 +138,53 @@ Set in CleanShot → Settings → Shortcuts:
 Mail and calendar both run as Chrome PWAs (`install/macos/pwas.sh` installs Gmail and
 Google Calendar), so there is no native mail client to hand `mailto:` to.
 
-A Chrome-installed PWA does not register as a mail client. It gets a bundle ID of the form
-`com.google.Chrome.app.<extension-id>`, claims no URL schemes, and so never appears in
-Mail's **Default email reader** picker. Asking LaunchServices which apps claim `mailto:`
-returns only Apple Mail and Zoom — not Chrome, and not the Gmail PWA.
+Nothing in the Chrome stack can take the scheme. A Chrome-installed PWA gets a bundle ID of
+the form `com.google.Chrome.app.<extension-id>` and declares no `CFBundleURLTypes` at all.
+Chrome itself declares only `http`, `https`, `file` and `google-chrome` — no `mailto` — so
+`duti -s com.google.Chrome mailto` exits 0 and changes nothing. LaunchServices only lets a
+bundle claim a scheme it declares, so neither ever appears in Mail's **Default email
+reader** picker.
 
-Chrome cannot take `mailto:` from its bundle alone either. Its `Info.plist` declares only
-`http`, `https`, `file` and `google-chrome` — no `mailto` — so `duti -s com.google.Chrome
-mailto` exits 0 but changes nothing, and Chrome does not appear in Mail's picker. Chrome
-registers the scheme at *runtime*, via `LSSetDefaultHandlerForURLScheme`, only once you
-allow Gmail to handle email links inside the browser.
+Chrome's **Settings → Privacy and security → Site settings → Protocol handlers** entry for
+`mail.google.com` is still worth allowing, but it is browser-internal routing: it decides
+what happens to `mailto:` links clicked *inside Chrome*. It never reaches LaunchServices,
+and Chrome never shows up in the scheme dump however it is set.
 
-So the Chrome-side step is not optional and must come first:
+`install/macos/mailto.sh` closes the gap with an AppleScript applet at
+`~/Applications/Gmail Mailto.app`. The applet declares `mailto` in its own `Info.plist`, so
+it is eligible to be the system handler, and LaunchServices delivers a clicked link as a
+GetURL Apple Event — which only `on open location` receives, so a shell script in a bundle
+would get nothing. It percent-encodes the URI, opens
+`https://mail.google.com/mail/?extsrc=mailto&url=…` in Chrome, and exits. `LSUIElement`
+keeps it out of the Dock. With **Opening supported links → Open in Gmail** set on the PWA,
+Chrome hands the compose view to the Gmail window; without it you get a tab.
 
-1. In Chrome, open <https://mail.google.com>. Click the double-diamond **protocol handler**
-   icon at the right of the address bar and allow `mail.google.com` to open email links. If
-   the icon is absent, go to **Settings → Privacy and security → Site settings → Additional
-   permissions → Protocol handlers** and confirm Gmail is listed. Accept Chrome's prompt to
-   become the default mail client if it offers one.
-2. Confirm the registration took:
+The script builds the app only when it is missing. Delete the bundle and rerun to rebuild.
 
-   ```bash
-   lsregister -dump | awk '/^[[:space:]]*path:/{p=$2} /claimed schemes:.*mailto/{print p}' | sort -u
-   ```
+Confirm the binding took:
 
-   (`lsregister` lives in
-   `/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/`.)
-   Chrome should now be listed alongside Apple Mail. Until it is, no amount of `duti` or
-   Mail-picker fiddling will bind the scheme.
-3. Once Chrome claims `mailto:`, either set **Mail → Settings → General → Default email
-   reader** to **Google Chrome**, or run `duti -s com.google.Chrome mailto`. If Mail has no
-   account the control stays greyed out — add any account (e.g. **Other Mail Account**) with
-   throwaway credentials to unlock it, then remove the account afterward.
+```bash
+defaults read com.apple.LaunchServices/com.apple.launchservices.secure |
+  grep -B2 'LSHandlerURLScheme = mailto'
+```
 
-Test with `open mailto:test@example.com`. It should land in a Gmail compose view.
+It should report `LSHandlerRoleAll = "so.sogamo.gmail-mailto"`. To list every claimant:
 
-Note that `mailto:` opens a Chrome **tab**, not the standalone Gmail PWA window — the
-browser and the PWA are separate LaunchServices clients, and only the browser can take the
-scheme.
+```bash
+lsregister -dump |
+  awk '/^[[:space:]]*path:/{p=$0; sub(/^[[:space:]]*path:[[:space:]]*/,"",p)
+                            sub(/[[:space:]]*\(0x[0-9a-f]+\)$/,"",p)}
+       /claimed schemes:.*mailto/{print p}' | sort -u
+```
+
+(`lsregister` lives in
+`/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/`.)
+Extract the path from `$0` rather than `$2`: `$2` truncates `Gmail Mailto.app` at the
+space. The second `sub` drops the trailing LaunchServices id.
+
+Test with `open mailto:test@example.com`. It should land in a Gmail compose view. Note that
+`duti -x mailto` is not a check: `-x` queries file extensions, not URL schemes, and errors
+out even when the scheme is bound correctly.
 
 ### Calendar
 
