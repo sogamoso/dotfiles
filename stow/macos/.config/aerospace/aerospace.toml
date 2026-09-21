@@ -4,6 +4,12 @@
 #   alt  in this config = physical Option key = SUPER on Omarchy
 #   cmd  in this config = physical Command key = ALT on Omarchy
 
+config-version = 2
+
+# v2 stops inferring this from the right hand side of the workspace bindings,
+# so the list has to be explicit or every workspace stops being persistent.
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
 start-at-login = true
 
 after-startup-command = [
