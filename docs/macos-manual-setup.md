@@ -250,13 +250,13 @@ Confirm with `hermes portal status`: it should report logged in, Nous as the inf
 provider, and the Tool Gateway routing web tools, image generation, TTS and browser
 automation through Nous.
 
-`~/.hermes/config.yaml` holds the settings below. It contains no secrets, but Hermes
-rewrites it as the agent runs — `model.default` changes whenever you switch models — so it
-is recorded here rather than stowed, to avoid a permanently dirty tracked file:
+`~/.hermes/config.yaml` holds the routing settings below. It contains no secrets, but
+Hermes rewrites it as the agent runs, so it is recorded here rather than stowed, to avoid a
+permanently dirty tracked file. `model.default` is deliberately omitted — it changes
+whenever you switch models, so any value written here would go stale.
 
 | Key | Value |
 |---|---|
-| `model.default` | `z-ai/glm-5.2` |
 | `model.provider` | `nous` |
 | `model.base_url` | `https://inference-api.nousresearch.com/v1` |
 | `model.api_mode` | `chat_completions` |
@@ -265,8 +265,8 @@ is recorded here rather than stowed, to avoid a permanently dirty tracked file:
 | `agent.max_turns` | `500` |
 | `agent.reasoning_effort` | `medium` |
 
-Set them with `hermes config` or the desktop app's settings. Revisit stowing the file if
-Hermes ever grows a non-interactive config import.
+Set them with `hermes config set <key> <value>` or the desktop app's settings. Revisit
+stowing the file if Hermes ever grows a non-interactive config import.
 
 To connect the desktop app to a Hermes Cloud instance, use **Settings → Gateways → Add
 connection → Hermes Cloud** (Cmd+, then Gateways) and complete the portal sign-in. The
