@@ -153,7 +153,9 @@ if.app-id = 'com.1password.1password'
 run = ['layout floating']
 
 [[on-window-detected]]
-if.app-id = 'com.google.Chrome.app.agimnkijcaahngcdmfeangaknmldooml' # YouTube
+# Chrome assigns PWAs com.google.Chrome.app.<extension-id>, which changes if the
+# app is reinstalled. Match the name instead, as the launcher bindings do.
+if.app-name-regex-substring = 'YouTube'
 run = ['layout floating']
 
 [[on-window-detected]]
