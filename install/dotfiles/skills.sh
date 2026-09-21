@@ -5,7 +5,7 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 REPO_URL="git@github.com:sogamoso/skills.git"
 # Not SKILLS_DIR — that name is read by the skills repo's own install.sh as the
 # symlink *target*, and would send skills into this checkout instead of ~/.claude/skills.
-CHECKOUT="${SKILLS_REPO_DIR:-$HOME/Code/personal/skills}"
+CHECKOUT="${SKILLS_REPO_DIR:-$HOME/Code/sogamoso/skills}"
 
 # The repo is private, so this needs the 1Password SSH agent unlocked. BatchMode
 # turns a locked agent into a fast failure instead of a bootstrap-blocking prompt;
