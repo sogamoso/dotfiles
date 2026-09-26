@@ -7,6 +7,11 @@
 # relocated checkout treats all of them as foreign and aborts with conflicts.
 # The same applies to a file deleted from a package — its link outlives it.
 #
+# Only a true move or a deleted checkout heals, though. Copy the repo instead
+# and the old path survives, so every link still resolves and stow conflicts
+# just the same — a live link into the stale copy is indistinguishable from a
+# live link into this one, so there is nothing safe to key off.
+#
 # Sourced by the three stow scripts so a moved or pruned checkout heals on the
 # next run, and by `dotfiles status` to report the damage without touching it.
 
