@@ -141,6 +141,16 @@ cmd_status() {
     echo "    Run install/dotfiles/all.sh to configure them"
   fi
 
+  # Links from a previous checkout location survive a move and silently stop
+  # working — see install/lib/stow-orphans.sh. Naming them beats hunting for a
+  # config that stopped applying for no visible reason.
+  local orphans
+  orphans=$(source "$DOTFILES/install/lib/stow-orphans.sh"; stow_orphans "$DOTFILES/stow" | wc -l | tr -d ' ')
+  if (( orphans > 0 )); then
+    echo "==> Orphaned symlinks: $orphans"
+    echo "    Run dotfiles stow to clear them"
+  fi
+
   echo "==> Working tree:"
   git status --short
 }

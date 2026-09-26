@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/stow-orphans.sh"
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
@@ -19,6 +20,10 @@ done
 [[ -f "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"    && ! -L "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"    ]] && rm "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"
 
 log_heading "Stowing macOS specific dotfiles..."
+
+orphans=$(prune_stow_orphans "$REPO_DIR/stow")
+(( orphans > 0 )) && log_item "Cleared $orphans link(s) left by a previous checkout location"
+
 cd "$REPO_DIR/stow"
 stow --target "$HOME" --restow --no-folding macos
 log_success "macOS dotfiles stowed"

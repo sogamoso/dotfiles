@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/stow-orphans.sh"
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
@@ -8,6 +9,9 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 [[ -f "$HOME/.claude/skills/ui/SKILL.md" && ! -L "$HOME/.claude/skills/ui/SKILL.md" ]] && rm "$HOME/.claude/skills/ui/SKILL.md"
 
 log_heading "Stowing dotfiles..."
+
+orphans=$(prune_stow_orphans "$REPO_DIR/stow")
+(( orphans > 0 )) && log_item "Cleared $orphans link(s) left by a previous checkout location"
 
 cd "$REPO_DIR/stow"
 packages=(claude editorconfig git mise nvim ruby ssh)
