@@ -23,9 +23,16 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 15
 # Fn key: change input source (0=nothing, 1=input source, 2=emoji, 3=dictation)
 defaults write com.apple.HIToolbox AppleFnUsageType -int 1
 
-# Accessibility: disable UI transparency (requires Full Disk Access — skipped if denied)
-defaults write com.apple.universalaccess reduceTransparency -bool true 2>/dev/null || \
-  log_warn "Could not set reduceTransparency — grant Full Disk Access to Terminal and rerun"
+# Accessibility: disable UI transparency. WindowServer only reads this at login,
+# so a fresh write leaves the revealed menu bar glassy on top of SketchyBar until
+# the next one. Writing needs Full Disk Access — skipped if denied.
+if [[ $(defaults read com.apple.universalaccess reduceTransparency 2>/dev/null) != "1" ]]; then
+  if defaults write com.apple.universalaccess reduceTransparency -bool true 2>/dev/null; then
+    log_warn "Reduced transparency set — log out and back in, or the menu bar stays transparent"
+  else
+    log_warn "Could not set reduceTransparency — grant Full Disk Access to Terminal and rerun"
+  fi
+fi
 
 # Menu bar: auto-hide
 osascript -e 'tell application "System Events" to tell dock preferences to set autohide menu bar to true'

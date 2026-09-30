@@ -72,6 +72,12 @@ Then trim third-party items. System Settings → Menu Bar → Allow in the Menu 
 
 Turn off every other app (1Password, ChatGPT, Claude, Granola, Monologue, Raycast, Zoom, …). Turning one off stops its icon from ever appearing; the app itself keeps working.
 
+### Opaque menu bar
+
+The menu bar is set to auto-hide, so SketchyBar owns the top strip and the system bar only slides down on hover. macOS draws that reveal as translucent glass, which lets SketchyBar show through and puts two overlapping sets of items on screen.
+
+`install/macos/preferences.sh` turns off transparency to prevent this, but WindowServer only reads the setting at login — it is not enough to write it. If the revealed menu bar looks transparent, log out and back in, or toggle **System Settings → Accessibility → Display → Reduce transparency** off and on.
+
 ---
 
 ## 5. Authenticate GitHub CLI
