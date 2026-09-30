@@ -93,7 +93,7 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles pull` | Git pull only |
 | `dotfiles brew` | Sync Brewfile via `brew bundle` |
 | `dotfiles stow` | Re-stow all packages |
-| `dotfiles reload` | Restart SketchyBar, reload AeroSpace, restart a stale herdr server |
+| `dotfiles reload` | Re-stow, relink skills, restart SketchyBar, reload AeroSpace, restart a stale herdr server |
 | `dotfiles status` | Branch, ahead/behind, dirty files |
 | `dotfiles edit` | Open the repo in `$VISUAL` |
 

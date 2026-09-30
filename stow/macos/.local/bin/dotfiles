@@ -14,7 +14,7 @@ Commands:
   pull      Git pull only
   brew      Sync Brewfile via brew bundle
   stow      Re-stow all dotfile packages
-  reload    Re-stow, restart SketchyBar, reload AeroSpace
+  reload    Re-stow, relink skills, restart SketchyBar, reload AeroSpace
   status    Show repo state (branch, ahead/behind, dirty files)
   edit      Open the repo in \$VISUAL (defaults to nvim)
   help      Show this message
@@ -88,6 +88,10 @@ cmd_stow() {
 
 cmd_reload() {
   cmd_stow
+  # Skills are linked, not stowed, so restowing doesn't pick up a new one, a
+  # renamed category, or a newly reserved name. Cheap when nothing changed.
+  local skills="$DOTFILES/install/dotfiles/skills.sh"
+  [[ -x $skills ]] && run "$skills"
   if command -v sketchybar >/dev/null 2>&1; then
     # Clear the markers that stop sketchybarrc retrying Swift helper builds, so
     # a repaired toolchain gets picked up here rather than staying failed.
