@@ -89,6 +89,9 @@ cmd_stow() {
 cmd_reload() {
   cmd_stow
   if command -v sketchybar >/dev/null 2>&1; then
+    # Clear the markers that stop sketchybarrc retrying Swift helper builds, so
+    # a repaired toolchain gets picked up here rather than staying failed.
+    rm -f "$HOME"/.cache/sketchybar/*.failed
     run sketchybar --reload
   fi
   if command -v aerospace >/dev/null 2>&1; then

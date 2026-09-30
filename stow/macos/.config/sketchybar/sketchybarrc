@@ -12,14 +12,9 @@ YELLOW=0xffe0af68
 export CONFIG_DIR="$HOME/.config/sketchybar"
 source "$CONFIG_DIR/lib/common.sh"
 
-# Compile menu bar height helper if needed (build to ~/.cache to avoid stow conflicts)
-CACHE_DIR="$HOME/.cache/sketchybar"
-mkdir -p "$CACHE_DIR"
+# Menu bar height helper builds to ~/.cache to avoid stow conflicts
 MBHEIGHT_BIN="$CACHE_DIR/menu_bar_height"
-MBHEIGHT_SRC="$CONFIG_DIR/plugins/menu_bar_height.swift"
-if [ ! -f "$MBHEIGHT_BIN" ] || [ "$MBHEIGHT_SRC" -nt "$MBHEIGHT_BIN" ]; then
-  swiftc "$MBHEIGHT_SRC" -o "$MBHEIGHT_BIN" 2>/dev/null
-fi
+build_swift "$CONFIG_DIR/plugins/menu_bar_height.swift" "$MBHEIGHT_BIN"
 BAR_HEIGHT=$("$MBHEIGHT_BIN" 2>/dev/null || echo 30)
 
 # Sync AeroSpace outer.top gap with the bar height (no reload — reload() handles that).
