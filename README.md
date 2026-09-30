@@ -16,7 +16,8 @@ Each folder under `stow/` is a stow package. Running `stow --target $HOME --rest
 
 ```
 stow/
-  claude/                  # Claude Code settings, plugins, and status line
+  claude/                  # Claude Code settings, keybindings, and status line
+  codex/                   # Codex AGENTS.md (points at the Claude Code instructions)
   editorconfig/            # .editorconfig
   git/                     # .gitconfig, global .gitignore, SSH allowed signers
   linux/                   # Omarchy-only configs (stowed only on Linux)
@@ -36,6 +37,30 @@ stow/
 2. **Dotfiles** (`install/dotfiles/all.sh`) — cross-platform config symlinks via stow.
 
 After both phases it drops into a fresh login shell — zsh on macOS, bash on Omarchy.
+
+## Skills
+
+Claude Code and Codex both read `<skills-dir>/<name>/SKILL.md`, so each skill is
+linked into `~/.claude/skills` and `~/.codex/skills` from a single source and the
+two agents stay in step by construction. Skills are deliberately not a stow
+package: stow lands a package in one place, and these need two.
+
+`install/dotfiles/skills.sh` links two sources, in this order:
+
+| Source | Holds |
+| --- | --- |
+| `skills/` in this repo | Grouped by category — `uidotsh/` holds the `ui`, `brand-kit` and `markup-from-image` stubs |
+| [sogamoso/skills](https://github.com/sogamoso/skills) | Personal skills (private, needs the 1Password SSH agent) |
+
+Both agents discover skills exactly one level deep, so every link is flat however
+the source is organized — categories are free on the source side and invisible on
+the agent side. They key on the directory name alone, so the first source to
+claim a name keeps it, and a later source offering that name is reported and
+skipped rather than silently winning. Directories starting with `_` or `.` are
+scaffolding and are ignored.
+
+The three ui.sh skills are stubs that fetch their real instructions over MCP, so
+they only work where `uidotsh.sh` has registered that server.
 
 ## CLI
 
@@ -66,8 +91,8 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `coderabbit.sh` | Configures git filter to strip Coderabbit config from `.gitconfig` |
 | `aerospace-gap.sh` | Configures git filter to pin the sketchybar-rewritten `outer.top` gap |
 | `claude-code.sh` | Installs Claude Code marketplaces, plugins, and configures claude-hud |
-| `skills.sh` | Clones [sogamoso/skills](https://github.com/sogamoso/skills) and symlinks each skill into `~/.claude/skills` |
-| `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server that serves the stowed `ui`, `brand-kit` and `markup-from-image` skills |
+| `skills.sh` | Links every skill into both `~/.claude/skills` and `~/.codex/skills` — see [Skills](#skills) |
+| `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server that serves the `ui`, `brand-kit` and `markup-from-image` skills |
 
 ## Cross-platform design
 

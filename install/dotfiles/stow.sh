@@ -6,14 +6,14 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/take-ownership.sh"
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
-# Claude Code writes its own settings, ui.sh drops a real SKILL.md, and
-# Omadots/Omarchy copy a whole config tree into ~/.config, mise's included.
-# Nothing is known to write ~/.codex/AGENTS.md — it's here because a real file
-# at that path conflicts the whole codex package, not just the one link.
+# Claude Code writes its own settings, and Omadots/Omarchy copy a whole config
+# tree into ~/.config, mise's included. Nothing is known to write
+# ~/.codex/AGENTS.md — it's here because a real file at that path conflicts the
+# whole codex package, not just the one link. Skills are not stowed: they go to
+# two agents, so skills.sh links them and handles what ui.sh leaves behind.
 take_ownership \
   "$HOME/.claude/keybindings.json" \
   "$HOME/.claude/settings.json" \
-  "$HOME/.claude/skills/ui/SKILL.md" \
   "$HOME/.codex/AGENTS.md" \
   "$HOME/.config/mise/config.toml"
 
