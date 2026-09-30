@@ -86,6 +86,9 @@ ${B}Raycast → Secure Input${R}  ${D}Name the app holding Secure Input${R}
 
 ${B}${Y}── Capture ─────────────────────────────────────────────${R}
 ${B}Option + Ctrl+C${R}         ${D}CleanShot all-in-one${R}
+${B}Cmd + Shift+3${R}           ${D}CleanShot fullscreen (assigned in CleanShot)${R}
+${B}Cmd + Shift+4${R}           ${D}CleanShot capture area (assigned in CleanShot)${R}
+${B}Cmd + Shift+5${R}           ${D}CleanShot all-in-one (assigned in CleanShot)${R}
 ${B}Cmd + Shift+6${R}           ${D}CleanShot OCR (assigned in CleanShot)${R}
 
 ${B}${Y}── Reminders ───────────────────────────────────────────${R}

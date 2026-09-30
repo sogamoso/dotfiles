@@ -24,11 +24,12 @@ System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in
 2. **Windows** — conflicts with AeroSpace window bindings
 3. **Input Sources** — Globe/Fn key handles language switching instead
 4. **Spotlight** — Raycast takes that slot
+5. **Screenshots** — CleanShot takes `Cmd + Shift + 3/4/5` (see step 8)
 
 Then set Raycast as the launcher:
 
-5. Open Raycast → Settings → General
-6. Set **Raycast Hotkey** to `Option+Space`
+6. Open Raycast → Settings → General
+7. Set **Raycast Hotkey** to `Option+Space`
 
 ---
 
@@ -127,9 +128,19 @@ Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud S
 
 ### CleanShot
 
-Set in CleanShot → Settings → Shortcuts:
+Set in CleanShot → Settings → Shortcuts. These take over the macOS screenshot keys, so disable the **Screenshots** section in System Settings first (see step 2):
 
-- **Capture Text (OCR)** → `Cmd + Shift + 6` (Omarchy: SUPER + Ctrl + PrtSc — the PrtSc key sends `3` with modifiers on Lofree keyboards, so this combo replaces the AeroSpace `f13` binding)
+- **General → All-In-One** → `Cmd + Shift + 5`
+- **Screenshots → Capture Area** → `Cmd + Shift + 4`
+- **Screenshots → Capture Fullscreen** → `Cmd + Shift + 3`
+- **Screenshots → Capture Previous Area** → leave unassigned
+- **OCR → Capture Text** → `Cmd + Shift + 6` (Omarchy: SUPER + Ctrl + PrtSc — the PrtSc key sends `3` with modifiers on Lofree keyboards, so this combo replaces the AeroSpace `f13` binding)
+
+Then in CleanShot → Settings:
+
+- **General → Export → Export location** → `Downloads`
+- **General → After Capture** — for both Screenshot and Recording, enable **Show Quick Access Overlay**, **Copy file to clipboard**, **Save** and **Upload to Cloud & copy link**. Leave **Open Annotate tool**, **Pin to the screen** and **Open Video Editor** off. Set **Copy to clipboard** to **File**.
+- **Quick Access → Behavior** → enable **Auto-close**, **Action** → **Close**, **Interval** → **2 minutes**
 
 ---
 
