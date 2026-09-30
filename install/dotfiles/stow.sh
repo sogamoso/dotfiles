@@ -7,11 +7,14 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/take-ownership.sh"
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
 # Claude Code writes its own settings, ui.sh drops a real SKILL.md, and
-# Omadots/Omarchy copy a whole config tree into ~/.config, mise's included
+# Omadots/Omarchy copy a whole config tree into ~/.config, mise's included.
+# Nothing is known to write ~/.codex/AGENTS.md — it's here because a real file
+# at that path conflicts the whole codex package, not just the one link.
 take_ownership \
   "$HOME/.claude/keybindings.json" \
   "$HOME/.claude/settings.json" \
   "$HOME/.claude/skills/ui/SKILL.md" \
+  "$HOME/.codex/AGENTS.md" \
   "$HOME/.config/mise/config.toml"
 
 log_heading "Stowing dotfiles..."
@@ -20,7 +23,7 @@ orphans=$(prune_stow_orphans "$REPO_DIR/stow")
 (( orphans > 0 )) && log_item "Cleared $orphans link(s) left by a previous checkout location"
 
 cd "$REPO_DIR/stow"
-packages=(claude editorconfig git mise nvim ruby ssh)
+packages=(claude codex editorconfig git mise nvim ruby ssh)
 
 # Omarchy is bash-based and ships its own alias/function layer, so the zsh
 # package is macOS only. Its bash counterpart lives in the linux package.
