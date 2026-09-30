@@ -61,7 +61,16 @@ skipped rather than silently winning. Directories starting with `_` or `.` are
 scaffolding and are ignored.
 
 The three ui.sh skills are stubs that fetch their real instructions over MCP, so
-they only work where `uidotsh.sh` has registered that server.
+they only work where `uidotsh.sh` has registered that server. It registers with
+both agents; Codex reads the bearer token from `$UIDOTSH_TOKEN`, which the shell
+supplements export from `~/.local/state/dotfiles/uidotsh.env`.
+
+Codex started from ChatGPT.app inherits the launchd session environment rather
+than a shell's, so on macOS the `com.sogamoso.uidotsh-token` agent republishes
+the token there at login. That makes it readable by every GUI process in the
+session via `launchctl getenv`, which is wider than the 0600 file it comes from —
+fine for a personal ui.sh token, not a pattern to reuse for anything with a
+larger blast radius.
 
 ## CLI
 
@@ -93,7 +102,7 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `aerospace-gap.sh` | Configures git filter to pin the sketchybar-rewritten `outer.top` gap |
 | `claude-code.sh` | Installs Claude Code marketplaces, plugins, and configures claude-hud |
 | `skills.sh` | Links every skill into both `~/.claude/skills` and `~/.codex/skills` — see [Skills](#skills) |
-| `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server that serves the `ui`, `brand-kit` and `markup-from-image` skills |
+| `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server with Claude Code and Codex, and caches its token where the shells can export it |
 
 ## Cross-platform design
 

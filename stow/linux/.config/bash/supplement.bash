@@ -21,6 +21,12 @@ if [[ -d "$HOME/.config/bash/aliases" ]]; then
   done
 fi
 
+# ui.sh MCP token — Codex reads it from the environment at launch, where Claude
+# Code keeps its own copy. Written by install/dotfiles/uidotsh.sh.
+UIDOTSH_ENV="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/uidotsh.env"
+[[ -r "$UIDOTSH_ENV" ]] && source "$UIDOTSH_ENV"
+unset UIDOTSH_ENV
+
 # Auto-attach to tmux on SSH
 if [[ -z "$TMUX" && "$-" == *i* && -n "$SSH_TTY" ]]; then
   tmux attach || tmux new -s Work
