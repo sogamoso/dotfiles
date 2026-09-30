@@ -235,49 +235,6 @@ Rerun `bash install/dotfiles/uidotsh.sh` afterwards, then confirm with `claude m
 
 ---
 
-## 13. Sign In to Hermes and Set Its Defaults
-
-`hermes-desktop` installs from the `Brewfile`, but its account and settings are not in
-dotfiles. The sign-in is a browser OAuth flow that writes credentials to
-`~/.hermes/auth.json` and `~/.hermes/.env` — per-machine secrets that must never be
-committed. Run it by hand:
-
-```bash
-hermes portal login
-```
-
-Confirm with `hermes portal status`: it should report logged in, Nous as the inference
-provider, and the Tool Gateway routing web tools, image generation, TTS and browser
-automation through Nous.
-
-`~/.hermes/config.yaml` holds the routing settings below. It contains no secrets, but
-Hermes rewrites it as the agent runs, so it is recorded here rather than stowed, to avoid a
-permanently dirty tracked file. `model.default` is deliberately omitted — it changes
-whenever you switch models, so any value written here would go stale.
-
-| Key | Value |
-|---|---|
-| `model.provider` | `nous` |
-| `model.base_url` | `https://inference-api.nousresearch.com/v1` |
-| `model.api_mode` | `chat_completions` |
-| `web.backend` | `nous` |
-| `browser.cloud_provider` | `nous` |
-| `agent.max_turns` | `500` |
-| `agent.reasoning_effort` | `medium` |
-
-Set them with `hermes config set <key> <value>` or the desktop app's settings. Revisit
-stowing the file if Hermes ever grows a non-interactive config import.
-
-To connect the desktop app to a Hermes Cloud instance, use **Settings → Gateways → Add
-connection → Hermes Cloud** (Cmd+, then Gateways) and complete the portal sign-in. The
-flow discovers instances automatically; there are no URL or token fields to fill.
-
-Note that `install/macos/hermes.sh` deletes any `ai.hermes.gateway` launch agent on every
-bootstrap, so Hermes runs only while the desktop app is open. If you later want a gateway
-persisting in the background, that script has to change first.
-
----
-
 ## Remaining Gaps vs Omarchy
 
 Omarchy's desktop shell runs on [Quickshell](https://quickshell.org) and Hyprland, so a large part of it has no macOS analogue and is out of scope here: the shell process itself, the Hyprland configs, the ISO installer, pacman packaging, and the PAM fingerprint flows. Another tier is already native — Raycast covers the launcher, clipboard manager and emoji picker, and macOS provides Notification Center, Control Center and Touch ID.
