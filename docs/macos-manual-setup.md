@@ -41,7 +41,10 @@ System Settings → General → Login Items — add:
 - CleanShot X
 - Dropbox
 - Freedom
+- Gmail
+- Google Calendar
 - Google Drive
+- Granola
 - Monologue
 - Raycast
 - Slack
@@ -57,6 +60,17 @@ System Settings → Control Center → Menu Bar Only — enable only:
 - Text Input
 
 Disable everything else (Siri, Spotlight, Battery, AirDrop, Focus, Screen Mirroring, Display, Sound, Now Playing, Fast User Switching, Time Machine, Keyboard Brightness, Timer, Weather).
+
+Then trim third-party items. System Settings → Menu Bar → Allow in the Menu Bar — keep only:
+
+- AeroSpace
+- CleanShot X
+- Codex Computer Use
+- Dropbox
+- Freedom
+- Google Drive
+
+Turn off every other app (1Password, ChatGPT, Claude, Granola, Monologue, Raycast, Zoom, …). Turning one off stops its icon from ever appearing; the app itself keeps working.
 
 ---
 
@@ -84,7 +98,7 @@ Browse the available wallpapers and choose one. Then in System Settings → Wall
 
 1. Visit https://fliqlo.com/screensaver/
 2. Download and install Fliqlo
-3. System Settings → Screen Saver → select **Fliqlo**
+3. System Settings → Wallpaper → Screen Saver → select **Fliqlo**
 4. System Settings → Wallpaper → Clock Appearance → set **Show large clock** to **Never** (prevents the system clock from overlapping with Fliqlo)
 
 ### Slack
