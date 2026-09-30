@@ -12,8 +12,6 @@ take_ownership \
   "$HOME/.config/btop/btop.conf" \
   "$HOME/.config/ghostty/config" \
   "$HOME/.config/zed/settings.json" \
-  "$HOME/.config/sketchybar/plugins/menu_bar_height" \
-  "$HOME/.config/sketchybar/plugins/has_external_display" \
   "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate.plist" \
   "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-run.plist" \
   "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-watch.plist" \
