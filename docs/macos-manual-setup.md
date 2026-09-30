@@ -223,15 +223,15 @@ System Settings → Notifications → **terminal-notifier** → enable **Allow N
 
 ---
 
-## 12. Store the ui.sh Token
+## 12. Enable the 1Password CLI and SSH Agent
 
-The `ui`, `brand-kit` and `markup-from-image` skills are stowed as stubs that fetch their instructions from ui.sh over MCP, so they do nothing until `uidotsh.sh` can find an account token. The token can't be generated non-interactively — copy it from an existing machine's `~/.claude.json` (`mcpServers.uidotsh.headers.Authorization`) or from the ui.sh account page, then store it in 1Password as a password item titled **ui.sh**:
+1Password → Settings → Developer:
 
-```
-op item create --category=password --title='ui.sh' password=-
-```
+1. Enable **Show 1Password Developer experience**
+2. **SSH Agent** → click **Set up the SSH Agent**. If it offers to edit `~/.ssh/config`, skip that — the stowed config already points `IdentityAgent` at 1Password's socket. When asked whether to save SSH key names to disk, choose **Use Key Names**: only item titles are stored unencrypted, and seeing which key a prompt is for (e.g. the signing key during a plain `git fetch`) is what makes an unexpected request stand out.
+3. **Developer Integrations** → enable **Integrate with 1Password CLI**
 
-Rerun `bash install/dotfiles/uidotsh.sh` afterwards, then confirm with `claude mcp get uidotsh`. To keep the item somewhere else, point `UIDOTSH_OP_ITEM` at it; to skip 1Password entirely, set `UIDOTSH_TOKEN` in the environment.
+The SSH agent serves the keys behind `git` over SSH and commit signing (`~/.ssh/id_ed25519_git_signing.pub`). The CLI integration is what lets bootstrap read the ui.sh token; if it was off during bootstrap, rerun `bash install/dotfiles/uidotsh.sh`.
 
 ---
 
