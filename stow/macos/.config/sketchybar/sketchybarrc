@@ -10,6 +10,7 @@ RED=0xfff7768e
 YELLOW=0xffe0af68
 
 export CONFIG_DIR="$HOME/.config/sketchybar"
+source "$CONFIG_DIR/lib/common.sh"
 
 # Compile menu bar height helper if needed (build to ~/.cache to avoid stow conflicts)
 CACHE_DIR="$HOME/.cache/sketchybar"
@@ -207,3 +208,8 @@ sketchybar --add item display_watcher left \
   --subscribe display_watcher display_change display_added display_removed
 
 sketchybar --update
+
+# Rebuilding the bar emits its own display_change; stamping here lets
+# display_change.sh debounce from the end of a rebuild rather than from the
+# moment one was requested, so a slow config run cannot re-trigger itself.
+touch "$RELOAD_STAMP"
