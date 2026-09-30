@@ -50,8 +50,15 @@ package: stow lands a package in one place, and these need two.
 | Source | Holds | How |
 | --- | --- | --- |
 | `skills/` in this repo | Grouped by category — `uidotsh/` holds the `ui`, `brand-kit` and `markup-from-image` stubs | linked |
-| [sogamoso/skills](https://github.com/sogamoso/skills) | Personal skills (private, needs the 1Password SSH agent) | plugin |
+| [sogamoso/skills](https://github.com/sogamoso/skills) | Personal skills | plugin |
+| [sendasorg/skills](https://github.com/sendasorg/skills) | Sendas work skills | plugin |
 | [mattpocock/skills](https://github.com/mattpocock/skills) | Third-party set, minus its `in-progress/` staging area | linked |
+
+Both personal repos are public but cloned over SSH, since they get pushed to — so
+a locked 1Password agent will skip them with a warning rather than fail the run.
+A plugin source is registered by local path and loads in place from its checkout,
+which is why cloning them stays this repo's job even though the plugins
+themselves are declared in each agent's own config.
 
 A source that ships plugin manifests for **both** agents — `.claude-plugin/` and
 `.agents/plugins/` — is installed as a plugin instead of linked. Plugins

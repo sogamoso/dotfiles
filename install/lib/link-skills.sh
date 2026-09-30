@@ -134,22 +134,61 @@ print(plugins[0]["name"] + "@" + market)
 ' "$dir/.claude-plugin/marketplace.json" 2>/dev/null
 }
 
-# Register the marketplace and install the plugin on each agent present. Every
-# one of these is idempotent, so a rerun is a no-op rather than a reinstall.
-install_skill_plugin() {
-  local dir=$1 label=$2 id
-  id=$(skill_plugin_id "$dir") || return 1
+# Read access over https, so neither agent needs an SSH agent unlocked just to
+# fetch skills. Pushing still goes through the checkout's own remote.
+to_https() {
+  local url=$1
+  [[ $url == git@* ]] || { printf '%s\n' "$url"; return 0; }
+  url=${url#git@}
+  printf 'https://%s/%s\n' "${url%%:*}" "${url#*:}"
+}
 
+# Point a marketplace at its URL, replacing an entry that resolves somewhere
+# else. Sourcing by URL rather than by local path is what lets the skills work
+# on a machine that never cloned the repo; an entry left pointing at a checkout
+# would break there.
+register_marketplace() {
+  local tool=$1 name=$2 url=$3 out
+  out=$("$tool" plugin marketplace add "$url" 2>&1) && return 0
+  case $out in
+    *"different source"*|*"already"*)
+      "$tool" plugin marketplace remove "$name" >/dev/null 2>&1 || true
+      "$tool" plugin marketplace add "$url" >/dev/null || return 1
+      return 0
+      ;;
+  esac
+  return 1
+}
+
+# Register the marketplace and install the plugin on each agent present. Every
+# step is idempotent, so a rerun is a no-op rather than a reinstall.
+install_skill_plugin() {
+  local dir=$1 label=$2 url=$3 id marketplace failed=""
+  id=$(skill_plugin_id "$dir") || return 1
+  marketplace="${id#*@}"
+  url=$(to_https "$url")
+
+  # Claude declares its marketplaces in settings.json, which this repo stows, and
+  # refuses to let the CLI override a declaration. So adding is only useful on a
+  # machine where that file isn't in place yet; a refusal means the declaration
+  # already won. Judge success by whether the plugin installs, not by the add.
   if command -v claude &>/dev/null; then
-    claude plugin marketplace add "$dir" >/dev/null
-    claude plugin install "$id" >/dev/null
+    claude plugin marketplace add "$url" >/dev/null 2>&1 || true
+    claude plugin install "$id" >/dev/null || failed="$failed claude"
   fi
   if command -v codex &>/dev/null; then
-    codex plugin marketplace add "$dir" >/dev/null
-    codex plugin add "$id" >/dev/null
+    if register_marketplace codex "$marketplace" "$url"; then
+      codex plugin add "$id" >/dev/null || failed="$failed codex"
+    else
+      failed="$failed codex"
+    fi
   fi
 
-  log_item "$label: installed as plugin $id"
+  if [[ -n $failed ]]; then
+    log_warn "$label: plugin $id failed on:$failed"
+  else
+    log_item "$label: installed as plugin $id"
+  fi
   return 0
 }
 

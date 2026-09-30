@@ -53,8 +53,8 @@
     },
     "sogamoso": {
       "source": {
-        "source": "directory",
-        "path": "/Users/sogamoso/Code/sogamoso/skills"
+        "source": "github",
+        "repo": "sogamoso/skills"
       }
     }
   },
