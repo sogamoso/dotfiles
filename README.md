@@ -70,6 +70,15 @@ upstream catches up; mattpocock ships a Claude plugin and lists a Codex one as a
 roadmap item, so it will switch over on its own. The packaging decides the
 mechanism, not a list in the script.
 
+The `uidotsh/` stubs stay linked deliberately, rather than this repo being
+packaged as a marketplace of its own. Their names collide with nothing, and
+there is nothing to update — each is seven lines whose only job is to fetch the
+real instructions over MCP. More to the point, ui.sh writes real `SKILL.md`
+files into the skills directory itself, so these have to be locally
+authoritative: linking lets a rerun reassert the checkout, where a plugin
+fetched from a URL would leave the local file and the pushed one disagreeing.
+Links remain the right route for anything locally owned and locally rewritten.
+
 Both agents discover skills exactly one level deep, so every link is flat however
 the source is organized — categories are free on the source side and invisible on
 the agent side. They key on the directory name alone, so the first source to
