@@ -11,7 +11,9 @@ SKILLS_CLAIMED=""
 # that produced different skill names on different machines would defeat itself.
 SKILLS_RESERVED="${SKILLS_RESERVED:-}"
 
-# Base names of the plugin skills on disk, filled on first use. Used only to
+# Base names of the plugin skills on disk, filled on first use. Both agents are
+# scanned: a name taken on either side is ambiguous on that side, and a script
+# that exists to keep the two in step shouldn't be half blind. Used only to
 # report a collision the reserved list doesn't cover — never to decide what gets
 # linked, for the same reproducibility reason.
 PLUGIN_SKILL_NAMES=""
@@ -21,7 +23,8 @@ load_plugin_skill_names() {
   local f
   while IFS= read -r f; do
     PLUGIN_SKILL_NAMES="$PLUGIN_SKILL_NAMES $(basename "$(dirname "$f")")"
-  done < <(find "$HOME/.claude/plugins" -name SKILL.md -not -path '*/.git/*' 2>/dev/null)
+  done < <(find "$HOME/.claude/plugins" "$HOME/.codex/plugins" "$HOME/.codex/skills/.system" \
+    -name SKILL.md -not -path '*/.git/*' 2>/dev/null)
   PLUGIN_SKILL_NAMES="${PLUGIN_SKILL_NAMES:- }"
 }
 
