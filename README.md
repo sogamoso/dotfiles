@@ -60,6 +60,17 @@ claim a name keeps it, and a later source offering that name is reported and
 skipped rather than silently winning. Directories starting with `_` or `.` are
 scaffolding and are ignored.
 
+Some names are reserved in `skills.sh` because something outside this repo
+already answers to them — today just `code-review`, which Claude Code ships as an
+unqualified built-in. A source wanting a reserved name has its skill linked under
+the source's prefix instead (`mattpocock-code-review`), so nothing is lost and
+the built-in keeps its name. That list is explicit rather than detected from
+what's installed: which plugins are present varies per machine, and the link
+names must not. A collision with a plugin skill that isn't reserved is reported
+and otherwise left alone, so a new one surfaces on the next bootstrap without
+quietly changing behavior. Links this repo made and no longer produces are
+pruned, so renames and upstream deletions don't leave strays behind.
+
 The three ui.sh skills are stubs that fetch their real instructions over MCP, so
 they only work where `uidotsh.sh` has registered that server. It registers with
 both agents; Codex reads the bearer token from `$UIDOTSH_TOKEN`, which the shell

@@ -13,6 +13,14 @@ PRIVATE_DIR="${SKILLS_REPO_DIR:-$HOME/Code/sogamoso/skills}"
 MATT_URL="https://github.com/mattpocock/skills.git"
 MATT_DIR="${MATT_SKILLS_REPO_DIR:-$HOME/Code/vendor/mattpocock-skills}"
 
+# Names we refuse to let a source shadow. Explicit, not discovered: which
+# plugins are installed varies per machine, and link names must not. A source
+# wanting one of these gets its skill linked under the source's prefix instead.
+# code-review: Claude Code ships an unqualified built-in by that name, and
+# mattpocock's is model-invocable, so it would compete for automatic selection
+# too — not just for the slash command.
+SKILLS_RESERVED="code-review"
+
 # The private repo needs the 1Password SSH agent unlocked. BatchMode turns a
 # locked agent into a fast failure instead of a bootstrap-blocking prompt;
 # accept-new does the same for the host key on a machine with no known_hosts yet.
@@ -38,10 +46,10 @@ sync_checkout() {
   return 1
 }
 
-link_skills "$REPO_DIR/skills" "dotfiles"
+LINK_SKILLS_PREFIX=dotfiles link_skills "$REPO_DIR/skills" "dotfiles"
 
 if sync_checkout "$PRIVATE_URL" "$PRIVATE_DIR" "sogamoso/skills"; then
-  link_skills "$PRIVATE_DIR" "sogamoso/skills"
+  LINK_SKILLS_PREFIX=sogamoso link_skills "$PRIVATE_DIR" "sogamoso/skills"
 else
   log_item "Sign in to 1Password and enable the SSH agent, then rerun bootstrap"
 fi
@@ -49,7 +57,10 @@ fi
 # in-progress/ is upstream's own staging area — the skills there get reshaped
 # without notice, so take only the sets Matt considers shipped.
 if sync_checkout "$MATT_URL" "$MATT_DIR" "mattpocock/skills"; then
-  LINK_SKILLS_EXCLUDE=in-progress link_skills "$MATT_DIR/skills" "mattpocock/skills"
+  LINK_SKILLS_EXCLUDE=in-progress LINK_SKILLS_PREFIX=mattpocock \
+    link_skills "$MATT_DIR/skills" "mattpocock/skills"
 fi
+
+prune_skill_links "$REPO_DIR/skills" "$PRIVATE_DIR" "$MATT_DIR"
 
 log_success "Agent skills installed"

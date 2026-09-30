@@ -1,4 +1,9 @@
 {
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
@@ -17,7 +22,8 @@
     "superpowers@superpowers-marketplace": true,
     "episodic-memory@superpowers-marketplace": true,
     "claude-hud@claude-hud": true,
-    "code-review@claude-plugins-official": true
+    "code-review@claude-plugins-official": true,
+    "sendas-skills@sendas": true
   },
   "extraKnownMarketplaces": {
     "dev-browser-marketplace": {
@@ -37,12 +43,13 @@
         "source": "github",
         "repo": "jarrodwatts/claude-hud"
       }
+    },
+    "sendas": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/sogamoso/Code/sendasorg/skills"
+      }
     }
-  },
-  "attribution": {
-    "commit": "",
-    "pr": "",
-    "sessionUrl": false
   },
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
