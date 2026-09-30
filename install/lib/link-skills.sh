@@ -114,6 +114,45 @@ link_skills() {
   return 0
 }
 
+# A source packaged as a plugin for BOTH agents is installed rather than linked:
+# plugins namespace their skills and each agent updates them natively. Packaged
+# for one agent only is worse than neither — it would namespace on that side and
+# not the other, which is the divergence this script exists to prevent, so those
+# stay on links until upstream catches up. Prints the PLUGIN@MARKETPLACE id.
+skill_plugin_id() {
+  local dir=$1
+  [[ -f "$dir/.claude-plugin/marketplace.json" ]] || return 1
+  [[ -f "$dir/.agents/plugins/marketplace.json" ]] || return 1
+  python3 -c '
+import json, sys
+d = json.load(open(sys.argv[1]))
+plugins = d.get("plugins") or []
+market = d.get("name")
+if not plugins or not market or not plugins[0].get("name"):
+    sys.exit(1)
+print(plugins[0]["name"] + "@" + market)
+' "$dir/.claude-plugin/marketplace.json" 2>/dev/null
+}
+
+# Register the marketplace and install the plugin on each agent present. Every
+# one of these is idempotent, so a rerun is a no-op rather than a reinstall.
+install_skill_plugin() {
+  local dir=$1 label=$2 id
+  id=$(skill_plugin_id "$dir") || return 1
+
+  if command -v claude &>/dev/null; then
+    claude plugin marketplace add "$dir" >/dev/null
+    claude plugin install "$id" >/dev/null
+  fi
+  if command -v codex &>/dev/null; then
+    codex plugin marketplace add "$dir" >/dev/null
+    codex plugin add "$id" >/dev/null
+  fi
+
+  log_item "$label: installed as plugin $id"
+  return 0
+}
+
 # Drop links into the sources we manage that this run no longer produces —
 # a skill renamed by the reserved list, dropped upstream, or moved between
 # sources. Links pointing anywhere else are left alone.

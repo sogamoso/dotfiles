@@ -47,11 +47,20 @@ package: stow lands a package in one place, and these need two.
 
 `install/dotfiles/skills.sh` links three sources, in this order:
 
-| Source | Holds |
-| --- | --- |
-| `skills/` in this repo | Grouped by category — `uidotsh/` holds the `ui`, `brand-kit` and `markup-from-image` stubs |
-| [sogamoso/skills](https://github.com/sogamoso/skills) | Personal skills (private, needs the 1Password SSH agent) |
-| [mattpocock/skills](https://github.com/mattpocock/skills) | Third-party set, minus its `in-progress/` staging area |
+| Source | Holds | How |
+| --- | --- | --- |
+| `skills/` in this repo | Grouped by category — `uidotsh/` holds the `ui`, `brand-kit` and `markup-from-image` stubs | linked |
+| [sogamoso/skills](https://github.com/sogamoso/skills) | Personal skills (private, needs the 1Password SSH agent) | plugin |
+| [mattpocock/skills](https://github.com/mattpocock/skills) | Third-party set, minus its `in-progress/` staging area | linked |
+
+A source that ships plugin manifests for **both** agents — `.claude-plugin/` and
+`.agents/plugins/` — is installed as a plugin instead of linked. Plugins
+namespace their skills and each agent updates them natively, which is strictly
+better than symlinks. Packaging for one agent only is worse than neither, since
+it would namespace on that side and not the other, so those stay linked until
+upstream catches up; mattpocock ships a Claude plugin and lists a Codex one as a
+roadmap item, so it will switch over on its own. The packaging decides the
+mechanism, not a list in the script.
 
 Both agents discover skills exactly one level deep, so every link is flat however
 the source is organized — categories are free on the source side and invisible on

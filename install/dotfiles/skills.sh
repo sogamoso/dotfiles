@@ -28,6 +28,15 @@ export GIT_SSH_COMMAND="ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new
 
 log_heading "Installing agent skills..."
 
+# Prefer the plugin route when the source supports it on both agents; fall back
+# to linking otherwise. The packaging decides the mechanism, so a source that
+# ships a Codex plugin later switches over on the next run without an edit here.
+add_source() {
+  local repo_dir=$1 link_dir=$2 label=$3
+  install_skill_plugin "$repo_dir" "$label" && return 0
+  link_skills "$link_dir" "$label"
+}
+
 # Keep a checkout current, or report why it isn't usable. Never fatal: skills
 # are additive, and a locked keychain shouldn't cost the rest of bootstrap.
 sync_checkout() {
@@ -46,10 +55,10 @@ sync_checkout() {
   return 1
 }
 
-LINK_SKILLS_PREFIX=dotfiles link_skills "$REPO_DIR/skills" "dotfiles"
+LINK_SKILLS_PREFIX=dotfiles add_source "$REPO_DIR" "$REPO_DIR/skills" "dotfiles"
 
 if sync_checkout "$PRIVATE_URL" "$PRIVATE_DIR" "sogamoso/skills"; then
-  LINK_SKILLS_PREFIX=sogamoso link_skills "$PRIVATE_DIR" "sogamoso/skills"
+  LINK_SKILLS_PREFIX=sogamoso add_source "$PRIVATE_DIR" "$PRIVATE_DIR" "sogamoso/skills"
 else
   log_item "Sign in to 1Password and enable the SSH agent, then rerun bootstrap"
 fi
@@ -58,7 +67,7 @@ fi
 # without notice, so take only the sets Matt considers shipped.
 if sync_checkout "$MATT_URL" "$MATT_DIR" "mattpocock/skills"; then
   LINK_SKILLS_EXCLUDE=in-progress LINK_SKILLS_PREFIX=mattpocock \
-    link_skills "$MATT_DIR/skills" "mattpocock/skills"
+    add_source "$MATT_DIR" "$MATT_DIR/skills" "mattpocock/skills"
 fi
 
 prune_skill_links "$REPO_DIR/skills" "$PRIVATE_DIR" "$MATT_DIR"
