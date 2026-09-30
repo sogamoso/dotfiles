@@ -45,12 +45,13 @@ linked into `~/.claude/skills` and `~/.codex/skills` from a single source and th
 two agents stay in step by construction. Skills are deliberately not a stow
 package: stow lands a package in one place, and these need two.
 
-`install/dotfiles/skills.sh` links two sources, in this order:
+`install/dotfiles/skills.sh` links three sources, in this order:
 
 | Source | Holds |
 | --- | --- |
 | `skills/` in this repo | Grouped by category — `uidotsh/` holds the `ui`, `brand-kit` and `markup-from-image` stubs |
 | [sogamoso/skills](https://github.com/sogamoso/skills) | Personal skills (private, needs the 1Password SSH agent) |
+| [mattpocock/skills](https://github.com/mattpocock/skills) | Third-party set, minus its `in-progress/` staging area |
 
 Both agents discover skills exactly one level deep, so every link is flat however
 the source is organized — categories are free on the source side and invisible on

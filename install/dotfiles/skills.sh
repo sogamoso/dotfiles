@@ -10,6 +10,9 @@ PRIVATE_URL="git@github.com:sogamoso/skills.git"
 # symlink *target*, and would send skills into this checkout instead of ~/.claude/skills.
 PRIVATE_DIR="${SKILLS_REPO_DIR:-$HOME/Code/sogamoso/skills}"
 
+MATT_URL="https://github.com/mattpocock/skills.git"
+MATT_DIR="${MATT_SKILLS_REPO_DIR:-$HOME/Code/vendor/mattpocock-skills}"
+
 # The private repo needs the 1Password SSH agent unlocked. BatchMode turns a
 # locked agent into a fast failure instead of a bootstrap-blocking prompt;
 # accept-new does the same for the host key on a machine with no known_hosts yet.
@@ -41,6 +44,12 @@ if sync_checkout "$PRIVATE_URL" "$PRIVATE_DIR" "sogamoso/skills"; then
   link_skills "$PRIVATE_DIR" "sogamoso/skills"
 else
   log_item "Sign in to 1Password and enable the SSH agent, then rerun bootstrap"
+fi
+
+# in-progress/ is upstream's own staging area — the skills there get reshaped
+# without notice, so take only the sets Matt considers shipped.
+if sync_checkout "$MATT_URL" "$MATT_DIR" "mattpocock/skills"; then
+  LINK_SKILLS_EXCLUDE=in-progress link_skills "$MATT_DIR/skills" "mattpocock/skills"
 fi
 
 log_success "Agent skills installed"
