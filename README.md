@@ -45,7 +45,7 @@ linked into `~/.claude/skills` and `~/.codex/skills` from a single source and th
 two agents stay in step by construction. Skills are deliberately not a stow
 package: stow lands a package in one place, and these need two.
 
-`install/dotfiles/skills.sh` links three sources, in this order:
+`install/dotfiles/skills.sh` handles four sources, in this order:
 
 | Source | Holds | How |
 | --- | --- | --- |
@@ -56,9 +56,10 @@ package: stow lands a package in one place, and these need two.
 
 Both personal repos are public but cloned over SSH, since they get pushed to — so
 a locked 1Password agent will skip them with a warning rather than fail the run.
-A plugin source is registered by local path and loads in place from its checkout,
-which is why cloning them stays this repo's job even though the plugins
-themselves are declared in each agent's own config.
+A plugin source is registered from its repo's https URL, not its checkout, so
+each agent fetches its own copy and the skills land on a machine that cloned
+nothing. Reading them needs no SSH agent. The clones are there because these are
+repos to work in, not because the plugins depend on them.
 
 A source that ships plugin manifests for **both** agents — `.claude-plugin/` and
 `.agents/plugins/` — is installed as a plugin instead of linked. Plugins
