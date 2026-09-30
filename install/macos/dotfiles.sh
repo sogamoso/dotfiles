@@ -2,22 +2,22 @@
 set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/stow-orphans.sh"
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/take-ownership.sh"
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
-# Take ownership of configs from any real files → let stow manage them as symlinks
-[[ -f "$HOME/.claude/keybindings.json"           && ! -L "$HOME/.claude/keybindings.json"           ]] && rm "$HOME/.claude/keybindings.json"
-[[ -f "$HOME/.claude/settings.json"              && ! -L "$HOME/.claude/settings.json"              ]] && rm "$HOME/.claude/settings.json"
-[[ -f "$HOME/.config/btop/btop.conf"            && ! -L "$HOME/.config/btop/btop.conf"            ]] && rm "$HOME/.config/btop/btop.conf"
-[[ -f "$HOME/.config/ghostty/config"            && ! -L "$HOME/.config/ghostty/config"            ]] && rm "$HOME/.config/ghostty/config"
-[[ -f "$HOME/.config/zed/settings.json"         && ! -L "$HOME/.config/zed/settings.json"         ]] && rm "$HOME/.config/zed/settings.json"
-for f in menu_bar_height has_external_display; do
-  [[ -f "$HOME/.config/sketchybar/plugins/$f" && ! -L "$HOME/.config/sketchybar/plugins/$f" ]] && rm "$HOME/.config/sketchybar/plugins/$f"
-done
-[[ -f "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate.plist"       && ! -L "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate.plist"       ]] && rm "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate.plist"
-[[ -f "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-run.plist"   && ! -L "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-run.plist"   ]] && rm "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-run.plist"
-[[ -f "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-watch.plist" && ! -L "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-watch.plist" ]] && rm "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-watch.plist"
-[[ -f "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"    && ! -L "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"    ]] && rm "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"
+# Guards for the cross-platform packages live in install/dotfiles/stow.sh,
+# which is what stows them
+take_ownership \
+  "$HOME/.config/btop/btop.conf" \
+  "$HOME/.config/ghostty/config" \
+  "$HOME/.config/zed/settings.json" \
+  "$HOME/.config/sketchybar/plugins/menu_bar_height" \
+  "$HOME/.config/sketchybar/plugins/has_external_display" \
+  "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate.plist" \
+  "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-run.plist" \
+  "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-watch.plist" \
+  "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"
 
 log_heading "Stowing macOS specific dotfiles..."
 

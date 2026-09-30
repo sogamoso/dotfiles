@@ -2,11 +2,17 @@
 set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/stow-orphans.sh"
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/take-ownership.sh"
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
-# ui.sh's own installer drops a real SKILL.md here → let stow manage it instead
-[[ -f "$HOME/.claude/skills/ui/SKILL.md" && ! -L "$HOME/.claude/skills/ui/SKILL.md" ]] && rm "$HOME/.claude/skills/ui/SKILL.md"
+# Claude Code writes its own settings, ui.sh drops a real SKILL.md, and
+# Omadots/Omarchy copy a whole config tree into ~/.config, mise's included
+take_ownership \
+  "$HOME/.claude/keybindings.json" \
+  "$HOME/.claude/settings.json" \
+  "$HOME/.claude/skills/ui/SKILL.md" \
+  "$HOME/.config/mise/config.toml"
 
 log_heading "Stowing dotfiles..."
 
@@ -22,8 +28,16 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
   packages+=(zsh)
 fi
 
+# A conflict in one package shouldn't cost us the remaining packages, nor the
+# install steps that run after this script
+failed=""
 for config in "${packages[@]}"; do
-  stow --target "$HOME" --restow --no-folding "$config"
+  stow --target "$HOME" --restow --no-folding "$config" || failed+=" $config"
 done
 
-log_success "Dotfiles stowed"
+if [[ -n $failed ]]; then
+  log_warn "Could not stow:$failed"
+  log_item "Resolve the conflicts above, then re-run bootstrap"
+else
+  log_success "Dotfiles stowed"
+fi

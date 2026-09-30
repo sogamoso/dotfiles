@@ -2,14 +2,13 @@
 set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/stow-orphans.sh"
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/take-ownership.sh"
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
-# Omarchy seeds these as real files from /etc/skel → let stow manage them instead.
+# Omarchy seeds these as real files from /etc/skel.
 # omarchy-reinstall-configs restores the originals if you ever want them back.
-if [[ -f "$HOME/.config/hypr/bindings.lua" && ! -L "$HOME/.config/hypr/bindings.lua" ]]; then
-  rm "$HOME/.config/hypr/bindings.lua"
-fi
+take_ownership "$HOME/.config/hypr/bindings.lua"
 
 log_heading "Stowing Linux specific dotfiles..."
 
