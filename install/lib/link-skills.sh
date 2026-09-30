@@ -48,7 +48,15 @@ link_skills() {
   local source_dir=$1 label=$2
   local exclude="${LINK_SKILLS_EXCLUDE:-}"
   local prefix="${LINK_SKILLS_PREFIX:-}"
-  local skill_md skill_dir name link_name target dest stamp linked=0 conflicts=0
+  local skill_md skill_dir name link_name target dest stamp made linked=0 conflicts=0
+
+  # No agent directory means nothing to link into, and counting skills we walked
+  # past would report a successful install that placed nothing. Bootstrap stows
+  # before it gets here, so this is the standalone-run case.
+  if [[ -z "$(skill_targets)" ]]; then
+    log_warn "$label: neither ~/.claude nor ~/.codex exists, nothing linked"
+    return 0
+  fi
 
   [[ -d $source_dir ]] || return 0
   stamp=$(date +%s)
@@ -85,8 +93,10 @@ link_skills() {
       continue
     fi
 
+    made=0
     while IFS= read -r target; do
       mkdir -p "$target"
+      made=1
       dest="$target/$link_name"
       if [[ -L $dest ]]; then
         [[ "$(readlink "$dest")" == "$skill_dir" ]] && continue
@@ -105,6 +115,7 @@ link_skills() {
       ln -s "$skill_dir" "$dest"
     done < <(skill_targets)
 
+    (( made )) || continue
     SKILLS_CLAIMED="$SKILLS_CLAIMED $link_name"
     linked=$((linked + 1))
   done < <(find "$source_dir" -name SKILL.md -not -path '*/.git/*' | sort)
