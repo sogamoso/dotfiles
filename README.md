@@ -167,7 +167,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
 | `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
 | `preferences.sh` | macOS system defaults |
-| `pwas.sh` | Installs Chrome PWAs (Audible, GitHub, Gmail, Google Calendar, X, YouTube) |
+| `pwas.sh` | Installs Chrome PWAs (Audible, Gmail, Google Calendar, X, YouTube) |
 | `mailto.sh` | Builds the Gmail `mailto:` handler and sets it as the system default |
 | `sketchybar.sh` | Configures SketchyBar status bar |
 | `tailscale.sh` | Starts Tailscale daemon and connects with SSH enabled |
