@@ -153,7 +153,9 @@ Set in CleanShot → Settings → Shortcuts. These take over the macOS screensho
 Then in CleanShot → Settings:
 
 - **General → Export → Export location** → `Downloads`
-- **General → After Capture** — for both Screenshot and Recording, enable **Show Quick Access Overlay**, **Copy file to clipboard**, **Save** and **Upload to Cloud & copy link**. Leave **Open Annotate tool**, **Pin to the screen** and **Open Video Editor** off. Set **Copy to clipboard** to **File**.
+- **General → After Capture** — for both Screenshot and Recording, enable **Show Quick Access Overlay** and **Copy file to clipboard**. Leave **Save**, **Upload to Cloud & copy link**, **Open Annotate tool**, **Pin to the screen** and **Open Video Editor** off. Set **Copy to clipboard** to **File**.
+
+  With **Save** off nothing is written to the export location automatically. A capture lives in the clipboard and in CleanShot's own media folder, and reaches `Downloads` only when you save it from the Quick Access overlay. That keeps the folder clean at the cost of losing any capture you dismiss without saving.
 - **Quick Access → Behavior** → enable **Auto-close**, **Action** → **Close**, **Interval** → **2 minutes**
 
 ---
