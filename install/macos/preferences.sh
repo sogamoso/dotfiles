@@ -5,7 +5,8 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 log_heading "Setting macOS preferences..."
 
 # Dark mode
-osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
+osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true' 2>/dev/null ||
+  log_warn "Could not set dark mode — grant Automation access to System Events and rerun"
 
 # Scroll direction: non-natural
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
@@ -41,7 +42,7 @@ fi
 cleanshot_was_running=false
 if pgrep -xq "CleanShot X"; then
   cleanshot_was_running=true
-  osascript -e 'quit app "CleanShot X"' 2>/dev/null || true
+  osascript -e 'quit app "CleanShot X"' 2>/dev/null || pkill -x "CleanShot X" 2>/dev/null || true
   for _ in {1..20}; do
     pgrep -xq "CleanShot X" || break
     sleep 0.5
@@ -60,7 +61,8 @@ else
 fi
 
 # Menu bar: auto-hide
-osascript -e 'tell application "System Events" to tell dock preferences to set autohide menu bar to true'
+osascript -e 'tell application "System Events" to tell dock preferences to set autohide menu bar to true' 2>/dev/null ||
+  log_warn "Could not auto-hide the menu bar — grant Automation access to System Events and rerun"
 
 # Dock: clear pinned apps, position, size, autohide
 defaults write com.apple.dock persistent-apps -array

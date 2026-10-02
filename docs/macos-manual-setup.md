@@ -12,6 +12,8 @@ Open each prompt as it appears during the install, or go here:
 **System Settings → Privacy & Security → Accessibility**
 - Aerospace
 
+**System Settings → Privacy & Security → Automation** — whichever terminal you run the installer from needs **System Events** enabled under it. Without it, the two `osascript` calls in `install/macos/preferences.sh` fail with `-1743 Not authorized to send Apple events`, and dark mode and the auto-hidden menu bar are silently skipped. The script warns and carries on rather than stopping, so a missed grant costs those two settings and nothing else.
+
 ---
 
 ## 2. Disable Keyboard Shortcuts
