@@ -138,6 +138,8 @@ Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud S
 - **Bluetooth** → `Option + Ctrl + B` (Omarchy: SUPER + Ctrl + B)
 - **Wi-Fi** → `Option + Ctrl + W` (Omarchy: SUPER + Ctrl + W)
 
+Two store extensions have to be installed before their commands exist: **Linear** (`raycast://extensions/linear/linear`) and **Todoist** (`raycast://extensions/doist/todoist`). Both authenticate over OAuth the first time a command runs. Neither is published by the vendor, and like hotkeys they travel with Cloud Sync once it is on. The Linear extension is why `Brewfile` carries no `linear` cask.
+
 **Script Commands → Secure Input** deliberately gets no hotkey. It reports which app is holding macOS Secure Input, and Secure Input blocks the event tap AeroSpace reads keys through — a binding would be dead exactly when you need it. Invoke it by name from the Raycast launcher, or run `~/.config/dotfiles/secure-input.sh` in a terminal.
 
 ### CleanShot

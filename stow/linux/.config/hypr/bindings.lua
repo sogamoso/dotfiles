@@ -26,6 +26,5 @@ o.rebind("SUPER + SHIFT + G", "WhatsApp", { webapp = "https://web.whatsapp.com/"
 -- and there is no reason to install it here.
 o.rebind("SUPER + SHIFT + N", "Editor", { launch = "zed" })
 
--- Apps Omarchy has no default binding for. Both keys are free upstream.
+-- An app Omarchy has no default binding for. The key is free upstream.
 o.bind("SUPER + SHIFT + I", "Notion", { webapp = "https://notion.so" })
-o.bind("SUPER + SHIFT + L", "Linear", { webapp = "https://linear.app" })

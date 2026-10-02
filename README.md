@@ -264,7 +264,6 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Shift + Cmd + X` | New X post |
 | `Option + Shift + Cmd + A` | Open ChatGPT |
 | `Option + Shift + I` | Open Notion |
-| `Option + Shift + L` | Open Linear |
 | `Option + Shift + D` | LazyDocker in Ghostty |
 | `Option + Shift + Cmd + B` | Chrome incognito |
 | `Option + Cmd + Enter` | Ghostty + tmux session |
@@ -415,7 +414,6 @@ Everything else matches Omarchy's defaults.
 | `Super + Shift + G` | Signal | WhatsApp |
 | `Super + Shift + N` | Default editor | Zed |
 | `Super + Shift + I` | — | Notion |
-| `Super + Shift + L` | — | Linear |
 
 #### What is deliberately not ported
 
