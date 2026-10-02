@@ -262,6 +262,16 @@ The SSH agent serves the keys behind `git` over SSH and commit signing (`~/.ssh/
 
 ---
 
+## 12. Install Supernote Partner
+
+The companion app for the Supernote e-ink tablet. Install it from the [App Store listing](https://apps.apple.com/us/app/supernote-partner/id1494992020) (`id1494992020`).
+
+It is absent from `Brewfile` and cannot go there. Ratta ships the macOS build through the App Store only — Windows gets a direct installer from their own servers, macOS does not — so there is no file for a cask to fetch. This is not a missing cask someone could contribute; the artifact does not exist outside Apple's distribution.
+
+`mas` would let `brew bundle` pull it onto a new machine, but only once the app is already in the Apple ID's purchase history, and `mas signin` no longer works on current macOS. The first install has to be manual either way, so the Brewfile stays free of App Store entries.
+
+---
+
 ## Remaining Gaps vs Omarchy
 
 Omarchy's desktop shell runs on [Quickshell](https://quickshell.org) and Hyprland, so a large part of it has no macOS analogue and is out of scope here: the shell process itself, the Hyprland configs, the ISO installer, pacman packaging, and the PAM fingerprint flows. Another tier is already native — Raycast covers the launcher, clipboard manager and emoji picker, and macOS provides Notification Center, Control Center and Touch ID.
