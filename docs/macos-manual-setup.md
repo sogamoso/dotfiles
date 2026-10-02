@@ -24,7 +24,7 @@ System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in
 2. **Windows** — conflicts with AeroSpace window bindings
 3. **Input Sources** — Globe/Fn key handles language switching instead
 4. **Spotlight** — Raycast takes that slot
-5. **Screenshots** — CleanShot takes `Cmd + Shift + 3/4/5` (see step 8)
+5. **Screenshots** — CleanShot takes `Cmd + Shift + 3/4/5` (see step 7)
 
 Then set Raycast as the launcher:
 
@@ -45,7 +45,6 @@ System Settings → General → Login Items — add:
 - Google Calendar
 - Google Drive
 - Granola
-- Monologue
 - Raycast
 - Slack
 
@@ -70,7 +69,7 @@ Then trim third-party items. System Settings → Menu Bar → Allow in the Menu 
 - Freedom
 - Google Drive
 
-Turn off every other app (1Password, ChatGPT, Claude, Granola, Monologue, Raycast, Zoom, …). Turning one off stops its icon from ever appearing; the app itself keeps working.
+Turn off every other app (1Password, ChatGPT, Claude, Granola, Raycast, Zoom, …). Turning one off stops its icon from ever appearing; the app itself keeps working.
 
 ### Opaque menu bar
 
@@ -117,13 +116,7 @@ Slack → Preferences → Themes → Custom Theme → paste:
 
 ---
 
-## 7. Monologue Dictation Hotkey
-
-Open Monologue → Settings → set the global hotkey to `Option+Ctrl+X` (SUPER+Ctrl+X on Omarchy).
-
----
-
-## 8. Manually-Assigned Hotkeys
+## 7. Manually-Assigned Hotkeys
 
 Hotkeys assigned inside specific apps (per-machine, not in dotfiles).
 
@@ -139,6 +132,7 @@ Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud S
 - **Script Commands → Clear Reminders** → `Option + Ctrl + Shift + R` (Omarchy: SUPER + Shift + Ctrl + R)
 - **Search Emoji & Symbols** → `Option + Ctrl + E` (Omarchy: SUPER + Ctrl + E)
 - **Clipboard History** → `Option + Ctrl + V` (Omarchy: SUPER + Ctrl + V)
+- **Dictate** → `Option + Ctrl + X` (Omarchy: SUPER + Ctrl + X)
 - **Lock Screen** → `Option + Ctrl + L` (Omarchy: SUPER + Ctrl + L)
 - **Sound** → `Option + Ctrl + A` (Omarchy: SUPER + Ctrl + A)
 - **Bluetooth** → `Option + Ctrl + B` (Omarchy: SUPER + Ctrl + B)
@@ -166,7 +160,7 @@ Then in CleanShot → Settings:
 
 ---
 
-## 9. Set the Default Email Client
+## 8. Set the Default Email Client
 
 Mail and calendar both run as Chrome PWAs (`install/macos/pwas.sh` installs Gmail and
 Google Calendar), so there is no native mail client to hand `mailto:` to.
@@ -240,7 +234,7 @@ PWA. Workspace 4 is where both live.
 
 ---
 
-## 10. Route Sound Effects to the Active Output
+## 9. Route Sound Effects to the Active Output
 
 By default macOS pins notification/alert sounds to a fixed device, so they leak out of monitor speakers when audio is on AirPods.
 
@@ -248,7 +242,7 @@ System Settings → Sound → set **Play sound effects through** to **Selected s
 
 ---
 
-## 11. Allow terminal-notifier Notifications
+## 10. Allow terminal-notifier Notifications
 
 `reminder.sh` (and any future script that uses `terminal-notifier`) needs notification permission. On first invocation macOS pops a permission prompt — accept it. If you missed the prompt:
 
@@ -256,7 +250,7 @@ System Settings → Notifications → **terminal-notifier** → enable **Allow N
 
 ---
 
-## 12. Enable the 1Password CLI and SSH Agent
+## 11. Enable the 1Password CLI and SSH Agent
 
 1Password → Settings → Developer:
 
@@ -291,7 +285,7 @@ What is left worth tracking:
 | Visual theme and background switchers | No equivalent |
 | `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | Only A/B/W are mapped |
-| `SUPER + Ctrl + X` — dictation | ✅ Option+Ctrl+X → Monologue |
+| `SUPER + Ctrl + X` — dictation | ✅ Option+Ctrl+X → Raycast Dictate |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `CapsLock` — quick emojis | Needs remapping tool |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |
