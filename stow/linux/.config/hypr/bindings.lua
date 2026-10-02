@@ -25,6 +25,3 @@ o.rebind("SUPER + SHIFT + G", "WhatsApp", { webapp = "https://web.whatsapp.com/"
 -- SUPER + SHIFT + W keeps Omarchy's Omawrite; Typora is a macOS-only habit
 -- and there is no reason to install it here.
 o.rebind("SUPER + SHIFT + N", "Editor", { launch = "zed" })
-
--- An app Omarchy has no default binding for. The key is free upstream.
-o.bind("SUPER + SHIFT + I", "Notion", { webapp = "https://notion.so" })

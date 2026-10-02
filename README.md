@@ -263,7 +263,6 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Shift + X` | Open X |
 | `Option + Shift + Cmd + X` | New X post |
 | `Option + Shift + Cmd + A` | Open ChatGPT |
-| `Option + Shift + I` | Open Notion |
 | `Option + Shift + D` | LazyDocker in Ghostty |
 | `Option + Shift + Cmd + B` | Chrome incognito |
 | `Option + Cmd + Enter` | Ghostty + tmux session |
@@ -413,7 +412,6 @@ Everything else matches Omarchy's defaults.
 | `Super + Shift + Alt + E` | HEY new email | Gmail compose |
 | `Super + Shift + G` | Signal | WhatsApp |
 | `Super + Shift + N` | Default editor | Zed |
-| `Super + Shift + I` | — | Notion |
 
 #### What is deliberately not ported
 

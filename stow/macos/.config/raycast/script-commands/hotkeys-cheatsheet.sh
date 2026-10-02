@@ -59,7 +59,6 @@ ${B}Option + Shift+W${R}        ${D}Open Typora${R}
 ${B}Option + Shift+X${R}        ${D}Open X${R}
 ${B}Option + Shift+Cmd+X${R}    ${D}New X post${R}
 ${B}Option + Shift+Cmd+A${R}    ${D}Open ChatGPT${R}
-${B}Option + Shift+I${R}        ${D}Open Notion${R}
 ${B}Option + Shift+D${R}        ${D}LazyDocker in Ghostty${R}
 ${B}Option + Shift+Cmd+B${R}    ${D}Chrome incognito${R}
 ${B}Option + Cmd+Enter${R}      ${D}Ghostty + tmux session${R}

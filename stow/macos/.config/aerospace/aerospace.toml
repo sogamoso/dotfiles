@@ -132,7 +132,6 @@ alt-shift-cmd-a = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --
 alt-cmd-enter   = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e tmux new-session -A -s main' # ALT+RETURN → Ghostty+tmux
 alt-shift-cmd-b = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new "Google Chrome" --args --incognito' # ALT+SHIFT+B → Chrome incognito
 alt-shift-d     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e lazydocker' # SUPER+SHIFT+D → LazyDocker
-alt-shift-i     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh notion.id' # SUPER+SHIFT+I → Notion
 
 # System controls
 alt-ctrl-c   = 'exec-and-forget open "cleanshot://all-in-one"' # SUPER+Ctrl+C → CleanShot all-in-one
