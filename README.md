@@ -307,10 +307,10 @@ is exactly what Secure Input blocks, so a binding would be dead when needed.
 | Hotkey | Action |
 |---|---|
 | `Option + Ctrl + C` | CleanShot all-in-one |
-| `Cmd + Shift + 3` | CleanShot capture fullscreen (assigned inside CleanShot) |
-| `Cmd + Shift + 4` | CleanShot capture area (assigned inside CleanShot) |
-| `Cmd + Shift + 5` | CleanShot all-in-one (assigned inside CleanShot) |
-| `Cmd + Shift + 6` | CleanShot OCR text extraction (assigned inside CleanShot) |
+| `Cmd + Shift + 3` | CleanShot capture fullscreen |
+| `Cmd + Shift + 4` | CleanShot capture area |
+| `Cmd + Shift + 5` | CleanShot all-in-one |
+| `Cmd + Shift + 6` | CleanShot OCR text extraction |
 
 ##### Reminders
 

@@ -34,6 +34,31 @@ if [[ $(defaults read com.apple.universalaccess reduceTransparency 2>/dev/null) 
   fi
 fi
 
+# CleanShot: clear the capture shortcuts it stores per machine. The same chords
+# are AeroSpace bindings driving cleanshot:// URLs, so leaving these set puts two
+# handlers on one key. CleanShot flushes its in-memory preferences on quit, which
+# would restore the keys we just deleted — so it has to be closed first.
+cleanshot_was_running=false
+if pgrep -xq "CleanShot X"; then
+  cleanshot_was_running=true
+  osascript -e 'quit app "CleanShot X"' 2>/dev/null || true
+  for _ in {1..20}; do
+    pgrep -xq "CleanShot X" || break
+    sleep 0.5
+  done
+fi
+
+if pgrep -xq "CleanShot X"; then
+  log_warn "CleanShot would not quit — its capture shortcuts were left alone"
+else
+  for key in LAVAtakeFullscreen LAVAtakeArea LAVAtakeAllInOne LAVAtakeOCR; do
+    defaults delete pl.maketheweb.cleanshotx "$key" 2>/dev/null || true
+  done
+  if [[ $cleanshot_was_running == true ]]; then
+    open -a "CleanShot X"
+  fi
+fi
+
 # Menu bar: auto-hide
 osascript -e 'tell application "System Events" to tell dock preferences to set autohide menu bar to true'
 

@@ -135,6 +135,14 @@ alt-shift-d     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --
 
 # System controls
 alt-ctrl-c   = 'exec-and-forget open "cleanshot://all-in-one"' # SUPER+Ctrl+C → CleanShot all-in-one
+
+# CleanShot captures — driven through its URL scheme so the chords live here
+# rather than in CleanShot's own settings, which are per-machine. Clear the
+# matching shortcuts in CleanShot → Settings → Shortcuts or both fire.
+cmd-shift-3  = 'exec-and-forget open "cleanshot://capture-fullscreen"' # Omarchy: PRINT → screenshot
+cmd-shift-4  = 'exec-and-forget open "cleanshot://capture-area"' # Omarchy: PRINT → screenshot (region)
+cmd-shift-5  = 'exec-and-forget open "cleanshot://all-in-one"' # Omarchy: SUPER+Ctrl+C → capture menu
+cmd-shift-6  = 'exec-and-forget open "cleanshot://capture-text"' # Omarchy: SUPER+Ctrl+PRINT → OCR
 alt-ctrl-t   = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e btop' # SUPER+Ctrl+T → btop
 f14          = 'exec-and-forget $HOME/.config/dotfiles/mic-mute.sh' # Omarchy: XF86AudioMicMute → toggle mic mute (Lofree mic-mute key sends Insert, remapped to F14 via hidutil)
 

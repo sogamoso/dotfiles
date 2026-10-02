@@ -144,13 +144,19 @@ Two store extensions have to be installed before their commands exist: **Linear*
 
 ### CleanShot
 
-Set in CleanShot → Settings → Shortcuts. These take over the macOS screenshot keys, so disable the **Screenshots** section in System Settings first (see step 2):
+The capture chords are AeroSpace bindings now, driven through CleanShot's URL
+scheme, so they ship with the repo. What is left here is clearing CleanShot's
+own copies, which are stored per-machine and would otherwise fire alongside
+them. In CleanShot → Settings → Shortcuts, leave these **unassigned**:
 
-- **General → All-In-One** → `Cmd + Shift + 5`
-- **Screenshots → Capture Area** → `Cmd + Shift + 4`
-- **Screenshots → Capture Fullscreen** → `Cmd + Shift + 3`
-- **Screenshots → Capture Previous Area** → leave unassigned
-- **OCR → Capture Text** → `Cmd + Shift + 6` (Omarchy: SUPER + Ctrl + PrtSc — the PrtSc key sends `3` with modifiers on Lofree keyboards, so this combo replaces the AeroSpace `f13` binding)
+- **General → All-In-One** (AeroSpace holds `Cmd + Shift + 5`)
+- **Screenshots → Capture Area** (AeroSpace holds `Cmd + Shift + 4`)
+- **Screenshots → Capture Fullscreen** (AeroSpace holds `Cmd + Shift + 3`)
+- **Screenshots → Capture Previous Area** — unassigned either way
+- **OCR → Capture Text** (AeroSpace holds `Cmd + Shift + 6`)
+
+These chords take over the macOS screenshot keys, so disable the **Screenshots**
+section in System Settings first (see step 2).
 
 Then in CleanShot → Settings:
 
