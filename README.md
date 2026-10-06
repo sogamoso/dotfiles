@@ -45,20 +45,19 @@ linked into `~/.claude/skills` and `~/.codex/skills` from a single source and th
 two agents stay in step by construction. Skills are deliberately not a stow
 package: stow lands a package in one place, and these need two.
 
-`install/dotfiles/skills.sh` handles three sources, in this order:
+`install/dotfiles/skills.sh` handles two sources, in this order:
 
 | Source | Holds | How |
 | --- | --- | --- |
 | `skills/` in this repo | Grouped by category — `uidotsh/` holds the `ui`, `brand-kit` and `markup-from-image` stubs | linked |
 | [sogamoso/skills](https://github.com/sogamoso/skills) | Personal skills | plugin |
-| [sendasorg/skills](https://github.com/sendasorg/skills) | Sendas work skills | plugin |
 
-Both personal repos are public but cloned over SSH, since they get pushed to — so
-a locked 1Password agent will skip them with a warning rather than fail the run.
+The personal repo is public but cloned over SSH, since it gets pushed to — so a
+locked 1Password agent will skip it with a warning rather than fail the run.
 A plugin source is registered from its repo's https URL, not its checkout, so
 each agent fetches its own copy and the skills land on a machine that cloned
-nothing. Reading them needs no SSH agent. The clones are there because these are
-repos to work in, not because the plugins depend on them.
+nothing. Reading them needs no SSH agent. The clone is there because it's a repo to
+work in, not because the plugin depends on it.
 
 A source that ships plugin manifests for **both** agents — `.claude-plugin/` and
 `.agents/plugins/` — is installed as a plugin instead of linked. Plugins

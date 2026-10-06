@@ -23,7 +23,6 @@
     "episodic-memory@superpowers-marketplace": true,
     "claude-hud@claude-hud": true,
     "code-review@claude-plugins-official": true,
-    "sendasorg@sendasorg": true,
     "sogamoso@sogamoso": true,
     "mattpocock-skills@mattpocock": true
   },
@@ -44,12 +43,6 @@
       "source": {
         "source": "github",
         "repo": "jarrodwatts/claude-hud"
-      }
-    },
-    "sendasorg": {
-      "source": {
-        "source": "github",
-        "repo": "sendasorg/skills"
       }
     },
     "sogamoso": {

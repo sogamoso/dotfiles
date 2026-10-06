@@ -10,10 +10,7 @@ OWN_URL="git@github.com:sogamoso/skills.git"
 # symlink *target*, and would send skills into this checkout instead of ~/.claude/skills.
 OWN_DIR="${SKILLS_REPO_DIR:-$HOME/Code/sogamoso/skills}"
 
-SENDAS_URL="git@github.com:sendasorg/skills.git"
-SENDAS_DIR="${SENDAS_SKILLS_REPO_DIR:-$HOME/Code/sendasorg/skills}"
-
-# Both personal repos are public, but cloned over SSH because they get pushed to.
+# sogamoso/skills is public, but cloned over SSH because it gets pushed to.
 # That makes a locked 1Password agent a failure mode even though nothing here is
 # private: BatchMode turns it into a fast failure instead of a bootstrap-blocking
 # prompt, and accept-new does the same for the host key on a machine with no
@@ -52,18 +49,14 @@ sync_checkout() {
 
 add_source "$REPO_DIR" "$REPO_DIR/skills" "dotfiles"
 
+# Cloned because it's a repo you work in; the plugin itself comes from the URL,
+# so the skills still land on a machine where the clone was skipped.
 if sync_checkout "$OWN_URL" "$OWN_DIR" "sogamoso/skills"; then
   add_source "$OWN_DIR" "$OWN_DIR" "sogamoso/skills" "$OWN_URL"
 fi
 
-# Cloned because these are repos you work in; the plugins themselves come from
-# the URL, so the skills still land on a machine where the clone was skipped.
-if sync_checkout "$SENDAS_URL" "$SENDAS_DIR" "sendasorg/skills"; then
-  add_source "$SENDAS_DIR" "$SENDAS_DIR" "sendasorg/skills" "$SENDAS_URL"
-fi
-
 # mattpocock used to be linked from this checkout before it moved to a Claude
 # plugin; listing it here clears those links on machines that still have them.
-prune_skill_links "$REPO_DIR/skills" "$OWN_DIR" "$SENDAS_DIR" "$HOME/Code/vendor/mattpocock-skills"
+prune_skill_links "$REPO_DIR/skills" "$OWN_DIR" "$HOME/Code/vendor/mattpocock-skills"
 
 log_success "Agent skills installed"
