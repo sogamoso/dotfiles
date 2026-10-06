@@ -101,8 +101,8 @@ alt-l = 'layout tiles accordion' # Omarchy: SUPER + L (toggle layout)
 alt-b = 'balance-sizes' # Balance all windows in workspace
 
 # Workspace cycling — Omarchy: SUPER + TAB
-alt-tab       = 'exec-and-forget ~/.config/aerospace/workspace_next.sh'
-alt-shift-tab = 'exec-and-forget ~/.config/aerospace/workspace_prev.sh'
+alt-tab       = 'exec-and-forget ~/.config/aerospace/workspace_cycle.sh next'
+alt-shift-tab = 'exec-and-forget ~/.config/aerospace/workspace_cycle.sh prev'
 alt-ctrl-tab = 'workspace-back-and-forth' # SUPER+Ctrl+Tab → former workspace
 
 # Resize
