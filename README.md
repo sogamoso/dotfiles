@@ -125,6 +125,7 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `coderabbit.sh` | Configures git filter to strip Coderabbit config from `.gitconfig` |
 | `aerospace-gap.sh` | Configures git filter to pin the sketchybar-rewritten `outer.top` gap |
 | `claude-code.sh` | Installs Claude Code marketplaces, plugins, and configures claude-hud |
+| `codex.sh` | Installs the third-party Codex marketplaces and plugins |
 | `skills.sh` | Links every skill into both `~/.claude/skills` and `~/.codex/skills` — see [Skills](#skills) |
 | `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server with Claude Code and Codex, and caches its token where the shells can export it |
 

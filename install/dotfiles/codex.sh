@@ -2,29 +2,32 @@
 set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
-if ! command -v claude &>/dev/null; then
-  log_warn "Claude Code not installed, skipping plugin setup"
+# Third-party plugins for Codex — the counterpart of claude-code.sh. sogamoso is
+# installed by skills.sh, since it's the one plugin this repo owns.
+
+if ! command -v codex &>/dev/null; then
+  log_warn "Codex not installed, skipping plugin setup"
   exit 0
 fi
 
-log_heading "Adding Claude Code marketplaces..."
+log_heading "Adding Codex marketplaces..."
 
 marketplaces=(
-  "obra/superpowers-marketplace"
-  "SawyerHood/dev-browser"
-  "jarrodwatts/claude-hud"
-  "mattpocock/skills"
+  "https://github.com/anthropics/claude-plugins-official.git"
+  "https://github.com/obra/superpowers-marketplace.git"
+  "https://github.com/SawyerHood/dev-browser.git"
+  "https://github.com/jarrodwatts/claude-hud.git"
 )
 
 for marketplace in "${marketplaces[@]}"; do
-  if claude plugin marketplace add "$marketplace" 2>/dev/null; then
+  if codex plugin marketplace add "$marketplace" >/dev/null 2>&1; then
     log_item "$marketplace"
   else
     log_warn "Failed to add $marketplace"
   fi
 done
 
-log_heading "Installing Claude Code plugins..."
+log_heading "Installing Codex plugins..."
 
 plugins=(
   "frontend-design@claude-plugins-official"
@@ -41,33 +44,14 @@ plugins=(
   "superpowers@superpowers-marketplace"
   "episodic-memory@superpowers-marketplace"
   "claude-hud@claude-hud"
-  "mattpocock-skills@mattpocock"
 )
 
 for plugin in "${plugins[@]}"; do
-  if claude plugin install "$plugin" --scope user 2>/dev/null; then
+  if codex plugin add "$plugin" >/dev/null 2>&1; then
     log_item "$plugin"
   else
     log_warn "Failed to install $plugin"
   fi
 done
 
-log_heading "Configuring claude-hud..."
-
-CLAUDE_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
-HUD_CONFIG_DIR="$CLAUDE_DIR/plugins/claude-hud"
-mkdir -p "$HUD_CONFIG_DIR"
-cat > "$HUD_CONFIG_DIR/config.json" << 'JSON'
-{
-  "gitStatus": {
-    "showAheadBehind": true
-  },
-  "display": {
-    "showTodos": true,
-    "showModel": false
-  }
-}
-JSON
-log_success "claude-hud configured"
-
-log_success "Claude Code plugins installed"
+log_success "Codex plugins installed"
