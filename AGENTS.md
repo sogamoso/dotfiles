@@ -17,7 +17,7 @@ Conventions for this repo. Match these over general best practices when they con
 - `bootstrap` — entry point, dispatches by `uname -s`, ends in a fresh login shell.
 - `install/<os>/*.sh` — per-OS install scripts. Sequenced by `install/<os>/all.sh`. Logged via `install/lib/log.sh`.
 - `install/dotfiles/*.sh` — cross-platform setup that runs on every host.
-- `install/lib/*.sh` — helpers sourced by the install scripts, never run directly. `log.sh` for output, `stow-orphans.sh` to clear links left behind when this checkout moves, `take-ownership.sh` to move aside real files that other installers leave where a stow package wants a symlink. Guards belong in whichever script stows that package: cross-platform ones in `install/dotfiles/stow.sh`, macOS-only ones in `install/macos/dotfiles.sh`.
+- `install/lib/*.sh` — helpers sourced by the install scripts, never run directly. `log.sh` for output, `stow-orphans.sh` to clear links left behind when this checkout moves, `take-ownership.sh` to move aside real files that other installers leave where a stow package wants a symlink, `link-skills.sh` for the skill linking and plugin installs behind `install/dotfiles/skills.sh`. Guards belong in whichever script stows that package: cross-platform ones in `install/dotfiles/stow.sh`, macOS-only ones in `install/macos/dotfiles.sh`.
 - `stow/<pkg>/` — each directory is a stow package. Contents are symlinked into `$HOME`. Cross-platform by default; macOS-only goes under `stow/macos/` and is only stowed on Darwin, Omarchy-only under `stow/linux/` and only stowed on Linux.
 - **Omarchy customizations follow Omarchy's own convention.** Its file-layout doc reserves `~/.config/omarchy/` for "files a user may intentionally version in a dotfile manager" — user themes, hooks, shell layout, plugins, themed template overrides — and `~/.config/hypr/*.lua` for Hyprland. Generated state under `~/.local/state/omarchy/` is never versioned. Keybinding overrides go in `~/.config/hypr/bindings.lua` through `o.bind`, `o.rebind` and `hl.unbind`; don't fork Omarchy's defaults, override them.
 - `stow/macos/.config/dotfiles/` — shared helper scripts not tied to a specific tool (e.g. `reminder.sh`, `status.sh`, `mic-mute.sh`). Invoked from AeroSpace bindings or Raycast script commands.
@@ -69,5 +69,5 @@ Conventions for this repo. Match these over general best practices when they con
 1. Drop it under `stow/macos/.config/dotfiles/<name>.sh`.
 2. `chmod +x` it.
 3. Wire the AeroSpace binding (or Raycast script command) to `$HOME/.config/dotfiles/<name>.sh`.
-4. Document the hotkey in all three places above.
+4. Document the hotkey in all four places above.
 5. If it's user-facing, prefer a confirmation notification over silent execution.
