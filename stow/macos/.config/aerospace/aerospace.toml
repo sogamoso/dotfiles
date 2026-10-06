@@ -147,7 +147,7 @@ cmd-shift-5  = 'exec-and-forget open "cleanshot://all-in-one"' # Omarchy: SUPER+
 cmd-shift-6  = 'exec-and-forget open "cleanshot://capture-text"' # Omarchy: SUPER+Ctrl+PRINT → OCR
 
 alt-ctrl-t   = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e btop' # SUPER+Ctrl+T → btop
-f14          = 'exec-and-forget $HOME/.config/dotfiles/mic-mute.sh' # Omarchy: XF86AudioMicMute → toggle mic mute (Lofree mic-mute key sends Insert, remapped to F14 via hidutil)
+f18          = 'exec-and-forget $HOME/.config/dotfiles/mic-mute.sh' # Omarchy: XF86AudioMicMute → toggle mic mute (Lofree mic-mute key sends Insert, remapped to F18 via hidutil; macOS takes F14/F15 for brightness)
 
 # Status notifications — Omarchy: SUPER+CTRL+ALT+{T,B,W}
 alt-ctrl-cmd-t = 'exec-and-forget $HOME/.config/dotfiles/status.sh time'

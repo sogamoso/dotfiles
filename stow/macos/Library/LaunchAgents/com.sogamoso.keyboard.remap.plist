@@ -10,7 +10,7 @@
     <string>/usr/bin/hidutil</string>
     <string>property</string>
     <string>--set</string>
-    <string>{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000049,"HIDKeyboardModifierMappingDst":0x700000069}]}</string>
+    <string>{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000049,"HIDKeyboardModifierMappingDst":0x70000006D}]}</string>
   </array>
 
   <key>RunAtLoad</key>

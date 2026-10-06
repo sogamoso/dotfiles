@@ -99,7 +99,7 @@ if ! system_profiler SPHardwareDataType 2>/dev/null | grep -q "Mac mini"; then
   done
 fi
 
-# Apply user key remappings via hidutil at login (Lofree mic-mute → F14)
+# Apply user key remappings via hidutil at login (Lofree mic-mute → F18)
 for label in com.sogamoso.keyboard.remap; do
   plist="$HOME/Library/LaunchAgents/$label.plist"
   launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
