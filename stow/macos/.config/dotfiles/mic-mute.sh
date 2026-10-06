@@ -8,15 +8,23 @@
 set -euo pipefail
 
 STATE_FILE="${TMPDIR:-/tmp}/dotfiles-mic-mute.state"
+GROUP_ID="dotfiles-mic-mute"
+
+# `|| true` so a failing notifier does not abort the script under `set -e`;
+# terminal-notifier exits non-zero when its notification permission is off.
+notify() {
+  terminal-notifier -title "$1" -message "${2:-}" \
+    -group "$GROUP_ID" >/dev/null 2>&1 || true
+}
 
 current=$(osascript -e 'input volume of (get volume settings)')
 
 if [[ $current -eq 0 ]]; then
   prev=$(cat "$STATE_FILE" 2>/dev/null || echo 100)
   osascript -e "set volume input volume $prev"
-  osascript -e "display notification \"Microphone unmuted (${prev}%)\" with title \"Mic\""
+  notify "Mic" "Microphone unmuted (${prev}%)"
 else
   echo "$current" >"$STATE_FILE"
   osascript -e 'set volume input volume 0'
-  osascript -e "display notification \"Microphone muted\" with title \"Mic\""
+  notify "Mic" "Microphone muted"
 fi

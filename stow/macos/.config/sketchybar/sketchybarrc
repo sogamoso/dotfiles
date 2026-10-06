@@ -167,7 +167,7 @@ sketchybar --add item input_source right \
     padding_left=4 \
     padding_right=8 \
     update_freq=3 \
-    click_script="BIN=$HOME/.cache/sketchybar/switch_input_source; SRC=$CONFIG_DIR/plugins/switch_input_source.swift; [ ! -f \$BIN ] || [ \$SRC -nt \$BIN ] && swiftc \$SRC -framework Carbon -o \$BIN 2>/dev/null; \$BIN" \
+    click_script="$CONFIG_DIR/plugins/switch_input_source.sh" \
     script="$CONFIG_DIR/plugins/input_source.sh"
 
 # Claude Code usage — spend in the active billing block, from local transcripts

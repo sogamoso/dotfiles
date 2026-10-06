@@ -301,7 +301,7 @@ What is left worth tracking:
 | Stay-awake indicator | ✅ Stay awake item, tracks caffeinate |
 | Herdr layouts (`hdl`/`hds`/`hdlm`/`hsl`) | ✅ Ported to zsh in `stow/zsh/.config/zsh/aliases/herdr.zsh` |
 | SSH reconnect and terminal cleanup on drop | ✅ Keepalives surface a dead link in ~45s; no terminal-state reset |
-| Themes generating nvim/btop/VS Code colors from one colorset | `themes/tokyo-night/colors.toml` exists but nothing consumes it |
+| Themes generating nvim/btop/VS Code colors from one colorset | No generator. `themes/tokyo-night/colors.toml` is the palette to copy by hand into apps without a Tokyo Night theme, Slack included |
 | Visual theme and background switchers | No equivalent |
 | `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | Only A/B/W are mapped |

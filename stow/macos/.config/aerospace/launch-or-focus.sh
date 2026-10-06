@@ -62,6 +62,7 @@ if $here && ! $new; then
 fi
 
 if ! open "${flags[@]}" "$@" 2>/dev/null; then
-  osascript -e "display notification \"Could not launch $target\" with title \"AeroSpace\""
+  terminal-notifier -title "AeroSpace" -message "Could not launch $target" \
+    -group "dotfiles-launch-or-focus" >/dev/null 2>&1 || true
   exit 1
 fi

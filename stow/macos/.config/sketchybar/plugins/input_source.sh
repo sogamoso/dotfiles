@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
-BIN="$HOME/.cache/sketchybar/current_input_source"
-SRC="$CONFIG_DIR/plugins/current_input_source.swift"
-[ ! -f "$BIN" ] || [ "$SRC" -nt "$BIN" ] && {
-  mkdir -p "$(dirname "$BIN")"
-  swiftc "$SRC" -framework Carbon -o "$BIN" 2>/dev/null
-}
+source "$CONFIG_DIR/lib/common.sh"
+
+BIN="$CACHE_DIR/current_input_source"
+build_swift "$CONFIG_DIR/plugins/current_input_source.swift" "$BIN" -framework Carbon
 
 SOURCE=$("$BIN" 2>/dev/null)
 
