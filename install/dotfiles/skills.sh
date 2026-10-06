@@ -67,6 +67,15 @@ if sync_checkout "$OWN_URL" "$OWN_DIR" "sogamoso/skills"; then
   add_source "$OWN_DIR" "$OWN_DIR" "sogamoso/skills" "$OWN_URL"
 fi
 
+# The plugin was renamed from sogamoso to sogamoso-skills; drop the old install
+# so Codex doesn't load every skill twice and Claude doesn't keep a dead entry.
+if command -v claude &>/dev/null; then
+  claude plugin uninstall sogamoso@sogamoso >/dev/null 2>&1 || true
+fi
+if command -v codex &>/dev/null; then
+  codex plugin remove sogamoso@sogamoso >/dev/null 2>&1 || true
+fi
+
 # The ui.sh stubs used to be linked from this repo's skills/, and mattpocock
 # from a vendor checkout; listing both clears those links on machines that
 # still have them.

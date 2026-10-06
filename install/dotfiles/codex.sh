@@ -2,8 +2,9 @@
 set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
-# Third-party plugins for Codex — the counterpart of claude-code.sh. sogamoso is
-# installed by skills.sh, since it's the one plugin this repo owns.
+# Third-party plugins for Codex — the counterpart of claude-code.sh.
+# sogamoso-skills is installed by skills.sh, since it's the one plugin this
+# repo owns.
 
 if ! command -v codex &>/dev/null; then
   log_warn "Codex not installed, skipping plugin setup"
