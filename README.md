@@ -302,6 +302,10 @@ release it from outside.
 It has no hotkey on purpose: AeroSpace reads keys through an event tap, which
 is exactly what Secure Input blocks, so a binding would be dead when needed.
 
+| Hotkey | Action |
+|---|---|
+| `Raycast → Secure Input` | Name the app holding Secure Input |
+
 ##### Capture
 
 | Hotkey | Action |
@@ -340,6 +344,21 @@ Ephemeral kitchen-timer-style reminders (die on logout/reboot).
 | `Ctrl + Shift + Left/Right` | Previous / next tab |
 | `Ctrl + Cmd + arrows` | Navigate tmux panes |
 | `Ctrl + Cmd + Shift + arrows` | Resize tmux panes |
+
+##### tmux
+
+Prefix is `Ctrl + Space`.
+
+| Hotkey | Action |
+|---|---|
+| `prefix + h / v` | Split horizontal / vertical |
+| `prefix + x / k` | Kill pane / window |
+| `prefix + c` | New window |
+| `prefix + r / R` | Rename window / session |
+| `prefix + [` | Copy mode (`v` select, `y` copy) |
+| `Cmd + 1-9` | Switch window |
+| `Cmd + Left/Right` | Previous / next window |
+| `Cmd + Up/Down` | Previous / next session |
 
 ##### herdr
 

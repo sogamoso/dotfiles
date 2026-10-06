@@ -29,11 +29,10 @@ Conventions for this repo. Match these over general best practices when they con
 
 - **Omarchy parity is a stated goal.** AeroSpace bindings cross-reference their Omarchy equivalent in the trailing comment (e.g. `# Omarchy: SUPER+CTRL+R → set reminder`). Preserve this when adding bindings.
 - **Modifier mapping:** in `aerospace.toml`, `alt` = physical Option key = Omarchy's SUPER, `cmd` = physical Command = Omarchy's ALT. Comments at the top of the file are the source of truth.
-- **Hotkeys live in four places — keep them in sync on both add AND remove.** Adding without updating all of them produces phantom bindings; removing without updating all of them produces phantom docs. The four:
+- **Hotkeys live in three places — keep them in sync on both add AND remove.** Adding without updating all of them produces phantom bindings; removing without updating all of them produces phantom docs. The three:
   1. `stow/macos/.config/aerospace/aerospace.toml` — the binding itself (skip when the hotkey is assigned inside Raycast instead of AeroSpace).
-  2. `README.md` — hotkey reference table.
-  3. `stow/macos/.config/raycast/script-commands/hotkeys-cheatsheet.sh` — in-Raycast cheatsheet.
-  4. `docs/macos-manual-setup.md` Section 7 — for hotkeys assigned inside specific apps (Raycast, CleanShot, etc.) that are per-machine, not in dotfiles.
+  2. `README.md` — hotkey reference tables. The Raycast cheatsheet (`hotkeys-cheatsheet.sh`) renders itself from these at run time, one section per `#####` heading, so it needs no edit; keep hotkeys in tables there, since prose is skipped.
+  3. `docs/macos-manual-setup.md` Section 7 — for hotkeys assigned inside specific apps (Raycast, CleanShot, etc.) that are per-machine, not in dotfiles.
 - **App-level hotkey assignments are not in dotfiles.** Raycast and CleanShot store them per-machine. Document them in `docs/macos-manual-setup.md` Section 7 under the appropriate subsection.
 - **macOS notification pattern:** a `notify()` that wraps `terminal-notifier -title "$1" -message "${2:-}" -group "$GROUP_ID" >/dev/null 2>&1 || true`, with `GROUP_ID="dotfiles-<script>"`. Title is required; body optional. The group makes a repeat replace the previous banner instead of stacking, and `|| true` keeps a revoked notification permission from aborting a `set -e` script. Don't use `osascript -e 'display notification'`.
 - **Ephemeral state** goes under `${TMPDIR:-/tmp}/dotfiles-*` (e.g. `dotfiles-reminders/`, `dotfiles-mic-mute.state`). State that should persist across reboots doesn't belong there.
@@ -69,5 +68,5 @@ Conventions for this repo. Match these over general best practices when they con
 1. Drop it under `stow/macos/.config/dotfiles/<name>.sh`.
 2. `chmod +x` it.
 3. Wire the AeroSpace binding (or Raycast script command) to `$HOME/.config/dotfiles/<name>.sh`.
-4. Document the hotkey in all four places above.
+4. Document the hotkey in all three places above.
 5. If it's user-facing, prefer a confirmation notification over silent execution.
