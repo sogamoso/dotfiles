@@ -10,11 +10,10 @@ OWN_URL="git@github.com:sogamoso/skills.git"
 # symlink *target*, and would send skills into this checkout instead of ~/.claude/skills.
 OWN_DIR="${SKILLS_REPO_DIR:-$HOME/Code/sogamoso/skills}"
 
-# sogamoso/skills is public, but cloned over SSH because it gets pushed to.
-# That makes a locked 1Password agent a failure mode even though nothing here is
-# private: BatchMode turns it into a fast failure instead of a bootstrap-blocking
-# prompt, and accept-new does the same for the host key on a machine with no
-# known_hosts yet.
+# sogamoso/skills is private and cloned over SSH because it gets pushed to, so
+# a locked 1Password agent is a failure mode: BatchMode turns it into a fast
+# failure instead of a bootstrap-blocking prompt, and accept-new does the same
+# for the host key on a machine with no known_hosts yet.
 export GIT_SSH_COMMAND="ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new"
 
 log_heading "Installing agent skills..."

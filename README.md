@@ -52,7 +52,7 @@ package: stow lands a package in one place, and these need two.
 | `skills/` in this repo | Grouped by category — `uidotsh/` holds the `ui`, `brand-kit` and `markup-from-image` stubs | linked |
 | [sogamoso/skills](https://github.com/sogamoso/skills) | Personal skills | plugin |
 
-The personal repo is public but cloned over SSH, since it gets pushed to — so a
+The personal repo is private and cloned over SSH, since it gets pushed to — so a
 locked 1Password agent will skip it with a warning rather than fail the run.
 A plugin source is registered from its repo's https URL, not its checkout, so
 each agent fetches its own copy and the skills land on a machine that cloned
