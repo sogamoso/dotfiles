@@ -1,32 +1,8 @@
 #!/usr/bin/env bash
 # Sourced by skills.sh after log.sh — never run directly.
 
-# Names linked so far in this run, so a second source can't quietly take over a
-# name the first one already answers to.
+# Names linked so far in this run, so pruning knows which links are still wanted.
 SKILLS_CLAIMED=""
-
-# Names this repo refuses to shadow, set by the caller. A source that wants one
-# gets its skill linked under a prefix instead. The list is explicit rather than
-# discovered because what is installed differs per machine, and a dotfiles repo
-# that produced different skill names on different machines would defeat itself.
-SKILLS_RESERVED="${SKILLS_RESERVED:-}"
-
-# Base names of the plugin skills on disk, filled on first use. Both agents are
-# scanned: a name taken on either side is ambiguous on that side, and a script
-# that exists to keep the two in step shouldn't be half blind. Used only to
-# report a collision the reserved list doesn't cover — never to decide what gets
-# linked, for the same reproducibility reason.
-PLUGIN_SKILL_NAMES=""
-
-load_plugin_skill_names() {
-  [[ -n $PLUGIN_SKILL_NAMES ]] && return 0
-  local f
-  while IFS= read -r f; do
-    PLUGIN_SKILL_NAMES="$PLUGIN_SKILL_NAMES $(basename "$(dirname "$f")")"
-  done < <(find "$HOME/.claude/plugins" "$HOME/.codex/plugins" "$HOME/.codex/skills/.system" \
-    -name SKILL.md -not -path '*/.git/*' 2>/dev/null)
-  PLUGIN_SKILL_NAMES="${PLUGIN_SKILL_NAMES:- }"
-}
 
 # Claude Code and Codex both read <skills-dir>/<name>/SKILL.md, so one checkout
 # serves both agents and the two stay in step by construction. Only link into an
@@ -42,13 +18,9 @@ skill_targets() {
 # Link every skill under a source tree into each agent. Sources nest skills
 # under category directories to taste, so find them by their SKILL.md and
 # flatten on the directory name — that name is what both agents key on.
-# LINK_SKILLS_EXCLUDE skips a category directory; LINK_SKILLS_PREFIX names the
-# source, used when a reserved name forces a rename.
 link_skills() {
   local source_dir=$1 label=$2
-  local exclude="${LINK_SKILLS_EXCLUDE:-}"
-  local prefix="${LINK_SKILLS_PREFIX:-}"
-  local skill_md skill_dir name link_name target dest stamp made linked=0 conflicts=0
+  local skill_md skill_dir name target dest stamp made linked=0
 
   # No agent directory means nothing to link into, and counting skills we walked
   # past would report a successful install that placed nothing. Bootstrap stows
@@ -60,44 +32,20 @@ link_skills() {
 
   [[ -d $source_dir ]] || return 0
   stamp=$(date +%s)
-  load_plugin_skill_names
 
   while IFS= read -r skill_md; do
     skill_dir=$(dirname "$skill_md")
     name=$(basename "$skill_dir")
-    [[ -n $exclude && $skill_dir == *"/$exclude/"* ]] && continue
     # Sources keep scaffolding alongside the real thing; a leading _ or . marks
     # it. Linking a template gives the agent a skill whose description is a
     # placeholder telling it what to write.
     case $name in _*|.*) continue ;; esac
 
-    link_name=$name
-    if [[ " $SKILLS_RESERVED " == *" $name "* ]]; then
-      if [[ -z $prefix ]]; then
-        log_warn "$label: '$name' is reserved and this source has no prefix, skipping"
-        conflicts=$((conflicts + 1))
-        continue
-      fi
-      link_name="$prefix-$name"
-      log_item "$label: '$name' is reserved, linked as '$link_name'"
-    elif [[ " $PLUGIN_SKILL_NAMES " == *" $name "* ]]; then
-      log_warn "$label: '$name' also exists as a plugin skill and is not reserved"
-    fi
-
-    # Two sources offering one name is a real conflict: the agents key on the
-    # name alone, so one of the skills would simply be unreachable. Keep the
-    # first and say which lost rather than letting run order decide.
-    if [[ " $SKILLS_CLAIMED " == *" $link_name "* ]]; then
-      log_warn "$label: '$link_name' is already provided by an earlier source, skipping"
-      conflicts=$((conflicts + 1))
-      continue
-    fi
-
     made=0
     while IFS= read -r target; do
       mkdir -p "$target"
       made=1
-      dest="$target/$link_name"
+      dest="$target/$name"
       if [[ -L $dest ]]; then
         [[ "$(readlink "$dest")" == "$skill_dir" ]] && continue
         rm "$dest"
@@ -116,20 +64,19 @@ link_skills() {
     done < <(skill_targets)
 
     (( made )) || continue
-    SKILLS_CLAIMED="$SKILLS_CLAIMED $link_name"
+    SKILLS_CLAIMED="$SKILLS_CLAIMED $name"
     linked=$((linked + 1))
   done < <(find "$source_dir" -name SKILL.md -not -path '*/.git/*' | sort)
 
   log_item "$label: $linked skill(s)"
-  (( conflicts > 0 )) && log_warn "$label: $conflicts name conflict(s) skipped"
   return 0
 }
 
 # A source packaged as a plugin for BOTH agents is installed rather than linked:
 # plugins namespace their skills and each agent updates them natively. Packaged
-# for one agent only is worse than neither — it would namespace on that side and
-# not the other, which is the divergence this script exists to prevent, so those
-# stay on links until upstream catches up. Prints the PLUGIN@MARKETPLACE id.
+# for one agent only, it would namespace on that side and not the other, so it
+# stays linked; a set you only use in that one agent belongs with its plugins
+# instead, the way mattpocock sits in claude-code.sh. Prints PLUGIN@MARKETPLACE.
 skill_plugin_id() {
   local dir=$1
   [[ -f "$dir/.claude-plugin/marketplace.json" ]] || return 1
@@ -204,8 +151,8 @@ install_skill_plugin() {
 }
 
 # Drop links into the sources we manage that this run no longer produces —
-# a skill renamed by the reserved list, dropped upstream, or moved between
-# sources. Links pointing anywhere else are left alone.
+# a skill renamed, deleted, or moved to a plugin. Links pointing anywhere else
+# are left alone.
 prune_skill_links() {
   local target link root resolved managed pruned=0
   while IFS= read -r target; do

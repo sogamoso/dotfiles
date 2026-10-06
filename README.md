@@ -45,14 +45,13 @@ linked into `~/.claude/skills` and `~/.codex/skills` from a single source and th
 two agents stay in step by construction. Skills are deliberately not a stow
 package: stow lands a package in one place, and these need two.
 
-`install/dotfiles/skills.sh` handles four sources, in this order:
+`install/dotfiles/skills.sh` handles three sources, in this order:
 
 | Source | Holds | How |
 | --- | --- | --- |
 | `skills/` in this repo | Grouped by category — `uidotsh/` holds the `ui`, `brand-kit` and `markup-from-image` stubs | linked |
 | [sogamoso/skills](https://github.com/sogamoso/skills) | Personal skills | plugin |
 | [sendasorg/skills](https://github.com/sendasorg/skills) | Sendas work skills | plugin |
-| [mattpocock/skills](https://github.com/mattpocock/skills) | Third-party set, minus its `in-progress/` staging area | linked |
 
 Both personal repos are public but cloned over SSH, since they get pushed to — so
 a locked 1Password agent will skip them with a warning rather than fail the run.
@@ -64,11 +63,14 @@ repos to work in, not because the plugins depend on them.
 A source that ships plugin manifests for **both** agents — `.claude-plugin/` and
 `.agents/plugins/` — is installed as a plugin instead of linked. Plugins
 namespace their skills and each agent updates them natively, which is strictly
-better than symlinks. Packaging for one agent only is worse than neither, since
-it would namespace on that side and not the other, so those stay linked until
-upstream catches up; mattpocock ships a Claude plugin and lists a Codex one as a
-roadmap item, so it will switch over on its own. The packaging decides the
-mechanism, not a list in the script.
+better than symlinks. A source packaged for one agent only stays linked, so the
+two agents don't end up calling the same skill by different names. The packaging
+decides the mechanism, not a list in the script.
+
+[mattpocock/skills](https://github.com/mattpocock/skills) is the exception: it
+only ships a Claude plugin, and it is only used in Claude Code, so it is installed
+by `claude-code.sh` with the other Claude plugins (`/mattpocock-skills:tdd`) and
+Codex doesn't get it.
 
 The `uidotsh/` stubs stay linked deliberately, rather than this repo being
 packaged as a marketplace of its own. Their names collide with nothing, and
@@ -81,21 +83,9 @@ Links remain the right route for anything locally owned and locally rewritten.
 
 Both agents discover skills exactly one level deep, so every link is flat however
 the source is organized — categories are free on the source side and invisible on
-the agent side. They key on the directory name alone, so the first source to
-claim a name keeps it, and a later source offering that name is reported and
-skipped rather than silently winning. Directories starting with `_` or `.` are
-scaffolding and are ignored.
-
-Some names are reserved in `skills.sh` because something outside this repo
-already answers to them — today just `code-review`, which Claude Code ships as an
-unqualified built-in. A source wanting a reserved name has its skill linked under
-the source's prefix instead (`mattpocock-code-review`), so nothing is lost and
-the built-in keeps its name. That list is explicit rather than detected from
-what's installed: which plugins are present varies per machine, and the link
-names must not. A collision with a plugin skill that isn't reserved is reported
-and otherwise left alone, so a new one surfaces on the next bootstrap without
-quietly changing behavior. Links this repo made and no longer produces are
-pruned, so renames and upstream deletions don't leave strays behind.
+the agent side. Directories starting with `_` or `.` are scaffolding and are
+ignored. Links this repo made and no longer produces are pruned, so renames and
+deletions don't leave strays behind.
 
 The three ui.sh skills are stubs that fetch their real instructions over MCP, so
 they only work where `uidotsh.sh` has registered that server. It registers with

@@ -13,6 +13,7 @@ marketplaces=(
   "obra/superpowers-marketplace"
   "SawyerHood/dev-browser"
   "jarrodwatts/claude-hud"
+  "mattpocock/skills"
 )
 
 for marketplace in "${marketplaces[@]}"; do
@@ -39,6 +40,7 @@ plugins=(
   "superpowers@superpowers-marketplace"
   "episodic-memory@superpowers-marketplace"
   "claude-hud@claude-hud"
+  "mattpocock-skills@mattpocock"
 )
 
 for plugin in "${plugins[@]}"; do

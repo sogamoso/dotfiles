@@ -24,7 +24,8 @@
     "claude-hud@claude-hud": true,
     "code-review@claude-plugins-official": true,
     "sendasorg@sendasorg": true,
-    "sogamoso@sogamoso": true
+    "sogamoso@sogamoso": true,
+    "mattpocock-skills@mattpocock": true
   },
   "extraKnownMarketplaces": {
     "dev-browser-marketplace": {
@@ -55,6 +56,12 @@
       "source": {
         "source": "github",
         "repo": "sogamoso/skills"
+      }
+    },
+    "mattpocock": {
+      "source": {
+        "source": "github",
+        "repo": "mattpocock/skills"
       }
     }
   },

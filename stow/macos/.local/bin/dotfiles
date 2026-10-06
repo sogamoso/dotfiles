@@ -86,7 +86,7 @@ cmd_stow() {
 cmd_reload() {
   cmd_stow
   # Skills are linked, not stowed, so restowing doesn't pick up a new one, a
-  # renamed category, or a newly reserved name. Cheap when nothing changed.
+  # renamed category, or a dropped one. Cheap when nothing changed.
   local skills="$DOTFILES/install/dotfiles/skills.sh"
   [[ -x $skills ]] && run "$skills"
   if command -v sketchybar >/dev/null 2>&1; then

@@ -13,17 +13,6 @@ OWN_DIR="${SKILLS_REPO_DIR:-$HOME/Code/sogamoso/skills}"
 SENDAS_URL="git@github.com:sendasorg/skills.git"
 SENDAS_DIR="${SENDAS_SKILLS_REPO_DIR:-$HOME/Code/sendasorg/skills}"
 
-MATT_URL="https://github.com/mattpocock/skills.git"
-MATT_DIR="${MATT_SKILLS_REPO_DIR:-$HOME/Code/vendor/mattpocock-skills}"
-
-# Names we refuse to let a source shadow. Explicit, not discovered: which
-# plugins are installed varies per machine, and link names must not. A source
-# wanting one of these gets its skill linked under the source's prefix instead.
-# code-review: Claude Code ships an unqualified built-in by that name, and
-# mattpocock's is model-invocable, so it would compete for automatic selection
-# too — not just for the slash command.
-SKILLS_RESERVED="code-review"
-
 # Both personal repos are public, but cloned over SSH because they get pushed to.
 # That makes a locked 1Password agent a failure mode even though nothing here is
 # private: BatchMode turns it into a fast failure instead of a bootstrap-blocking
@@ -61,25 +50,20 @@ sync_checkout() {
   return 1
 }
 
-LINK_SKILLS_PREFIX=dotfiles add_source "$REPO_DIR" "$REPO_DIR/skills" "dotfiles"
+add_source "$REPO_DIR" "$REPO_DIR/skills" "dotfiles"
 
 if sync_checkout "$OWN_URL" "$OWN_DIR" "sogamoso/skills"; then
-  LINK_SKILLS_PREFIX=sogamoso add_source "$OWN_DIR" "$OWN_DIR" "sogamoso/skills" "$OWN_URL"
+  add_source "$OWN_DIR" "$OWN_DIR" "sogamoso/skills" "$OWN_URL"
 fi
 
 # Cloned because these are repos you work in; the plugins themselves come from
 # the URL, so the skills still land on a machine where the clone was skipped.
 if sync_checkout "$SENDAS_URL" "$SENDAS_DIR" "sendasorg/skills"; then
-  LINK_SKILLS_PREFIX=sendasorg add_source "$SENDAS_DIR" "$SENDAS_DIR" "sendasorg/skills" "$SENDAS_URL"
+  add_source "$SENDAS_DIR" "$SENDAS_DIR" "sendasorg/skills" "$SENDAS_URL"
 fi
 
-# in-progress/ is upstream's own staging area — the skills there get reshaped
-# without notice, so take only the sets Matt considers shipped.
-if sync_checkout "$MATT_URL" "$MATT_DIR" "mattpocock/skills"; then
-  LINK_SKILLS_EXCLUDE=in-progress LINK_SKILLS_PREFIX=mattpocock \
-    add_source "$MATT_DIR" "$MATT_DIR/skills" "mattpocock/skills" "$MATT_URL"
-fi
-
-prune_skill_links "$REPO_DIR/skills" "$OWN_DIR" "$SENDAS_DIR" "$MATT_DIR"
+# mattpocock used to be linked from this checkout before it moved to a Claude
+# plugin; listing it here clears those links on machines that still have them.
+prune_skill_links "$REPO_DIR/skills" "$OWN_DIR" "$SENDAS_DIR" "$HOME/Code/vendor/mattpocock-skills"
 
 log_success "Agent skills installed"
