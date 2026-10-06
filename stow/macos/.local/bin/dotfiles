@@ -120,7 +120,6 @@ cmd_reload() {
 cmd_update() {
   cmd_pull
   cmd_brew
-  cmd_stow
   cmd_reload
 }
 
