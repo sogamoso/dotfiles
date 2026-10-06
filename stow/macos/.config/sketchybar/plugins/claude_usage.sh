@@ -21,11 +21,11 @@ JSON=$(ccusage blocks --active --json 2>/dev/null) || hide
 COST=$(printf '%s' "$JSON" | jq -r '.blocks[0].costUSD // empty' 2>/dev/null)
 REMAINING=$(printf '%s' "$JSON" | jq -r '.blocks[0].projection.remainingMinutes // empty' 2>/dev/null)
 
-[ -n "$COST" ] || hide
+[[ -n $COST ]] || hide
 
 LABEL=$(printf '$%.2f' "$COST")
 
-if [ -n "$REMAINING" ] && [ "$REMAINING" -gt 0 ] 2>/dev/null; then
+if [[ -n $REMAINING ]] && (( REMAINING > 0 )) 2>/dev/null; then
   LABEL="$LABEL · $((REMAINING / 60))h$((REMAINING % 60))m"
 fi
 

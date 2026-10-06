@@ -15,19 +15,19 @@ on error
 end try' 2>/dev/null)
 
 # Handle missing value or empty
-if [ -z "$VOLUME" ] || [ "$VOLUME" = "missing value" ]; then
+if [[ -z $VOLUME ]] || [[ $VOLUME == "missing value" ]]; then
   VOLUME=0
 fi
-if [ -z "$MUTED" ] || [ "$MUTED" = "missing value" ]; then
+if [[ -z $MUTED ]] || [[ $MUTED == "missing value" ]]; then
   MUTED=false
 fi
 
 # Determine icon based on volume level
-if [ "$MUTED" = "true" ] || [ "$VOLUME" -eq 0 ]; then
+if [[ $MUTED == "true" ]] || (( VOLUME == 0 )); then
   ICON="󰝟"
-elif [ "$VOLUME" -gt 60 ]; then
+elif (( VOLUME > 60 )); then
   ICON="󰕾"
-elif [ "$VOLUME" -gt 10 ]; then
+elif (( VOLUME > 10 )); then
   ICON="󰖀"
 else
   ICON="󰕿"

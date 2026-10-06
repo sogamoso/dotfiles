@@ -7,7 +7,7 @@
 STATE_FILE="${TMPDIR:-/tmp}/dotfiles-sketchybar-clock"
 STATE=$(cat "$STATE_FILE" 2>/dev/null || echo "normal")
 
-if [ "$STATE" = "alt" ]; then
+if [[ $STATE == "alt" ]]; then
   LABEL=$(date '+%d %B W%V %Y')
 else
   LABEL=$(date '+%A %H:%M')

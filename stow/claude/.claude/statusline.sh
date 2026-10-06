@@ -12,7 +12,7 @@ cwd=$(echo "$input" | jq -r .cwd)
 if git -C "$cwd" rev-parse --git-dir >/dev/null 2>&1; then
   main=$(git -C "$cwd" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
   gitdir=$(git -C "$cwd" rev-parse --path-format=absolute --git-dir 2>/dev/null)
-  if [ "$main" != "$gitdir" ]; then
+  if [[ $main != "$gitdir" ]]; then
     first=$(echo "$hud" | head -1)
     rest=$(echo "$hud" | tail -n +2)
     hud="${first} \033[36m[worktree]\033[0m"$'\n'"${rest}"

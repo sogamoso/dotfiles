@@ -17,7 +17,7 @@ HAS_EXTERNAL=$("$EXT_BIN" 2>/dev/null || echo 0)
 
 GAP=8
 
-if [ "$HAS_EXTERNAL" -eq 1 ] 2>/dev/null; then
+if (( HAS_EXTERNAL == 1 )) 2>/dev/null; then
   AEROSPACE_TOP=$(( BAR_HEIGHT + GAP ))
 else
   AEROSPACE_TOP=$GAP
@@ -28,6 +28,6 @@ AEROSPACE_CFG="$HOME/.config/aerospace/aerospace.toml"
 AEROSPACE_CFG="$(readlink -f "$AEROSPACE_CFG")"
 OLD_TOP=$(grep "^outer\.top" "$AEROSPACE_CFG" | awk '{print $3}')
 sed -i '' "s/^outer\.top[[:space:]]*=.*/outer.top        = $AEROSPACE_TOP/" "$AEROSPACE_CFG"
-if [ "$OLD_TOP" != "$AEROSPACE_TOP" ] && command -v aerospace &>/dev/null; then
+if [[ $OLD_TOP != "$AEROSPACE_TOP" ]] && command -v aerospace &>/dev/null; then
   aerospace reload-config
 fi

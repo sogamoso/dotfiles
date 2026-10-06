@@ -6,7 +6,7 @@ CURRENT=$(aerospace list-workspaces --focused 2>/dev/null)
 POPULATED=$(aerospace list-windows --all --format "%{workspace}" 2>/dev/null | sort -u)
 VISIBLE=""
 for ws in $(seq 1 9); do
-  if [ "$ws" -le 5 ] || echo "$POPULATED" | grep -qw "$ws" || [ "$ws" = "$CURRENT" ]; then
+  if (( ws <= 5 )) || echo "$POPULATED" | grep -qw "$ws" || [[ $ws == "$CURRENT" ]]; then
     VISIBLE="$VISIBLE $ws"
   fi
 done

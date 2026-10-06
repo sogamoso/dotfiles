@@ -14,12 +14,12 @@ POPULATED=$(aerospace list-windows --all --format "%{workspace}" 2>/dev/null | s
 
 for i in {1..9}; do
   echo "$POPULATED" | grep -qw "$i" && IS_POP=1 || IS_POP=0
-  [ "$i" = "$FOCUSED" ] && IS_FOC=1 || IS_FOC=0
+  [[ $i == "$FOCUSED" ]] && IS_FOC=1 || IS_FOC=0
 
-  if [ "$i" -le 5 ] || [ "$IS_POP" -eq 1 ] || [ "$IS_FOC" -eq 1 ]; then
-    if [ "$IS_FOC" -eq 1 ]; then
+  if (( i <= 5 )) || (( IS_POP == 1 )) || (( IS_FOC == 1 )); then
+    if (( IS_FOC == 1 )); then
       sketchybar --set space.$i drawing=on icon="󱓻" icon.color=$FG
-    elif [ "$IS_POP" -eq 1 ]; then
+    elif (( IS_POP == 1 )); then
       sketchybar --set space.$i drawing=on icon="$i" icon.color=$FG
     else
       sketchybar --set space.$i drawing=on icon="$i" icon.color=$MUTED

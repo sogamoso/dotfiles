@@ -6,7 +6,7 @@ Conventions for this repo. Match these over general best practices when they con
 
 - Two spaces for indentation. No tabs.
 - Shebang: `#!/usr/bin/env bash` (not `#!/bin/bash` — departs from upstream Omarchy).
-- `set -euo pipefail` on any script doing real work.
+- `set -euo pipefail` on any script doing real work. SketchyBar plugins and AeroSpace event hooks are exempt: they run on every tick or focus change and are written to carry on past a failed lookup, where strict mode would leave a bar item blank or drop the event.
 - Use `[[ ]]` for string/file tests, `(( ))` for numeric tests. Don't mix.
 - Inside `[[ ]]`, quote string literals but not variables: `[[ $minutes =~ ^[0-9]+$ ]]`, `[[ $branch == "main" ]]`.
 - Quote paths with spaces (`"$HOME/Application Support/…"`), don't escape with `\ `.

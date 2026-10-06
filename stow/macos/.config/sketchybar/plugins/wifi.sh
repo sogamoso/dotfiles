@@ -18,14 +18,14 @@ ETH_ACTIVE=$(networksetup -listallhardwareports 2>/dev/null | awk '
   ifconfig "$dev" 2>/dev/null | grep -q "status: active" && { echo 1; break; }
 done)
 
-if [ -n "$ETH_ACTIVE" ]; then
+if [[ -n $ETH_ACTIVE ]]; then
   sketchybar --set "$NAME" drawing=on icon="󰀂" label.drawing=off
   exit 0
 fi
 
 WIFI_DEV=$(networksetup -listallhardwareports 2>/dev/null | awk '/Wi-Fi/{getline; print $2}')
 
-if [ -z "$WIFI_DEV" ]; then
+if [[ -z $WIFI_DEV ]]; then
   sketchybar --set "$NAME" drawing=on icon="󰤮" label.drawing=off
   exit 0
 fi
@@ -33,18 +33,18 @@ fi
 WIFI_STATUS=$(ifconfig "$WIFI_DEV" 2>/dev/null | awk '/status:/ {print $2}')
 WIFI_IP=$(ipconfig getifaddr "$WIFI_DEV" 2>/dev/null)
 
-if [ "$WIFI_STATUS" != "active" ] || [ -z "$WIFI_IP" ]; then
+if [[ $WIFI_STATUS != "active" ]] || [[ -z $WIFI_IP ]]; then
   sketchybar --set "$NAME" drawing=on icon="󰤮" label.drawing=off
   exit 0
 fi
 
 RSSI=$(system_profiler SPAirPortDataType 2>/dev/null | awk -F': ' '/Signal \/ Noise/{split($2, a, " "); print a[1]; exit}')
 
-if   [ -z "$RSSI" ];           then ICON="󰤨"
-elif [ "$RSSI" -gt -50 ];      then ICON="󰤨"
-elif [ "$RSSI" -gt -60 ];      then ICON="󰤥"
-elif [ "$RSSI" -gt -70 ];      then ICON="󰤢"
-elif [ "$RSSI" -gt -80 ];      then ICON="󰤟"
+if   [[ -z $RSSI ]];           then ICON="󰤨"
+elif (( RSSI > -50 ));      then ICON="󰤨"
+elif (( RSSI > -60 ));      then ICON="󰤥"
+elif (( RSSI > -70 ));      then ICON="󰤢"
+elif (( RSSI > -80 ));      then ICON="󰤟"
 else                                ICON="󰤯"
 fi
 

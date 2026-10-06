@@ -11,7 +11,7 @@ case "$LEVEL" in
   '' | *[!0-9]*) sketchybar --set "$NAME" drawing=off; exit 0 ;;
 esac
 
-if [ "$LEVEL" -eq 0 ]; then
+if (( LEVEL == 0 )); then
   sketchybar --set "$NAME" drawing=on
 else
   sketchybar --set "$NAME" drawing=off

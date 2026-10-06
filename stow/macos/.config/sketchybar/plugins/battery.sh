@@ -9,7 +9,7 @@ if ! echo "$BATT" | grep -q "InternalBattery"; then
 fi
 
 PERCENTAGE=$(echo "$BATT" | grep -Eo "[0-9]+%" | head -1 | cut -d% -f1)
-[ -z "$PERCENTAGE" ] && exit 0
+[[ -z $PERCENTAGE ]] && exit 0
 
 TIME_REMAINING=$(echo "$BATT" | grep -Eo '[0-9]+:[0-9]+ remaining' | grep -Eo '[0-9]+:[0-9]+')
 
@@ -53,19 +53,19 @@ case "$STATE" in
     exit 0
     ;;
   discharging)
-    if   [ "$PERCENTAGE" -gt 80 ]; then ICON="󰁹"
-    elif [ "$PERCENTAGE" -gt 60 ]; then ICON="󰂀"
-    elif [ "$PERCENTAGE" -gt 40 ]; then ICON="󰁾"
-    elif [ "$PERCENTAGE" -gt 20 ]; then ICON="󰁼"
+    if   (( PERCENTAGE > 80 )); then ICON="󰁹"
+    elif (( PERCENTAGE > 60 )); then ICON="󰂀"
+    elif (( PERCENTAGE > 40 )); then ICON="󰁾"
+    elif (( PERCENTAGE > 20 )); then ICON="󰁼"
     else                                 ICON="󰁺"
     fi
 
-    if   [ "$PERCENTAGE" -le 10 ]; then COLOR=0xfff7768e  # critical
-    elif [ "$PERCENTAGE" -le 20 ]; then COLOR=0xffe0af68  # warning
+    if   (( PERCENTAGE <= 10 )); then COLOR=0xfff7768e  # critical
+    elif (( PERCENTAGE <= 20 )); then COLOR=0xffe0af68  # warning
     else                                 COLOR=0xffa9b1d6  # normal
     fi
 
-    if [ "$PERCENTAGE" -le 20 ]; then
+    if (( PERCENTAGE <= 20 )); then
       LABEL="${TIME_REMAINING:-${PERCENTAGE}%}"
       sketchybar --set "$NAME" drawing=on icon="$ICON" icon.color="$COLOR" label="$LABEL" label.color="$COLOR" label.drawing=on
     else
