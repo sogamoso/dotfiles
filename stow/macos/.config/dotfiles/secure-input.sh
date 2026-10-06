@@ -14,12 +14,7 @@ set -euo pipefail
 
 GROUP_ID="dotfiles-secure-input"
 
-# Tolerate a failing notifier: terminal-notifier exits non-zero when its
-# notification permission is off, and the stdout line below is the point.
-notify() {
-  terminal-notifier -title "$1" -message "${2:-}" \
-    -group "$GROUP_ID" >/dev/null 2>&1 || true
-}
+source "$HOME/.config/dotfiles/lib/notify.sh"
 
 report() {
   notify "$1" "$2"

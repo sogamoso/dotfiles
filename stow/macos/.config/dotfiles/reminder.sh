@@ -15,12 +15,7 @@ set -euo pipefail
 STATE_DIR="${TMPDIR:-/tmp}/dotfiles-reminders"
 GROUP_ID="dotfiles-reminder"
 
-# `|| true` so a failing notifier does not abort the script under `set -e`;
-# terminal-notifier exits non-zero when its notification permission is off.
-notify() {
-  terminal-notifier -title "$1" -message "${2:-}" \
-    -group "$GROUP_ID" >/dev/null 2>&1 || true
-}
+source "$HOME/.config/dotfiles/lib/notify.sh"
 
 prune() {
   [[ -d $STATE_DIR ]] || return 0
@@ -46,8 +41,7 @@ cmd_set() {
     sleep $(( minutes * 60 )) &
     sleep_pid=$!
     wait $sleep_pid
-    terminal-notifier -title "Reminder" -subtitle "Set $minutes min ago" \
-      -message "$message" -group "$GROUP_ID" >/dev/null 2>&1 || true
+    notify "Reminder" "$message" -subtitle "Set $minutes min ago"
     ( afplay -v 2 -r 1.5 -t 0.4 /System/Library/Sounds/Funk.aiff; \
       afplay -v 2 -r 1.5 -t 1.0 /System/Library/Sounds/Submarine.aiff ) >/dev/null 2>&1 &
     rm -f "$STATE_DIR/$BASHPID.reminder"

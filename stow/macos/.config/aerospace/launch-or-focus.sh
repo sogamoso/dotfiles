@@ -62,7 +62,8 @@ if $here && ! $new; then
 fi
 
 if ! open "${flags[@]}" "$@" 2>/dev/null; then
-  terminal-notifier -title "AeroSpace" -message "Could not launch $target" \
-    -group "dotfiles-launch-or-focus" >/dev/null 2>&1 || true
+  GROUP_ID="dotfiles-launch-or-focus"
+  source "$HOME/.config/dotfiles/lib/notify.sh"
+  notify "AeroSpace" "Could not launch $target"
   exit 1
 fi
