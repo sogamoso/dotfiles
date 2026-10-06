@@ -91,7 +91,7 @@ killall Dock
 
 # Load work hours agents on laptops only (Mac mini stays awake via pmset)
 if ! system_profiler SPHardwareDataType 2>/dev/null | grep -q "Mac mini"; then
-  for label in com.sogamoso.workhours.caffeinate com.sogamoso.workhours.caffeinate-run com.sogamoso.workhours.caffeinate-watch com.sogamoso.workhours.sleep-if-idle; do
+  for label in com.sogamoso.workhours.caffeinate-run com.sogamoso.workhours.caffeinate-watch com.sogamoso.workhours.sleep-if-idle; do
     plist="$HOME/Library/LaunchAgents/$label.plist"
     launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
     launchctl bootstrap "gui/$(id -u)" "$plist"

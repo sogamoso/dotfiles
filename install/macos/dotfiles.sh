@@ -12,7 +12,6 @@ take_ownership \
   "$HOME/.config/btop/btop.conf" \
   "$HOME/.config/ghostty/config" \
   "$HOME/.config/zed/settings.json" \
-  "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate.plist" \
   "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-run.plist" \
   "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-watch.plist" \
   "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"
