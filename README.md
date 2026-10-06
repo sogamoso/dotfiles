@@ -131,8 +131,6 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 
 | Script | What it does |
 |--------|-------------|
-| `ssh.sh` | Ensures `~/.ssh` directory exists before stowing |
-| `stow.sh` | Stows cross-platform dotfile packages into `$HOME` |
 | `zshrc.sh` | Appends personal supplement source to `.zshrc` |
 | `hushlogin.sh` | Suppresses "Last login" terminal message |
 | `coderabbit.sh` | Configures git filter to strip Coderabbit config from `.gitconfig` |
@@ -164,7 +162,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `security.sh` | Enables SSH/firewall and applies sshd hardening |
 | `brew.sh` | Installs all packages from `Brewfile` |
 | `onepassword.sh` | Opens 1Password for sign-in and SSH agent setup |
-| `dotfiles.sh` | Stows all dotfile packages into `$HOME` |
+| `../dotfiles/stow.sh` | Stows the cross-platform packages plus `zsh` and `macos` into `$HOME` |
 | `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
 | `preferences.sh` | macOS system defaults |
 | `pwas.sh` | Installs Chrome PWAs (Audible, Gmail, Google Calendar, X, YouTube) |
@@ -406,7 +404,7 @@ The Linux setup (`install/linux/all.sh`) runs these scripts in order:
 
 | Script | What it does |
 |--------|-------------|
-| `dotfiles.sh` | Stows the `linux` package, taking `~/.config/hypr/bindings.lua` over from `/etc/skel` |
+| `../dotfiles/stow.sh` | Stows the cross-platform packages plus `linux`, taking `~/.config/hypr/bindings.lua` over from `/etc/skel` |
 | `bashrc.sh` | Appends the personal supplement source to `.bashrc` |
 
 #### What gets customized

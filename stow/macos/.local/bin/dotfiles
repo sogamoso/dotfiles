@@ -81,9 +81,6 @@ cmd_brew() {
 
 cmd_stow() {
   run "$DOTFILES/install/dotfiles/stow.sh"
-  if [[ "$(uname -s)" == "Darwin" ]]; then
-    run "$DOTFILES/install/macos/dotfiles.sh"
-  fi
 }
 
 cmd_reload() {

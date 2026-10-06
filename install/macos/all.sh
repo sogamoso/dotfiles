@@ -12,7 +12,7 @@ bash "$DIR/brew.sh"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 bash "$DIR/onepassword.sh"
-bash "$DIR/dotfiles.sh"
+bash "$DIR/../dotfiles/stow.sh"
 bash "$DIR/tmux.sh"
 bash "$DIR/preferences.sh"
 bash "$DIR/pwas.sh"
