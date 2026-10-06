@@ -119,6 +119,9 @@ fi
 # so the skills still land on a machine where the clone was skipped.
 if sync_checkout "$OWN_URL" "$OWN_DIR" "sogamoso/skills"; then
   add_source "$OWN_DIR" "$OWN_DIR" "sogamoso/skills" "$OWN_URL"
+  # Git won't enable a versioned hooks directory on its own, and the hook is
+  # what enforces the repo's checks and version bumps.
+  git -C "$OWN_DIR" config core.hooksPath .githooks
 fi
 
 # The plugin was renamed from sogamoso to sogamoso-skills; drop the old install
