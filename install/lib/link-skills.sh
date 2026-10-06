@@ -118,10 +118,11 @@ register_marketplace() {
   return 1
 }
 
-# Register the marketplace and install the plugin on each agent present. Every
-# step is idempotent, so a rerun is a no-op rather than a reinstall.
+# Register the marketplace and install the plugin on each agent present, or
+# only on the agents named in the fourth argument. Every step is idempotent, so
+# a rerun is a no-op rather than a reinstall.
 install_skill_plugin() {
-  local dir=$1 label=$2 url=$3 id marketplace failed=""
+  local dir=$1 label=$2 url=$3 agents=${4:-claude codex} id marketplace failed=""
   id=$(skill_plugin_id "$dir") || return 1
   marketplace="${id#*@}"
   url=$(to_https "$url")
@@ -130,11 +131,11 @@ install_skill_plugin() {
   # refuses to let the CLI override a declaration. So adding is only useful on a
   # machine where that file isn't in place yet; a refusal means the declaration
   # already won. Judge success by whether the plugin installs, not by the add.
-  if command -v claude &>/dev/null; then
+  if [[ " $agents " == *" claude "* ]] && command -v claude &>/dev/null; then
     claude plugin marketplace add "$url" >/dev/null 2>&1 || true
     claude plugin install "$id" >/dev/null || failed="$failed claude"
   fi
-  if command -v codex &>/dev/null; then
+  if [[ " $agents " == *" codex "* ]] && command -v codex &>/dev/null; then
     if register_marketplace codex "$marketplace" "$url"; then
       codex plugin add "$id" >/dev/null || failed="$failed codex"
     else

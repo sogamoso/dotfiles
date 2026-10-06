@@ -23,8 +23,7 @@
     "episodic-memory@superpowers-marketplace": true,
     "claude-hud@claude-hud": true,
     "code-review@claude-plugins-official": true,
-    "mattpocock-skills@mattpocock": true,
-    "sogamoso-skills@sogamoso": true
+    "mattpocock-skills@mattpocock": true
   },
   "extraKnownMarketplaces": {
     "dev-browser-marketplace": {
@@ -43,12 +42,6 @@
       "source": {
         "source": "github",
         "repo": "jarrodwatts/claude-hud"
-      }
-    },
-    "sogamoso": {
-      "source": {
-        "source": "github",
-        "repo": "sogamoso/skills"
       }
     },
     "mattpocock": {

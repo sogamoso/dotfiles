@@ -27,8 +27,8 @@ log_heading "Installing agent skills..."
 # to linking otherwise. The packaging decides the mechanism, so a source that
 # ships a Codex plugin later switches over on the next run without an edit here.
 add_source() {
-  local repo_dir=$1 link_dir=$2 label=$3 url=${4:-}
-  install_skill_plugin "$repo_dir" "$label" "$url" && return 0
+  local repo_dir=$1 link_dir=$2 label=$3 url=${4:-} agents=${5:-}
+  install_skill_plugin "$repo_dir" "$label" "$url" $agents && return 0
   link_skills "$link_dir" "$label"
 }
 
@@ -116,9 +116,11 @@ if sync_checkout "$UIDOTSH_URL" "$UIDOTSH_DIR" "uidotsh-archive"; then
 fi
 
 # Cloned because it's a repo you work in; the plugin itself comes from the URL,
-# so the skills still land on a machine where the clone was skipped.
+# so the skills still land on a machine where the clone was skipped. Codex only:
+# Claude Code gets this plugin by syncing it from the claude.ai account it's
+# installed on, and a CLI install next to that loads every skill twice.
 if sync_checkout "$OWN_URL" "$OWN_DIR" "sogamoso/skills"; then
-  add_source "$OWN_DIR" "$OWN_DIR" "sogamoso/skills" "$OWN_URL"
+  add_source "$OWN_DIR" "$OWN_DIR" "sogamoso/skills" "$OWN_URL" "codex"
   # Git won't enable a versioned hooks directory on its own, and the hook is
   # what enforces the repo's checks and version bumps.
   git -C "$OWN_DIR" config core.hooksPath .githooks
@@ -126,8 +128,11 @@ fi
 
 # The plugin was renamed from sogamoso to sogamoso-skills; drop the old install
 # so Codex doesn't load every skill twice and Claude doesn't keep a dead entry.
+# Claude Code also drops the CLI install of the new name, which the copy synced
+# from claude.ai replaces.
 if command -v claude &>/dev/null; then
   claude plugin uninstall sogamoso@sogamoso >/dev/null 2>&1 || true
+  claude plugin uninstall sogamoso-skills@sogamoso >/dev/null 2>&1 || true
 fi
 if command -v codex &>/dev/null; then
   codex plugin remove sogamoso@sogamoso >/dev/null 2>&1 || true
