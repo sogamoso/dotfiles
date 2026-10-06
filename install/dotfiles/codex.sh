@@ -28,15 +28,11 @@ done
 
 log_heading "Installing Codex plugins..."
 
+# Only plugins Codex can actually use. Ones that are only slash commands,
+# subagents or Claude hooks (code-review, feature-dev, pr-review-toolkit,
+# code-simplifier, security-guidance, hookify, plugin-dev) stay in claude-code.sh.
 plugins=(
   "frontend-design@claude-plugins-official"
-  "feature-dev@claude-plugins-official"
-  "hookify@claude-plugins-official"
-  "pr-review-toolkit@claude-plugins-official"
-  "plugin-dev@claude-plugins-official"
-  "security-guidance@claude-plugins-official"
-  "code-simplifier@claude-plugins-official"
-  "code-review@claude-plugins-official"
   "typescript-lsp@claude-plugins-official"
   "ruby-lsp@claude-plugins-official"
   "dev-browser@dev-browser-marketplace"
