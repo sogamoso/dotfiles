@@ -49,11 +49,11 @@ package: stow lands a package in one place, and these need two.
 
 | Source | Holds | How |
 | --- | --- | --- |
-| `skills/` in this repo | Grouped by category — `uidotsh/` holds the `ui`, `brand-kit` and `markup-from-image` stubs | linked |
+| `stubs/` in sogamoso/uidotsh-archive | The `ui`, `brand-kit` and `markup-from-image` stubs | linked |
 | [sogamoso/skills](https://github.com/sogamoso/skills) | Personal skills | plugin |
 
-The personal repo is private and cloned over SSH, since it gets pushed to — so a
-locked 1Password agent will skip it with a warning rather than fail the run.
+Both repos are private and cloned over SSH, since they get pushed to — so a
+locked 1Password agent will skip them with a warning rather than fail the run.
 A plugin source is registered from its repo's https URL, not its checkout, so
 each agent fetches its own copy and the skills land on a machine that cloned
 nothing. Reading them needs no SSH agent. The clone is there because it's a repo to
@@ -71,8 +71,12 @@ only ships a Claude plugin, and it is only used in Claude Code, so it is install
 by `claude-code.sh` with the other Claude plugins (`/mattpocock-skills:tdd`) and
 Codex doesn't get it.
 
-The `uidotsh/` stubs stay linked deliberately, rather than this repo being
-packaged as a marketplace of its own. Their names collide with nothing, and
+The ui.sh stubs live in the private archive repo, not here: they're what ui.sh's
+installer scaffolds, and its license forbids redistributing that, so they can't
+sit in this public repo. The same repo keeps dated snapshots of the full paid
+skills in case the subscription lapses.
+
+They stay linked deliberately, rather than packaged as a plugin. Their names collide with nothing, and
 there is nothing to update — each is seven lines whose only job is to fetch the
 real instructions over MCP. More to the point, ui.sh writes real `SKILL.md`
 files into the skills directory itself, so these have to be locally

@@ -10,8 +10,13 @@ OWN_URL="git@github.com:sogamoso/skills.git"
 # symlink *target*, and would send skills into this checkout instead of ~/.claude/skills.
 OWN_DIR="${SKILLS_REPO_DIR:-$HOME/Code/sogamoso/skills}"
 
-# sogamoso/skills is private and cloned over SSH because it gets pushed to, so
-# a locked 1Password agent is a failure mode: BatchMode turns it into a fast
+# The ui.sh stubs live in a private repo: the ui.sh license forbids
+# redistributing what it scaffolds, and this one is public.
+UIDOTSH_URL="git@github.com:sogamoso/uidotsh-archive.git"
+UIDOTSH_DIR="${UIDOTSH_ARCHIVE_DIR:-$HOME/Code/sogamoso/uidotsh-archive}"
+
+# Both repos are private and cloned over SSH because they get pushed to, so a
+# locked 1Password agent is a failure mode: BatchMode turns it into a fast
 # failure instead of a bootstrap-blocking prompt, and accept-new does the same
 # for the host key on a machine with no known_hosts yet.
 export GIT_SSH_COMMAND="ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new"
@@ -46,7 +51,9 @@ sync_checkout() {
   return 1
 }
 
-add_source "$REPO_DIR" "$REPO_DIR/skills" "dotfiles"
+if sync_checkout "$UIDOTSH_URL" "$UIDOTSH_DIR" "uidotsh-archive"; then
+  link_skills "$UIDOTSH_DIR/stubs" "ui.sh stubs"
+fi
 
 # Cloned because it's a repo you work in; the plugin itself comes from the URL,
 # so the skills still land on a machine where the clone was skipped.
@@ -54,8 +61,9 @@ if sync_checkout "$OWN_URL" "$OWN_DIR" "sogamoso/skills"; then
   add_source "$OWN_DIR" "$OWN_DIR" "sogamoso/skills" "$OWN_URL"
 fi
 
-# mattpocock used to be linked from this checkout before it moved to a Claude
-# plugin; listing it here clears those links on machines that still have them.
-prune_skill_links "$REPO_DIR/skills" "$OWN_DIR" "$HOME/Code/vendor/mattpocock-skills"
+# The ui.sh stubs used to be linked from this repo's skills/, and mattpocock
+# from a vendor checkout; listing both clears those links on machines that
+# still have them.
+prune_skill_links "$UIDOTSH_DIR/stubs" "$OWN_DIR" "$REPO_DIR/skills" "$HOME/Code/vendor/mattpocock-skills"
 
 log_success "Agent skills installed"
