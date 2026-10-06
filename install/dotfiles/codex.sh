@@ -16,7 +16,6 @@ marketplaces=(
   "https://github.com/anthropics/claude-plugins-official.git"
   "https://github.com/obra/superpowers-marketplace.git"
   "https://github.com/SawyerHood/dev-browser.git"
-  "https://github.com/jarrodwatts/claude-hud.git"
 )
 
 for marketplace in "${marketplaces[@]}"; do
@@ -43,7 +42,6 @@ plugins=(
   "dev-browser@dev-browser-marketplace"
   "superpowers@superpowers-marketplace"
   "episodic-memory@superpowers-marketplace"
-  "claude-hud@claude-hud"
 )
 
 for plugin in "${plugins[@]}"; do
