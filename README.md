@@ -74,7 +74,9 @@ Codex doesn't get it.
 The ui.sh stubs live in the private archive repo, not here: they're what ui.sh's
 installer scaffolds, and its license forbids redistributing that, so they can't
 sit in this public repo. The same repo keeps dated snapshots of the full paid
-skills in case the subscription lapses.
+skills in case the subscription lapses. If it does, the archive's `restore.py` builds
+offline copies into its `local/` folder, and `skills.sh` links those instead of
+the stubs whenever that folder exists.
 
 They stay linked deliberately, rather than packaged as a plugin. Their names collide with nothing, and
 there is nothing to update — each is seven lines whose only job is to fetch the

@@ -51,8 +51,14 @@ sync_checkout() {
   return 1
 }
 
+# local/ only exists after the archive's restore.py has built offline copies
+# from a snapshot, which is how the skills keep working without a subscription.
 if sync_checkout "$UIDOTSH_URL" "$UIDOTSH_DIR" "uidotsh-archive"; then
-  link_skills "$UIDOTSH_DIR/stubs" "ui.sh stubs"
+  if [[ -d $UIDOTSH_DIR/local ]]; then
+    link_skills "$UIDOTSH_DIR/local" "ui.sh (archived)"
+  else
+    link_skills "$UIDOTSH_DIR/stubs" "ui.sh stubs"
+  fi
 fi
 
 # Cloned because it's a repo you work in; the plugin itself comes from the URL,
@@ -64,6 +70,6 @@ fi
 # The ui.sh stubs used to be linked from this repo's skills/, and mattpocock
 # from a vendor checkout; listing both clears those links on machines that
 # still have them.
-prune_skill_links "$UIDOTSH_DIR/stubs" "$OWN_DIR" "$REPO_DIR/skills" "$HOME/Code/vendor/mattpocock-skills"
+prune_skill_links "$UIDOTSH_DIR/stubs" "$UIDOTSH_DIR/local" "$OWN_DIR" "$REPO_DIR/skills" "$HOME/Code/vendor/mattpocock-skills"
 
 log_success "Agent skills installed"
