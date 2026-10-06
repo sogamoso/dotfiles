@@ -74,9 +74,17 @@ Codex doesn't get it.
 The ui.sh stubs live in the private archive repo, not here: they're what ui.sh's
 installer scaffolds, and its license forbids redistributing that, so they can't
 sit in this public repo. The same repo keeps dated snapshots of the full paid
-skills in case the subscription lapses. If it does, the archive's `restore.py` builds
-offline copies into its `local/` folder, and `skills.sh` links those instead of
-the stubs whenever that folder exists.
+skills in case the subscription lapses.
+
+`skills.sh` switches between the two by itself. Each run makes an MCP handshake
+with ui.sh using the license token (no skill is fetched). If ui.sh accepts it, the
+stubs are linked and fetch the current skills. If it refuses it (HTTP 401 or 403,
+meaning the subscription ended or the token changed), the archive's `restore.py`
+builds offline copies from the latest snapshot into its `local/` folder and those
+are linked instead, with a notification. Once ui.sh accepts the token again, the
+next run deletes `local/` and goes back to the stubs. If access can't be checked
+(no token yet, no network, ui.sh down), it keeps whichever is in place.
+`uidotsh.sh` runs before `skills.sh` so the token exists for that check.
 
 They stay linked deliberately, rather than packaged as a plugin. Their names collide with nothing, and
 there is nothing to update — each is seven lines whose only job is to fetch the
@@ -132,8 +140,8 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `aerospace-gap.sh` | Configures git filter to pin the sketchybar-rewritten `outer.top` gap |
 | `claude-code.sh` | Installs Claude Code marketplaces, plugins, and configures claude-hud |
 | `codex.sh` | Installs the third-party Codex marketplaces and plugins |
-| `skills.sh` | Links every skill into both `~/.claude/skills` and `~/.codex/skills` — see [Skills](#skills) |
 | `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server with Claude Code and Codex, and caches its token where the shells can export it |
+| `skills.sh` | Links every skill into both `~/.claude/skills` and `~/.codex/skills` — see [Skills](#skills) |
 
 ## Cross-platform design
 
