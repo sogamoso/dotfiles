@@ -89,13 +89,22 @@ fi
 
 killall Dock
 
-# Load work hours agents on laptops only (Mac mini stays awake via pmset)
-if ! system_profiler SPHardwareDataType 2>/dev/null | grep -q "Mac mini"; then
-  for label in com.sogamoso.workhours.caffeinate-run com.sogamoso.workhours.caffeinate-watch com.sogamoso.workhours.sleep-if-idle; do
+# Work hours agents run on laptops only; the Mac mini stays awake via pmset.
+# Stow puts the plists in ~/Library/LaunchAgents on every Mac and launchd loads
+# that folder at each login, so the Mac mini has to disable them outright:
+# launchctl disable persists, and launchd then skips them despite the plists.
+workhours_labels=(com.sogamoso.workhours.caffeinate-run com.sogamoso.workhours.caffeinate-watch com.sogamoso.workhours.sleep-if-idle)
+if system_profiler SPHardwareDataType 2>/dev/null | grep -q "Mac mini"; then
+  for label in "${workhours_labels[@]}"; do
+    launchctl bootout "gui/$(id -u)/$label" 2>/dev/null || true
+    launchctl disable "gui/$(id -u)/$label"
+  done
+else
+  for label in "${workhours_labels[@]}"; do
     plist="$HOME/Library/LaunchAgents/$label.plist"
     launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
-    launchctl bootstrap "gui/$(id -u)" "$plist"
     launchctl enable "gui/$(id -u)/$label"
+    launchctl bootstrap "gui/$(id -u)" "$plist"
   done
 fi
 

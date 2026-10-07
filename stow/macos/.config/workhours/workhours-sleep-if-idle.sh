@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-idle_ns=$(ioreg -c IOHIDSystem | awk '/HIDIdleTime/ {print $NF; exit}')
+# awk reads to the end rather than exiting at the first match: an early exit
+# SIGPIPEs ioreg, and pipefail then killed the script (exit 141) before it slept
+idle_ns=$(ioreg -c IOHIDSystem | awk '/HIDIdleTime/ && !v {v=$NF} END {print v}')
 
 if [[ -z "$idle_ns" ]]; then
   echo "Could not read HIDIdleTime — skipping sleep"
