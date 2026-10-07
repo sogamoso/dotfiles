@@ -305,6 +305,38 @@ every Mac; SSH goes through Tailscale SSH instead.
 
 ---
 
+## 14. Reach the Macs from the iPhone (Blink)
+
+Both Macs take SSH and mosh through Tailscale SSH: no keys, and nothing listens
+on the local network. The Mac side is automated (`tailscale.sh`, `firewall.sh`,
+and the `mac-mini`/`macbook` hosts in `~/.ssh/config`); the phone side lives in
+Blink and has to be set up by hand:
+
+1. Install Tailscale on the phone and sign in with `sebastian@sogamo.so`, the
+   same account as the Macs. The SSH rule only lets an account into its own
+   devices.
+2. In Blink → Settings → Hosts, add one host per Mac, matching the Mac-side names:
+
+   | Host | HostName | User |
+   | --- | --- | --- |
+   | `mac-mini` | `sogamoso-m4-mac-mini` | `sogamoso` |
+   | `macbook` | `sogamoso-m5-pro-macbook` | `sogamoso` |
+
+   No key or password: Tailscale authenticates. In **Mosh → Command** put
+   `/bin/zsh -lc 'exec herdr'` so `mosh mac-mini` lands in herdr. If Blink asks
+   for the server path, it's `/opt/homebrew/bin/mosh-server`.
+3. To land in herdr over plain SSH too, add to the host's **SSH Config**:
+
+       RequestTTY yes
+       RemoteCommand /bin/zsh -lc 'exec herdr'
+
+The first connection in a while opens a Tailscale check in the browser (the SSH
+rule's check mode); it holds for 12 hours. If mosh stops connecting after a
+Homebrew upgrade, run `dotfiles update`: it re-allows the new `mosh-server`
+through the firewall.
+
+---
+
 ## Remaining Gaps vs Omarchy
 
 Omarchy's desktop shell runs on [Quickshell](https://quickshell.org) and Hyprland, so a large part of it has no macOS analogue and is out of scope here: the shell process itself, the Hyprland configs, the ISO installer, pacman packaging, and the PAM fingerprint flows. Another tier is already native — Raycast covers the launcher, clipboard manager and emoji picker, and macOS provides Notification Center, Control Center and Touch ID.

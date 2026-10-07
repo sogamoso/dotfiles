@@ -80,6 +80,8 @@ cmd_brew() {
   if command -v tailscale >/dev/null 2>&1 && tailscale version 2>&1 | grep -q "!= tailscaled"; then
     run sudo brew services restart tailscale
   fi
+  # An upgraded tailscaled or mosh-server starts out blocked by the firewall
+  run "$DOTFILES/install/macos/firewall.sh"
 }
 
 cmd_stow() {
