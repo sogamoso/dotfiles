@@ -282,6 +282,29 @@ It is absent from `Brewfile` and cannot go there. Ratta ships the macOS build th
 
 ---
 
+## 13. Enable Screen Sharing (always-available machines only)
+
+**Desktop computers that stay on, like the Mac mini — not laptops.** A laptop
+moves between networks, and Screen Sharing listens on every one of them.
+
+System Settings → General → Sharing → enable **Screen Sharing**, then under its
+ⓘ set **Allow access for** to **Only these users** with just your account. macOS
+won't let a script turn it on, which is why it's here.
+
+Connect through Tailscale, using the machine's Tailscale name:
+
+- From another Mac: Finder → Go → Connect to Server → `vnc://<tailscale-name>`
+  (e.g. `vnc://sebastians-mac-mini`), and sign in with that Mac's user account.
+- From a phone: the Tailscale app connected, plus a VNC client pointed at the
+  same name.
+
+Unlike SSH, Screen Sharing isn't limited to the tailnet: it also answers on the
+local network. That's acceptable for a desktop behind a home router; it's the
+reason laptops skip this step. Remote Login (macOS's own SSH server) stays off on
+every Mac; SSH goes through Tailscale SSH instead.
+
+---
+
 ## Remaining Gaps vs Omarchy
 
 Omarchy's desktop shell runs on [Quickshell](https://quickshell.org) and Hyprland, so a large part of it has no macOS analogue and is out of scope here: the shell process itself, the Hyprland configs, the ISO installer, pacman packaging, and the PAM fingerprint flows. Another tier is already native — Raycast covers the launcher, clipboard manager and emoji picker, and macOS provides Notification Center, Control Center and Touch ID.

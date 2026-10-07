@@ -163,7 +163,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 |--------|-------------|
 | `xcode.sh` | Checks for Xcode Command Line Tools, opens installer if missing, then exits for rerun after install |
 | `omadots.sh` | Installs [Omadots](https://github.com/omacom-io/omadots) shell framework |
-| `security.sh` | Enables SSH/firewall and applies sshd hardening |
+| `security.sh` | Turns off Remote Login (SSH goes through Tailscale SSH), hardens sshd, enables the firewall |
 | `brew.sh` | Installs all packages from `Brewfile` |
 | `onepassword.sh` | Opens 1Password for sign-in and SSH agent setup |
 | `../dotfiles/stow.sh` | Stows the cross-platform packages plus `zsh` and `macos` into `$HOME` |
