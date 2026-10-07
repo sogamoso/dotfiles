@@ -337,6 +337,21 @@ rule's check mode); it holds for 12 hours. Homebrew upgrades re-block
 
 ---
 
+## 15. Confirm the setup with `dotfiles doctor`
+
+Once the steps above are done, run:
+
+```
+dotfiles doctor
+```
+
+It checks this Mac: Tailscale signed in with Tailscale SSH on, Remote Login off,
+the firewall allowing `tailscaled` and `mosh-server`, the LaunchAgents (work
+hours on laptops only), the ui.sh skills and brew autoupdate. Anything wrong
+comes with the command that fixes it. Run it again whenever something seems off.
+
+---
+
 ## Remaining Gaps vs Omarchy
 
 Omarchy's desktop shell runs on [Quickshell](https://quickshell.org) and Hyprland, so a large part of it has no macOS analogue and is out of scope here: the shell process itself, the Hyprland configs, the ISO installer, pacman packaging, and the PAM fingerprint flows. Another tier is already native — Raycast covers the launcher, clipboard manager and emoji picker, and macOS provides Notification Center, Control Center and Touch ID.
