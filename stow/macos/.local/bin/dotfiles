@@ -71,6 +71,7 @@ explain_pull_failure() {
 }
 
 cmd_brew() {
+  (source "$DOTFILES/install/lib/brew-trust.sh"; brew_trust_taps "$DOTFILES/Brewfile")
   run brew bundle install --file="$DOTFILES/Brewfile"
   # Restart tailscaled if brew upgraded the client past the running daemon.
   # Only prompts for sudo when a mismatch is actually detected.
