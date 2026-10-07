@@ -6,6 +6,7 @@
 # Usage:
 #   firewall.sh           allow the current binaries (asks for sudo only if needed)
 #   firewall.sh --check   only report; notify when a binary is blocked
+#   firewall.sh --check --quiet   only report (for dotfiles doctor)
 #
 # Both are ad hoc signed, so the firewall's permission is tied to the exact
 # binary, and an upgrade lands a new one in a new Cellar path that starts out
@@ -38,7 +39,8 @@ check() {
     return 0
   fi
   echo "Blocked by the firewall: ${blocked[*]}"
-  notify "Firewall blocks ${blocked[*]}" "Run dotfiles update to allow the upgraded binaries"
+  [[ ${1:-} == "--quiet" ]] ||
+    notify "Firewall blocks ${blocked[*]}" "Run dotfiles update to allow the upgraded binaries"
   return 1
 }
 
@@ -69,7 +71,7 @@ allow() {
 }
 
 case "${1:-}" in
-  --check) check ;;
+  --check) check "${2:-}" ;;
   "") allow ;;
-  *) echo "Usage: firewall.sh [--check]" >&2; exit 1 ;;
+  *) echo "Usage: firewall.sh [--check [--quiet]]" >&2; exit 1 ;;
 esac
