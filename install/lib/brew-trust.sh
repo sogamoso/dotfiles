@@ -8,6 +8,11 @@
 # re-runs this. `brew trust` only records names, so the tap doesn't need to be
 # present yet, and re-trusting is a no-op.
 #
+# The Brewfile's taps also carry `trusted: true`. `brew bundle cleanup --force`
+# replaces the whole trust store with what the Brewfile marks trusted, so
+# without the flag it wipes this helper's work and then fails its own cleanup.
+# The flag doesn't trust anything on `brew bundle install`, hence both.
+#
 # Sourced by install/macos/brew.sh before the first `brew bundle`, and by
 # `dotfiles brew` so existing machines catch up on the next update.
 

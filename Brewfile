@@ -1,6 +1,6 @@
-tap "domt4/autoupdate"
-tap "FelixKratz/formulae"
-tap "nikitabobko/tap"
+tap "domt4/autoupdate", trusted: true
+tap "FelixKratz/formulae", trusted: true
+tap "nikitabobko/tap", trusted: true
 
 brew "bat"
 brew "blueutil"
