@@ -1,0 +1,13 @@
+# Keeps the GitHub Actions in .github/workflows/ current. An action pinned to an
+# old major drifts onto a deprecated runtime, and nothing else notices until a
+# run warns. Updates arrive as one weekly pull request, titled in the imperative
+# ("Bump the actions group ..."), checked by check.yml.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
