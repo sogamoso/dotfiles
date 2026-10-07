@@ -120,7 +120,7 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 |---|---|
 | `dotfiles update` | Pull, sync Brewfile, restow, reload services |
 | `dotfiles pull` | Git pull only |
-| `dotfiles brew` | Sync Brewfile via `brew bundle` |
+| `dotfiles brew` | Sync Brewfile via `brew bundle`, keep brew autoupdate current |
 | `dotfiles stow` | Re-stow all packages |
 | `dotfiles reload` | Re-stow, relink skills, restart SketchyBar, reload AeroSpace, restart a stale herdr server |
 | `dotfiles status` | Branch, ahead/behind, dirty files |

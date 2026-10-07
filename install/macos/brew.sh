@@ -38,26 +38,10 @@ fi
 # herdr runs as a login-persistent background service (idempotent if already started)
 brew services start herdr
 
-# Autoupdate once a day. Dependencies are upgraded too: with --leaves-only they
-# only moved when something above them did, and fell months behind.
-#
-# A running agent keeps whatever flags it was started with, so the flags it got
-# are recorded and a change to them restarts it. Checking only that it runs left
-# machines set up before a change on the old flags indefinitely.
-AUTOUPDATE_ARGS=(86400 --ac-only --upgrade --cleanup --immediate --sudo)
-AUTOUPDATE_STATE="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/brew-autoupdate.args"
-if ! brew autoupdate status 2>/dev/null | grep -q "Autoupdate is installed and running" ||
-  [[ "$(cat "$AUTOUPDATE_STATE" 2>/dev/null)" != "${AUTOUPDATE_ARGS[*]}" ]]; then
-  brew autoupdate delete 2>/dev/null || true
-  # --sudo needs pinentry-mac (installed via Brewfile above). Don't let a failure
-  # here abort the run — all.sh aborts with it, skipping every later install script.
-  if brew autoupdate start "${AUTOUPDATE_ARGS[@]}"; then
-    mkdir -p "$(dirname "$AUTOUPDATE_STATE")"
-    echo "${AUTOUPDATE_ARGS[*]}" >"$AUTOUPDATE_STATE"
-  else
-    log_warn "brew autoupdate start failed; continuing without daily autoupdate"
-  fi
-fi
+# Don't let a failure here abort the run — all.sh aborts with it, skipping
+# every later install script.
+source "$REPO_DIR/install/lib/brew-autoupdate.sh"
+brew_autoupdate_ensure || log_warn "brew autoupdate start failed; continuing without daily autoupdate"
 
 # zsh-you-should-use (installed via Brewfile, link into plugin dir)
 PLUGIN_DIR="$HOME/.config/zsh/plugins/zsh-you-should-use"

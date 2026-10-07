@@ -12,7 +12,7 @@ Usage: dotfiles <command>
 Commands:
   update    Pull, sync Brewfile, restow, reload services
   pull      Git pull only
-  brew      Sync Brewfile via brew bundle
+  brew      Sync Brewfile, keep brew autoupdate current
   stow      Re-stow all dotfile packages
   reload    Re-stow, relink skills, restart SketchyBar, reload AeroSpace
   status    Show repo state (branch, ahead/behind, dirty files)
@@ -73,6 +73,8 @@ explain_pull_failure() {
 cmd_brew() {
   (source "$DOTFILES/install/lib/brew-trust.sh"; brew_trust_taps "$DOTFILES/Brewfile")
   run brew bundle install --file="$DOTFILES/Brewfile"
+  (source "$DOTFILES/install/lib/brew-autoupdate.sh"; brew_autoupdate_ensure) ||
+    echo "==> brew autoupdate start failed; continuing without daily autoupdate"
   # Restart tailscaled if brew upgraded the client past the running daemon.
   # Only prompts for sudo when a mismatch is actually detected.
   if command -v tailscale >/dev/null 2>&1 && tailscale version 2>&1 | grep -q "!= tailscaled"; then
