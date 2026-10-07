@@ -294,7 +294,7 @@ won't let a script turn it on, which is why it's here.
 Connect through Tailscale, using the machine's Tailscale name:
 
 - From another Mac: Finder → Go → Connect to Server → `vnc://<tailscale-name>`
-  (e.g. `vnc://sebastians-mac-mini`), and sign in with that Mac's user account.
+  (e.g. `vnc://sogamoso-m4-mac-mini`), and sign in with that Mac's user account.
 - From a phone: the Tailscale app connected, plus a VNC client pointed at the
   same name.
 
