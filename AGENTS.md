@@ -27,6 +27,7 @@ Conventions for this repo. Match these over general best practices when they con
 
 ## Conventions
 
+- **Run `python3 .github/check.py` before committing.** CI runs it on every push. It checks script syntax and shebangs, shellcheck errors, that alias pairs are byte-identical (exceptions listed in its `ALIAS_EXCEPTIONS`, with the reason here), LaunchAgent plists and the scripts they run, and that every AeroSpace binding has a README row. A new deliberate exception goes in both places.
 - **Omarchy parity is a stated goal.** AeroSpace bindings cross-reference their Omarchy equivalent in the trailing comment (e.g. `# Omarchy: SUPER+CTRL+R → set reminder`). Preserve this when adding bindings.
 - **Modifier mapping:** in `aerospace.toml`, `alt` = physical Option key = Omarchy's SUPER, `cmd` = physical Command = Omarchy's ALT. Comments at the top of the file are the source of truth.
 - **Hotkeys live in three places — keep them in sync on both add AND remove.** Adding without updating all of them produces phantom bindings; removing without updating all of them produces phantom docs. The three:

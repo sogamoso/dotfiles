@@ -1,0 +1,25 @@
+name: Check
+
+# Static checks for the conventions in AGENTS.md: script syntax and shebangs,
+# shellcheck errors, the zsh/bash alias pairs, LaunchAgent plists, and every
+# AeroSpace binding documented in the README. Machine state is dotfiles
+# doctor's job; this only catches what a change breaks.
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install zsh for the zsh syntax check
+        run: sudo apt-get install -y --no-install-recommends zsh
+
+      - name: Run the checks
+        run: python3 .github/check.py
