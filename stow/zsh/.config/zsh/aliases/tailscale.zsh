@@ -20,7 +20,16 @@ tsel() {
   fi
 }
 
+# Homebrew's tailscaled on macOS accepts --exit-node but never routes through
+# it, and the saved setting then makes `tailscale up --ssh` (tsu) fail until
+# it's cleared. Refuse instead of saving a setting that does nothing.
+ts_no_exit_nodes() {
+  echo "Exit nodes don't work with Homebrew's tailscaled on macOS; nothing changed" >&2
+  return 1
+}
+
 tsec() {
+  ts_no_exit_nodes || return 1
   local node="${1-}"
   local usage="Usage: tsec <hostname|ip>"
 
@@ -68,6 +77,7 @@ tsvpnl() {
 }
 
 tsvpnc() {
+  ts_no_exit_nodes || return 1
   local location="${1-}"
   local hostname label
 

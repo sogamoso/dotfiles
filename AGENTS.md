@@ -57,6 +57,9 @@ Conventions for this repo. Match these over general best practices when they con
     `compinit` block and `zsh-you-should-use` (zsh only), and the
     `supplement.macos.zsh` source (macOS only). `supplement.bash` omits all
     four; Omarchy supplies completions and its own alias layer.
+  - `tailscale.zsh` makes `tsec` and `tsvpnc` refuse. Homebrew's `tailscaled`
+    on macOS can't use exit nodes, and a saved one breaks `tailscale up --ssh`.
+    `tailscaled` on Linux can, so the bash copy keeps them working.
 
   A new alias file defaults to **both** sides. Only skip the bash copy when
   Omarchy already provides the same thing.
