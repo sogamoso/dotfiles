@@ -16,6 +16,7 @@ Commands:
   stow      Re-stow all dotfile packages
   reload    Re-stow, relink skills, restart SketchyBar, reload AeroSpace
   status    Show repo state (branch, ahead/behind, dirty files)
+  doctor    Check this Mac's setup: Tailscale, SSH, firewall, agents, skills
   edit      Open the repo in \$VISUAL (defaults to nvim)
   help      Show this message
 EOF
@@ -163,6 +164,146 @@ cmd_status() {
   git status --short
 }
 
+# Things that broke silently before: Tailscale signed out, Remote Login on,
+# mosh-server blocked after an upgrade, the work-hours agents loaded on the Mac
+# mini, sleep-if-idle crashing on every run. Each check names its fix, and the
+# exit status says whether anything failed.
+TAILSCALE_LOGIN="sebastian@sogamo.so"
+DOCTOR_FAILED=0
+
+ok() { echo "  ✓ $1"; }
+bad() {
+  echo "  ✗ $1"
+  [[ -n ${2:-} ]] && echo "    → $2"
+  DOCTOR_FAILED=1
+}
+
+# Last exit code of a loaded agent, or nothing when it isn't loaded
+agent_last_exit() {
+  launchctl print "gui/$(id -u)/$1" 2>/dev/null |
+    awk -F' = ' '/last exit code = / && !seen {print $2; seen=1}'
+}
+
+doctor_agent_loaded() {
+  local label=$1 any_exit=${2:-} code
+  local plist="$HOME/Library/LaunchAgents/$label.plist"
+  if ! launchctl print "gui/$(id -u)/$label" >/dev/null 2>&1; then
+    bad "$label is not loaded" "launchctl bootstrap gui/$(id -u) $plist"
+    return
+  fi
+  code=$(agent_last_exit "$label")
+  if [[ -n $any_exit || -z $code || $code == "0" || $code == "(never exited)" ]]; then
+    ok "$label loaded${code:+, last exit $code}"
+  else
+    bad "$label last exited with $code" "See /tmp/$label.err and /tmp/$label.out"
+  fi
+}
+
+doctor_agent_disabled() {
+  local label=$1
+  if launchctl print "gui/$(id -u)/$label" >/dev/null 2>&1; then
+    bad "$label is loaded but shouldn't run on this Mac" \
+      "launchctl bootout gui/$(id -u)/$label && launchctl disable gui/$(id -u)/$label"
+  elif [[ "$(launchctl print-disabled "gui/$(id -u)")" != *"\"$label\" => disabled"* ]]; then
+    bad "$label isn't disabled, so it loads at the next login" "launchctl disable gui/$(id -u)/$label"
+  else
+    ok "$label disabled"
+  fi
+}
+
+cmd_doctor() {
+  local model desktop=0
+  model=$(system_profiler SPHardwareDataType 2>/dev/null | awk -F': ' '/Model Name/ {print $2}')
+  [[ $model == *"Mac mini"* ]] && desktop=1
+  echo "==> $model ($( (( desktop )) && echo "desktop" || echo "laptop"))"
+
+  echo "==> Tailscale"
+  if ! command -v tailscale >/dev/null 2>&1; then
+    bad "tailscale isn't installed" "dotfiles brew"
+  else
+    local state login run_ssh
+    state=$(tailscale status --json 2>/dev/null | jq -r '.BackendState // empty')
+    login=$(tailscale status --json 2>/dev/null | jq -r '.User[(.Self.UserID|tostring)].LoginName // empty')
+    run_ssh=$(tailscale debug prefs 2>/dev/null | jq -r '.RunSSH // false')
+    if [[ $state != "Running" ]]; then
+      bad "Not connected (${state:-daemon not responding})" "tailscale up --ssh"
+    elif [[ $login != "$TAILSCALE_LOGIN" ]]; then
+      bad "Signed in as $login, not $TAILSCALE_LOGIN; SSH from the other devices won't be allowed" \
+        "tailscale logout && tailscale up --ssh"
+    else
+      ok "Connected as $login"
+    fi
+    if [[ $run_ssh == "true" ]]; then ok "Tailscale SSH on"; else bad "Tailscale SSH off" "tailscale set --ssh"; fi
+  fi
+
+  echo "==> SSH"
+  if launchctl print system/com.openssh.sshd >/dev/null 2>&1; then
+    bad "Remote Login (macOS sshd) is on" "sudo launchctl unload -w /System/Library/LaunchDaemons/ssh.plist"
+  else
+    ok "Remote Login off"
+  fi
+  if nc -z -G 1 127.0.0.1 22 >/dev/null 2>&1; then
+    bad "Something listens on port 22" "sudo lsof -nP -iTCP:22 -sTCP:LISTEN"
+  else
+    ok "Nothing listens on port 22"
+  fi
+
+  echo "==> Firewall"
+  if [[ "$(/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate)" == *enabled* ]]; then
+    ok "Firewall on"
+  else
+    bad "Firewall off" "sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on"
+  fi
+  local fw
+  if fw=$("$HOME/.config/dotfiles/firewall.sh" --check --quiet 2>&1); then ok "$fw"; else bad "$fw" "dotfiles brew"; fi
+
+  echo "==> Agents"
+  doctor_agent_loaded com.sogamoso.keyboard.remap
+  doctor_agent_loaded com.sogamoso.firewall-check
+  [[ -r ${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/uidotsh.env ]] &&
+    doctor_agent_loaded com.sogamoso.uidotsh-token
+  local label
+  for label in com.sogamoso.workhours.caffeinate-watch com.sogamoso.workhours.caffeinate-run com.sogamoso.workhours.sleep-if-idle; do
+    if (( desktop )); then
+      doctor_agent_disabled "$label"
+    elif [[ $label == *caffeinate-run ]]; then
+      # The watcher starts and kills this one, so any exit status is normal
+      doctor_agent_loaded "$label" any
+    else
+      doctor_agent_loaded "$label"
+    fi
+  done
+
+  echo "==> Skills"
+  local dir skill target
+  for dir in "$HOME/.claude/skills" "$HOME/.codex/skills"; do
+    [[ -d $(dirname "$dir") ]] || continue
+    for skill in ui brand-kit markup-from-image; do
+      target=$(readlink "$dir/$skill" 2>/dev/null || true)
+      if [[ -z $target || ! -e $dir/$skill/SKILL.md ]]; then
+        bad "${dir/#$HOME/~}/$skill is missing or broken" "dotfiles reload"
+      elif [[ $target == */local/* ]]; then
+        ok "${dir/#$HOME/~}/$skill → archived copy (ui.sh refused the token)"
+      else
+        ok "${dir/#$HOME/~}/$skill → live ui.sh stub"
+      fi
+    done
+  done
+
+  echo "==> Homebrew"
+  if [[ "$(brew autoupdate status 2>/dev/null)" == *"running"* ]]; then
+    ok "brew autoupdate running"
+  else
+    bad "brew autoupdate isn't running" "dotfiles brew"
+  fi
+
+  if (( DOCTOR_FAILED )); then
+    echo "==> Problems found; run the → commands above"
+    return 1
+  fi
+  echo "==> All checks passed"
+}
+
 cmd_edit() {
   ${VISUAL:-nvim} "$DOTFILES"
 }
@@ -174,6 +315,7 @@ case "${1:-help}" in
   stow)           cmd_stow ;;
   reload)         cmd_reload ;;
   status)         cmd_status ;;
+  doctor)         cmd_doctor ;;
   edit)           cmd_edit ;;
   help|-h|--help) usage ;;
   *)              echo "Unknown command: $1" >&2; usage >&2; exit 64 ;;

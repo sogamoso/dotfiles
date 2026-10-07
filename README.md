@@ -124,6 +124,7 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles stow` | Re-stow all packages |
 | `dotfiles reload` | Re-stow, relink skills, restart SketchyBar, reload AeroSpace, restart a stale herdr server |
 | `dotfiles status` | Branch, ahead/behind, dirty files |
+| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, brew autoupdate) and print the fix for anything wrong |
 | `dotfiles edit` | Open the repo in `$VISUAL` |
 
 Set `$DOTFILES` to override the repo location (default: `~/Code/sogamoso/dotfiles`).

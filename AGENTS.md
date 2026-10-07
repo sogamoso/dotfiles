@@ -64,7 +64,7 @@ Conventions for this repo. Match these over general best practices when they con
   A new alias file defaults to **both** sides. Only skip the bash copy when
   Omarchy already provides the same thing.
 
-- **Repo maintenance via the `dotfiles` CLI.** Lives at `stow/macos/.local/bin/dotfiles`, symlinked to `~/.local/bin/dotfiles`. Subcommands: `update`, `pull`, `brew`, `stow`, `reload`, `status`, `edit`. Add new subcommands here rather than scattering one-off scripts.
+- **Repo maintenance via the `dotfiles` CLI.** Lives at `stow/macos/.local/bin/dotfiles`, symlinked to `~/.local/bin/dotfiles`. Subcommands: `update`, `pull`, `brew`, `stow`, `reload`, `status`, `doctor`, `edit`. When you add something a machine depends on (an agent, a firewall rule, a service), add its check to `doctor` too, or it can break silently. Add new subcommands here rather than scattering one-off scripts.
 
 ## Adding a new shared helper script
 
