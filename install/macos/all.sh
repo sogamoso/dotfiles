@@ -13,12 +13,14 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 bash "$DIR/onepassword.sh"
 bash "$DIR/../dotfiles/stow.sh"
+# The stowed helper, shared with dotfiles brew and the daily check that
+# preferences.sh loads; allowing first keeps that check from firing on day one
+bash "$HOME/.config/dotfiles/firewall.sh"
 bash "$DIR/tmux.sh"
 bash "$DIR/preferences.sh"
 bash "$DIR/pwas.sh"
 bash "$DIR/mailto.sh"
 bash "$DIR/sketchybar.sh"
-bash "$DIR/firewall.sh"
 bash "$DIR/tailscale.sh"
 bash "$DIR/aerospace.sh"
 bash "$DIR/raycast.sh"

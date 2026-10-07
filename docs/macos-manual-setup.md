@@ -331,9 +331,9 @@ Blink and has to be set up by hand:
        RemoteCommand /bin/zsh -lc 'exec herdr'
 
 The first connection in a while opens a Tailscale check in the browser (the SSH
-rule's check mode); it holds for 12 hours. If mosh stops connecting after a
-Homebrew upgrade, run `dotfiles update`: it re-allows the new `mosh-server`
-through the firewall.
+rule's check mode); it holds for 12 hours. Homebrew upgrades re-block
+`mosh-server` in the firewall; a daily check notifies when that happens, and
+`dotfiles update` re-allows it.
 
 ---
 

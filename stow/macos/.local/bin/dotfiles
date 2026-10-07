@@ -81,7 +81,7 @@ cmd_brew() {
     run sudo brew services restart tailscale
   fi
   # An upgraded tailscaled or mosh-server starts out blocked by the firewall
-  run "$DOTFILES/install/macos/firewall.sh"
+  run "$HOME/.config/dotfiles/firewall.sh"
 }
 
 cmd_stow() {

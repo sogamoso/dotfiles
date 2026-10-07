@@ -108,8 +108,9 @@ else
   done
 fi
 
-# Apply user key remappings via hidutil at login (Lofree mic-mute → F18)
-for label in com.sogamoso.keyboard.remap; do
+# Apply user key remappings via hidutil at login (Lofree mic-mute → F18), and
+# check daily that brew autoupdate hasn't left tailscaled or mosh-server blocked
+for label in com.sogamoso.keyboard.remap com.sogamoso.firewall-check; do
   plist="$HOME/Library/LaunchAgents/$label.plist"
   launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
   launchctl bootstrap "gui/$(id -u)" "$plist"
