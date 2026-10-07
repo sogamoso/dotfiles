@@ -18,15 +18,8 @@ mkdir -p "$HOME/Library/LaunchAgents"  # not created by default on a fresh macOS
 
 log_heading "Installing Homebrew packages..."
 
-# Homebrew 6+ refuses to load formulae/casks from non-official taps unless
-# they're trusted. Trust the taps declared in the Brewfile before bundling so
-# the install works non-interactively. `brew trust` only records names, so the
-# tap doesn't need to be present yet.
-if brew trust --help &>/dev/null; then
-  while IFS= read -r tap; do
-    brew trust "$tap"
-  done < <(grep -E '^tap "' "$REPO_DIR/Brewfile" | sed -E 's/^tap "([^"]+)".*/\1/')
-fi
+source "$REPO_DIR/install/lib/brew-trust.sh"
+brew_trust_taps "$REPO_DIR/Brewfile"
 
 # Install personal packages (Omadots handles core packages)
 brew bundle --file "$REPO_DIR/Brewfile"
