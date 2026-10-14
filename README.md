@@ -434,7 +434,6 @@ Everything else matches Omarchy's defaults.
 | `Super + Shift + E` | HEY email | Gmail |
 | `Super + Shift + Alt + E` | HEY new email | Gmail compose |
 | `Super + Shift + G` | Signal | WhatsApp |
-| `Super + Shift + N` | Default editor | Zed |
 
 #### What is deliberately not ported
 
