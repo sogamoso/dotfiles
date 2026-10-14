@@ -32,6 +32,9 @@ sketchybar --bar \
   color=$BG \
   border_width=0
 
+# Stay hidden across reloads while the full screen desktop toggle is on
+[[ -e ${TMPDIR:-/tmp}/dotfiles-fullscreen-desktop ]] && sketchybar --bar hidden=on
+
 # Defaults
 sketchybar --default \
   padding_left=6 \

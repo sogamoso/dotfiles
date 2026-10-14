@@ -153,6 +153,7 @@ f18          = 'exec-and-forget $HOME/.config/dotfiles/mic-mute.sh' # Omarchy: X
 alt-ctrl-cmd-t = 'exec-and-forget $HOME/.config/dotfiles/status.sh time'
 alt-ctrl-cmd-b = 'exec-and-forget $HOME/.config/dotfiles/status.sh battery'
 alt-ctrl-cmd-w = 'exec-and-forget $HOME/.config/dotfiles/status.sh weather'
+alt-ctrl-cmd-f = 'exec-and-forget $HOME/.config/dotfiles/fullscreen-desktop.sh' # Omarchy: SUPER+CTRL+ALT+F → full screen desktop (bar and gaps)
 
 # -------------------------------------------------------
 # Dwindle: split opposite for every new window

@@ -241,6 +241,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Q` | Close focused window (second chord, as in Omarchy) |
 | `Ctrl + Cmd + Del` | Close all windows, jump to workspace 1 |
 | `Option + F` | Fullscreen |
+| `Option + Ctrl + Cmd + F` | Full screen desktop: hide the bar and drop window gaps (toggle) |
 | `Option + T` | Toggle floating/tiling |
 | `Option + J` | Toggle split direction |
 | `Option + L` | Toggle layout |

@@ -17,7 +17,10 @@ HAS_EXTERNAL=$("$EXT_BIN" 2>/dev/null || echo 0)
 
 GAP=8
 
-if (( HAS_EXTERNAL == 1 )) 2>/dev/null; then
+# The full screen desktop toggle hides the bar and wants no gap at all
+if [[ -e ${TMPDIR:-/tmp}/dotfiles-fullscreen-desktop ]]; then
+  AEROSPACE_TOP=0
+elif (( HAS_EXTERNAL == 1 )) 2>/dev/null; then
   AEROSPACE_TOP=$(( BAR_HEIGHT + GAP ))
 else
   AEROSPACE_TOP=$GAP
