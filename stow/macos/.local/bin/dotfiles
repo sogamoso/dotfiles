@@ -96,6 +96,13 @@ cmd_stow() {
 
 cmd_reload() {
   cmd_stow
+  # Git filters live in .git/config, which no pull updates, so a changed filter
+  # would otherwise only reach this checkout on the next bootstrap. Both scripts
+  # just run `git config`, so rerunning them is instant and idempotent.
+  local filter
+  for filter in aerospace-gap coderabbit; do
+    run "$DOTFILES/install/dotfiles/$filter.sh"
+  done
   # Skills are linked, not stowed, so restowing doesn't pick up a new one, a
   # renamed category, or a dropped one. Cheap when nothing changed.
   local skills="$DOTFILES/install/dotfiles/skills.sh"
@@ -152,7 +159,7 @@ cmd_status() {
   done < <(sed -n 's/.*filter=\([A-Za-z0-9_-]*\).*/\1/p' .gitattributes | sort -u)
   if (( ${#missing[@]} )); then
     echo "==> Missing git filters: ${missing[*]}"
-    echo "    Run install/dotfiles/all.sh to configure them"
+    echo "    Run dotfiles reload to configure them"
   fi
 
   # Links from a previous checkout location survive a move and silently stop
