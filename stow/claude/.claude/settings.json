@@ -23,7 +23,8 @@
     "episodic-memory@superpowers-marketplace": true,
     "claude-hud@claude-hud": true,
     "code-review@claude-plugins-official": true,
-    "mattpocock-skills@mattpocock": true
+    "mattpocock-skills@mattpocock": true,
+    "stroppers@stroppers": true
   },
   "extraKnownMarketplaces": {
     "dev-browser-marketplace": {
@@ -48,6 +49,12 @@
       "source": {
         "source": "github",
         "repo": "mattpocock/skills"
+      }
+    },
+    "stroppers": {
+      "source": {
+        "source": "github",
+        "repo": "sogamoso/stroppers"
       }
     }
   },

@@ -10,6 +10,9 @@ OWN_URL="git@github.com:sogamoso/skills.git"
 # symlink *target*, and would send skills into this checkout instead of ~/.claude/skills.
 OWN_DIR="${SKILLS_REPO_DIR:-$HOME/Code/sogamoso/skills}"
 
+STROPPERS_URL="git@github.com:sogamoso/stroppers.git"
+STROPPERS_DIR="${STROPPERS_REPO_DIR:-$HOME/Code/sogamoso/stroppers}"
+
 # The ui.sh stubs live in a private repo: the ui.sh license forbids
 # redistributing what it scaffolds, and this one is public.
 UIDOTSH_URL="git@github.com:sogamoso/uidotsh-archive.git"
@@ -136,6 +139,13 @@ if command -v claude &>/dev/null; then
 fi
 if command -v codex &>/dev/null; then
   codex plugin remove sogamoso@sogamoso >/dev/null 2>&1 || true
+fi
+
+# Stroppers, my plugin for delivering Linear issues through Pstack. Unlike
+# sogamoso-skills it isn't on claude.ai, so both agents install it from the
+# repo, for the user rather than per project as its README does for teams.
+if sync_checkout "$STROPPERS_URL" "$STROPPERS_DIR" "sogamoso/stroppers"; then
+  add_source "$STROPPERS_DIR" "$STROPPERS_DIR" "sogamoso/stroppers" "$STROPPERS_URL"
 fi
 
 # The ui.sh stubs used to be linked from this repo's skills/, and mattpocock

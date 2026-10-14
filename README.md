@@ -45,12 +45,13 @@ linked into `~/.claude/skills` and `~/.codex/skills` from a single source and th
 two agents stay in step by construction. Skills are deliberately not a stow
 package: stow lands a package in one place, and these need two.
 
-`install/dotfiles/skills.sh` handles two sources, in this order:
+`install/dotfiles/skills.sh` handles three sources, in this order:
 
 | Source | Holds | How |
 | --- | --- | --- |
 | `stubs/` in sogamoso/uidotsh-archive | The `ui`, `brand-kit` and `markup-from-image` stubs | linked |
 | [sogamoso/skills](https://github.com/sogamoso/skills) | Personal skills | plugin |
+| [sogamoso/stroppers](https://github.com/sogamoso/stroppers) | Stroppers: delivering approved Linear issues through Pstack | plugin, for the user in both agents |
 
 Both repos are private and cloned over SSH, since they get pushed to — so a
 locked 1Password agent will skip them with a warning rather than fail the run.
