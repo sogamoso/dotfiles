@@ -114,7 +114,7 @@ alt-shift-equal = 'resize height +50'
 # App launchers — see launch-or-focus.sh
 alt-enter       = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty' # Omarchy: SUPER + RETURN
 alt-shift-enter = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new "Google Chrome"' # Omarchy: SUPER + SHIFT + RETURN
-alt-shift-n     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Zed' # Omarchy: SUPER + SHIFT + N
+alt-shift-n     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e nvim' # Omarchy: SUPER + SHIFT + N → editor ($EDITOR in a terminal)
 alt-shift-c     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh "Google Calendar"' # SUPER+SHIFT+C → Google Calendar
 alt-shift-e     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh Gmail' # SUPER+SHIFT+E → Gmail
 alt-shift-g     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh net.whatsapp.WhatsApp' # SUPER+SHIFT+G → WhatsApp (Omarchy: Signal; WhatsApp is on SUPER+SHIFT+ALT+G)

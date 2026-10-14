@@ -252,7 +252,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 |---|---|
 | `Option + Enter` | New Ghostty window |
 | `Option + Shift + Enter` | New Chrome window |
-| `Option + Shift + N` | New Zed window |
+| `Option + Shift + N` | Neovim in a new Ghostty window |
 | `Option + Shift + C` | Open Google Calendar |
 | `Option + Shift + E` | Open Gmail |
 | `Option + Shift + G` | Open WhatsApp |
