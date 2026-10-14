@@ -92,6 +92,13 @@ print(plugins[0]["name"] + "@" + market)
 ' "$dir/.claude-plugin/marketplace.json" 2>/dev/null
 }
 
+# owner/repo from a GitHub URL, ssh or https
+github_repo() {
+  local url=${1%.git}
+  url=${url#git@github.com:}
+  printf '%s\n' "${url#https://github.com/}"
+}
+
 # Read access over https, so neither agent needs an SSH agent unlocked just to
 # fetch skills. Pushing still goes through the checkout's own remote.
 to_https() {
@@ -132,7 +139,10 @@ install_skill_plugin() {
   # machine where that file isn't in place yet; a refusal means the declaration
   # already won. Judge success by whether the plugin installs, not by the add.
   if [[ " $agents " == *" claude "* ]] && command -v claude &>/dev/null; then
-    claude plugin marketplace add "$url" >/dev/null 2>&1 || true
+    # owner/repo, the form settings.json declares GitHub marketplaces in: Claude
+    # refuses an add whose source doesn't match the declaration exactly, so the
+    # https URL failed and the install then found an empty marketplace
+    claude plugin marketplace add "$(github_repo "$url")" >/dev/null 2>&1 || true
     claude plugin install "$id" >/dev/null || failed="$failed claude"
   fi
   if [[ " $agents " == *" codex "* ]] && command -v codex &>/dev/null; then
