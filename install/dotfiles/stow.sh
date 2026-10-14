@@ -48,7 +48,7 @@ esac
 log_heading "Stowing dotfiles..."
 
 orphans=$(prune_stow_orphans "$REPO_DIR/stow")
-(( orphans > 0 )) && log_item "Cleared $orphans link(s) left by a previous checkout location"
+(( orphans > 0 )) && log_item "Cleared $orphans stale link(s): from a moved checkout or files deleted from a package"
 
 cd "$REPO_DIR/stow"
 
