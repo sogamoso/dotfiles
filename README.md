@@ -239,6 +239,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Shift + Cmd + S` | Move window to scratchpad without following |
 | `Option + W` | Close focused window |
 | `Option + Q` | Close focused window (second chord, as in Omarchy) |
+| `Option + M` | Minimize window to the Dock |
 | `Ctrl + Cmd + Del` | Close all windows, jump to workspace 1 |
 | `Option + F` | Fullscreen |
 | `Option + Ctrl + Cmd + F` | Full screen desktop: hide the bar and drop window gaps (toggle) |
