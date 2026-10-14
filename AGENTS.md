@@ -24,6 +24,7 @@ Conventions for this repo. Match these over general best practices when they con
 - Agent skills are not kept in this repo. `install/dotfiles/skills.sh` installs the private `sogamoso/skills` as a plugin in both agents and links the ui.sh stubs from the private `sogamoso/uidotsh-archive` checkout into both `~/.claude/skills` and `~/.codex/skills`. Third-party plugins come from `claude-code.sh` and `codex.sh`. Never add ui.sh material to this public repo: its license forbids redistributing it.
 - `themes/<name>/colors.toml` — theme tokens. Nothing reads them automatically: they're the reference palette for setting custom themes by hand in apps that don't ship the theme (Slack, for one). Don't delete them for lack of references. Wallpapers go under `themes/<name>/backgrounds/`.
 - `docs/` — manual setup notes that can't be automated.
+- **Anything that runs as root runs a root-owned copy.** A LaunchDaemon never executes a file under `$HOME` or `/opt/homebrew`, both user-writable, since editing it would be a path to root. Install a copy with `install -o root -g wheel` (as `firewall.sh --install` does into `/usr/local/libexec/dotfiles`), call only system binaries from it, and use `/bin/bash`.
 
 ## Conventions
 

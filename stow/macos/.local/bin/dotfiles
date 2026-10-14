@@ -77,8 +77,10 @@ cmd_brew() {
   (source "$DOTFILES/install/lib/brew-autoupdate.sh"; brew_autoupdate_ensure) ||
     echo "==> brew autoupdate start failed; continuing without daily autoupdate"
   # Allow upgraded tailscaled and mosh-server through the firewall and restart
-  # a tailscaled left on its old binary; sudo only when something changed
+  # a tailscaled left on its old binary; sudo only when something changed.
+  # The daemon then does the same after background upgrades.
   run "$HOME/.config/dotfiles/firewall.sh"
+  run "$HOME/.config/dotfiles/firewall.sh" --install
 }
 
 cmd_stow() {

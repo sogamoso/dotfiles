@@ -173,7 +173,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `pwas.sh` | Installs Chrome PWAs (Audible, Gmail, Google Calendar, X, YouTube) |
 | `mailto.sh` | Builds the Gmail `mailto:` handler and sets it as the system default |
 | `sketchybar.sh` | Configures SketchyBar status bar |
-| `~/.config/dotfiles/firewall.sh` | Lets the current `tailscaled` and `mosh-server` through the macOS firewall. Upgrades re-block them, so `dotfiles brew` reruns it, and a daily `--check` (`com.sogamoso.firewall-check`) notifies when brew autoupdate has left one blocked |
+| `~/.config/dotfiles/firewall.sh` | Lets the current `tailscaled` and `mosh-server` through the macOS firewall and restarts a `tailscaled` left on an old binary. Upgrades re-block them, so `--install` adds a root LaunchDaemon (`com.sogamoso.firewall-sync`) that does this after every Homebrew upgrade, running a root-owned copy from `/usr/local/libexec/dotfiles`. A daily user-level `--check` (`com.sogamoso.firewall-check`) notifies if that ever fails |
 | `tailscale.sh` | Starts Tailscale and turns on Tailscale SSH, waiting up to 5 minutes for the browser sign-in on a new machine |
 | `aerospace.sh` | Starts AeroSpace only if not already running |
 | `raycast.sh` | Opens Raycast for first-time setup |

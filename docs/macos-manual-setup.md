@@ -332,8 +332,8 @@ Blink and has to be set up by hand:
 
 The first connection in a while opens a Tailscale check in the browser (the SSH
 rule's check mode); it holds for 12 hours. Homebrew upgrades re-block
-`mosh-server` in the firewall; a daily check notifies when that happens, and
-`dotfiles update` re-allows it.
+`mosh-server` in the firewall; a root daemon re-allows it on its own, and a
+daily check notifies if that ever fails.
 
 ---
 
