@@ -99,7 +99,7 @@ ctrl-cmd-forwardDelete = 'exec-and-forget $HOME/.config/aerospace/close-all-wind
 alt-f = 'fullscreen' # Omarchy: SUPER + F
 alt-t = 'layout floating tiling' # Omarchy: SUPER + T (toggle float)
 alt-j = 'layout tiles horizontal vertical' # Omarchy: SUPER + J (toggle split)
-alt-l = 'layout tiles accordion' # Omarchy: SUPER + L (toggle layout)
+alt-l = 'layout tiles accordion' # Omarchy: SUPER + L (cycle workspace layout; AeroSpace has two)
 alt-b = 'balance-sizes' # Balance all windows in workspace
 
 # Workspace cycling — Omarchy: SUPER + TAB
