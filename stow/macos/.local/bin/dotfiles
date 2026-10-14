@@ -17,6 +17,9 @@ Commands:
   reload    Re-stow, relink skills, restart SketchyBar, reload AeroSpace
   status    Show repo state (branch, ahead/behind, dirty files)
   doctor    Check this Mac's setup: Tailscale, SSH, firewall, agents, skills
+  omarchy-downstream-candidates [--list | --mark-reviewed]
+            Review Omarchy changes worth porting, in Claude Code (or Codex);
+            --list prints the raw changes, --mark-reviewed records the review
   edit      Open the repo in \$VISUAL (defaults to nvim)
   help      Show this message
 EOF
@@ -330,6 +333,16 @@ cmd_doctor() {
   echo "==> All checks passed"
 }
 
+cmd_omarchy() {
+  source "$DOTFILES/install/lib/omarchy-candidates.sh"
+  case "${1:-}" in
+    --list)          cmd_omarchy_list ;;
+    --mark-reviewed) cmd_omarchy_mark_reviewed ;;
+    "")              cmd_omarchy_review ;;
+    *)               echo "Unknown option: $1" >&2; usage >&2; exit 64 ;;
+  esac
+}
+
 cmd_edit() {
   ${VISUAL:-nvim} "$DOTFILES"
 }
@@ -342,6 +355,7 @@ case "${1:-help}" in
   reload)         cmd_reload ;;
   status)         cmd_status ;;
   doctor)         cmd_doctor ;;
+  omarchy-downstream-candidates) shift; cmd_omarchy "$@" ;;
   edit)           cmd_edit ;;
   help|-h|--help) usage ;;
   *)              echo "Unknown command: $1" >&2; usage >&2; exit 64 ;;
