@@ -134,7 +134,7 @@ Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud S
 - **Script Commands → Clear Reminders** → `Option + Ctrl + Shift + R` (Omarchy: SUPER + Shift + Ctrl + R)
 - **Search Emoji & Symbols** → `Option + Ctrl + E` (Omarchy: SUPER + Ctrl + E)
 - **Clipboard History** → `Option + Ctrl + V` (Omarchy: SUPER + Ctrl + V)
-- **Dictate** → `Option + Ctrl + X` (Omarchy: SUPER + Ctrl + X)
+- **Dictate** → Right `⌘` alone, under Settings → Dictation → Commands (Omarchy: SUPER + Ctrl + X to toggle, hold Right Alt to talk). Tap it to start and again to finish; hold it and Raycast switches to push-to-talk, finishing when you let go. Omarchy's Alt is Command here. Raycast keeps one hotkey per command, so this replaces the old `Option + Ctrl + X`.
 - **Lock Screen** → `Option + Ctrl + L` (Omarchy: SUPER + Ctrl + L)
 - **Sound** → `Option + Ctrl + A` (Omarchy: SUPER + Ctrl + A)
 - **Bluetooth** → `Option + Ctrl + B` (Omarchy: SUPER + Ctrl + B)
@@ -375,7 +375,7 @@ What is left worth tracking:
 | Visual theme and background switchers | No equivalent |
 | `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | Only A/B/W are mapped |
-| `SUPER + Ctrl + X` — dictation | ✅ Option+Ctrl+X → Raycast Dictate |
+| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → Raycast Dictate: tap to toggle, hold to talk |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `CapsLock` — quick emojis | Needs remapping tool |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |
