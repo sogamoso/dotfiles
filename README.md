@@ -225,6 +225,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Space` | Raycast launcher |
 | `Option + Escape` | Apple menu (Raycast) |
 | `Option + K` | Hotkeys cheatsheet (Raycast) |
+| `Option + Shift + K` | Neovim cheatsheet (Raycast) |
 | `Option + 1-9` | Switch to workspace 1–9 |
 | `Option + S` | Switch to scratchpad (workspace 10) |
 | `Option + Tab` | Next workspace |
