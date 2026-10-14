@@ -285,6 +285,8 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Ctrl + V` | Clipboard history (Raycast) |
 | `Option + Ctrl + E` | Emoji picker (Raycast) |
 | `Option + Ctrl + X` | Dictation (Raycast) |
+| `Option + I` | Switch input language |
+| `Option + Shift + I` | Switch input language back |
 | `Mic Mute (F18)` | Toggle microphone mute (Lofree mic-mute key; dead on built-in keyboard) |
 
 ##### Status notifications

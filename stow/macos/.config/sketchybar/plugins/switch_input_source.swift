@@ -17,5 +17,7 @@ guard let currentIndex = keyboards.firstIndex(where: {
     return id == currentId
 }) else { exit(1) }
 
-let nextIndex = (currentIndex + 1) % keyboards.count
+// --back walks the list the other way (Option+Shift+I, Omarchy's Super+Shift+I)
+let step = CommandLine.arguments.contains("--back") ? -1 : 1
+let nextIndex = (currentIndex + step + keyboards.count) % keyboards.count
 TISSelectInputSource(keyboards[nextIndex])
