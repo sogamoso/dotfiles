@@ -4,14 +4,15 @@
 # for mosh sessions over the tailnet.
 #
 # Usage:
-#   firewall.sh           allow the current binaries (asks for sudo only if needed)
-#   firewall.sh --check   only report; notify when a binary is blocked
+#   firewall.sh                   allow the current binaries and restart a
+#                                 tailscaled left on an old one (sudo if needed)
+#   firewall.sh --check           only report; notify when a binary is blocked
 #   firewall.sh --check --quiet   only report (for dotfiles doctor)
 #
 # Both are ad hoc signed, so the firewall's permission is tied to the exact
 # binary, and an upgrade lands a new one in a new Cellar path that starts out
 # blocked. brew autoupdate upgrades in the background without a password, so
-# a daily --check (com.sogamoso.firewall-check) says when `dotfiles update` is
+# a daily --check (com.sogamoso.firewall-check) says when `dotfiles brew` is
 # needed to re-allow them.
 set -euo pipefail
 
@@ -21,11 +22,28 @@ BINARIES=(
   /opt/homebrew/opt/tailscale/bin/tailscaled
   /opt/homebrew/opt/mosh/bin/mosh-server
 )
+TAILSCALED_LABEL=sh.brew.tailscale
 
-source "$HOME/.config/dotfiles/lib/notify.sh"
+as_root() {
+  if (( EUID == 0 )); then "$@"; else sudo "$@"; fi
+}
 
 listed() {
   "$FW" --listapps | sed -nE 's/^[0-9]+ : (.*[^ ]) *$/\1/p'
+}
+
+# Whether the running tailscaled predates the installed version: brew upgrades
+# don't restart services, so the old one keeps running until the next reboot.
+# Comparing start time with when the version folder was created works without
+# root and without running anything from Homebrew.
+tailscaled_outdated() {
+  local pid started real installed
+  pid=$(pgrep -x tailscaled | head -1) || return 1
+  started=$(ps -o lstart= -p "$pid" | sed 's/ *$//')
+  started=$(LC_ALL=C date -j -f "%a %b %e %T %Y" "$started" +%s 2>/dev/null) || return 1
+  real="$(readlink -f "${BINARIES[0]}")" || return 1
+  installed=$(stat -f %B "${real%/bin/tailscaled}") || return 1
+  (( started < installed ))
 }
 
 check() {
@@ -39,8 +57,10 @@ check() {
     return 0
   fi
   echo "Blocked by the firewall: ${blocked[*]}"
-  [[ ${1:-} == "--quiet" ]] ||
-    notify "Firewall blocks ${blocked[*]}" "Run dotfiles update to allow the upgraded binaries"
+  if [[ ${1:-} != "--quiet" && -r $HOME/.config/dotfiles/lib/notify.sh ]]; then
+    source "$HOME/.config/dotfiles/lib/notify.sh"
+    notify "Firewall blocks ${blocked[*]}" "Run dotfiles brew to allow the upgraded binaries"
+  fi
   return 1
 }
 
@@ -55,18 +75,25 @@ allow() {
     # binary itself: both name the same program and only the current one counts.
     while IFS= read -r entry; do
       [[ $entry == "$real" ]] && continue
-      sudo "$FW" --remove "$entry" >/dev/null
+      as_root "$FW" --remove "$entry" >/dev/null
       echo "Removed stale firewall entry $entry"
       changed=1
     done < <(listed | grep -E "^/opt/homebrew/.*/$name$" || true)
 
     if ! listed | grep -qxF "$real"; then
-      sudo "$FW" --add "$real" >/dev/null
-      sudo "$FW" --unblockapp "$real" >/dev/null
+      as_root "$FW" --add "$real" >/dev/null
+      as_root "$FW" --unblockapp "$real" >/dev/null
       echo "Allowed $real"
       changed=1
     fi
   done
+
+  if tailscaled_outdated; then
+    as_root launchctl kickstart -k "system/$TAILSCALED_LABEL"
+    echo "Restarted tailscaled on the upgraded version"
+    changed=1
+  fi
+
   (( changed )) || echo "Firewall already allows the current tailscaled and mosh-server"
 }
 

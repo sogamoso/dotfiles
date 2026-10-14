@@ -76,12 +76,8 @@ cmd_brew() {
   run brew bundle install --file="$DOTFILES/Brewfile"
   (source "$DOTFILES/install/lib/brew-autoupdate.sh"; brew_autoupdate_ensure) ||
     echo "==> brew autoupdate start failed; continuing without daily autoupdate"
-  # Restart tailscaled if brew upgraded the client past the running daemon.
-  # Only prompts for sudo when a mismatch is actually detected.
-  if command -v tailscale >/dev/null 2>&1 && tailscale version 2>&1 | grep -q "!= tailscaled"; then
-    run sudo brew services restart tailscale
-  fi
-  # An upgraded tailscaled or mosh-server starts out blocked by the firewall
+  # Allow upgraded tailscaled and mosh-server through the firewall and restart
+  # a tailscaled left on its old binary; sudo only when something changed
   run "$HOME/.config/dotfiles/firewall.sh"
 }
 
