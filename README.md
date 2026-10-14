@@ -269,7 +269,6 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Shift + X` | Open X |
 | `Option + Shift + Cmd + X` | New X post |
 | `Option + Shift + Cmd + A` | Open ChatGPT |
-| `Option + Shift + D` | LazyDocker in Ghostty |
 | `Option + Shift + Cmd + B` | Chrome incognito |
 | `Option + Cmd + Enter` | Ghostty + tmux session |
 
