@@ -21,8 +21,9 @@ defaults write NSGlobalDomain AppleICUForce24HourTime -bool true
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
-# Fn key: change input source (0=nothing, 1=input source, 2=emoji, 3=dictation)
-defaults write com.apple.HIToolbox AppleFnUsageType -int 1
+# Fn key: do nothing (0=nothing, 1=input source, 2=emoji, 3=dictation).
+# Option+I switches input language instead, as Super+I does on Omarchy.
+defaults write com.apple.HIToolbox AppleFnUsageType -int 0
 
 # Accessibility: disable UI transparency. WindowServer only reads this at login,
 # so a fresh write leaves the revealed menu bar glassy on top of SketchyBar until
