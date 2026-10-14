@@ -18,11 +18,21 @@
 # Directories stow writes into, derived from the packages themselves so a new
 # package bringing a new top-level dir is covered without editing this list.
 # Deriving them also keeps the scan off ~/Library at large, which is slow.
+#
+# Folders a package used to write into come from git history: deleting a whole
+# folder from a package drops it from the find below, yet its links in $HOME
+# outlive it (removing Zed left ~/.config/zed full of them).
 _stow_target_dirs() {
   local stow_dir="$1" rel
   while IFS= read -r rel; do
-    [[ -d "$HOME/$rel" ]] && echo "$HOME/$rel"
-  done < <(cd "$stow_dir" && find . -mindepth 2 -type d | sed 's|^\./[^/]*/||' | sort -u)
+    [[ -n $rel && -d "$HOME/$rel" ]] && echo "$HOME/$rel"
+  done < <(
+    {
+      (cd "$stow_dir" && find . -mindepth 2 -type d | sed 's|^\./[^/]*/||')
+      git -C "$stow_dir" log --diff-filter=D --name-only --relative --format= -- . 2>/dev/null |
+        sed -n 's|^[^/]*/\(.*\)/[^/]*$|\1|p'
+    } | sort -u
+  )
   echo "$HOME"  # packages with top-level files (.gitconfig, .editorconfig, …)
 }
 
