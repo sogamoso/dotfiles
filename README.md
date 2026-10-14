@@ -177,7 +177,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `tailscale.sh` | Starts Tailscale and turns on Tailscale SSH, waiting up to 5 minutes for the browser sign-in on a new machine |
 | `aerospace.sh` | Starts AeroSpace only if not already running |
 | `raycast.sh` | Opens Raycast for first-time setup |
-| `zed.sh` | Sets Zed as the default editor for text and code file types (via `duti`) |
+| `neovim.sh` | Builds `~/Applications/Neovim.app`, which opens files in Neovim in a new Ghostty window, and makes it the default for text and code file types (via `duti`) |
 | `manual_steps.sh` | Opens the manual setup guide, first run only |
 
 #### Workspace layout
