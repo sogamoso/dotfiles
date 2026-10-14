@@ -3,7 +3,6 @@ tap "FelixKratz/formulae", trusted: true
 tap "nikitabobko/tap", trusted: true
 
 brew "bat"
-brew "blueutil"
 brew "btop"
 brew "duti"
 brew "eza"
