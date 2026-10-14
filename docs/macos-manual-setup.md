@@ -24,7 +24,7 @@ System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in
    - **Show Notification Center** → `Option + ,`
    - **Turn Do Not Disturb On/Off** → `Option + Ctrl + ,`
 2. **Windows** — conflicts with AeroSpace window bindings
-3. **Input Sources** — Globe/Fn key handles language switching instead
+3. **Input Sources** — `Option + I` switches language instead (Fn does nothing), and `Ctrl + Space` stays free for the tmux and herdr prefix
 4. **Spotlight** — Raycast takes that slot
 5. **Screenshots** — CleanShot takes `Cmd + Shift + 3/4/5` (see step 7)
 
