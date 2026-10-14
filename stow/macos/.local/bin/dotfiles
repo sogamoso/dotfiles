@@ -252,8 +252,22 @@ cmd_doctor() {
   else
     bad "Firewall off" "sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on"
   fi
-  local fw
+  local fw sync_code
   if fw=$("$HOME/.config/dotfiles/firewall.sh" --check --quiet 2>&1); then ok "$fw"; else bad "$fw" "dotfiles brew"; fi
+  # The root daemon that re-allows them after brew autoupdate upgrades
+  if ! launchctl print system/com.sogamoso.firewall-sync >/dev/null 2>&1; then
+    bad "Firewall sync daemon isn't loaded" "dotfiles brew"
+  elif ! cmp -s "$(readlink -f "$HOME/.config/dotfiles/firewall.sh")" /usr/local/libexec/dotfiles/firewall.sh; then
+    bad "Firewall sync daemon runs an outdated copy of firewall.sh" "dotfiles brew"
+  else
+    sync_code=$(launchctl print system/com.sogamoso.firewall-sync 2>/dev/null |
+      awk -F' = ' '/last exit code = / && !seen {print $2; seen=1}')
+    if [[ -z $sync_code || $sync_code == "0" || $sync_code == "(never exited)" ]]; then
+      ok "Firewall sync daemon loaded${sync_code:+, last exit $sync_code}"
+    else
+      bad "Firewall sync daemon last exited with $sync_code" "See /var/log/com.sogamoso.firewall-sync.log"
+    fi
+  fi
 
   echo "==> Agents"
   doctor_agent_loaded com.sogamoso.keyboard.remap
