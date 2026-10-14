@@ -72,8 +72,11 @@ explain_pull_failure() {
 }
 
 cmd_brew() {
+  local bundle_failed=0
   (source "$DOTFILES/install/lib/brew-trust.sh"; brew_trust_taps "$DOTFILES/Brewfile")
-  run brew bundle install --file="$DOTFILES/Brewfile"
+  # One cask failing (often one that needs sudo) shouldn't skip the firewall
+  # and autoupdate steps below; report it at the end instead
+  run brew bundle install --file="$DOTFILES/Brewfile" || bundle_failed=1
   (source "$DOTFILES/install/lib/brew-autoupdate.sh"; brew_autoupdate_ensure) ||
     echo "==> brew autoupdate start failed; continuing without daily autoupdate"
   # Allow upgraded tailscaled and mosh-server through the firewall and restart
@@ -81,6 +84,10 @@ cmd_brew() {
   # The daemon then does the same after background upgrades.
   run "$HOME/.config/dotfiles/firewall.sh"
   run "$HOME/.config/dotfiles/firewall.sh" --install
+  if (( bundle_failed )); then
+    echo "==> brew bundle failed for some Brewfile entries; see its output above"
+    return 1
+  fi
 }
 
 cmd_stow() {
