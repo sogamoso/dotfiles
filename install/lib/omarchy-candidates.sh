@@ -114,7 +114,7 @@ cmd_omarchy_list() {
       [[ $sha == "${base:0:9}" || $seen == *" $sha "* ]] && continue
       seen+="$sha "
       echo "  $line   [$path]"
-    done < <(gh api "repos/$OMARCHY_REPO/commits?sha=$head_sha&path=$path&since=$base_date&per_page=100" \
+    done < <(gh api --paginate "repos/$OMARCHY_REPO/commits?sha=$head_sha&path=$path&since=$base_date&per_page=100" \
       -q '.[] | .sha[0:9] + " " + .commit.committer.date[0:10] + " " + (.commit.message | split("\n")[0])' 2>/dev/null)
   done
   [[ $seen == " " ]] && echo "  (none)"
@@ -122,7 +122,8 @@ cmd_omarchy_list() {
   echo
   echo "==> Other commits whose title mentions something this setup uses"
   any=0
-  # The commits list, not compare: compare stops at 250 commits
+  # The commits list rather than compare, which stops at 250 commits. --paginate
+  # walks every page, so there is no cap
   while IFS= read -r line; do
     sha=${line%% *}
     rest=${line#* }
