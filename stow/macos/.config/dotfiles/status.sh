@@ -7,6 +7,7 @@
 #   status.sh time
 #   status.sh battery
 #   status.sh weather
+#   status.sh worldclock
 set -euo pipefail
 
 GROUP_ID="dotfiles-status"
@@ -37,9 +38,33 @@ cmd_weather() {
   notify "Weather" "$body"
 }
 
+# Omarchy's world clock panel (Super+Ctrl+Alt+E) as a notification. The day
+# is added only for a city where the date differs from here.
+WORLD_CLOCK=(
+  "Panama City|America/Panama"
+  "Tegucigalpa|America/Tegucigalpa"
+  "Mexico City|America/Mexico_City"
+  "San Francisco|America/Los_Angeles"
+  "New York|America/New_York"
+)
+
+cmd_worldclock() {
+  local entry city zone when body="" today
+  today=$(date +%F)
+  for entry in "${WORLD_CLOCK[@]}"; do
+    city=${entry%%|*}
+    zone=${entry##*|}
+    when=$(TZ=$zone date +%H:%M)
+    [[ "$(TZ=$zone date +%F)" == "$today" ]] || when+=" $(TZ=$zone date +%a)"
+    body+="${body:+  ·  }$city $when"
+  done
+  notify "World clock" "$body"
+}
+
 case "${1:-}" in
   time)    cmd_time ;;
   battery) cmd_battery ;;
   weather) cmd_weather ;;
-  *)       echo "Usage: $0 {time | battery | weather}" >&2; exit 64 ;;
+  worldclock) cmd_worldclock ;;
+  *)       echo "Usage: $0 {time | battery | weather | worldclock}" >&2; exit 64 ;;
 esac

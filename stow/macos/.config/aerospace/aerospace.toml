@@ -154,6 +154,7 @@ f18          = 'exec-and-forget $HOME/.config/dotfiles/mic-mute.sh' # Omarchy: X
 alt-ctrl-cmd-t = 'exec-and-forget $HOME/.config/dotfiles/status.sh time'
 alt-ctrl-cmd-b = 'exec-and-forget $HOME/.config/dotfiles/status.sh battery'
 alt-ctrl-cmd-w = 'exec-and-forget $HOME/.config/dotfiles/status.sh weather'
+alt-ctrl-cmd-e = 'exec-and-forget $HOME/.config/dotfiles/status.sh worldclock' # Omarchy: SUPER+CTRL+ALT+E → world clock
 alt-ctrl-cmd-f = 'exec-and-forget $HOME/.config/dotfiles/fullscreen-desktop.sh' # Omarchy: SUPER+CTRL+ALT+F → full screen desktop (bar and gaps)
 alt-i       = 'exec-and-forget CONFIG_DIR=$HOME/.config/sketchybar $HOME/.config/sketchybar/plugins/switch_input_source.sh' # Omarchy: SUPER + I → switch input language
 alt-shift-i = 'exec-and-forget CONFIG_DIR=$HOME/.config/sketchybar $HOME/.config/sketchybar/plugins/switch_input_source.sh --back' # Omarchy: SUPER + SHIFT + I → switch input language back

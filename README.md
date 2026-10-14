@@ -297,6 +297,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Ctrl + Cmd + T` | Time, date, ISO week (notification) |
 | `Option + Ctrl + Cmd + B` | Battery level + state (notification) |
 | `Option + Ctrl + Cmd + W` | Weather from wttr.in (notification) |
+| `Option + Ctrl + Cmd + E` | World clock: Panama City, Tegucigalpa, Mexico City, San Francisco, New York (notification) |
 
 ##### Secure Input
 
