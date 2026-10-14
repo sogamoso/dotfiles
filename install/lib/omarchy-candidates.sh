@@ -41,7 +41,8 @@ omarchy_head() {
   gh api "repos/$OMARCHY_REPO/commits/$branch" -q '.sha + " " + .commit.committer.date'
 }
 
-# "CHORD | description" for every binding in Omarchy's Hyprland config at a ref
+# "CHORD | description" for every binding in Omarchy's Hyprland config at a ref,
+# whatever helper declares it (o.bind, o.bind_toggle, o.bind_hold, ...)
 omarchy_bindings_at() {
   local ref=$1 file
   {
@@ -49,7 +50,7 @@ omarchy_bindings_at() {
     gh api "repos/$OMARCHY_REPO/contents/default/hypr/bindings?ref=$ref" -q '.[].path' 2>/dev/null
   } | while IFS= read -r file; do
     gh api "repos/$OMARCHY_REPO/contents/$file?ref=$ref" -H "Accept: application/vnd.github.raw" 2>/dev/null |
-      sed -nE 's/^[[:space:]]*o\.bind(_toggle)?\("([^"]+)", "([^"]+)".*/\2 | \3/p'
+      sed -nE 's/^[[:space:]]*o\.bind(_[a-z]+)?\("([^"]+)", "([^"]+)".*/\2 | \3/p'
   done | sort -u
 }
 
