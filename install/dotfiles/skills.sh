@@ -10,8 +10,8 @@ OWN_URL="git@github.com:sogamoso/skills.git"
 # symlink *target*, and would send skills into this checkout instead of ~/.claude/skills.
 OWN_DIR="${SKILLS_REPO_DIR:-$HOME/Code/sogamoso/skills}"
 
-STROPPERS_URL="git@github.com:sogamoso/stroppers.git"
-STROPPERS_DIR="${STROPPERS_REPO_DIR:-$HOME/Code/sogamoso/stroppers}"
+CHEQUE_URL="git@github.com:sendasorg/cheque.git"
+CHEQUE_DIR="${CHEQUE_REPO_DIR:-$HOME/Code/sendasorg/cheque}"
 
 # The ui.sh stubs live in a private repo: the ui.sh license forbids
 # redistributing what it scaffolds, and this one is public.
@@ -141,11 +141,24 @@ if command -v codex &>/dev/null; then
   codex plugin remove sogamoso@sogamoso >/dev/null 2>&1 || true
 fi
 
-# Stroppers, my plugin for delivering Linear issues through Pstack. Unlike
-# sogamoso-skills it isn't on claude.ai, so both agents install it from the
-# repo, for the user rather than per project as its README does for teams.
-if sync_checkout "$STROPPERS_URL" "$STROPPERS_DIR" "sogamoso/stroppers"; then
-  add_source "$STROPPERS_DIR" "$STROPPERS_DIR" "sogamoso/stroppers" "$STROPPERS_URL"
+# cheque, the Sendas plugin for delivering Linear issues through Pstack. It
+# isn't on claude.ai, so both agents install it from the repo, for the user
+# rather than per project as its README does for teams. The repo is public, but
+# cloned over SSH like the others because it gets pushed to.
+if sync_checkout "$CHEQUE_URL" "$CHEQUE_DIR" "sendasorg/cheque"; then
+  add_source "$CHEQUE_DIR" "$CHEQUE_DIR" "sendasorg/cheque" "$CHEQUE_URL"
+fi
+
+# cheque was sogamoso/stroppers, plugin stroppers@stroppers. Drop that user
+# install and its marketplace so the same skills don't load twice under two
+# names. Claude only loses the user-scope install: repositories that installed
+# stroppers per project keep theirs until they switch.
+if command -v claude &>/dev/null; then
+  claude plugin uninstall stroppers@stroppers --scope user >/dev/null 2>&1 || true
+fi
+if command -v codex &>/dev/null; then
+  codex plugin remove stroppers@stroppers >/dev/null 2>&1 || true
+  codex plugin marketplace remove stroppers >/dev/null 2>&1 || true
 fi
 
 # The ui.sh stubs used to be linked from this repo's skills/, and mattpocock

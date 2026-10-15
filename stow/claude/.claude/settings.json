@@ -24,7 +24,7 @@
     "claude-hud@claude-hud": true,
     "code-review@claude-plugins-official": true,
     "mattpocock-skills@mattpocock": true,
-    "stroppers@stroppers": true
+    "cheque@cheque": true
   },
   "extraKnownMarketplaces": {
     "dev-browser-marketplace": {
@@ -51,10 +51,10 @@
         "repo": "mattpocock/skills"
       }
     },
-    "stroppers": {
+    "cheque": {
       "source": {
         "source": "github",
-        "repo": "sogamoso/stroppers"
+        "repo": "sendasorg/cheque"
       }
     }
   },
