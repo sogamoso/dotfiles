@@ -60,6 +60,15 @@ def check_scripts(files):
             fail(f"shellcheck errors:\n{r.stdout.strip()}")
 
 
+def check_no_empty_files(files):
+    """Nothing here is meant to be empty. An empty file is almost always a shell
+    accident: pasted output containing `->host:port` runs as a redirect and
+    creates one, which `git add -A` then commits."""
+    for path in files:
+        if path.stat().st_size == 0:
+            fail(f"{path.relative_to(ROOT)}: empty file, probably created by accident")
+
+
 def check_alias_pairs():
     zsh_dir = ROOT / "stow/zsh/.config/zsh/aliases"
     bash_dir = ROOT / "stow/linux/.config/bash/aliases"
@@ -132,6 +141,7 @@ def check_hotkeys_documented():
 def main():
     files = tracked()
     check_scripts(files)
+    check_no_empty_files(files)
     check_alias_pairs()
     check_launch_agents()
     check_hotkeys_documented()
