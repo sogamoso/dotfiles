@@ -38,6 +38,7 @@ brew "zsh-you-should-use"
 
 cask "1password"
 cask "1password-cli"
+cask "basecamp"
 cask "chatgpt"
 cask "claude"
 cask "claude-code"
