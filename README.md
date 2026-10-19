@@ -379,13 +379,15 @@ Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate th
 | Hotkey | Action |
 |---|---|
 | `prefix + v / -` | Split pane right / down |
-| `prefix + h/j/k/l` | Focus pane (also `Ctrl + Cmd + arrows`) |
+| `Ctrl + Cmd + arrows` | Focus pane |
+| `Ctrl + Cmd + Shift + arrows` | Resize pane |
 | `prefix + z / x` | Zoom / close pane |
 | `prefix + r / [` | Resize mode / copy mode (`v` select, `y` copy) |
 | `prefix + c` | New tab |
 | `Cmd + 1-9` | Switch tab (also `prefix + 1-9`) |
 | `Cmd + Left/Right` | Previous / next tab |
-| `Cmd + Up/Down` | Previous / next workspace |
+| `Cmd + Shift + Left/Right` | Move tab left / right |
+| `Cmd + Up/Down` | Previous / next workspace (also `prefix + Shift + P/N`) |
 | `prefix + w / b` | Workspace picker / toggle sidebar |
 | `prefix + q / ?` | Detach / show all bindings |
 

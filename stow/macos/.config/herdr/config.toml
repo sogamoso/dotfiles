@@ -16,14 +16,23 @@ previous_tab = ["prefix+p", "alt+left"]     # Cmd+Left  -> previous tab
 next_tab     = ["prefix+n", "alt+right"]    # Cmd+Right -> next tab
 
 # Workspaces = tmux sessions.
-previous_workspace = "alt+up"               # Cmd+Up   -> previous workspace
-next_workspace     = "alt+down"             # Cmd+Down -> next workspace
+previous_workspace = ["prefix+shift+p", "alt+up"]    # Cmd+Up   -> previous workspace
+next_workspace     = ["prefix+shift+n", "alt+down"]  # Cmd+Down -> next workspace
 
-# Directional pane focus, matching the Ctrl+Cmd+arrows used in tmux.
-focus_pane_left  = ["prefix+h", "ctrl+alt+left"]
-focus_pane_down  = ["prefix+j", "ctrl+alt+down"]
-focus_pane_up    = ["prefix+k", "ctrl+alt+up"]
-focus_pane_right = ["prefix+l", "ctrl+alt+right"]
+# Directional pane focus, matching the Ctrl+Cmd+arrows used in tmux. No prefix+h/j/k/l:
+# Omarchy binds prefix+h to split and prefix+k to close tab, so the habit would cross over.
+focus_pane_left  = "ctrl+alt+left"
+focus_pane_down  = "ctrl+alt+down"
+focus_pane_up    = "ctrl+alt+up"
+focus_pane_right = "ctrl+alt+right"
+
+# Omarchy parity: Ctrl+Cmd+Shift+arrows resize, Cmd+Shift+Left/Right move the tab.
+resize_pane_left  = "ctrl+alt+shift+left"
+resize_pane_down  = "ctrl+alt+shift+down"
+resize_pane_up    = "ctrl+alt+shift+up"
+resize_pane_right = "ctrl+alt+shift+right"
+move_tab_previous = "alt+shift+left"
+move_tab_next     = "alt+shift+right"
 
 [theme]
 name = "tokyo-night"
