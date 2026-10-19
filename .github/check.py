@@ -102,6 +102,42 @@ def check_launch_agents():
                     fail(f"{rel}: runs $HOME/{ref}, which no stow package provides")
 
 
+BREWFILE_ENTRY = re.compile(r'^(tap|brew|cask) "([^"]+)"(.*)$')
+BREWFILE_KINDS = ["tap", "brew", "cask"]
+
+
+def check_brewfile():
+    """Taps, then formulae, then casks, each block sorted, so a new entry has
+    one right place and a duplicate sits next to its twin. Every tap carries
+    `trusted: true` (brew-trust.sh says why), and every tap-qualified name
+    needs its tap declared, since only declared taps get trusted."""
+    taps, seen, prev = {}, set(), None
+    for n, line in enumerate((ROOT / "Brewfile").read_text().splitlines(), 1):
+        if not line.strip() or line.startswith("#"):
+            continue
+        m = BREWFILE_ENTRY.match(line)
+        if not m:
+            fail(f"Brewfile:{n}: expected tap, brew or cask with a double-quoted name: {line}")
+            continue
+        kind, name, rest = m.groups()
+        key = (kind, name.lower())
+        if key in seen:
+            fail(f"Brewfile:{n}: {kind} {name!r} is listed twice")
+        seen.add(key)
+        if kind == "tap":
+            taps[name.lower()] = n
+            if "trusted: true" not in rest:
+                fail(f"Brewfile:{n}: tap {name!r} needs `trusted: true`")
+        elif name.count("/") == 2 and name.rsplit("/", 1)[0].lower() not in taps:
+            fail(f"Brewfile:{n}: {name!r} comes from a tap the Brewfile doesn't declare")
+        if prev:
+            order = (BREWFILE_KINDS.index(kind), name.lower())
+            prev_order = (BREWFILE_KINDS.index(prev[0]), prev[1].lower())
+            if order < prev_order:
+                fail(f"Brewfile:{n}: {kind} {name!r} is out of order (after {prev[0]} {prev[1]!r})")
+        prev = (kind, name)
+
+
 MODS = {"alt": "option", "cmd": "cmd", "ctrl": "ctrl", "shift": "shift"}
 KEYS = {
     **{str(n): "1-9" for n in range(1, 10)},
@@ -144,6 +180,7 @@ def main():
     check_no_empty_files(files)
     check_alias_pairs()
     check_launch_agents()
+    check_brewfile()
     check_hotkeys_documented()
     if problems:
         print(f"{len(problems)} problem(s):\n")

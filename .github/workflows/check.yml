@@ -1,7 +1,7 @@
 name: Check
 
 # Static checks for the conventions in AGENTS.md: script syntax and shebangs,
-# shellcheck errors, the zsh/bash alias pairs, LaunchAgent plists, and every
+# shellcheck errors, the zsh/bash alias pairs, LaunchAgent plists, the Brewfile, and every
 # AeroSpace binding documented in the README. Machine state is dotfiles
 # doctor's job; this only catches what a change breaks.
 on:
