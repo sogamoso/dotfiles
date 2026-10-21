@@ -61,6 +61,28 @@ else
   fi
 fi
 
+# MacWhisper: dictation on Right ⌘, held to talk (Omarchy: hold Right Alt, which
+# is Command here). It also writes its preferences back on quit, so close it first.
+macwhisper_was_running=false
+if pgrep -xq MacWhisper; then
+  macwhisper_was_running=true
+  osascript -e 'quit app "MacWhisper"' 2>/dev/null || pkill -x MacWhisper 2>/dev/null || true
+  for _ in {1..20}; do
+    pgrep -xq MacWhisper || break
+    sleep 0.5
+  done
+fi
+
+if pgrep -xq MacWhisper; then
+  log_warn "MacWhisper would not quit — set its dictation key to Right ⌘ by hand"
+else
+  defaults write com.goodsnooze.MacWhisper dictationKeyboardButton -string rightCmd
+  defaults write com.goodsnooze.MacWhisper dictationActivationMode -string pushToTalk
+  if [[ $macwhisper_was_running == true ]]; then
+    open -a MacWhisper
+  fi
+fi
+
 # Menu bar: auto-hide
 osascript -e 'tell application "System Events" to tell dock preferences to set autohide menu bar to true' 2>/dev/null ||
   log_warn "Could not auto-hide the menu bar — grant Automation access to System Events and rerun"

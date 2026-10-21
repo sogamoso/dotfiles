@@ -135,10 +135,10 @@ Nothing to install by hand either: bootstrap installs the store extensions liste
 
 ### MacWhisper
 
-Dictation, replacing Raycast's. MacWhisper keeps its settings in its own preferences, so set these once per Mac in **Settings → Dictation**:
+Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Alt, which is Command here). `install/macos/preferences.sh` sets the key and the hold-to-talk mode, so they need no hand setup. To tap to start and again to finish instead, switch **Settings → Dictation** to toggle, and change `dictationActivationMode` to `toggle` in `preferences.sh` so bootstrap keeps it.
 
-- **Shortcut** → Right `⌘` alone (Omarchy: SUPER + Ctrl + X to toggle, hold Right Alt to talk; Omarchy's Alt is Command here)
-- **Behaviour** → push to talk (hold to talk) or toggle (tap to start and again to finish). Raycast did both on one key; pick whichever MacWhisper's settings offer closest to that.
+Set these once per Mac in **Settings → Dictation**, since they live alongside downloaded models:
+
 - **Model** → Parakeet v3, which runs locally, so dictation works offline
 - **Language** → Auto Detect, for switching between English and Spanish
 
@@ -383,7 +383,7 @@ What is left worth tracking:
 | Visual theme and background switchers | No equivalent |
 | `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | Only A/B/W are mapped |
-| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → MacWhisper dictation, set in its own settings (section 7) |
+| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → MacWhisper: hold to talk (set by `preferences.sh`) |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `CapsLock` — quick emojis | Needs remapping tool |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |
