@@ -179,10 +179,6 @@ if.app-name-regex-substring = 'YouTube'
 run = ['layout floating']
 
 [[on-window-detected]]
-if.app-id = 'com.todoist.mac.Todoist'
-run = ['layout floating']
-
-[[on-window-detected]]
 if.app-id = 'com.granola.app'
 run = ['layout floating']
 
