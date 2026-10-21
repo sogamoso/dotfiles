@@ -375,6 +375,7 @@ What is left worth tracking:
 |---|---|
 | `SUPER + O` — float & pin | ✅ Option+O floats, centres and carries the window to every workspace; it isn't kept above other windows |
 | `SUPER + G` — window grouping | No AeroSpace equivalent |
+| `SUPER + Ctrl + F` — tiled full screen (the app goes full screen inside its tile) | No macOS equivalent: an app's full screen always takes the whole display |
 | `SUPER` + left/right drag — move and resize windows with the mouse | No AeroSpace equivalent. Easy Move+Resize can add it, but was tried and dropped: it fought AeroSpace's tiling, and taking over every Option + click breaks Option-click and Option-drag in other apps (copying in Finder, downloading links in Chrome) |
 | `SUPER + SHIFT + arrows` — swap window | Option+Ctrl+arrows (remapped to free Option+Shift for word selection) |
 | Window position save/restore per workspace | No AeroSpace equivalent |

@@ -100,7 +100,11 @@ alt-w = ['close', 'exec-and-forget aerospace workspace $AEROSPACE_FOCUSED_WORKSP
 alt-q = ['close', 'exec-and-forget aerospace workspace $AEROSPACE_FOCUSED_WORKSPACE'] # Omarchy: SUPER + Q — second close chord, for hands used to Cmd+Q
 alt-m = 'macos-native-minimize' # Omarchy: SUPER + M → minimize window to the dock
 ctrl-cmd-forwardDelete = 'exec-and-forget $HOME/.config/aerospace/close-all-windows.sh' # Omarchy: CTRL + ALT + DEL — close all windows across workspaces, jump to 1
-alt-f = 'fullscreen' # Omarchy: SUPER + F
+# Omarchy has three full-screen modes. True full screen hides the bar, which only
+# macOS's own full screen does; AeroSpace's fullscreen keeps the bar and gaps,
+# which is Omarchy's full width. Its tiled full screen has no macOS counterpart.
+alt-f     = 'macos-native-fullscreen' # Omarchy: SUPER + F (full screen)
+alt-cmd-f = 'fullscreen' # Omarchy: SUPER + ALT + F (full width, keeping the bar)
 alt-t = 'layout floating tiling' # Omarchy: SUPER + T (toggle float)
 alt-o = 'exec-and-forget $HOME/.config/dotfiles/window-pop.sh' # Omarchy: SUPER + O (pop window out: float, centre and pin to every workspace)
 alt-j = 'layout tiles horizontal vertical' # Omarchy: SUPER + J (toggle split)

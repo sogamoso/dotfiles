@@ -244,7 +244,8 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Q` | Close focused window (second chord, as in Omarchy) |
 | `Option + M` | Minimize window to the Dock |
 | `Ctrl + Cmd + Del` | Close all windows, jump to workspace 1 |
-| `Option + F` | Fullscreen |
+| `Option + F` | Full screen (macOS native: hides the bar, own Space) |
+| `Option + Cmd + F` | Full width: fill the workspace, keep the bar |
 | `Option + Ctrl + Cmd + F` | Full screen desktop: hide the bar and drop window gaps (toggle) |
 | `Option + T` | Toggle floating/tiling |
 | `Option + O` | Pop window out: float, centre and pin it to every workspace (toggle) |
