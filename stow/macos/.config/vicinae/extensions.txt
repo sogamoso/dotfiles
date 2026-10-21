@@ -4,7 +4,6 @@ raycast:RSO/dash
 raycast:ThatNerd/timers
 raycast:abielzulio/chatgpt
 raycast:benvp/audio-device
-raycast:ewgenius/zed-recent-projects
 raycast:florisdobber/claude
 raycast:frouo/google-chrome-profiles
 raycast:gebeto/translate
