@@ -379,7 +379,7 @@ What is left worth tracking:
 | `SUPER` + left/right drag — move and resize windows with the mouse | No AeroSpace equivalent. Easy Move+Resize can add it, but was tried and dropped: it fought AeroSpace's tiling, and taking over every Option + click breaks Option-click and Option-drag in other apps (copying in Finder, downloading links in Chrome) |
 | `SUPER + SHIFT + arrows` — swap window | Option+Ctrl+arrows (remapped to free Option+Shift for word selection) |
 | Window position save/restore per workspace | No AeroSpace equivalent |
-| A floating workspace, through a Hyprland window rule matching it | No per-workspace layout. An `on-window-detected` rule with `if.workspace` floats new windows only, so moved-in ones stay tiled; not set up, since AeroSpace can't arrange floating windows. Option+T toggles one window |
+| `SUPER + L` / `SUPER + ALT + L` — cycle the workspace layout either way, floating included | Option+L toggles tiles and accordion only; with two layouts a reverse chord would do the same. AeroSpace floats windows, not workspaces: an `on-window-detected` rule with `if.workspace` floats new windows only, so moved-in ones stay tiled. Not set up, since AeroSpace can't arrange floating windows. Option+T toggles one window |
 | Per-monitor independent workspaces | Aerospace handles it, less seamless |
 | Bar transparency and repositioning by double-click and drag | No SketchyBar equivalent; height and position are set in `sketchybarrc` |
 | Model-usage bar widget | ✅ Claude usage item, via `ccusage` |
