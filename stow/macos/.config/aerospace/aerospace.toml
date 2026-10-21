@@ -150,6 +150,24 @@ cmd-shift-6  = 'exec-and-forget open "cleanshot://capture-text"' # Omarchy: SUPE
 alt-ctrl-t   = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e btop' # SUPER+Ctrl+T → btop
 f18          = 'exec-and-forget $HOME/.config/dotfiles/mic-mute.sh' # Omarchy: XF86AudioMicMute → toggle mic mute (Lofree mic-mute key sends Insert, remapped to F18 via hidutil; macOS takes F14/F15 for brightness)
 
+# Launcher commands, through Vicinae deeplinks. The launcher itself
+# (Option+Space) is Vicinae's own global shortcut, set in
+# ~/.config/vicinae/dotfiles.json, so it survives Secure Input; these don't.
+alt-esc     = 'exec-and-forget $HOME/.local/share/vicinae/scripts/apple-menu.sh' # Omarchy: SUPER+Escape → system menu
+alt-k       = 'exec-and-forget vicinae "vicinae://launch/scripts/hotkeys-cheatsheet.sh?toggle=true"' # Omarchy: SUPER+K → keybindings
+alt-shift-k = 'exec-and-forget vicinae "vicinae://launch/scripts/nvim-cheatsheet.sh?toggle=true"'
+alt-ctrl-e  = 'exec-and-forget vicinae "vicinae://launch/core/search-emojis?toggle=true"' # Omarchy: SUPER+Ctrl+E → emoji picker
+alt-ctrl-v  = 'exec-and-forget vicinae "vicinae://launch/clipboard/history?toggle=true"' # Omarchy: SUPER+Ctrl+V → clipboard manager
+alt-ctrl-l  = 'exec-and-forget vicinae vicinae://launch/power/lock' # Omarchy: SUPER+Ctrl+L → lock screen
+alt-ctrl-a  = 'exec-and-forget open "x-apple.systempreferences:com.apple.Sound-Settings.extension"' # Omarchy: SUPER+Ctrl+A → audio controls
+alt-ctrl-b  = 'exec-and-forget open "x-apple.systempreferences:com.apple.BluetoothSettings"' # Omarchy: SUPER+Ctrl+B → bluetooth controls
+alt-ctrl-w  = 'exec-and-forget open "x-apple.systempreferences:com.apple.wifi-settings-extension"' # Omarchy: SUPER+Ctrl+W → wifi controls
+
+# Reminders — Omarchy: SUPER+Ctrl+R set, SUPER+Ctrl+ALT+R show, SUPER+SHIFT+Ctrl+R clear
+alt-ctrl-r       = 'exec-and-forget $HOME/.config/dotfiles/reminder.sh prompt'
+alt-ctrl-cmd-r   = 'exec-and-forget $HOME/.config/dotfiles/reminder.sh show'
+alt-ctrl-shift-r = 'exec-and-forget $HOME/.config/dotfiles/reminder.sh clear'
+
 # Status notifications — Omarchy: SUPER+CTRL+ALT+{T,B,W}
 alt-ctrl-cmd-t = 'exec-and-forget $HOME/.config/dotfiles/status.sh time'
 alt-ctrl-cmd-b = 'exec-and-forget $HOME/.config/dotfiles/status.sh battery'

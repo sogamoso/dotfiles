@@ -5,6 +5,7 @@
 #
 # Usage:
 #   reminder.sh set <minutes> [message]
+#   reminder.sh prompt   ask for both through Vicinae, as Omarchy does through Walker
 #   reminder.sh show
 #   reminder.sh clear
 #
@@ -52,6 +53,16 @@ cmd_set() {
   notify "Reminder set for $minutes min" "Reminding at $(date -r "$due" +%H:%M)"
 }
 
+# Vicinae can't open a script command's argument form from a hotkey, so the
+# hotkey asks through its dmenu mode instead. Escape at either prompt cancels.
+cmd_prompt() {
+  local minutes message
+  minutes=$(vicinae dmenu -n "Set Reminder" -p "Minutes" </dev/null) || return 0
+  [[ -n $minutes ]] || return 0
+  message=$(vicinae dmenu -n "Set Reminder" -p "Message (optional)" </dev/null) || return 0
+  cmd_set "$minutes" "$message"
+}
+
 cmd_show() {
   prune
   local count=0 lines="" f due msg now
@@ -83,8 +94,9 @@ cmd_clear() {
 }
 
 case "${1:-}" in
-  set)   shift; cmd_set "$@" ;;
-  show)  cmd_show ;;
-  clear) cmd_clear ;;
-  *)     echo "Usage: $0 {set <min> [msg] | show | clear}" >&2; exit 64 ;;
+  set)    shift; cmd_set "$@" ;;
+  prompt) cmd_prompt ;;
+  show)   cmd_show ;;
+  clear)  cmd_clear ;;
+  *)      echo "Usage: $0 {set <min> [msg] | prompt | show | clear}" >&2; exit 64 ;;
 esac

@@ -25,13 +25,8 @@ System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in
    - **Turn Do Not Disturb On/Off** → `Option + Ctrl + ,`
 2. **Windows** — conflicts with AeroSpace window bindings
 3. **Input Sources** — `Option + I` switches language instead (Fn does nothing), and `Ctrl + Space` stays free for the tmux and herdr prefix
-4. **Spotlight** — Raycast takes that slot
+4. **Spotlight** — Vicinae takes that slot
 5. **Screenshots** — CleanShot takes `Cmd + Shift + 3/4/5` (see step 7)
-
-Then set Raycast as the launcher:
-
-6. Open Raycast → Settings → General
-7. Set **Raycast Hotkey** to `Option+Space`
 
 ---
 
@@ -47,8 +42,8 @@ System Settings → General → Login Items — add:
 - Google Calendar
 - Google Drive
 - Granola
-- Raycast
 - Slack
+- Vicinae (registers itself on first launch)
 
 ---
 
@@ -71,7 +66,7 @@ Then trim third-party items. System Settings → Menu Bar → Allow in the Menu 
 - Freedom
 - Google Drive
 
-Turn off every other app (1Password, ChatGPT, Claude, Granola, Raycast, Zoom, …). Turning one off stops its icon from ever appearing; the app itself keeps working.
+Turn off every other app (1Password, ChatGPT, Claude, Granola, Zoom, …). Vicinae's icon is already off, through `tray.enabled` in its stowed config. Turning one off stops its icon from ever appearing; the app itself keeps working.
 
 ### Opaque menu bar
 
@@ -122,27 +117,18 @@ Slack → Preferences → Themes → Custom Theme → paste:
 
 Hotkeys assigned inside specific apps (per-machine, not in dotfiles).
 
-### Raycast
+### Vicinae
 
-Set these hotkeys in Raycast → Extensions (only needed before enabling Cloud Sync — hotkeys sync across machines after that):
+Nothing to assign. The launcher hotkey (`Option + Space`) is set in the stowed `~/.config/vicinae/dotfiles.json`, and every other launcher command is an AeroSpace binding to a Vicinae deeplink, listed in the README.
 
-- **Script Commands → Apple Menu** → `Option + Escape` (Omarchy: SUPER + Escape)
-- **Script Commands → Hotkeys Cheatsheet** → `Option + K` (Omarchy: SUPER + K)
-- **Script Commands → Neovim Cheatsheet** → `Option + Shift + K`
-- **Script Commands → Set Reminder** → `Option + Ctrl + R` (Omarchy: SUPER + Ctrl + R)
-- **Script Commands → Show Reminders** → `Option + Ctrl + Cmd + R` (Omarchy: SUPER + Ctrl + Alt + R)
-- **Script Commands → Clear Reminders** → `Option + Ctrl + Shift + R` (Omarchy: SUPER + Shift + Ctrl + R)
-- **Search Emoji & Symbols** → `Option + Ctrl + E` (Omarchy: SUPER + Ctrl + E)
-- **Clipboard History** → `Option + Ctrl + V` (Omarchy: SUPER + Ctrl + V)
-- **Dictate** → Right `⌘` alone, under Settings → Dictation → Commands (Omarchy: SUPER + Ctrl + X to toggle, hold Right Alt to talk). Tap it to start and again to finish; hold it and Raycast switches to push-to-talk, finishing when you let go. Omarchy's Alt is Command here. Raycast keeps one hotkey per command, so this replaces the old `Option + Ctrl + X`.
-- **Lock Screen** → `Option + Ctrl + L` (Omarchy: SUPER + Ctrl + L)
-- **Sound** → `Option + Ctrl + A` (Omarchy: SUPER + Ctrl + A)
-- **Bluetooth** → `Option + Ctrl + B` (Omarchy: SUPER + Ctrl + B)
-- **Wi-Fi** → `Option + Ctrl + W` (Omarchy: SUPER + Ctrl + W)
+Nothing to install by hand either: bootstrap installs the store extensions listed in `stow/macos/.config/vicinae/extensions.txt`. Change settings or extensions in Vicinae as usual, then run `dotfiles vicinae save` and commit to keep the change, or `dotfiles vicinae reset` to drop it. `dotfiles doctor` flags anything not yet saved. Extension passwords and tokens are kept in Vicinae's own database, never in the repo, so each extension still asks for them once per Mac. Linear signs in over OAuth on first use.
 
-Two store extensions have to be installed before their commands exist: **Linear** (`raycast://extensions/linear/linear`) and **Todoist** (`raycast://extensions/doist/todoist`). Both authenticate over OAuth the first time a command runs. Neither is published by the vendor, and like hotkeys they travel with Cloud Sync once it is on. The Linear extension is why `Brewfile` carries no `linear` cask.
+Two extensions don't fully work under Vicinae:
 
-**Script Commands → Secure Input** deliberately gets no hotkey. It reports which app is holding macOS Secure Input, and Secure Input blocks the event tap AeroSpace reads keys through — a binding would be dead exactly when you need it. Invoke it by name from the Raycast launcher, or run `~/.config/dotfiles/secure-input.sh` in a terminal.
+- **1Password** opens `raycast://` once it has signed in through the 1Password CLI, to bring Raycast back to the front. Vicinae only registers `vicinae://` on macOS, so with Raycast uninstalled that last step has nowhere to go.
+- **Work Time Countdown** is a menu bar command only, which Vicinae doesn't support, so it installs but never appears.
+
+**Secure Input** deliberately gets no hotkey. It reports which app is holding macOS Secure Input, and Secure Input blocks the event tap AeroSpace reads keys through — a binding would be dead exactly when you need it. Open the launcher (still works: Vicinae registers `Option + Space` itself) and run it by name, or run `~/.config/dotfiles/secure-input.sh` in a terminal.
 
 ### CleanShot
 
@@ -362,7 +348,7 @@ comes with the command that fixes it. Run it again whenever something seems off.
 
 ## Remaining Gaps vs Omarchy
 
-Omarchy's desktop shell runs on [Quickshell](https://quickshell.org) and Hyprland, so a large part of it has no macOS analogue and is out of scope here: the shell process itself, the Hyprland configs, the ISO installer, pacman packaging, and the PAM fingerprint flows. Another tier is already native — Raycast covers the launcher, clipboard manager and emoji picker, and macOS provides Notification Center, Control Center and Touch ID.
+Omarchy's desktop shell runs on [Quickshell](https://quickshell.org) and Hyprland, so a large part of it has no macOS analogue and is out of scope here: the shell process itself, the Hyprland configs, the ISO installer, pacman packaging, and the PAM fingerprint flows. Another tier is already native — Vicinae covers the launcher, clipboard manager and emoji picker, and macOS provides Notification Center, Control Center and Touch ID.
 
 What is left worth tracking:
 
@@ -383,7 +369,7 @@ What is left worth tracking:
 | Visual theme and background switchers | No equivalent |
 | `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | Only A/B/W are mapped |
-| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → Raycast Dictate: tap to toggle, hold to talk |
+| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | Not mapped since the move from Raycast to Vicinae, which has no dictation |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `CapsLock` — quick emojis | Needs remapping tool |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |

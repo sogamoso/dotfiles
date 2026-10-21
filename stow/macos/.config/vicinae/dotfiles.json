@@ -1,0 +1,33 @@
+{
+  "$schema": "https://vicinae.com/schemas/config.json",
+  "global_shortcuts": {
+    "toggle": "alt+space"
+  },
+  "close_on_focus_loss": true,
+  "pop_to_root_on_close": true,
+  "escape_key_behavior": "close_window",
+  "tray": {
+    "enabled": false
+  },
+  "theme": {
+    "dark": {
+      "name": "tokyo-night"
+    }
+  },
+  "providers": {
+    "@khasbilegt/store.raycast.1password": {
+      "preferences": {
+        "version": "v8"
+      }
+    },
+    "raycast-compat": {
+      "entrypoints": {
+        "store": {
+          "preferences": {
+            "alwaysShowIntro": true
+          }
+        }
+      }
+    }
+  }
+}

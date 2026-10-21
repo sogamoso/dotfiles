@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# @raycast.schemaVersion 1
-# @raycast.title Apple Menu
-# @raycast.mode silent
-# @raycast.packageName System
+# @vicinae.schemaVersion 1
+# @vicinae.title Apple Menu
+# @vicinae.mode silent
+# @vicinae.packageName System
 
 osascript -e '
 tell application "System Events"

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# @raycast.schemaVersion 1
-# @raycast.title Hotkeys Cheatsheet
-# @raycast.mode fullOutput
-# @raycast.packageName Keyboard
+# @vicinae.schemaVersion 1
+# @vicinae.title Hotkeys Cheatsheet
+# @vicinae.mode fullOutput
+# @vicinae.packageName Keyboard
 
 # Rendered from the README's "Workspace layout" and "Hotkeys" tables, so the
 # README is the one copy to keep in sync with aerospace.toml. Each table becomes

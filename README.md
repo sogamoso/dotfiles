@@ -119,13 +119,14 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 
 | Command | Action |
 |---|---|
-| `dotfiles update` | Pull, sync Brewfile, restow, reload services |
+| `dotfiles update` | Pull, sync Brewfile, restow, reload services, install Vicinae extensions added on another Mac |
 | `dotfiles pull` | Git pull only |
 | `dotfiles brew` | Sync Brewfile via `brew bundle`, keep brew autoupdate current |
 | `dotfiles stow` | Re-stow all packages |
 | `dotfiles reload` | Re-stow, relink skills, restart SketchyBar, reload AeroSpace, restart a stale herdr server |
 | `dotfiles status` | Branch, ahead/behind, dirty files |
-| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, brew autoupdate) and print the fix for anything wrong |
+| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, Vicinae, brew autoupdate) and print the fix for anything wrong |
+| `dotfiles vicinae [status \| save \| reset]` | Compare Vicinae's settings and store extensions with the repo. `save` keeps what changed on this Mac (commit the result), `reset` drops it |
 | `dotfiles omarchy-downstream-candidates` | Review what changed in Omarchy since the last review and which of it to port, in Claude Code (Codex if Claude isn't installed) with the `omarchy-downstream` skill. `--list` prints the raw changes; `--mark-reviewed` records the review in `.omarchy-reviewed` |
 | `dotfiles edit` | Open the repo in `$VISUAL` |
 
@@ -178,7 +179,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `~/.config/dotfiles/firewall.sh` | Lets the current `tailscaled` and `mosh-server` through the macOS firewall and restarts a `tailscaled` left on an old binary. Upgrades re-block them, so `--install` adds a root LaunchDaemon (`com.sogamoso.firewall-sync`) that does this after every Homebrew upgrade, running a root-owned copy from `/usr/local/libexec/dotfiles`. A daily user-level `--check` (`com.sogamoso.firewall-check`) notifies if that ever fails |
 | `tailscale.sh` | Starts Tailscale and turns on Tailscale SSH, waiting up to 5 minutes for the browser sign-in on a new machine |
 | `aerospace.sh` | Starts AeroSpace only if not already running |
-| `raycast.sh` | Opens Raycast for first-time setup |
+| `vicinae.sh` | Points Vicinae's `settings.json` at the stowed `dotfiles.json`, installs the store extensions in `extensions.txt`, then launches it |
 | `neovim.sh` | Builds `~/Applications/Neovim.app`, which opens files in Neovim in a new Ghostty window, and makes it the default for text and code file types (via `duti`) |
 | `manual_steps.sh` | Opens the manual setup guide, first run only |
 
@@ -224,10 +225,10 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 
 | Hotkey | Action |
 |---|---|
-| `Option + Space` | Raycast launcher |
-| `Option + Escape` | Apple menu (Raycast) |
-| `Option + K` | Hotkeys cheatsheet (Raycast) |
-| `Option + Shift + K` | Neovim cheatsheet (Raycast) |
+| `Option + Space` | Vicinae launcher |
+| `Option + Escape` | Apple menu |
+| `Option + K` | Hotkeys cheatsheet (Vicinae) |
+| `Option + Shift + K` | Neovim cheatsheet (Vicinae) |
 | `Option + 1-9` | Switch to workspace 1–9 |
 | `Option + S` | Switch to scratchpad (workspace 10) |
 | `Option + Tab` | Next workspace |
@@ -285,9 +286,8 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Ctrl + B` | Bluetooth preferences |
 | `Option + Ctrl + W` | Wi-Fi preferences |
 | `Option + Ctrl + T` | btop in Ghostty |
-| `Option + Ctrl + V` | Clipboard history (Raycast) |
-| `Option + Ctrl + E` | Emoji picker (Raycast) |
-| `Right ⌘` | Dictation: tap to start and finish, hold to talk (Raycast) |
+| `Option + Ctrl + V` | Clipboard history (Vicinae) |
+| `Option + Ctrl + E` | Emoji picker (Vicinae) |
 | `Option + I` | Switch input language |
 | `Option + Shift + I` | Switch input language back |
 | `Mic Mute (F18)` | Toggle microphone mute (Lofree mic-mute key; dead on built-in keyboard) |
@@ -305,7 +305,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 
 While macOS Secure Input is active no other app can read key events, so every
 AeroSpace hotkey goes dead and AeroSpace shows its "cannot respond to keyboard
-shortcuts" panel. Run **Secure Input** from Raycast (or
+shortcuts" panel. Run **Secure Input** from Vicinae (or
 `~/.config/dotfiles/secure-input.sh` in a terminal) to name the app holding it
 — usually a focused password field, Terminal's Secure Keyboard Entry, or the
 lock screen. Quitting or defocusing that app is the only fix; nothing can
@@ -313,10 +313,12 @@ release it from outside.
 
 It has no hotkey on purpose: AeroSpace reads keys through an event tap, which
 is exactly what Secure Input blocks, so a binding would be dead when needed.
+The Vicinae launcher still opens, because Vicinae registers `Option + Space`
+itself rather than through AeroSpace.
 
 | Hotkey | Action |
 |---|---|
-| `Raycast → Secure Input` | Name the app holding Secure Input |
+| `Vicinae → Secure Input` | Name the app holding Secure Input |
 
 ##### Capture
 
@@ -334,9 +336,9 @@ Ephemeral kitchen-timer-style reminders (die on logout/reboot).
 
 | Hotkey | Action |
 |---|---|
-| `Option + Ctrl + R` | Set Reminder (Raycast — prompts for minutes + message) |
-| `Option + Ctrl + Cmd + R` | Show Reminders (Raycast) |
-| `Option + Ctrl + Shift + R` | Clear Reminders (Raycast) |
+| `Option + Ctrl + R` | Set Reminder (prompts for minutes + message in Vicinae) |
+| `Option + Ctrl + Cmd + R` | Show Reminders |
+| `Option + Ctrl + Shift + R` | Clear Reminders |
 
 ##### Notifications
 
@@ -404,7 +406,7 @@ Shell functions that build a whole herdr layout in one command, ported from Omar
 
 #### Manual setup guide
 
-For the manual setup guide including Privacy & Security settings, Raycast, and Tokyo Night theming: [`docs/macos-manual-setup.md`](docs/macos-manual-setup.md).
+For the manual setup guide including Privacy & Security settings, Vicinae, and Tokyo Night theming: [`docs/macos-manual-setup.md`](docs/macos-manual-setup.md).
 
 ### Linux (Omarchy)
 
@@ -449,5 +451,5 @@ Everything else matches Omarchy's defaults.
 
 - **`herdr.zsh`** — Omarchy ships `default/bash/fns/herdr` natively. The zsh file is a hand-port for macOS; re-porting it would shadow the real thing.
 - **Typora** — `Super + Shift + W` keeps Omarchy's Omawrite. Typora is a macOS habit, not a reason to add a package here.
-- **sketchybar plugins and Raycast script commands** — Omarchy's bar and `omarchy menu` already cover reminders, the keybinding cheatsheet, and system toggles.
+- **sketchybar plugins and Vicinae script commands** — Omarchy's bar and `omarchy menu` already cover reminders, the keybinding cheatsheet, and system toggles.
 - **ghostty, btop, herdr, git, lazygit configs** — Omarchy ships its own and rewrites them on every theme switch. Stowing the macOS versions would fight its theming.

@@ -9,7 +9,7 @@
 #
 # Deliberately has no AeroSpace binding: AeroSpace reads keys through an event
 # tap, which is the very thing Secure Input blocks, so the binding would be
-# dead exactly when it is needed. Invoke from Raycast or a terminal.
+# dead exactly when it is needed. Invoke from Vicinae or a terminal.
 set -euo pipefail
 
 GROUP_ID="dotfiles-secure-input"

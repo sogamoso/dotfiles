@@ -52,7 +52,7 @@ sketchybar --add item apple_menu left \
     padding_right=4 \
     click_script='case "$BUTTON" in
       right) open -na Ghostty ;;
-      *)     open -a Raycast ;;
+      *)     vicinae vicinae://toggle ;;
     esac'
 
 # Workspace indicators (1–9, 10 is scratchpad with no indicator)

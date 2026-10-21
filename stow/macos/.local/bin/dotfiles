@@ -17,6 +17,9 @@ Commands:
   reload    Re-stow, relink skills, restart SketchyBar, reload AeroSpace
   status    Show repo state (branch, ahead/behind, dirty files)
   doctor    Check this Mac's setup: Tailscale, SSH, firewall, agents, skills
+  vicinae [status | save | reset]
+            Compare Vicinae's settings and extensions with the repo; save
+            keeps what changed here, reset throws it away
   omarchy-downstream-candidates [--list | --mark-reviewed]
             Review Omarchy changes worth porting, in Claude Code (or Codex);
             --list prints the raw changes, --mark-reviewed records the review
@@ -139,6 +142,8 @@ cmd_update() {
   cmd_pull
   cmd_brew
   cmd_reload
+  # Picks up extensions added on the other Mac; settings arrive through the stow
+  run python3 "$DOTFILES/install/lib/vicinae.py" install || true
 }
 
 cmd_status() {
@@ -337,6 +342,21 @@ cmd_doctor() {
     fi
   done
 
+  echo "==> Vicinae"
+  # Its GUI rewrites settings.json, so losing the import would drop the repo's
+  # config, launcher hotkey included, without any error
+  if grep -q '"dotfiles.json"' "$HOME/.config/vicinae/settings.json" 2>/dev/null; then
+    ok "settings.json imports dotfiles.json"
+  else
+    bad "settings.json doesn't import dotfiles.json" "dotfiles vicinae reset"
+  fi
+  local drift
+  if drift=$(python3 "$DOTFILES/install/lib/vicinae.py" status); then
+    ok "Settings and extensions match the repo"
+  else
+    bad "Vicinae differs from the repo:"$'\n'"$drift" "dotfiles vicinae save to keep it, or dotfiles vicinae reset to drop it"
+  fi
+
   echo "==> Homebrew"
   if [[ "$(brew autoupdate status 2>/dev/null)" == *"running"* ]]; then
     ok "brew autoupdate running"
@@ -361,6 +381,13 @@ cmd_omarchy() {
   esac
 }
 
+cmd_vicinae() {
+  case "${1:-status}" in
+    status|save|reset) python3 "$DOTFILES/install/lib/vicinae.py" "${1:-status}" ;;
+    *) echo "Unknown option: $1" >&2; usage >&2; exit 64 ;;
+  esac
+}
+
 cmd_edit() {
   ${VISUAL:-nvim} "$DOTFILES"
 }
@@ -373,6 +400,7 @@ case "${1:-help}" in
   reload)         cmd_reload ;;
   status)         cmd_status ;;
   doctor)         cmd_doctor ;;
+  vicinae)        shift; cmd_vicinae "$@" ;;
   omarchy-downstream-candidates) shift; cmd_omarchy "$@" ;;
   edit)           cmd_edit ;;
   help|-h|--help) usage ;;

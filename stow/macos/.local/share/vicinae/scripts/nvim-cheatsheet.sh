@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# @raycast.schemaVersion 1
-# @raycast.title Neovim Cheatsheet
-# @raycast.mode fullOutput
-# @raycast.packageName Keyboard
+# @vicinae.schemaVersion 1
+# @vicinae.title Neovim Cheatsheet
+# @vicinae.mode fullOutput
+# @vicinae.packageName Keyboard
 
 # LazyVim defaults, checked against its keymaps and plugin specs. For the full
 # list press Space in Neovim and wait (which-key), or Space s k to search them.
