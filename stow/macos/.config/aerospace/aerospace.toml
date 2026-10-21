@@ -25,8 +25,9 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 on-focus-changed = ['exec-and-forget $HOME/.config/aerospace/on-focus-changed.sh']
 automatically-unhide-macos-hidden-apps = true
 
+# window-pop.sh follow carries popped-out windows (Option+O) to the new workspace
 exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE; $HOME/.config/dotfiles/window-pop.sh follow'
 ]
 
 # Gaps — matches Omarchy (gaps_in=5, gaps_out=10)
@@ -101,6 +102,7 @@ alt-m = 'macos-native-minimize' # Omarchy: SUPER + M → minimize window to the 
 ctrl-cmd-forwardDelete = 'exec-and-forget $HOME/.config/aerospace/close-all-windows.sh' # Omarchy: CTRL + ALT + DEL — close all windows across workspaces, jump to 1
 alt-f = 'fullscreen' # Omarchy: SUPER + F
 alt-t = 'layout floating tiling' # Omarchy: SUPER + T (toggle float)
+alt-o = 'exec-and-forget $HOME/.config/dotfiles/window-pop.sh' # Omarchy: SUPER + O (pop window out: float, centre and pin to every workspace)
 alt-j = 'layout tiles horizontal vertical' # Omarchy: SUPER + J (toggle split)
 alt-l = 'layout tiles accordion' # Omarchy: SUPER + L (cycle workspace layout; AeroSpace has two)
 alt-b = 'balance-sizes' # Balance all windows in workspace

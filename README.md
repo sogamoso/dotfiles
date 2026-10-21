@@ -247,6 +247,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + F` | Fullscreen |
 | `Option + Ctrl + Cmd + F` | Full screen desktop: hide the bar and drop window gaps (toggle) |
 | `Option + T` | Toggle floating/tiling |
+| `Option + O` | Pop window out: float, centre and pin it to every workspace (toggle) |
 | `Option + J` | Toggle split direction |
 | `Option + L` | Toggle layout |
 | `Option + - / =` | Resize width |

@@ -373,7 +373,7 @@ What is left worth tracking:
 
 | Omarchy | macOS |
 |---|---|
-| `SUPER + O` — float & pin | Float only via Option+T, no pin-on-top |
+| `SUPER + O` — float & pin | ✅ Option+O floats, centres and carries the window to every workspace; it isn't kept above other windows |
 | `SUPER + G` — window grouping | No AeroSpace equivalent |
 | `SUPER + SHIFT + arrows` — swap window | Option+Ctrl+arrows (remapped to free Option+Shift for word selection) |
 | Window position save/restore per workspace | No AeroSpace equivalent |
