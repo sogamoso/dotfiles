@@ -347,6 +347,7 @@ Ephemeral kitchen-timer-style reminders (die on logout/reboot).
 | Hotkey | Action |
 |---|---|
 | `Option + ,` | Toggle Notification Center |
+| `Option + Shift + Cmd + ,` | Toggle Notification Center |
 | `Option + Ctrl + ,` | Toggle Do Not Disturb |
 
 ##### Ghostty

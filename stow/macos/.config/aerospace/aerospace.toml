@@ -136,6 +136,7 @@ alt-shift-cmd-b = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --
 
 # System controls
 alt-ctrl-c   = 'exec-and-forget open "cleanshot://all-in-one"' # SUPER+Ctrl+C → CleanShot all-in-one
+alt-shift-cmd-comma = 'exec-and-forget $HOME/.config/dotfiles/notification-center.sh' # SUPER+SHIFT+ALT+, → toggle Notification Center (second chord beside Option+,)
 alt-ctrl-s   = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh org.localsend.localsendApp' # Omarchy: SUPER+Ctrl+S → share menu (LocalSend)
 
 # CleanShot captures — driven through its URL scheme so the chords live here
