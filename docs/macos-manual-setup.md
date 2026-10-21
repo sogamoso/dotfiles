@@ -142,7 +142,9 @@ Set these once per Mac in **Settings → Dictation**, since they live alongside 
 - **Model** → Parakeet v3, which runs locally, so dictation works offline
 - **Language** → Auto Detect, for switching between English and Spanish
 
-It types into any focused field, which needs the Accessibility and Microphone grants in section 1. Dictation belongs to the direct-download build that the `macwhisper` cask installs, not the App Store version.
+Before the key does anything, run MacWhisper's dictation setup once: open MacWhisper → **Dictation**, follow the setup, and grant **Microphone** and **Accessibility** when it asks (the grants in section 1). Until then Right `⌘` silently does nothing, even with the key already set. Check the setup shows Right `⌘` and push to talk, then hold the key in any text field to test.
+
+Dictation belongs to the direct-download build that the `macwhisper` cask installs, not the App Store version.
 
 ### CleanShot
 
