@@ -251,6 +251,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + O` | Pop window out: float, centre and pin it to every workspace (toggle) |
 | `Option + J` | Toggle split direction |
 | `Option + L` | Toggle layout |
+| `Option + Cmd + L` | Toggle layout (Omarchy's reverse cycle; same toggle with two layouts) |
 | `Option + - / =` | Resize width |
 | `Option + Shift + - / =` | Resize height |
 | `Option + B` | Balance window sizes |

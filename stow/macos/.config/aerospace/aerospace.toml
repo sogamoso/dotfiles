@@ -109,6 +109,7 @@ alt-t = 'layout floating tiling' # Omarchy: SUPER + T (toggle float)
 alt-o = 'exec-and-forget $HOME/.config/dotfiles/window-pop.sh' # Omarchy: SUPER + O (pop window out: float, centre and pin to every workspace)
 alt-j = 'layout tiles horizontal vertical' # Omarchy: SUPER + J (toggle split)
 alt-l = 'layout tiles accordion' # Omarchy: SUPER + L (cycle workspace layout; AeroSpace has two)
+alt-cmd-l = 'layout tiles accordion' # Omarchy: SUPER + ALT + L (cycle the other way; with two layouts, the same toggle)
 alt-b = 'balance-sizes' # Balance all windows in workspace
 
 # Workspace cycling — Omarchy: SUPER + TAB
