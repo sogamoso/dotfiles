@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
-# Toggle Notification Center by clicking the menu bar clock, which opens it and,
-# clicked again, closes it.
+# Toggle Notification Center from a second chord by sending Option+, — the macOS
+# keyboard shortcut that already toggles it (System Settings → Keyboard →
+# Keyboard Shortcuts → Mission Control). macOS allows one shortcut per action, and
+# its menu bar items expose nothing to click on current macOS, so the keystroke
+# is the only way in.
 #
-# Option+, already does this as a macOS keyboard shortcut, but macOS allows one
-# shortcut per action, so a second chord has to go another way. Synthesizing
-# Option+, from an AeroSpace binding doesn't work either: Shift and Cmd are still
-# held when it fires, so the keystroke arrives as the wrong chord.
+# The binding fires while Shift and Cmd are still held, which would turn the
+# keystroke into the wrong chord, so it waits (up to 2s) for them to be released.
 set -euo pipefail
 
-osascript -e '
-tell application "System Events"
-  tell application process "ControlCenter"
-    click (first menu bar item of menu bar 1 whose value of attribute "AXIdentifier" is "com.apple.menuextra.clock")
-  end tell
-end tell'
+osascript -l JavaScript -e '
+ObjC.import("AppKit")
+const held = $.NSEventModifierFlagShift | $.NSEventModifierFlagCommand
+for (let i = 0; i < 100 && ($.NSEvent.modifierFlags & held); i++) delay(0.02)
+Application("System Events").keyCode(43, { using: "option down" })
+'
