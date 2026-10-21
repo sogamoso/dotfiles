@@ -282,7 +282,15 @@ It is absent from `Brewfile` and cannot go there. Ratta ships the macOS build th
 
 ---
 
-## 13. Enable Screen Sharing (always-available machines only)
+## 13. Install Wabi
+
+Wabi's group AI assistant. Download the [Apple silicon DMG](https://desktop-updates.wabi.ai/download/Wabi-mac-arm64.dmg) from [wabi.ai/download](https://wabi.ai/download) and drag the app to Applications.
+
+It is absent from `Brewfile` because Homebrew has no `wabi` cask. Unlike Supernote Partner, a build does exist outside the App Store, so a cask could be contributed upstream. Once one lands in `homebrew/cask`, move Wabi into the Brewfile and drop this section. The Mac build is arm64 only.
+
+---
+
+## 14. Enable Screen Sharing (always-available machines only)
 
 **Desktop computers that stay on, like the Mac mini — not laptops.** A laptop
 moves between networks, and Screen Sharing listens on every one of them.
@@ -305,7 +313,7 @@ every Mac; SSH goes through Tailscale SSH instead.
 
 ---
 
-## 14. Reach the Macs from the iPhone (Blink)
+## 15. Reach the Macs from the iPhone (Blink)
 
 Both Macs take SSH and mosh through Tailscale SSH: no keys, and nothing listens
 on the local network. The Mac side is automated (`tailscale.sh`, `firewall.sh`,
@@ -337,7 +345,7 @@ daily check notifies if that ever fails.
 
 ---
 
-## 15. Confirm the setup with `dotfiles doctor`
+## 16. Confirm the setup with `dotfiles doctor`
 
 Once the steps above are done, run:
 
