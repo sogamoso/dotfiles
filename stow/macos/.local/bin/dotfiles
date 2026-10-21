@@ -319,6 +319,24 @@ cmd_doctor() {
     done
   done
 
+  echo "==> Stow"
+  # A file added to a package stays unlinked until the next stow, and whatever
+  # sources it fails quietly in the meantime
+  source "$DOTFILES/install/lib/stow-packages.sh"
+  local pkg out missing
+  for pkg in "${STOW_PACKAGES[@]}"; do
+    if ! out=$(cd "$DOTFILES/stow" && stow --simulate --verbose --no-folding --target "$HOME" "$pkg" 2>&1); then
+      bad "$pkg has conflicts: $(sed -n 's/^  \* //p' <<<"$out" | head -1)" "dotfiles stow"
+      continue
+    fi
+    missing=$(sed -n 's/^LINK: \([^ ]*\) => .*/\1/p' <<<"$out")
+    if [[ -n $missing ]]; then
+      bad "$pkg has $(wc -l <<<"$missing" | tr -d ' ') unlinked file(s): $(head -3 <<<"$missing" | paste -sd ' ' -)" "dotfiles stow"
+    else
+      ok "$pkg stowed"
+    fi
+  done
+
   echo "==> Homebrew"
   if [[ "$(brew autoupdate status 2>/dev/null)" == *"running"* ]]; then
     ok "brew autoupdate running"

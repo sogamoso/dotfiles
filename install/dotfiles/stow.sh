@@ -3,6 +3,7 @@ set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/stow-orphans.sh"
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/take-ownership.sh"
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/stow-packages.sh"
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
@@ -11,8 +12,6 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
 # Ensure .ssh exists before stowing SSH config
 mkdir -p "$HOME/.ssh"
-
-packages=(claude codex editorconfig git mise nvim ruby ssh)
 
 # Claude Code writes its own settings, and Omadots/Omarchy copy a whole config
 # tree into ~/.config, mise's included. Nothing is known to write
@@ -27,9 +26,6 @@ take_ownership \
 
 case "$(uname -s)" in
   Darwin)
-    # Omarchy is bash-based and ships its own alias/function layer, so the zsh
-    # package is macOS only. Its bash counterpart lives in the linux package.
-    packages+=(zsh macos)
     take_ownership \
       "$HOME/.config/btop/btop.conf" \
       "$HOME/.config/ghostty/config" \
@@ -38,7 +34,6 @@ case "$(uname -s)" in
       "$HOME/Library/LaunchAgents/com.sogamoso.workhours.sleep-if-idle.plist"
     ;;
   Linux)
-    packages+=(linux)
     # Omarchy seeds this as a real file from /etc/skel.
     # omarchy-reinstall-configs restores the original if you ever want it back.
     take_ownership "$HOME/.config/hypr/bindings.lua"
@@ -55,7 +50,7 @@ cd "$REPO_DIR/stow"
 # A conflict in one package shouldn't cost us the remaining packages, nor the
 # install steps that run after this script
 failed=""
-for config in "${packages[@]}"; do
+for config in "${STOW_PACKAGES[@]}"; do
   stow --target "$HOME" --restow --no-folding "$config" || failed+=" $config"
 done
 
