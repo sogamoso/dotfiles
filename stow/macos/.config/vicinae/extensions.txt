@@ -28,7 +28,6 @@ raycast:raycast/github
 raycast:rolandleth/kill-process
 raycast:thomas/color-picker
 raycast:thomas/downloads-manager
-raycast:thomas/work-time-countdown
 raycast:thomaslombart/messages
 raycast:tonka3000/gmail
 raycast:vercel/vercast

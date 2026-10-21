@@ -123,10 +123,7 @@ Nothing to assign. The launcher hotkey (`Option + Space`) is set in the stowed `
 
 Nothing to install by hand either: bootstrap installs the store extensions listed in `stow/macos/.config/vicinae/extensions.txt`. Change settings or extensions in Vicinae as usual, then run `dotfiles vicinae save` and commit to keep the change, or `dotfiles vicinae reset` to drop it. `dotfiles doctor` flags anything not yet saved. Extension passwords and tokens are kept in Vicinae's own database, never in the repo, so each extension still asks for them once per Mac. Linear signs in over OAuth on first use.
 
-Two extensions don't fully work under Vicinae:
-
-- **1Password** opens `raycast://` once it has signed in through the 1Password CLI, to bring Raycast back to the front. Vicinae only registers `vicinae://` on macOS, so with Raycast uninstalled that last step has nowhere to go.
-- **Work Time Countdown** is a menu bar command only, which Vicinae doesn't support, so it installs but never appears.
+**1Password** doesn't fully work under Vicinae: it opens `raycast://` once it has signed in through the 1Password CLI, to bring Raycast back to the front. Vicinae only registers `vicinae://` on macOS, so with Raycast uninstalled that last step has nowhere to go. Raycast extensions whose only command is a menu bar item never appear at all, since Vicinae has no menu bar commands, so leave those out of `extensions.txt`.
 
 **Secure Input** deliberately gets no hotkey. It reports which app is holding macOS Secure Input, and Secure Input blocks the event tap AeroSpace reads keys through — a binding would be dead exactly when you need it. Open the launcher (still works: Vicinae registers `Option + Space` itself) and run it by name, or run `~/.config/dotfiles/secure-input.sh` in a terminal.
 
