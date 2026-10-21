@@ -136,6 +136,7 @@ alt-shift-cmd-b = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --
 
 # System controls
 alt-ctrl-c   = 'exec-and-forget open "cleanshot://all-in-one"' # SUPER+Ctrl+C → CleanShot all-in-one
+alt-ctrl-s   = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh org.localsend.localsendApp' # Omarchy: SUPER+Ctrl+S → share menu (LocalSend)
 
 # CleanShot captures — driven through its URL scheme so the chords live here
 # rather than in CleanShot's own settings, which are per-machine. Clear the
@@ -202,6 +203,10 @@ run = ['layout floating']
 
 [[on-window-detected]]
 if.app-id = 'com.goodsnooze.MacWhisper'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'org.localsend.localsendApp'
 run = ['layout floating']
 
 [[on-window-detected]]

@@ -17,6 +17,9 @@ Open each prompt as it appears during the install, or go here:
 **System Settings → Privacy & Security → Microphone**
 - MacWhisper
 
+**System Settings → Privacy & Security → Local Network**
+- LocalSend — allow it at the first-launch prompt, or it can't see other devices. The firewall also asks once whether to accept incoming connections; allow that too, or nothing can send to this Mac.
+
 **System Settings → Privacy & Security → Automation** — whichever terminal you run the installer from needs **System Events** enabled under it. Without it, the two `osascript` calls in `install/macos/preferences.sh` fail with `-1743 Not authorized to send Apple events`, and dark mode and the auto-hidden menu bar are silently skipped. The script warns and carries on rather than stopping, so a missed grant costs those two settings and nothing else.
 
 ---
@@ -385,6 +388,7 @@ What is left worth tracking:
 | Visual theme and background switchers | No equivalent |
 | `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | Only A/B/W are mapped |
+| `SUPER + Ctrl + S` — share menu (clipboard, file or folder over LocalSend) | Option+Ctrl+S opens LocalSend itself; pick what to send there |
 | `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → MacWhisper: hold to talk (set by `preferences.sh`) |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `CapsLock` — quick emojis | Needs remapping tool |
