@@ -375,7 +375,7 @@ What is left worth tracking:
 |---|---|
 | `SUPER + O` — float & pin | Float only via Option+T, no pin-on-top |
 | `SUPER + G` — window grouping | No AeroSpace equivalent |
-| `SUPER + SHIFT + arrows` — move window | Option+Ctrl+arrows (remapped to free Option+Shift for word selection) |
+| `SUPER + SHIFT + arrows` — swap window | Option+Ctrl+arrows (remapped to free Option+Shift for word selection) |
 | Window position save/restore per workspace | No AeroSpace equivalent |
 | Per-monitor independent workspaces | Aerospace handles it, less seamless |
 | Bar transparency and repositioning by double-click and drag | No SketchyBar equivalent; height and position are set in `sketchybarrc` |

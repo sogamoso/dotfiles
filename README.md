@@ -235,7 +235,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Shift + Tab` | Previous workspace |
 | `Option + Ctrl + Tab` | Switch to former workspace |
 | `Option + arrows` | Focus window left/right/up/down |
-| `Option + Ctrl + arrows` | Move window within workspace |
+| `Option + Ctrl + arrows` | Swap window with its neighbour |
 | `Option + Shift + 1-9` | Move window to workspace and follow |
 | `Option + Shift + S` | Move window to scratchpad (workspace 10) and follow |
 | `Option + Shift + Cmd + 1-9` | Move window to workspace without following |

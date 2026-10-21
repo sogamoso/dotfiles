@@ -85,11 +85,14 @@ alt-right = 'focus right'
 alt-up    = 'focus up'
 alt-down  = 'focus down'
 
-# Move windows — Omarchy: SUPER + SHIFT + arrows (remapped to free Option+Shift+Arrow for word selection)
-alt-ctrl-left  = 'move left'
-alt-ctrl-right = 'move right'
-alt-ctrl-up    = 'move up'
-alt-ctrl-down  = 'move down'
+# Swap windows — Omarchy: SUPER + SHIFT + arrows (remapped to free Option+Shift+Arrow for word selection).
+# Swap, as Hyprland does, not move: move drops the window into the neighbouring
+# container, which in the dwindle layout is often a column, so it lands above or
+# below instead of beside. --swap-focus keeps focus on the window that moved.
+alt-ctrl-left  = 'swap left --swap-focus'
+alt-ctrl-right = 'swap right --swap-focus'
+alt-ctrl-up    = 'swap up --swap-focus'
+alt-ctrl-down  = 'swap down --swap-focus'
 
 # Window controls
 alt-w = ['close', 'exec-and-forget aerospace workspace $AEROSPACE_FOCUSED_WORKSPACE'] # Omarchy: SUPER + W — stay on workspace even if empty
