@@ -61,6 +61,24 @@ else
   fi
 fi
 
+# Easy Move+Resize: Option + left drag moves a window, Option + right drag
+# resizes it, as Super does on Omarchy. Bring the window to the front too, as
+# Hyprland focuses what you grab. It writes its preferences back on quit.
+if pgrep -xq "Easy Move+Resize"; then
+  osascript -e 'quit app "Easy Move+Resize"' 2>/dev/null || pkill -x "Easy Move+Resize" 2>/dev/null || true
+  for _ in {1..20}; do
+    pgrep -xq "Easy Move+Resize" || break
+    sleep 0.5
+  done
+fi
+if pgrep -xq "Easy Move+Resize"; then
+  log_warn "Easy Move+Resize would not quit — set its modifier to Option from its menu"
+else
+  defaults write org.dmarcotte.Easy-Move-Resize ModifierFlags -string ALT
+  defaults write org.dmarcotte.Easy-Move-Resize BringToFront -bool true
+  open -a "Easy Move+Resize"
+fi
+
 # MacWhisper: dictation on Right ⌘, held to talk (Omarchy: hold Right Alt, which
 # is Command here). It also writes its preferences back on quit, so close it first.
 macwhisper_was_running=false

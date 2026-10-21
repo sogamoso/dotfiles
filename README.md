@@ -253,6 +253,8 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + - / =` | Resize width |
 | `Option + Shift + - / =` | Resize height |
 | `Option + B` | Balance window sizes |
+| `Option + left drag` | Move window (Easy Move+Resize) |
+| `Option + right drag` | Resize window (Easy Move+Resize) |
 
 ##### Launching apps
 
