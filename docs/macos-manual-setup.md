@@ -11,6 +11,11 @@ Open each prompt as it appears during the install, or go here:
 
 **System Settings → Privacy & Security → Accessibility**
 - Aerospace
+- MacWhisper (types dictation into the focused field)
+- Vicinae (pastes and expands snippets)
+
+**System Settings → Privacy & Security → Microphone**
+- MacWhisper
 
 **System Settings → Privacy & Security → Automation** — whichever terminal you run the installer from needs **System Events** enabled under it. Without it, the two `osascript` calls in `install/macos/preferences.sh` fail with `-1743 Not authorized to send Apple events`, and dark mode and the auto-hidden menu bar are silently skipped. The script warns and carries on rather than stopping, so a missed grant costs those two settings and nothing else.
 
@@ -42,6 +47,7 @@ System Settings → General → Login Items — add:
 - Google Calendar
 - Google Drive
 - Granola
+- MacWhisper
 - Slack
 - Vicinae (registers itself on first launch)
 
@@ -126,6 +132,17 @@ Nothing to install by hand either: bootstrap installs the store extensions liste
 **1Password** doesn't fully work under Vicinae: it opens `raycast://` once it has signed in through the 1Password CLI, to bring Raycast back to the front. Vicinae only registers `vicinae://` on macOS, so with Raycast uninstalled that last step has nowhere to go. Raycast extensions whose only command is a menu bar item never appear at all, since Vicinae has no menu bar commands, so leave those out of `extensions.txt`.
 
 **Secure Input** deliberately gets no hotkey. It reports which app is holding macOS Secure Input, and Secure Input blocks the event tap AeroSpace reads keys through — a binding would be dead exactly when you need it. Open the launcher (still works: Vicinae registers `Option + Space` itself) and run it by name, or run `~/.config/dotfiles/secure-input.sh` in a terminal.
+
+### MacWhisper
+
+Dictation, replacing Raycast's. MacWhisper keeps its settings in its own preferences, so set these once per Mac in **Settings → Dictation**:
+
+- **Shortcut** → Right `⌘` alone (Omarchy: SUPER + Ctrl + X to toggle, hold Right Alt to talk; Omarchy's Alt is Command here)
+- **Behaviour** → push to talk (hold to talk) or toggle (tap to start and again to finish). Raycast did both on one key; pick whichever MacWhisper's settings offer closest to that.
+- **Model** → Parakeet v3, which runs locally, so dictation works offline
+- **Language** → Auto Detect, for switching between English and Spanish
+
+It types into any focused field, which needs the Accessibility and Microphone grants in section 1. Dictation belongs to the direct-download build that the `macwhisper` cask installs, not the App Store version.
 
 ### CleanShot
 
@@ -366,7 +383,7 @@ What is left worth tracking:
 | Visual theme and background switchers | No equivalent |
 | `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | Only A/B/W are mapped |
-| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | Not mapped since the move from Raycast to Vicinae, which has no dictation |
+| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → MacWhisper dictation, set in its own settings (section 7) |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `CapsLock` — quick emojis | Needs remapping tool |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |

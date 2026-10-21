@@ -288,6 +288,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Ctrl + T` | btop in Ghostty |
 | `Option + Ctrl + V` | Clipboard history (Vicinae) |
 | `Option + Ctrl + E` | Emoji picker (Vicinae) |
+| `Right ⌘` | Dictation (MacWhisper, set in its own settings) |
 | `Option + I` | Switch input language |
 | `Option + Shift + I` | Switch input language back |
 | `Mic Mute (F18)` | Toggle microphone mute (Lofree mic-mute key; dead on built-in keyboard) |
