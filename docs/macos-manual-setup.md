@@ -11,7 +11,6 @@ Open each prompt as it appears during the install, or go here:
 
 **System Settings → Privacy & Security → Accessibility**
 - Aerospace
-- Easy Move+Resize (moves and resizes windows on Option + drag)
 - MacWhisper (types dictation into the focused field)
 - Vicinae (pastes and expands snippets)
 
@@ -46,7 +45,6 @@ System Settings → General → Login Items — add:
 - AeroSpace
 - CleanShot X
 - Dropbox
-- Easy Move+Resize
 - Freedom
 - Gmail
 - Google Calendar
