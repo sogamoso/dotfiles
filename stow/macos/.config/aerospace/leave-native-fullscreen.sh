@@ -11,13 +11,28 @@
 #   e.g. leave-native-fullscreen.sh aerospace swap left --swap-focus
 set -euo pipefail
 
+# AeroSpace marks the window as back in its tree as soon as it asks macOS to
+# leave full screen, a second before the exit animation ends. Acting on it then
+# (moving it to another workspace, say) interrupts the animation and strands the
+# app in full screen, so wait on macOS's own AXFullScreen instead.
+still_fullscreen() {
+  [[ $(osascript -e '
+tell application "System Events"
+  tell (first application process whose frontmost is true)
+    value of attribute "AXFullScreen" of window 1
+  end tell
+end tell' 2>/dev/null) == "true" ]]
+}
+
 if [[ $(aerospace list-windows --focused --format '%{window-layout}' 2>/dev/null) == "macos_native_fullscreen" ]]; then
   aerospace macos-native-fullscreen off
-  # The exit animation takes about a second; the window rejoins the tree at its end
-  for _ in {1..40}; do
-    [[ $(aerospace list-windows --focused --format '%{window-layout}' 2>/dev/null) == "macos_native_fullscreen" ]] || break
-    sleep 0.05
+  sleep 0.3
+  for _ in {1..30}; do
+    still_fullscreen || break
+    sleep 0.1
   done
+  # The Space transition settles a beat after the window reports windowed
+  sleep 0.2
 fi
 
 exec "$@"
