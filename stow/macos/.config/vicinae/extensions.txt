@@ -1,6 +1,5 @@
 raycast:Aayush9029/cleanshotx
 raycast:Codely/google-chrome
-raycast:RSO/dash
 raycast:abielzulio/chatgpt
 raycast:benvp/audio-device
 raycast:florisdobber/claude
