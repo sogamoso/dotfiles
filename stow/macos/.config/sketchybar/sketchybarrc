@@ -1,18 +1,10 @@
 #!/usr/bin/env bash
 
-# Tokyo Night colors
-BG=0xff1a1b26
-SURFACE=0xff24283b
-MUTED=0xff565f89
-TEXT=0xffa9b1d6
-BLUE=0xff7aa2f7
-RED=0xfff7768e
-YELLOW=0xffe0af68
-
 FONT="JetBrainsMono Nerd Font"
 
 export CONFIG_DIR="$HOME/.config/sketchybar"
 source "$CONFIG_DIR/lib/common.sh"
+source "$CONFIG_DIR/lib/colors.sh"
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 LAUNCH="$HOME/.config/aerospace/launch-or-focus.sh"
 

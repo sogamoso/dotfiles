@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/colors.sh"
+
 BATT=$(pmset -g batt)
 
 # Desktop Mac (no internal battery) → hide entirely
@@ -33,7 +35,7 @@ case "$STATE" in
     exit 0
     ;;
   full)
-    sketchybar --set "$NAME" drawing=on icon="󰂅" icon.color=0xffa9b1d6 label.drawing=off
+    sketchybar --set "$NAME" drawing=on icon="󰂅" icon.color=$TEXT label.drawing=off
     exit 0
     ;;
   charging)
@@ -49,7 +51,7 @@ case "$STATE" in
       2[0-9]) ICON="󰂆" ;;
       *)      ICON="󰢜" ;;
     esac
-    sketchybar --set "$NAME" drawing=on icon="$ICON" icon.color=0xffa9b1d6 label.drawing=off
+    sketchybar --set "$NAME" drawing=on icon="$ICON" icon.color=$TEXT label.drawing=off
     exit 0
     ;;
   discharging)
@@ -60,9 +62,9 @@ case "$STATE" in
     else                                 ICON="󰁺"
     fi
 
-    if   (( PERCENTAGE <= 10 )); then COLOR=0xfff7768e  # critical
-    elif (( PERCENTAGE <= 20 )); then COLOR=0xffe0af68  # warning
-    else                                 COLOR=0xffa9b1d6  # normal
+    if   (( PERCENTAGE <= 10 )); then COLOR=$RED     # critical
+    elif (( PERCENTAGE <= 20 )); then COLOR=$YELLOW  # warning
+    else                                 COLOR=$TEXT    # normal
     fi
 
     if (( PERCENTAGE <= 20 )); then

@@ -6,8 +6,8 @@
 #   empty workspaces 1–5     → number, muted (~0.5 opacity equivalent)
 #   empty workspaces 6–9     → hidden entirely
 
-FG=0xffa9b1d6   # foreground
-MUTED=0xff565f89  # faded ~ Omarchy's opacity:0.5
+source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/colors.sh"
+# MUTED stands in for Omarchy's opacity:0.5
 
 FOCUSED="${FOCUSED_WORKSPACE:-$(aerospace list-workspaces --focused 2>/dev/null)}"
 POPULATED=$(aerospace list-windows --all --format "%{workspace}" 2>/dev/null | sort -u)
@@ -18,9 +18,9 @@ for i in {1..9}; do
 
   if (( i <= 5 )) || (( IS_POP == 1 )) || (( IS_FOC == 1 )); then
     if (( IS_FOC == 1 )); then
-      sketchybar --set space.$i drawing=on icon="󱓻" icon.color=$FG
+      sketchybar --set space.$i drawing=on icon="󱓻" icon.color=$TEXT
     elif (( IS_POP == 1 )); then
-      sketchybar --set space.$i drawing=on icon="$i" icon.color=$FG
+      sketchybar --set space.$i drawing=on icon="$i" icon.color=$TEXT
     else
       sketchybar --set space.$i drawing=on icon="$i" icon.color=$MUTED
     fi
