@@ -285,8 +285,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Ctrl + A` | Sound preferences |
 | `Option + Ctrl + B` | Bluetooth preferences |
 | `Option + Ctrl + W` | Wi-Fi preferences |
-| `Option + Ctrl + T` | btop in Ghostty |
-| `Option + Shift + T` | Open Activity Monitor |
+| `Option + Shift + T` | btop in Ghostty |
 | `Option + Ctrl + S` | LocalSend: share files with Omarchy and phones |
 | `Option + Ctrl + V` | Clipboard history (Vicinae) |
 | `Option + Ctrl + E` | Emoji picker (Vicinae) |

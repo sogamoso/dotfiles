@@ -152,8 +152,7 @@ cmd-shift-4  = 'exec-and-forget open "cleanshot://capture-area"' # Omarchy: PRIN
 cmd-shift-5  = 'exec-and-forget open "cleanshot://all-in-one"' # Omarchy: SUPER+Ctrl+C → capture menu
 cmd-shift-6  = 'exec-and-forget open "cleanshot://capture-text"' # Omarchy: SUPER+Ctrl+PRINT → OCR
 
-alt-ctrl-t   = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e btop' # SUPER+Ctrl+T → btop
-alt-shift-t  = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh com.apple.ActivityMonitor' # Omarchy: SUPER+SHIFT+T → activity (btop there; Activity Monitor here)
+alt-shift-t  = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e btop' # Omarchy: SUPER+SHIFT+T → activity (btop)
 f18          = 'exec-and-forget $HOME/.config/dotfiles/mic-mute.sh' # Omarchy: XF86AudioMicMute → toggle mic mute (Lofree mic-mute key sends Insert, remapped to F18 via hidutil; macOS takes F14/F15 for brightness)
 
 # Launcher commands, through Vicinae deeplinks. The launcher itself
