@@ -1,7 +1,6 @@
 raycast:Aayush9029/cleanshotx
 raycast:Codely/google-chrome
 raycast:RSO/dash
-raycast:ThatNerd/timers
 raycast:abielzulio/chatgpt
 raycast:benvp/audio-device
 raycast:florisdobber/claude
@@ -24,7 +23,6 @@ raycast:opti21/trek
 raycast:pernielsentikaer/tableplus
 raycast:priithaamer/docker
 raycast:raycast/github
-raycast:rolandleth/kill-process
 raycast:thomas/color-picker
 raycast:thomas/downloads-manager
 raycast:thomaslombart/messages
@@ -34,4 +32,5 @@ raycast:vimtor/tailwindcss
 raycast:vimtor/whatsapp
 raycast:vishaltelangre/google-drive
 raycast:vlades/herdr
+vicinae:leonkohli/process-manager
 vicinae:nihalxkumar/freetube
