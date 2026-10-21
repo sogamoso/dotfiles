@@ -57,28 +57,28 @@ alt-9 = 'workspace 9'
 alt-s = 'workspace 10' # SUPER+S → scratchpad
 
 # Move window to workspace and follow — Omarchy: SUPER + SHIFT + 1-9,0
-alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
-alt-shift-2 = 'move-node-to-workspace --focus-follows-window 2'
-alt-shift-3 = 'move-node-to-workspace --focus-follows-window 3'
-alt-shift-4 = 'move-node-to-workspace --focus-follows-window 4'
-alt-shift-5 = 'move-node-to-workspace --focus-follows-window 5'
-alt-shift-6 = 'move-node-to-workspace --focus-follows-window 6'
-alt-shift-7 = 'move-node-to-workspace --focus-follows-window 7'
-alt-shift-8 = 'move-node-to-workspace --focus-follows-window 8'
-alt-shift-9 = 'move-node-to-workspace --focus-follows-window 9'
-alt-shift-s = 'move-node-to-workspace --focus-follows-window 10'
+alt-shift-1 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 1'
+alt-shift-2 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 2'
+alt-shift-3 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 3'
+alt-shift-4 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 4'
+alt-shift-5 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 5'
+alt-shift-6 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 6'
+alt-shift-7 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 7'
+alt-shift-8 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 8'
+alt-shift-9 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 9'
+alt-shift-s = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 10'
 
 # Move window to workspace without following — Omarchy: SUPER + SHIFT + ALT + 1-9,0
-alt-shift-cmd-1 = 'move-node-to-workspace 1'
-alt-shift-cmd-2 = 'move-node-to-workspace 2'
-alt-shift-cmd-3 = 'move-node-to-workspace 3'
-alt-shift-cmd-4 = 'move-node-to-workspace 4'
-alt-shift-cmd-5 = 'move-node-to-workspace 5'
-alt-shift-cmd-6 = 'move-node-to-workspace 6'
-alt-shift-cmd-7 = 'move-node-to-workspace 7'
-alt-shift-cmd-8 = 'move-node-to-workspace 8'
-alt-shift-cmd-9 = 'move-node-to-workspace 9'
-alt-shift-cmd-s = 'move-node-to-workspace 10'
+alt-shift-cmd-1 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 1'
+alt-shift-cmd-2 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 2'
+alt-shift-cmd-3 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 3'
+alt-shift-cmd-4 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 4'
+alt-shift-cmd-5 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 5'
+alt-shift-cmd-6 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 6'
+alt-shift-cmd-7 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 7'
+alt-shift-cmd-8 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 8'
+alt-shift-cmd-9 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 9'
+alt-shift-cmd-s = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 10'
 
 # Focus navigation — Omarchy: SUPER + arrows
 alt-left  = 'focus left'
@@ -90,26 +90,28 @@ alt-down  = 'focus down'
 # Swap, as Hyprland does, not move: move drops the window into the neighbouring
 # container, which in the dwindle layout is often a column, so it lands above or
 # below instead of beside. --swap-focus keeps focus on the window that moved.
-alt-ctrl-left  = 'swap left --swap-focus'
-alt-ctrl-right = 'swap right --swap-focus'
-alt-ctrl-up    = 'swap up --swap-focus'
-alt-ctrl-down  = 'swap down --swap-focus'
+alt-ctrl-left  = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace swap left --swap-focus'
+alt-ctrl-right = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace swap right --swap-focus'
+alt-ctrl-up    = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace swap up --swap-focus'
+alt-ctrl-down  = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace swap down --swap-focus'
 
 # Window controls
 alt-w = ['close', 'exec-and-forget aerospace workspace $AEROSPACE_FOCUSED_WORKSPACE'] # Omarchy: SUPER + W — stay on workspace even if empty
 alt-q = ['close', 'exec-and-forget aerospace workspace $AEROSPACE_FOCUSED_WORKSPACE'] # Omarchy: SUPER + Q — second close chord, for hands used to Cmd+Q
 alt-m = 'macos-native-minimize' # Omarchy: SUPER + M → minimize window to the dock
 ctrl-cmd-forwardDelete = 'exec-and-forget $HOME/.config/aerospace/close-all-windows.sh' # Omarchy: CTRL + ALT + DEL — close all windows across workspaces, jump to 1
+# Window keys go through leave-native-fullscreen.sh, which takes the window out
+# of macOS full screen first: AeroSpace can't act on it while it's there.
 # Omarchy has three full-screen modes. True full screen hides the bar, which only
 # macOS's own full screen does; AeroSpace's fullscreen keeps the bar and gaps,
 # which is Omarchy's full width. Its tiled full screen has no macOS counterpart.
 alt-f     = 'macos-native-fullscreen' # Omarchy: SUPER + F (full screen)
-alt-cmd-f = 'fullscreen' # Omarchy: SUPER + ALT + F (full width, keeping the bar)
-alt-t = 'layout floating tiling' # Omarchy: SUPER + T (toggle float)
-alt-o = 'exec-and-forget $HOME/.config/dotfiles/window-pop.sh' # Omarchy: SUPER + O (pop window out: float, centre and pin to every workspace)
-alt-j = 'layout tiles horizontal vertical' # Omarchy: SUPER + J (toggle split)
-alt-l = 'layout tiles accordion' # Omarchy: SUPER + L (cycle workspace layout; AeroSpace has two)
-alt-cmd-l = 'layout tiles accordion' # Omarchy: SUPER + ALT + L (cycle the other way; with two layouts, the same toggle)
+alt-cmd-f = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace fullscreen' # Omarchy: SUPER + ALT + F (full width, keeping the bar)
+alt-t = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace layout floating tiling' # Omarchy: SUPER + T (toggle float)
+alt-o = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh $HOME/.config/dotfiles/window-pop.sh' # Omarchy: SUPER + O (pop window out: float, centre and pin to every workspace)
+alt-j = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace layout tiles horizontal vertical' # Omarchy: SUPER + J (toggle split)
+alt-l = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace layout tiles accordion' # Omarchy: SUPER + L (cycle workspace layout; AeroSpace has two)
+alt-cmd-l = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace layout tiles accordion' # Omarchy: SUPER + ALT + L (cycle the other way; with two layouts, the same toggle)
 alt-b = 'balance-sizes' # Balance all windows in workspace
 
 # Workspace cycling — Omarchy: SUPER + TAB
@@ -118,10 +120,10 @@ alt-shift-tab = 'exec-and-forget ~/.config/aerospace/workspace_cycle.sh prev'
 alt-ctrl-tab = 'workspace-back-and-forth' # SUPER+Ctrl+Tab → former workspace
 
 # Resize
-alt-minus       = 'resize width -50'
-alt-equal       = 'resize width +50'
-alt-shift-minus = 'resize height -50'
-alt-shift-equal = 'resize height +50'
+alt-minus       = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace resize width -50'
+alt-equal       = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace resize width +50'
+alt-shift-minus = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace resize height -50'
+alt-shift-equal = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace resize height +50'
 
 # App launchers — see launch-or-focus.sh
 alt-enter       = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty' # Omarchy: SUPER + RETURN
