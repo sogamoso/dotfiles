@@ -278,15 +278,15 @@ The companion app for the Supernote e-ink tablet. Install it from the [App Store
 
 It is absent from `Brewfile` and cannot go there. Ratta ships the macOS build through the App Store only — Windows gets a direct installer from their own servers, macOS does not — so there is no file for a cask to fetch. This is not a missing cask someone could contribute; the artifact does not exist outside Apple's distribution.
 
-`mas` would let `brew bundle` pull it onto a new machine, but only once the app is already in the Apple ID's purchase history, and `mas signin` no longer works on current macOS. The first install has to be manual either way, so the Brewfile stays free of App Store entries.
+`install/macos/apps.sh` does not install it either. `sudo mas get 1494992020` (mas 7.0.0) fails with `ISErrorDomain Code=4 "Unknown Error."` even with the App Store signed in, and `mas signin` no longer works on current macOS. The first install has to be manual, so the Brewfile stays free of App Store entries.
 
 ---
 
-## 13. Install Wabi
+## 13. Wabi (installed by bootstrap)
 
-Wabi's group AI assistant. Download the [Apple silicon DMG](https://desktop-updates.wabi.ai/download/Wabi-mac-arm64.dmg) from [wabi.ai/download](https://wabi.ai/download) and drag the app to Applications.
+`install/macos/apps.sh` installs Wabi, the group AI assistant, from the Apple silicon DMG at [wabi.ai/download](https://wabi.ai/download). It refuses any build not notarized and signed by Wabi, Inc. (team `J4Q32LA8N4`). If Wabi ever changes signing identity, the script warns and skips the install; check the new identity before updating `WABI_TEAM`.
 
-It is absent from `Brewfile` because Homebrew has no `wabi` cask. Unlike Supernote Partner, a build does exist outside the App Store, so a cask could be contributed upstream. Once one lands in `homebrew/cask`, move Wabi into the Brewfile and drop this section. The Mac build is arm64 only.
+Homebrew has no `wabi` cask. Since a downloadable build exists, one could be contributed upstream; once it lands in `homebrew/cask`, move Wabi into the Brewfile and drop it from `apps.sh`.
 
 ---
 
