@@ -84,7 +84,12 @@ cmd_brew() {
   (source "$DOTFILES/install/lib/brew-trust.sh"; brew_trust_taps "$DOTFILES/Brewfile")
   # One cask failing (often one that needs sudo) shouldn't skip the firewall
   # and autoupdate steps below; report it at the end instead
-  run brew bundle install --file="$DOTFILES/Brewfile" || bundle_failed=1
+  # Unattended (the daily agent), only install what's missing: upgrades are
+  # brew autoupdate's job, and it can ask for a password in a window, which a
+  # run with no terminal can't
+  local bundle_args=(--file="$DOTFILES/Brewfile")
+  [[ -n ${DOTFILES_UNATTENDED:-} ]] && bundle_args+=(--no-upgrade)
+  run brew bundle install "${bundle_args[@]}" || bundle_failed=1
   (source "$DOTFILES/install/lib/brew-autoupdate.sh"; brew_autoupdate_ensure) ||
     echo "==> brew autoupdate start failed; continuing without daily autoupdate"
   # Allow upgraded tailscaled and mosh-server through the firewall and restart

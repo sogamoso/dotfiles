@@ -6,8 +6,10 @@
 # Like brew autoupdate's --ac-only, a laptop on battery is skipped; launchd runs
 # a missed day on the next wake anyway. Doctor runs even when the update fails,
 # since a broken update is exactly when its checks matter, so no `set -e`.
-# Nothing here can answer a password prompt: a step that needs sudo fails
-# rather than waits, and shows up as a failed update.
+# Nothing here can answer a password prompt, so the update runs unattended:
+# Homebrew only installs new Brewfile entries and leaves upgrades to brew
+# autoupdate, which can prompt in a window. A step that still needs sudo fails
+# rather than waits, and the notification says to run `dotfiles brew`.
 set -uo pipefail
 
 GROUP_ID="dotfiles-daily"
@@ -25,7 +27,7 @@ fi
 before=$(git -C "$DOTFILES" rev-parse HEAD 2>/dev/null)
 {
   echo "=== $(date '+%F %T') dotfiles update"
-  "$CLI" update
+  DOTFILES_UNATTENDED=1 "$CLI" update
 } >"$LOG" 2>&1
 update=$?
 after=$(git -C "$DOTFILES" rev-parse HEAD 2>/dev/null)
@@ -44,7 +46,7 @@ changes="No new commits"
 (( pulled > 0 )) && changes="Pulled $pulled commit$( (( pulled == 1 )) || echo s)"
 
 if (( update != 0 )); then
-  notify "Dotfiles update failed" "$changes · click for the log" -open "file://$LOG"
+  notify "Dotfiles update failed" "$changes · run dotfiles brew in a terminal, or click for the log" -open "file://$LOG"
 elif (( doctor != 0 )); then
   # The first ✗ line names the problem; the log has the fix next to it
   problem=$(grep -m1 "✗" "$LOG" | sed 's/^ *✗ *//')
