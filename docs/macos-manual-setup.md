@@ -403,6 +403,16 @@ What is left worth tracking:
 | Model-usage bar widget | ✅ Claude usage item, via `ccusage` |
 | Microphone state indicator | ✅ Mic item, visible while muted |
 | Stay-awake indicator | ✅ Stay awake item, tracks caffeinate |
+| Queued reminder indicator | ✅ Reminder item, with the count when there are several |
+| Weather beside the clock | ✅ Weather item, via wttr.in; click opens the forecast in Ghostty rather than a popup |
+| Bar clicks and scrolling on workspaces, audio, clock, power and agents | ✅ Ported. The clock's middle-click timezone picker and the agents widget's subscription switch have no counterpart |
+| Microphone widget: scroll for input volume | Not ported. The mic item shows only while muted, and muting here sets input volume to 0, so the first scroll tick would unmute it and hide the item under the cursor. It also bypasses the level `mic-mute.sh` restores |
+| `SUPER + SHIFT + Space` — hide the bar | Not ported. Hiding SketchyBar alone leaves AeroSpace's top gap as an empty strip; reclaiming it means rewriting the gap as `fullscreen-desktop.sh` does, teaching `sync_aerospace_gap.sh` about it, and keeping the two toggles from undoing each other. Option+Ctrl+Cmd+F hides the bar with the gaps |
+| Bluetooth widget: right-click toggles the radio | Not ported; needs `blueutil` |
+| Display widget: scroll for brightness | Not ported. Command-line brightness tools are unreliable on Apple Silicon and reach only the built-in screen |
+| Media widget (now playing) | Not ported. macOS 15.4 locked down the interface the command-line players relied on |
+| Tray | Not ported; the macOS menu bar is the tray |
+| Do not disturb, night light, screen recording, dictation and remote session indicators | Not ported. Focus and Night Shift state can't be read reliably without Full Disk Access or private interfaces, and macOS shows its own recording and dictation indicators. A remote session indicator wasn't attempted |
 | Herdr layouts (`hdl`/`hds`/`hdlm`/`hsl`) | ✅ Ported to zsh in `stow/zsh/.config/zsh/aliases/herdr.zsh` |
 | SSH reconnect and terminal cleanup on drop | ✅ Keepalives surface a dead link in ~45s; no terminal-state reset |
 | Themes generating nvim/btop/VS Code colors from one colorset | No generator. `themes/tokyo-night/colors.toml` is the palette to copy by hand into apps without a Tokyo Night theme, Slack included |
