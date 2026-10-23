@@ -342,6 +342,18 @@ cmd_doctor() {
     fi
   done
 
+  echo "==> 1Password"
+  # With this off, closing the window quits 1Password and the next launch asks
+  # for the password again; it has already switched itself off once
+  local op_settings="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/Library/Application Support/1Password/Data/settings/settings.json"
+  if [[ ! -r $op_settings ]]; then
+    bad "1Password has no settings yet" "Open 1Password and sign in"
+  elif [[ $(python3 -c 'import json, sys; print(json.load(open(sys.argv[1])).get("app.keepInTray"))' "$op_settings") == "True" ]]; then
+    ok "Kept in the menu bar, so closing its window doesn't quit it"
+  else
+    bad "Not kept in the menu bar: closing its window quits it" "1Password → Settings → General → Keep 1Password in the menu bar"
+  fi
+
   echo "==> Vicinae"
   # Its GUI rewrites settings.json, so losing the import would drop the repo's
   # config, launcher hotkey included, without any error

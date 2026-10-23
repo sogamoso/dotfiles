@@ -125,7 +125,7 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles stow` | Re-stow all packages |
 | `dotfiles reload` | Re-stow, relink skills, restart SketchyBar, reload AeroSpace, restart a stale herdr server |
 | `dotfiles status` | Branch, ahead/behind, dirty files |
-| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, Vicinae, brew autoupdate) and print the fix for anything wrong |
+| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, 1Password, Vicinae, brew autoupdate) and print the fix for anything wrong |
 | `dotfiles vicinae [status \| save \| reset]` | Compare Vicinae's settings and store extensions with the repo. `save` keeps what changed on this Mac (commit the result), `reset` drops it |
 | `dotfiles omarchy-downstream-candidates` | Review what changed in Omarchy since the last review and which of it to port, in Claude Code (Codex if Claude isn't installed) with the `omarchy-downstream` skill. `--list` prints the raw changes; `--mark-reviewed` records the review in `.omarchy-reviewed` |
 | `dotfiles edit` | Open the repo in `$VISUAL` |
