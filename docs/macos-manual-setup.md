@@ -280,7 +280,9 @@ System Settings → Notifications → **terminal-notifier** → enable **Allow N
 
 The SSH agent serves the keys behind `git` over SSH and commit signing (`~/.ssh/id_ed25519_git_signing.pub`). The CLI integration is what lets bootstrap read the ui.sh token; if it was off during bootstrap, rerun `bash install/dotfiles/uidotsh.sh`.
 
-1Password → Settings → General → enable **Keep 1Password in the menu bar** (1Password needs it for Touch ID, Quick Access and the SSH agent too), and set **Click the icon to** → **Show the main window**. Option + Shift + / already opens Quick Access (section 7), so the icon is the way to the full app. With it off, closing the main window (the red button, or Option + W) quits 1Password outright, and the next launch asks for the password again. With it on, closing only hides the window: 1Password keeps running and unlocked, and Option + Shift + / brings it back. Its menu bar icon then gives a second way back to it.
+1Password → Settings → General → enable **Keep 1Password in the menu bar** (1Password needs it for Touch ID, Quick Access and the SSH agent too), and set **Click the icon to** → **Show the main window**. With it off, closing the main window (the red button, or Option + W) quits 1Password outright, and the next launch asks for the password again. With it on, closing only hides the window and 1Password keeps running: the menu bar icon brings the window back, and Option + Shift + / opens Quick Access (section 7).
+
+1Password → Settings → Security → **Auto-lock**: enable **Lock when device locks or sleeps**, and set **Lock after the device is idle for** → 30 minutes. The first makes Option + Ctrl + L lock 1Password along with the screen, as Omarchy's Super + Ctrl + L locks everything; the second covers a Mac left unlocked.
 
 ---
 
