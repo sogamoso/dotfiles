@@ -349,9 +349,16 @@ cmd_doctor() {
   # With this off, closing the window quits 1Password and the next launch asks
   # for the password again; it has already switched itself off once
   local op_settings="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/Library/Application Support/1Password/Data/settings/settings.json"
-  if [[ ! -r $op_settings ]]; then
+  # macOS keeps other apps' data from background jobs, so the daily agent's run
+  # can't read the file at all; that's not the setting being off
+  local keep_in_tray
+  keep_in_tray=$(python3 -c 'import json, sys; print(json.load(open(sys.argv[1])).get("app.keepInTray"))' "$op_settings" 2>/dev/null) ||
+    keep_in_tray="unreadable"
+  if [[ ! -e $op_settings ]]; then
     bad "1Password has no settings yet" "Open 1Password and sign in"
-  elif [[ $(python3 -c 'import json, sys; print(json.load(open(sys.argv[1])).get("app.keepInTray"))' "$op_settings") == "True" ]]; then
+  elif [[ $keep_in_tray == "unreadable" ]]; then
+    ok "Menu bar setting not checked: macOS keeps 1Password's data from this process"
+  elif [[ $keep_in_tray == "True" ]]; then
     ok "Kept in the menu bar, so closing its window doesn't quit it"
   else
     bad "Not kept in the menu bar: closing its window quits it" "1Password → Settings → General → Keep 1Password in the menu bar"
