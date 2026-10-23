@@ -87,6 +87,22 @@ fi
 osascript -e 'tell application "System Events" to tell dock preferences to set autohide menu bar to true' 2>/dev/null ||
   log_warn "Could not auto-hide the menu bar — grant Automation access to System Events and rerun"
 
+# Menu bar controls (System Settings → Menu Bar → Menu Bar Controls): only Wi-Fi,
+# Bluetooth and Text Input. Control Center stores each per host, 2 to show and 8
+# to hide; Battery and KeyboardBrightness only exist on laptops. Siri and Text
+# Input keep their own keys. "Allow in the Menu Bar" for third-party apps lives
+# in an encoded list Control Center owns, so that part stays manual.
+for item in WiFi Bluetooth; do
+  defaults -currentHost write com.apple.controlcenter "$item" -int 2
+done
+for item in AirDrop Battery Display FocusModes KeyboardBrightness NowPlaying ScreenMirroring \
+  Sound Spotlight TimeMachine Timer UserSwitcher Weather; do
+  defaults -currentHost write com.apple.controlcenter "$item" -int 8
+done
+defaults write com.apple.Siri StatusMenuVisible -bool false
+defaults write com.apple.TextInputMenu visible -bool true
+killall ControlCenter 2>/dev/null || true
+
 # Dock: clear pinned apps, position, size, autohide
 defaults write com.apple.dock persistent-apps -array
 defaults write com.apple.dock persistent-others -array

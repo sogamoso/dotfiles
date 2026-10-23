@@ -58,15 +58,9 @@ System Settings → General → Login Items — add:
 
 ## 4. Menu Bar
 
-System Settings → Menu Bar → Menu Bar Controls — check only:
+`install/macos/preferences.sh` sets **System Settings → Menu Bar → Menu Bar Controls**: only Wi-Fi, Bluetooth and Text Input show, and Clock always does. Nothing to do here unless one comes back.
 
-- Wi-Fi
-- Bluetooth
-- Text Input
-
-Leave everything else unchecked (Siri, Spotlight, AirDrop, Focus, Screen Mirroring, Display, Sound, Now Playing, Fast User Switching, Time Machine, Timer, Weather, plus Battery and Keyboard Brightness on a laptop). Clock has no checkbox; it always shows.
-
-Then trim third-party items. System Settings → Menu Bar → Allow in the Menu Bar — keep only:
+Then trim third-party items by hand. macOS keeps this list in an encoded record Control Center owns, so bootstrap leaves it alone. System Settings → Menu Bar → Allow in the Menu Bar — keep only:
 
 - 1Password
 - AeroSpace
