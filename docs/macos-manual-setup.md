@@ -282,7 +282,10 @@ The SSH agent serves the keys behind `git` over SSH and commit signing (`~/.ssh/
 
 1Password → Settings → General → enable **Keep 1Password in the menu bar** (1Password needs it for Touch ID, Quick Access and the SSH agent too), and set **Click the icon to** → **Show the main window**. With it off, closing the main window (the red button, or Option + W) quits 1Password outright, and the next launch asks for the password again. With it on, closing only hides the window and 1Password keeps running: the menu bar icon brings the window back, and Option + Shift + / opens Quick Access (section 7).
 
-1Password → Settings → Security → **Auto-lock**: enable **Lock when device locks or sleeps**, and set **Lock after the device is idle for** → 30 minutes. The first makes Option + Ctrl + L lock 1Password along with the screen, as Omarchy's Super + Ctrl + L locks everything; the second covers a Mac left unlocked.
+1Password → Settings → Security → **Auto-lock** depends on the Mac:
+
+- **Laptops**: enable **Lock when device locks or sleeps**, and set **Lock after the device is idle for** → 30 minutes. Option + Ctrl + L then locks 1Password along with the screen, as Omarchy's Super + Ctrl + L locks everything, and the idle lock covers a laptop left unlocked somewhere else.
+- **Desktops that stay on, like the Mac mini**: leave **Lock when device locks or sleeps** off and the idle lock at **Never**. The machine stays home and is reached over Screen Sharing and SSH, where re-entering the 1Password password after every screen lock costs more than it protects. Option + Ctrl + L locks the screen only.
 
 ---
 
