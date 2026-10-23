@@ -276,7 +276,7 @@ System Settings → Notifications → **terminal-notifier** → enable **Allow N
 
 The SSH agent serves the keys behind `git` over SSH and commit signing (`~/.ssh/id_ed25519_git_signing.pub`). The CLI integration is what lets bootstrap read the ui.sh token; if it was off during bootstrap, rerun `bash install/dotfiles/uidotsh.sh`.
 
-1Password → Settings → General → enable **Keep 1Password in the menu bar**. With it off, closing the main window (the red button, or Option + W) quits 1Password outright, and the next launch asks for the password again. With it on, closing only hides the window: 1Password keeps running and unlocked, and Option + Shift + / brings it back. Its menu bar icon then gives a second way back to it.
+1Password → Settings → General → enable **Keep 1Password in the menu bar**, and set its menu bar icon to **Show Quick Access**, so a click opens the search panel rather than the full app. With it off, closing the main window (the red button, or Option + W) quits 1Password outright, and the next launch asks for the password again. With it on, closing only hides the window: 1Password keeps running and unlocked, and Option + Shift + / brings it back. Its menu bar icon then gives a second way back to it.
 
 ---
 
