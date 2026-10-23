@@ -139,7 +139,7 @@ Nothing to install by hand either: bootstrap installs the store extensions liste
 
 ### 1Password
 
-1Password → Settings → General → **Show Quick Access** shortcut → `Option + Shift + /` (Omarchy: SUPER + SHIFT + / → 1Password). It's 1Password's own shortcut rather than an AeroSpace binding, so it still works while Secure Input has AeroSpace's bindings dead — which is when a password field is focused. Open the full app from Quick Access or the Vicinae launcher; the menu bar icon opens Quick Access too.
+1Password → Settings → General → **Show Quick Access** shortcut → `Option + Shift + /` (Omarchy: SUPER + SHIFT + / → 1Password). It's 1Password's own shortcut rather than an AeroSpace binding, so it still works while Secure Input has AeroSpace's bindings dead — which is when a password field is focused. The full app opens from the menu bar icon (section 11).
 
 ### MacWhisper
 
@@ -280,7 +280,7 @@ System Settings → Notifications → **terminal-notifier** → enable **Allow N
 
 The SSH agent serves the keys behind `git` over SSH and commit signing (`~/.ssh/id_ed25519_git_signing.pub`). The CLI integration is what lets bootstrap read the ui.sh token; if it was off during bootstrap, rerun `bash install/dotfiles/uidotsh.sh`.
 
-1Password → Settings → General → enable **Keep 1Password in the menu bar**, and set its menu bar icon to **Show Quick Access**, so a click opens the search panel rather than the full app. With it off, closing the main window (the red button, or Option + W) quits 1Password outright, and the next launch asks for the password again. With it on, closing only hides the window: 1Password keeps running and unlocked, and Option + Shift + / brings it back. Its menu bar icon then gives a second way back to it.
+1Password → Settings → General → enable **Keep 1Password in the menu bar** (1Password needs it for Touch ID, Quick Access and the SSH agent too), and set **Click the icon to** → **Show the main window**. Option + Shift + / already opens Quick Access (section 7), so the icon is the way to the full app. With it off, closing the main window (the red button, or Option + W) quits 1Password outright, and the next launch asks for the password again. With it on, closing only hides the window: 1Password keeps running and unlocked, and Option + Shift + / brings it back. Its menu bar icon then gives a second way back to it.
 
 ---
 
