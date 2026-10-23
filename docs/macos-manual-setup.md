@@ -68,14 +68,21 @@ Disable everything else (Siri, Spotlight, Battery, AirDrop, Focus, Screen Mirror
 
 Then trim third-party items. System Settings → Menu Bar → Allow in the Menu Bar — keep only:
 
+- 1Password
 - AeroSpace
 - CleanShot X
 - Codex Computer Use
 - Dropbox
 - Freedom
 - Google Drive
+- LocalSend
+- ScriptMonitor
+- SSMenuAgent
+- Tuple
+- Vicinae
+- Wabi
 
-Turn off every other app (1Password, ChatGPT, Claude, Granola, Zoom, …). Vicinae's icon is already off, through `tray.enabled` in its stowed config. Turning one off stops its icon from ever appearing; the app itself keeps working.
+Turn off every other app (Basecamp, Claude, Codex, Gemini, Granola, MacWhisper, Notion, Zoom, …). Turning one off stops its icon from ever appearing; the app itself keeps working. Vicinae shows no icon even while allowed, since `tray.enabled` is off in its stowed config.
 
 ### Opaque menu bar
 
@@ -275,7 +282,7 @@ System Settings → Notifications → **terminal-notifier** → enable **Allow N
 
 The SSH agent serves the keys behind `git` over SSH and commit signing (`~/.ssh/id_ed25519_git_signing.pub`). The CLI integration is what lets bootstrap read the ui.sh token; if it was off during bootstrap, rerun `bash install/dotfiles/uidotsh.sh`.
 
-1Password → Settings → General → enable **Keep 1Password in the menu bar**. With it off, closing the main window (the red button, or Option + W) quits 1Password outright, and the next launch asks for the password again. With it on, closing only hides the window: 1Password keeps running and unlocked, and Option + Shift + / brings it back. Its icon stays out of sight anyway, since section 4 turns 1Password off under Allow in the Menu Bar.
+1Password → Settings → General → enable **Keep 1Password in the menu bar**. With it off, closing the main window (the red button, or Option + W) quits 1Password outright, and the next launch asks for the password again. With it on, closing only hides the window: 1Password keeps running and unlocked, and Option + Shift + / brings it back. Its menu bar icon then gives a second way back to it.
 
 ---
 
