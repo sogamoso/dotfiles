@@ -205,7 +205,8 @@ SketchyBar, configured in [`stow/macos/.config/sketchybar/`](stow/macos/.config/
 |---|---|---|
 | Workspaces 1–9 | Focused workspace; click to switch, scroll to step through them as Option + Tab does | Always |
 | Clock | Date and time (centered when an external display is attached) | Always |
-| CPU, volume, Wi-Fi, Bluetooth, input source | System state | Always |
+| CPU, Wi-Fi, Bluetooth, input source | System state | Always |
+| Volume | Output volume; click opens Sound settings, right-click mutes, scroll changes it | Always |
 | Battery | Charge, plus time remaining under 20% | While discharging |
 | Mic | Microphone is muted; click toggles | While muted |
 | Stay awake | A caffeinate assertion is held (workhours or manual) | While held |
