@@ -142,10 +142,18 @@ cmd_reload() {
 
 cmd_update() {
   cmd_pull
-  cmd_brew
+  # A cask that needs sudo fails brew without a terminal, as in the daily
+  # agent's run; the restow and reloads still apply, and the failure is
+  # reported at the end
+  local brew_failed=0
+  cmd_brew || brew_failed=1
   cmd_reload
   # Picks up extensions added on the other Mac; settings arrive through the stow
   run python3 "$DOTFILES/install/lib/vicinae.py" install || true
+  if (( brew_failed )); then
+    echo "==> Homebrew step failed; run dotfiles brew in a terminal to finish it"
+    return 1
+  fi
 }
 
 cmd_status() {
