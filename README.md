@@ -207,7 +207,7 @@ SketchyBar, configured in [`stow/macos/.config/sketchybar/`](stow/macos/.config/
 | Clock | Date and time (centered when an external display is attached); click opens Google Calendar, right-click switches format | Always |
 | CPU, Wi-Fi, Bluetooth, input source | System state | Always |
 | Volume | Output volume; click opens Sound settings, right-click mutes, scroll changes it | Always |
-| Battery | Charge, plus time remaining under 20% | While discharging |
+| Battery | Charge, plus time remaining under 20%; click opens Battery settings, right-click toggles the percentage | While discharging or charging |
 | Mic | Microphone is muted; click toggles | While muted |
 | Reminder | A reminder is queued, with the count when there are several; click lists them | While queued |
 | Stay awake | A caffeinate assertion is held (workhours or manual) | While held |

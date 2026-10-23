@@ -88,9 +88,8 @@ sketchybar --add item clock "$CLOCK_POSITION" \
 sketchybar --add item battery right \
   --set battery \
     update_freq=120 \
-    click_script="open 'x-apple.systempreferences:com.apple.preference.battery'" \
     script="$PLUGIN_DIR/battery.sh" \
-  --subscribe battery power_source_change
+  --subscribe battery power_source_change mouse.clicked
 
 # CPU
 sketchybar --add item cpu right \

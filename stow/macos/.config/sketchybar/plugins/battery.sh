@@ -2,6 +2,17 @@
 
 source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/colors.sh"
 
+# Omarchy parity: left click opens the power panel, right click toggles the
+# percentage, and the choice sticks across reloads
+PERCENT_FILE="${TMPDIR:-/tmp}/dotfiles-sketchybar-battery-percent"
+if [[ ${SENDER:-} == "mouse.clicked" ]]; then
+  if [[ ${BUTTON:-} != "right" ]]; then
+    open "x-apple.systempreferences:com.apple.preference.battery"
+    exit 0
+  fi
+  if [[ -e $PERCENT_FILE ]]; then rm -f "$PERCENT_FILE"; else touch "$PERCENT_FILE"; fi
+fi
+
 BATT=$(pmset -g batt)
 
 # Desktop Mac (no internal battery) → hide entirely
@@ -14,6 +25,13 @@ PERCENTAGE=$(echo "$BATT" | grep -Eo "[0-9]+%" | head -1 | cut -d% -f1)
 [[ -z $PERCENTAGE ]] && exit 0
 
 TIME_REMAINING=$(echo "$BATT" | grep -Eo '[0-9]+:[0-9]+ remaining' | grep -Eo '[0-9]+:[0-9]+')
+
+# Shown beside the icon whenever the right-click toggle is on
+if [[ -e $PERCENT_FILE ]]; then
+  PERCENT_LABEL=(label="${PERCENTAGE}%" label.color=$TEXT label.drawing=on)
+else
+  PERCENT_LABEL=(label.drawing=off)
+fi
 
 # Classify state (mirrors Omarchy's format-{discharging,charging,plugged,full})
 if echo "$BATT" | grep -q "; charged"; then
@@ -35,7 +53,7 @@ case "$STATE" in
     exit 0
     ;;
   full)
-    sketchybar --set "$NAME" drawing=on icon="󰂅" icon.color=$TEXT label.drawing=off
+    sketchybar --set "$NAME" drawing=on icon="󰂅" icon.color=$TEXT "${PERCENT_LABEL[@]}"
     exit 0
     ;;
   charging)
@@ -51,7 +69,7 @@ case "$STATE" in
       2[0-9]) ICON="󰂆" ;;
       *)      ICON="󰢜" ;;
     esac
-    sketchybar --set "$NAME" drawing=on icon="$ICON" icon.color=$TEXT label.drawing=off
+    sketchybar --set "$NAME" drawing=on icon="$ICON" icon.color=$TEXT "${PERCENT_LABEL[@]}"
     exit 0
     ;;
   discharging)
@@ -71,7 +89,7 @@ case "$STATE" in
       LABEL="${TIME_REMAINING:-${PERCENTAGE}%}"
       sketchybar --set "$NAME" drawing=on icon="$ICON" icon.color="$COLOR" label="$LABEL" label.color="$COLOR" label.drawing=on
     else
-      sketchybar --set "$NAME" drawing=on icon="$ICON" icon.color="$COLOR" label.drawing=off
+      sketchybar --set "$NAME" drawing=on icon="$ICON" icon.color="$COLOR" "${PERCENT_LABEL[@]}"
     fi
     ;;
 esac
