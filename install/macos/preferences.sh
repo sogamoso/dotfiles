@@ -147,9 +147,10 @@ else
   done
 fi
 
-# Apply user key remappings via hidutil at login (Lofree mic-mute → F18), and
-# check daily that brew autoupdate hasn't left tailscaled or mosh-server blocked
-for label in com.sogamoso.keyboard.remap com.sogamoso.firewall-check; do
+# Apply user key remappings via hidutil at login (Lofree mic-mute → F18), check
+# daily that brew autoupdate hasn't left tailscaled or mosh-server blocked, and
+# run dotfiles update and doctor daily, notifying the result
+for label in com.sogamoso.keyboard.remap com.sogamoso.firewall-check com.sogamoso.dotfiles-daily; do
   plist="$HOME/Library/LaunchAgents/$label.plist"
   launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
   launchctl bootstrap "gui/$(id -u)" "$plist"

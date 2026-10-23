@@ -294,6 +294,7 @@ cmd_doctor() {
   echo "==> Agents"
   doctor_agent_loaded com.sogamoso.keyboard.remap
   doctor_agent_loaded com.sogamoso.firewall-check
+  doctor_agent_loaded com.sogamoso.dotfiles-daily
   [[ -r ${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/uidotsh.env ]] &&
     doctor_agent_loaded com.sogamoso.uidotsh-token
   local label
