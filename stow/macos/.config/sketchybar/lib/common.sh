@@ -29,3 +29,19 @@ build_swift() {
     return 1
   fi
 }
+
+# Succeed at most once per <seconds> for a given name, so a trackpad swipe,
+# which sends dozens of scroll events, acts once. The lock keeps two events
+# that land together from both getting through; bash 3.2 has no clock finer
+# than a second, hence perl.
+debounce() {
+  local name=$1 seconds=$2
+  /usr/bin/perl -e '
+    use Fcntl ":flock"; use Time::HiRes "time";
+    open my $f, "+>>", $ARGV[0] or exit 1;
+    flock $f, LOCK_EX; seek $f, 0, 0;
+    my $last = <$f> // 0;
+    exit 1 if time - $last < $ARGV[1];
+    truncate $f, 0; print $f time;
+  ' "${TMPDIR:-/tmp}/dotfiles-sketchybar-$name.debounce" "$seconds"
+}

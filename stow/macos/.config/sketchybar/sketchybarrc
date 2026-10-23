@@ -67,7 +67,7 @@ for i in {1..9}; do
       label.drawing=off \
       click_script="aerospace workspace $i && sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$i" \
       script="$PLUGIN_DIR/space.sh" \
-    --subscribe space.$i aerospace_workspace_change
+    --subscribe space.$i aerospace_workspace_change mouse.scrolled
 done
 
 # Clock — centered when an external display is connected (Omarchy parity).

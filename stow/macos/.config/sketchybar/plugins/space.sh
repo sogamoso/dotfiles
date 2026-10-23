@@ -7,6 +7,20 @@
 #   empty workspaces 6–9     → hidden entirely
 
 source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/colors.sh"
+
+# Scrolling over any indicator steps through the same workspaces Option+Tab does
+if [[ ${SENDER:-} == "mouse.scrolled" ]]; then
+  source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/common.sh"
+  debounce workspace-scroll 0.4 || exit 0
+  # The delta can be fractional on a trackpad, which (( )) can't compare
+  if [[ ${SCROLL_DELTA:-0} == -* ]]; then
+    "$HOME/.config/aerospace/workspace_cycle.sh" next
+  else
+    "$HOME/.config/aerospace/workspace_cycle.sh" prev
+  fi
+  exit 0
+fi
+
 # MUTED stands in for Omarchy's opacity:0.5
 
 FOCUSED="${FOCUSED_WORKSPACE:-$(aerospace list-workspaces --focused 2>/dev/null)}"
