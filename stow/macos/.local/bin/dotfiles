@@ -31,7 +31,9 @@ EOF
 run() { echo "==> $*"; "$@"; }
 
 cmd_pull() {
-  if run git -C "$DOTFILES" pull --ff-only; then
+  # --autostash: tools write some stowed files themselves (Claude Code its
+  # settings.json), and with pull.rebase on, git refuses to pull over them
+  if run git -C "$DOTFILES" pull --ff-only --autostash; then
     return
   fi
   explain_pull_failure
