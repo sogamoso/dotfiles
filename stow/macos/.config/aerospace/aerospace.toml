@@ -135,7 +135,6 @@ alt-shift-g     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh ne
 alt-shift-m     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh com.spotify.client' # Omarchy: SUPER+SHIFT+M → Spotify
 alt-shift-o     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh md.obsidian' # Omarchy: SUPER+SHIFT+O → Obsidian
 alt-shift-f     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh Finder' # Omarchy: SUPER+SHIFT+F → Finder
-alt-shift-slash = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh com.1password.1password' # Omarchy: SUPER+SHIFT+/ → 1Password
 alt-shift-a     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --here com.anthropic.claudefordesktop' # SUPER+SHIFT+A → Claude
 alt-shift-y     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh YouTube' # Omarchy: SUPER+SHIFT+Y → YouTube
 alt-shift-b     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new "Google Chrome"' # Omarchy: SUPER+SHIFT+B → browser

@@ -137,6 +137,10 @@ Nothing to install by hand either: bootstrap installs the store extensions liste
 
 **Secure Input** deliberately gets no hotkey. It reports which app is holding macOS Secure Input, and Secure Input blocks the event tap AeroSpace reads keys through — a binding would be dead exactly when you need it. Open the launcher (still works: Vicinae registers `Option + Space` itself) and run it by name, or run `~/.config/dotfiles/secure-input.sh` in a terminal.
 
+### 1Password
+
+1Password → Settings → General → **Show Quick Access** shortcut → `Option + Shift + /` (Omarchy: SUPER + SHIFT + / → 1Password). It's 1Password's own shortcut rather than an AeroSpace binding, so it still works while Secure Input has AeroSpace's bindings dead — which is when a password field is focused. Open the full app from Quick Access or the Vicinae launcher; the menu bar icon opens Quick Access too.
+
 ### MacWhisper
 
 Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Alt, which is Command here). `install/macos/preferences.sh` sets the key and the hold-to-talk mode, so they need no hand setup. To tap to start and again to finish instead, switch **Settings → Dictation** to toggle, and change `dictationActivationMode` to `toggle` in `preferences.sh` so bootstrap keeps it.

@@ -269,7 +269,7 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | `Option + Shift + M` | Open Spotify |
 | `Option + Shift + O` | Open Obsidian |
 | `Option + Shift + F` | Open Finder |
-| `Option + Shift + /` | Open 1Password |
+| `Option + Shift + /` | 1Password Quick Access (1Password's own shortcut, set in its settings) |
 | `Option + Shift + A` | Open Claude |
 | `Option + Shift + Y` | Open YouTube |
 | `Option + Shift + B` | New Chrome window |
