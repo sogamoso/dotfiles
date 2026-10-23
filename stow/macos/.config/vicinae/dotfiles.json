@@ -17,7 +17,17 @@
   "providers": {
     "@khasbilegt/store.raycast.1password": {
       "preferences": {
-        "version": "v8"
+        "version": "v8",
+        "primaryAction": "open-in-1password",
+        "secondaryAction": "open-in-browser",
+        "closeWindowAfterCopying": true,
+        "reduceItemListMemoryUsage": false,
+        "zshPath": "/bin/zsh"
+      },
+      "entrypoints": {
+        "renew-auth": {
+          "enabled": true
+        }
       }
     },
     "raycast-compat": {
@@ -27,6 +37,13 @@
             "alwaysShowIntro": true
           }
         }
+      }
+    },
+    "@thomaslombart/store.raycast.linear": {
+      "preferences": {
+        "limit": "50",
+        "labelsLimit": "100",
+        "shouldHideRedundantIssues": false
       }
     }
   }
