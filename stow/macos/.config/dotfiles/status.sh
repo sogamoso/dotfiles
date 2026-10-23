@@ -33,7 +33,7 @@ cmd_battery() {
 
 cmd_weather() {
   local body
-  body=$(curl -fsS --max-time 5 'wttr.in/?format=%c+%t+%C' 2>/dev/null) \
+  body=$(curl -fsS --proto '=https' --max-time 5 'https://wttr.in/?format=%c+%t+%C' 2>/dev/null) \
     || { notify "Weather" "Failed to fetch"; return 1; }
   notify "Weather" "$body"
 }

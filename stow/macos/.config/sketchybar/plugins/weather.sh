@@ -11,12 +11,12 @@ case "${SENDER:-}:${BUTTON:-}" in
     ;;
   mouse.clicked:other) ;;
   mouse.clicked:*)
-    "$HOME/.config/aerospace/launch-or-focus.sh" --new Ghostty --args --wait-after-command=true -e curl -s "wttr.in/?F"
+    "$HOME/.config/aerospace/launch-or-focus.sh" --new Ghostty --args --wait-after-command=true -e curl -s --proto '=https' "https://wttr.in/?F"
     exit 0
     ;;
 esac
 
-BODY=$(curl -fsS --max-time 5 'wttr.in/?format=%t|%C' 2>/dev/null) || exit 0
+BODY=$(curl -fsS --proto '=https' --max-time 5 'https://wttr.in/?format=%t|%C' 2>/dev/null) || exit 0
 TEMP=${BODY%%|*}
 CONDITION=${BODY#*|}
 [[ -n $TEMP && $BODY == *"|"* ]] || exit 0
