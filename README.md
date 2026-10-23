@@ -209,6 +209,7 @@ SketchyBar, configured in [`stow/macos/.config/sketchybar/`](stow/macos/.config/
 | Volume | Output volume; click opens Sound settings, right-click mutes, scroll changes it | Always |
 | Battery | Charge, plus time remaining under 20% | While discharging |
 | Mic | Microphone is muted; click toggles | While muted |
+| Reminder | A reminder is queued, with the count when there are several; click lists them | While queued |
 | Stay awake | A caffeinate assertion is held (workhours or manual) | While held |
 | Claude usage | Spend and time left in the active billing block, via `ccusage` | While a block is active |
 | Dotfiles update | Commits behind origin; click runs `dotfiles update` | While behind |

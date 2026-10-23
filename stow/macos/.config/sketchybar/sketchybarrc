@@ -130,6 +130,18 @@ sketchybar --add item stay_awake right \
     update_freq=30 \
     script="$PLUGIN_DIR/stay_awake.sh"
 
+# Reminder — drawn while one is queued; reminder.sh triggers the event on
+# set, clear and fire, so the poll only catches what it missed
+sketchybar --add event dotfiles_reminder_change
+sketchybar --add item reminder right \
+  --set reminder \
+    icon="󰂚" \
+    label.padding_left=2 \
+    drawing=off \
+    update_freq=60 \
+    script="$PLUGIN_DIR/reminder.sh" \
+  --subscribe reminder dotfiles_reminder_change mouse.clicked
+
 # WiFi (NOTE: wifi_change event is fragile - removed)
 sketchybar --add item wifi right \
   --set wifi \

@@ -18,6 +18,11 @@ GROUP_ID="dotfiles-reminder"
 
 source "$HOME/.config/dotfiles/lib/notify.sh"
 
+# Redraws the bar's reminder indicator; harmless when the bar isn't running
+bar_refresh() {
+  sketchybar --trigger dotfiles_reminder_change >/dev/null 2>&1 || true
+}
+
 prune() {
   [[ -d $STATE_DIR ]] || return 0
   local f
@@ -46,10 +51,12 @@ cmd_set() {
     ( afplay -v 2 -r 1.5 -t 0.4 /System/Library/Sounds/Funk.aiff; \
       afplay -v 2 -r 1.5 -t 1.0 /System/Library/Sounds/Submarine.aiff ) >/dev/null 2>&1 &
     rm -f "$STATE_DIR/$BASHPID.reminder"
+    bar_refresh
   ) </dev/null >/dev/null 2>&1 &
   local pid=$!
   disown "$pid"
   printf '%s|%s\n' "$due" "$message" >"$STATE_DIR/$pid.reminder"
+  bar_refresh
   notify "Reminder set for $minutes min" "Reminding at $(date -r "$due" +%H:%M)"
 }
 
@@ -90,6 +97,7 @@ cmd_clear() {
     kill "$(basename "$f" .reminder)" 2>/dev/null || true
     rm -f "$f"
   done
+  bar_refresh
   notify "Reminders" "All reminders cleared"
 }
 
