@@ -58,13 +58,13 @@ System Settings → General → Login Items — add:
 
 ## 4. Menu Bar
 
-System Settings → Control Center → Menu Bar Only — enable only:
+System Settings → Menu Bar → Menu Bar Controls — check only:
 
 - Wi-Fi
 - Bluetooth
 - Text Input
 
-Disable everything else (Siri, Spotlight, Battery, AirDrop, Focus, Screen Mirroring, Display, Sound, Now Playing, Fast User Switching, Time Machine, Keyboard Brightness, Timer, Weather).
+Leave everything else unchecked (Siri, Spotlight, AirDrop, Focus, Screen Mirroring, Display, Sound, Now Playing, Fast User Switching, Time Machine, Timer, Weather, plus Battery and Keyboard Brightness on a laptop). Clock has no checkbox; it always shows.
 
 Then trim third-party items. System Settings → Menu Bar → Allow in the Menu Bar — keep only:
 
