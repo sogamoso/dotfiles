@@ -175,7 +175,9 @@ sketchybar --add item input_source right \
     click_script="$PLUGIN_DIR/switch_input_source.sh" \
     script="$PLUGIN_DIR/input_source.sh"
 
-# Claude Code usage — spend in the active billing block, from local transcripts
+# Claude Code usage — spend in the active billing block, from local transcripts.
+# Omarchy parity: click shows the usage, right click starts the agent. ccusage
+# prints and exits, so the window waits for a key rather than closing unread.
 sketchybar --add item claude_usage right \
   --set claude_usage \
     icon="󰚩" \
@@ -184,7 +186,10 @@ sketchybar --add item claude_usage right \
     label.padding_left=2 \
     drawing=off \
     update_freq=300 \
-    click_script="$LAUNCH --new Ghostty --args -e ccusage blocks" \
+    click_script="case \"\$BUTTON\" in
+      right) $LAUNCH --new Ghostty --args -e claude ;;
+      *)     $LAUNCH --new Ghostty --args --wait-after-command=true -e ccusage blocks ;;
+    esac" \
     script="$PLUGIN_DIR/claude_usage.sh"
 
 # Dotfiles update indicator — visible only when local repo is behind origin

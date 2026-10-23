@@ -211,7 +211,7 @@ SketchyBar, configured in [`stow/macos/.config/sketchybar/`](stow/macos/.config/
 | Mic | Microphone is muted; click toggles | While muted |
 | Reminder | A reminder is queued, with the count when there are several; click lists them | While queued |
 | Stay awake | A caffeinate assertion is held (workhours or manual) | While held |
-| Claude usage | Spend and time left in the active billing block, via `ccusage` | While a block is active |
+| Claude usage | Spend and time left in the active billing block, via `ccusage`; click shows every block, right-click starts Claude Code | While a block is active |
 | Dotfiles update | Commits behind origin; click runs `dotfiles update` | While behind |
 
 #### Hotkeys
