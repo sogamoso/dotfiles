@@ -272,11 +272,17 @@ System Settings → Notifications → **terminal-notifier** → enable **Allow N
 
 ## 11. Enable the 1Password CLI and SSH Agent
 
-1Password → Settings → Developer:
+1Password → Settings → Developer, the same on every Mac:
 
-1. Enable **Show 1Password Developer experience**
-2. **SSH Agent** → click **Set up the SSH Agent**. If it offers to edit `~/.ssh/config`, skip that — the stowed config already points `IdentityAgent` at 1Password's socket. When asked whether to save SSH key names to disk, choose **Use Key Names**: only item titles are stored unencrypted, and seeing which key a prompt is for (e.g. the signing key during a plain `git fetch`) is what makes an unexpected request stand out.
-3. **Developer Integrations** → enable **Integrate with 1Password CLI**
+1. **1Password Developer** → enable **Show 1Password Developer experience** and **Record and display activity**
+2. **SSH Agent** → enable **Use the SSH Agent** (or click **Set up the SSH Agent** on a fresh install). If it offers to edit `~/.ssh/config`, skip that — the stowed config already points `IdentityAgent` at 1Password's socket and includes its bookmarks file. Then under **Advanced**:
+   - **Ask approval for each new** → application
+   - **Remember key approval** → until 1Password quits
+   - **Display key names when authorizing connections** → on. Only item titles are stored unencrypted, and seeing which key a prompt is for (e.g. the signing key during a plain `git fetch`) is what makes an unexpected request stand out.
+   - **Generate SSH config file with bookmarked hosts** → on. 1Password writes `~/.ssh/1Password/config`, which the stowed `~/.ssh/config` includes.
+   - **Open SSH URLs with** → Ghostty
+3. **Developer Integrations** → enable **Integrate with 1Password CLI** and **Integrate with MCP clients**. Leave **Integrate with 1Password SDKs** and **Provision OpenShell providers** off.
+4. **Watchtower** → enable **SSH keys** and **.env files**
 
 The SSH agent serves the keys behind `git` over SSH and commit signing (`~/.ssh/id_ed25519_git_signing.pub`). The CLI integration is what lets bootstrap read the ui.sh token; if it was off during bootstrap, rerun `bash install/dotfiles/uidotsh.sh`.
 
