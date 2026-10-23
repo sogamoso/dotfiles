@@ -84,6 +84,15 @@ sketchybar --add item clock "$CLOCK_POSITION" \
     script="$PLUGIN_DIR/clock.sh" \
   --subscribe clock mouse.clicked
 
+# Weather — beside the clock, wherever the clock sits
+sketchybar --add item weather "$CLOCK_POSITION" \
+  --set weather \
+    label.padding_left=4 \
+    drawing=off \
+    update_freq=1800 \
+    script="$PLUGIN_DIR/weather.sh" \
+  --subscribe weather mouse.clicked
+
 # Battery (NOTE: system_woke event may not fire on all macOS versions)
 sketchybar --add item battery right \
   --set battery \

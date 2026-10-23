@@ -205,6 +205,7 @@ SketchyBar, configured in [`stow/macos/.config/sketchybar/`](stow/macos/.config/
 |---|---|---|
 | Workspaces 1–9 | Focused workspace; click to switch, scroll to step through them as Option + Tab does | Always |
 | Clock | Date and time (centered when an external display is attached); click opens Google Calendar, right-click switches format | Always |
+| Weather | Conditions and temperature from wttr.in, beside the clock; click opens the forecast, right-click notifies the full reading, middle-click refreshes | Once a fetch succeeds |
 | CPU, Wi-Fi, Bluetooth | System state | Always |
 | Input source | Active keyboard layout; click switches it | While more than one is enabled |
 | Volume | Output volume; click opens Sound settings, right-click mutes, scroll changes it | Always |
