@@ -410,7 +410,7 @@ Shell functions that build a whole herdr layout in one command, ported from Omar
 | Command | Layout |
 |---|---|
 | `hdl <agent> [<agent2>]` | Editor left, agent in a 30% column right, terminal strip along the bottom |
-| `hds` | 2×2: editor, lazygit, terminal, opencode |
+| `hds` | 2×2: editor, hunk diff watch, terminal, opencode |
 | `hdlm <agent> [<agent2>]` | One `hdl` tab per subdirectory of the current directory |
 | `hsl <count> <command>` | Tile into a grid and run the same command in every pane |
 

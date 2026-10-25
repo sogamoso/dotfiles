@@ -4,9 +4,6 @@
 # 0-based, and an unmatched glob is an error rather than a literal, so the
 # subdirectory loop in hdlm needs the (N) qualifier.
 #
-# Omarchy runs `hunk diff --watch` in the hds diff pane; lazygit stands in here
-# since that is what this machine already has.
-#
 # All of these build on $HERDR_PANE_ID, so they only work inside a herdr pane.
 
 # Echo a split ratio as a float
@@ -72,7 +69,7 @@ hds() {
   opencode_pane=$(_herdr_split "$terminal_pane" right 0.5 "$current_dir")
 
   herdr pane run "$editor_pane" "$EDITOR ." >/dev/null
-  herdr pane run "$diff_pane" "lazygit" >/dev/null
+  herdr pane run "$diff_pane" "hunk diff --watch" >/dev/null
   herdr pane run "$opencode_pane" "opencode" >/dev/null
 }
 
