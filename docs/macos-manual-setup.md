@@ -103,7 +103,7 @@ gh auth login
 Browse the available wallpapers and choose one. Then in System Settings → Wallpaper → Add Folder → select:
 
 ```
-~/Code/sogamoso/dotfiles/themes/tokyo-night/backgrounds/
+~/Work/sogamoso/dotfiles/themes/tokyo-night/backgrounds/
 ```
 
 ### Screen Saver
@@ -417,6 +417,7 @@ What is left worth tracking:
 | Coding agents Omarchy declares as lazy mise tools | ✅ Declared the same way in `stow/macos/.config/mise/conf.d/agents.toml`, Claude Code, Codex, OpenCode and Cursor CLI included, with Omarchy's mise settings in `omarchy.toml` beside it (its `cursor-agent` alias exposes only the launcher) |
 | Omarchy's other default mise tools (`uv`, `playwright`, `ghui`, `hey-cli`, `cf`, the `basecamp` CLI) | ✅ Declared the same way in `stow/macos/.config/mise/conf.d/tools.toml`; `gh` and `hunk` stay in the Brewfile |
 | Theming every tool from Omarchy's templates (`default/themed`), which retint when the theme changes | ✅ Fixed to Tokyo Night, the only theme here: Claude Code (Omarchy's template rendered into `~/.claude/themes/omarchy.json`), gum's prompts (`GUM_*` in `gum.zsh`), hunk and OpenCode follow the terminal palette. Ghostty, herdr, tmux, Neovim, btop, Vicinae, SketchyBar and JankyBorders already were; bat, lazygit, starship and eza use the terminal's colors. pi's theme isn't ported: it installs on first run and its settings file is its own |
+| `~/Work` as the work directory, with `~/Work/tries` and `try` | ✅ `install/dotfiles/work-dir.sh` moves `~/Code` to `~/Work` on bootstrap or `dotfiles update`, on either OS, and leaves `~/Code` linking to it; `try` comes from the Brewfile, initialized in zsh as Omarchy's bash init does. The public installer at dotfiles.sogamo.so still clones into `~/Code`, which bootstrap then moves |
 | Omarchy's `h` and `mup` aliases | ✅ `h` in `herdr.zsh`, `mup` in the `mise` alias pair |
 | Per-agent accounts (`omarchy-agent-account-*`), which switch an agent between logins | Not ported. `dotfiles agent run` starts each agent with Omarchy's flags but on its single default login |
 | Devin CLI and Kiro CLI | Not ported. Omarchy's mise entries download Linux builds only. Add them once mise can fetch Apple Silicon builds on demand |

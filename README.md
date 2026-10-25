@@ -131,7 +131,7 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles agent [<name>]` | Show or set the default coding agent, like Omarchy's `omarchy default agent`, with the same names (`gemini` picks Antigravity, `cursor` the Cursor CLI). The `a` alias launches it with Omarchy's flags for that agent, and the herdr layouts use it when no agent is given |
 | `dotfiles edit` | Open the repo in `$VISUAL` |
 
-Set `$DOTFILES` to override the repo location (default: `~/Code/sogamoso/dotfiles`).
+Set `$DOTFILES` to override the repo location (default: `~/Work/sogamoso/dotfiles`). Work lives in `~/Work`, as on Omarchy, with `~/Work/tries` for `try`; `install/dotfiles/work-dir.sh` moves an older `~/Code` there on bootstrap or `dotfiles update` and leaves `~/Code` linking to it.
 
 ### Dotfiles setup
 

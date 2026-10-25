@@ -10,7 +10,8 @@
 # a section named after the heading above it; prose between tables is skipped.
 set -euo pipefail
 
-DOTFILES="${DOTFILES:-$HOME/Code/sogamoso/dotfiles}"
+DOTFILES="${DOTFILES:-$HOME/Work/sogamoso/dotfiles}"
+[[ -d $DOTFILES ]] || DOTFILES="$HOME/Code/sogamoso/dotfiles"  # a machine not yet moved to ~/Work
 README="$DOTFILES/README.md"
 
 if [[ ! -r $README ]]; then

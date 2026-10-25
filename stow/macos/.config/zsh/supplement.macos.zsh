@@ -23,3 +23,13 @@ fi
 
 # Tokyo Night for gum's prompts
 source "$HOME/.config/zsh/gum.zsh"
+
+# try (tobi/try) for throwaway experiments in ~/Work/tries, initialized on first
+# use as Omarchy's bash init does
+if command -v try >/dev/null 2>&1; then
+  try() {
+    unfunction try
+    eval "$(SHELL=/bin/zsh command try init ~/Work/tries)"
+    try "$@"
+  }
+fi

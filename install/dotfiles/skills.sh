@@ -8,15 +8,18 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 OWN_URL="git@github.com:sogamoso/skills.git"
 # Not SKILLS_DIR — that name is read by the skills repo's own install.sh as the
 # symlink *target*, and would send skills into this checkout instead of ~/.claude/skills.
-OWN_DIR="${SKILLS_REPO_DIR:-$HOME/Code/sogamoso/skills}"
+OWN_DIR="${SKILLS_REPO_DIR:-$HOME/Work/sogamoso/skills}"
+[[ -d $OWN_DIR ]] || OWN_DIR="$HOME/Code/sogamoso/skills"  # a machine not yet moved to ~/Work
 
 CHEQUE_URL="git@github.com:sendasorg/cheque.git"
-CHEQUE_DIR="${CHEQUE_REPO_DIR:-$HOME/Code/sendasorg/cheque}"
+CHEQUE_DIR="${CHEQUE_REPO_DIR:-$HOME/Work/sendasorg/cheque}"
+[[ -d $CHEQUE_DIR ]] || CHEQUE_DIR="$HOME/Code/sendasorg/cheque"  # a machine not yet moved to ~/Work
 
 # The ui.sh stubs live in a private repo: the ui.sh license forbids
 # redistributing what it scaffolds, and this one is public.
 UIDOTSH_URL="git@github.com:sogamoso/uidotsh-archive.git"
-UIDOTSH_DIR="${UIDOTSH_ARCHIVE_DIR:-$HOME/Code/sogamoso/uidotsh-archive}"
+UIDOTSH_DIR="${UIDOTSH_ARCHIVE_DIR:-$HOME/Work/sogamoso/uidotsh-archive}"
+[[ -d $UIDOTSH_DIR ]] || UIDOTSH_DIR="$HOME/Code/sogamoso/uidotsh-archive"  # a machine not yet moved to ~/Work
 
 # Both repos are private and cloned over SSH because they get pushed to, so a
 # locked 1Password agent is a failure mode: BatchMode turns it into a fast
