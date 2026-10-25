@@ -11,31 +11,109 @@
 OMARCHY_REPO="basecamp/omarchy"
 OMARCHY_STATE_FILE="${OMARCHY_STATE_FILE:-$DOTFILES/.omarchy-reviewed}"
 
-# Omarchy files whose behavior the macOS side ports: bindings, shell aliases
-# and functions, terminal tools, herdr, the coding agents (which mise installs
-# and how omarchy-agent launches each), and the utilities status.sh, reminder.sh
-# and mic-mute.sh are ported from. Add a path when porting something new.
+# Every area of Omarchy is either ported (watched for changes) or skipped (looked
+# at and set aside), and an area in neither list is reported on every run until
+# it's classified. Patterns are matched against areas: bin/omarchy-<family> for
+# commands, <top>/<name> under config, default, etc and install, and the
+# top-level name elsewhere. A glob covers a whole family; a plain path covers
+# that file or directory. Today's lesson: the review only saw what changed in
+# listed paths, so a whole approach Omarchy already had (agents as lazy mise
+# tools, its mise settings) never surfaced. Classifying everything closes that.
+
+# Ported: changes here can need bringing over. Shell aliases and functions,
+# terminal tools, herdr, git, the coding agents (which mise installs, how
+# omarchy-agent launches each, the default agent), mise itself, hooks, launchers
+# and webapps, capture, the bar widgets SketchyBar ports, toggles, updates, the
+# CLI tools Omarchy installs, and the utilities status.sh, reminder.sh and
+# mic-mute.sh are ported from.
 OMARCHY_PARITY_PATHS=(
   default/hypr/bindings.lua
   default/hypr/bindings
   default/bash
+  default/bashrc
+  default/ghostty
+  default/themed
   config/tmux
   config/ghostty
   config/btop
   config/starship.toml
-  config/nvim
   config/herdr
-  etc/mise/conf.d/omarchy-tools.toml
-  bin/omarchy-agent
-  bin/omarchy-default-agent
-  bin/omarchy-reminder
-  bin/omarchy-battery-status
-  bin/omarchy-weather-status
-  bin/omarchy-audio-input-mute
+  config/git
+  config/lazygit
+  config/opencode
+  config/omarchy
+  etc/mise
+  etc/mpv
+  install/omarchy-base.packages
+  install/user
+  install/config
+  shell
+  'bin/omarchy-agent*'
+  'bin/omarchy-audio*'
+  'bin/omarchy-bar*'
+  'bin/omarchy-battery*'
+  'bin/omarchy-capture*'
+  'bin/omarchy-default*'
+  'bin/omarchy-git*'
+  'bin/omarchy-hook*'
+  'bin/omarchy-launch*'
+  'bin/omarchy-mise*'
+  'bin/omarchy-reminder*'
+  'bin/omarchy-tailscale*'
+  'bin/omarchy-toggle*'
+  'bin/omarchy-update*'
+  'bin/omarchy-weather*'
+  'bin/omarchy-webapp*'
+)
+
+# Skipped: looked at and set aside. Linux desktop and system plumbing with no
+# macOS counterpart, terminals and apps not used here, Omarchy's own packaging,
+# development and docs, and themes (macOS keeps one theme by hand).
+OMARCHY_SKIPPED_AREAS=(
+  # Repo housekeeping, Omarchy's own development, docs and tests
+  .editorconfig .github .gitignore .greptile .luarc.json agents AGENTS.md CLAUDE.md
+  README.md LICENSE version docs plans scripts test manual icon.png icon.txt logo.svg logo.txt
+  bin 'bin/omarchy-dev*' 'bin/omarchy-debug*' 'bin/omarchy-crash*' 'bin/omarchy-done*'
+  'bin/omarchy-state*' 'bin/omarchy-lifecycle*' 'bin/omarchy-migrate*' 'bin/omarchy-version*'
+  'bin/omarchy-channel*' 'bin/omarchy-upgrade*' 'bin/omarchy-reinstall*' 'bin/omarchy-plugin*'
+  # Packaging and system management (pacman, AUR, boot, snapshots, kernel, drivers)
+  'bin/omarchy-pkg*' 'bin/omarchy-install*' 'bin/omarchy-installed*' 'bin/omarchy-remove*'
+  'bin/omarchy-refresh*' 'bin/omarchy-restart*' 'bin/omarchy-setup*' 'bin/omarchy-system*'
+  'bin/omarchy-provision*' 'bin/omarchy-boot*' 'bin/omarchy-snapshot*' 'bin/omarchy-kernel*'
+  'bin/omarchy-hw*' 'bin/omarchy-n1x*' 'bin/omarchy-hibernation*' 'bin/omarchy-sudo*'
+  'bin/omarchy-security*' 'bin/omarchy-plymouth*' 'bin/omarchy-cmd*' 'bin/omarchy-apply*'
+  migrations applications themes
+  install/hardware install/helpers install/login install/post-install install/provisioning
+  'install/omarchy-aarch64*' install/omarchy-other.packages install/omarchy-x86_64-only.packages
+  # Linux desktop: Hyprland, Wayland, menus, notifications, input, displays, audio stack
+  'bin/omarchy-hyprland*' 'bin/omarchy-menu*' 'bin/omarchy-notification*' 'bin/omarchy-osd*'
+  'bin/omarchy-shell*' 'bin/omarchy-show*' 'bin/omarchy-screensaver*' 'bin/omarchy-sleep*'
+  'bin/omarchy-power*' 'bin/omarchy-powerprofiles*' 'bin/omarchy-brightness*' 'bin/omarchy-display*'
+  'bin/omarchy-monitor*' 'bin/omarchy-input*' 'bin/omarchy-bluetooth*' 'bin/omarchy-network*'
+  'bin/omarchy-dns*' 'bin/omarchy-disk*' 'bin/omarchy-drive*' 'bin/omarchy-file*' 'bin/omarchy-dock*'
+  'bin/omarchy-windows*' 'bin/omarchy-font*' 'bin/omarchy-locale*' 'bin/omarchy-language*'
+  'bin/omarchy-i18n*' 'bin/omarchy-branding*' 'bin/omarchy-ascii*' 'bin/omarchy-tui*'
+  'bin/omarchy-theme*' 'bin/omarchy-clipboard*' 'bin/omarchy-dictation*' 'bin/omarchy-voxtype*'
+  'bin/omarchy-transcode*' 'bin/omarchy-upload*' 'bin/omarchy-games*' 'bin/omarchy-chromium*'
+  'bin/omarchy-openclaw*'
+  config/alacritty config/autostart config/chromium config/chromium-flags.conf config/fcitx5
+  config/foot config/hypr config/hyprland-mimeapps.list config/hyprland-preview-share-picker
+  config/imv config/kitty config/obsidian config/wireplumber config/xdg-desktop-portal
+  default/agents default/alacritty default/alsa default/applications default/audio default/chromium
+  default/environment.d default/firefox default/fontconfig default/fonts default/foot default/gpg
+  default/gtk default/hypr default/i18n default/input-methods default/libalpm default/limine
+  default/nautilus-python default/omarchy default/pacman default/plymouth default/regions
+  default/sddm default/settings-runtime-profile default/snapper default/systemd default/tensaku
+  default/udev default/uwsm default/v4l2-relayd default/voxtype default/wayland-sessions
+  default/wireplumber default/xcompose default/xdg-terminal-exec
+  etc/cups etc/docker etc/fastfetch etc/gnupg etc/limine-entry-tool.d etc/mkinitcpio.conf.d
+  etc/modprobe.d etc/NetworkManager etc/nsswitch.conf etc/plymouth etc/profile.d etc/sddm.conf.d
+  etc/security etc/sudoers.d etc/sysctl.d etc/systemd etc/sysusers.d etc/tmpfiles.d etc/udev
+  etc/xdg etc/xkb
 )
 
 # Commit titles outside those paths that can still matter here
-OMARCHY_KEYWORDS='herdr|tmux|alias|neovim|nvim|lazyvim|ghostty|starship|ssh|mosh|tailscale|clipboard|super ?\+|keybinding|hotkey|shortcut'
+OMARCHY_KEYWORDS='herdr|tmux|alias|neovim|nvim|lazyvim|ghostty|starship|ssh|mosh|tailscale|clipboard|super ?\+|keybinding|hotkey|shortcut|agent|mise|worktree|hook|claude|codex|opencode|hunk|git'
 
 omarchy_reviewed_sha() { awk '!/^#/ && NF {print $1; exit}' "$OMARCHY_STATE_FILE"; }
 omarchy_reviewed_date() { awk '!/^#/ && NF {print $2; exit}' "$OMARCHY_STATE_FILE"; }
@@ -44,6 +122,31 @@ omarchy_head() {
   local branch
   branch=$(gh api "repos/$OMARCHY_REPO" -q .default_branch)
   gh api "repos/$OMARCHY_REPO/commits/$branch" -q '.sha + " " + .commit.committer.date'
+}
+
+# Every file path in Omarchy's tree at a ref
+omarchy_files_at() {
+  gh api "repos/$OMARCHY_REPO/git/trees/$1?recursive=1" -q '.tree[] | select(.type == "blob") | .path'
+}
+
+# The area a path belongs to: bin/omarchy-<family>, <top>/<name> under config,
+# default, etc and install, or the top-level name
+omarchy_area() {
+  awk -F/ '{
+    if ($1 == "bin" && $2 ~ /^omarchy-/) { split($2, a, "-"); print "bin/omarchy-" a[2] }
+    else if (NF >= 2 && ($1 == "config" || $1 == "default" || $1 == "etc" || $1 == "install")) print $1 "/" $2
+    else print $1
+  }'
+}
+
+# Whether an area or path matches any pattern in the named list
+omarchy_matches() {
+  local subject=$1 list=$2[@] pattern
+  for pattern in "${!list}"; do
+    # shellcheck disable=SC2053
+    [[ $subject == $pattern ]] && return 0
+  done
+  return 1
 }
 
 # "CHORD | description" for every binding in Omarchy's Hyprland config at a ref,
@@ -112,18 +215,99 @@ cmd_omarchy_list() {
   (( any )) || echo "  (none)"
 
   echo
-  echo "==> Commits touching files the macOS port mirrors"
-  local path seen=" " sha rest
-  for path in "${OMARCHY_PARITY_PATHS[@]}"; do
-    while IFS= read -r line; do
-      sha=${line%% *}
-      [[ $sha == "${base:0:9}" || $seen == *" $sha "* ]] && continue
-      seen+="$sha "
-      echo "  $line   [$path]"
-    done < <(gh api --paginate "repos/$OMARCHY_REPO/commits?sha=$head_sha&path=$path&since=$base_date&per_page=100" \
-      -q '.[] | .sha[0:9] + " " + .commit.committer.date[0:10] + " " + (.commit.message | split("\n")[0])' 2>/dev/null)
+  local head_files base_files
+  head_files=$(omarchy_files_at "$head_sha")
+  base_files=$(omarchy_files_at "$base")
+
+  echo "==> Commits touching what the macOS port mirrors"
+  local path seen=" " sha rest pattern
+  local -a watch=()
+  for pattern in "${OMARCHY_PARITY_PATHS[@]}"; do
+    if [[ $pattern == *'*'* ]]; then
+      while IFS= read -r path; do
+        # shellcheck disable=SC2053
+        [[ $path == $pattern ]] && watch+=("$path")
+      done <<<"$head_files"
+    else
+      watch+=("$pattern")
+    fi
   done
+  while IFS= read -r line; do
+    sha=${line%% *}
+    [[ $sha == "${base:0:9}" || $seen == *" $sha "* ]] && continue
+    seen+="$sha "
+    echo "  $line"
+  done < <(printf '%s\n' "${watch[@]}" | xargs -P 8 -I{} gh api --paginate \
+      "repos/$OMARCHY_REPO/commits?sha=$head_sha&path={}&since=$base_date&per_page=100" \
+      -q '.[] | .sha[0:9] + " " + .commit.committer.date[0:10] + " " + (.commit.message | split("\n")[0])' 2>/dev/null |
+    sort -k2,2 -k1,1 | uniq)
   [[ $seen == " " ]] && echo "  (none)"
+
+  echo
+  echo "==> Files added or removed outside the skipped areas"
+  echo "    Commands by name; other files grouped by folder"
+  # awk instead of head and grep: both end early, which pipefail turns into a failure
+  local changes
+  # diff exits 1 whenever the lists differ, which is the expected case
+  changes=$(diff <(echo "$base_files" | sort) <(echo "$head_files" | sort) | sed -n 's/^> /+ /p; s/^< /- /p' || true)
+  any=0
+  while IFS= read -r line; do
+    [[ -n $line ]] || continue
+    any=1
+    echo "  $line"
+  done < <(while IFS= read -r line; do
+      [[ -n $line ]] || continue
+      path=${line:2}
+      omarchy_matches "$(omarchy_area <<<"$path")" OMARCHY_SKIPPED_AREAS && continue
+      echo "$line"
+    done <<<"$changes" |
+    awk '{
+      sign = substr($0, 1, 1); path = substr($0, 3)
+      if (path ~ /^bin\//) { print sign " " path; next }
+      dir = path; sub(/\/[^\/]*$/, "", dir)
+      key = sign " " dir
+      count[key]++
+      if (count[key] <= 3) names[key] = names[key] (count[key] > 1 ? ", " : "") substr(path, length(dir) + 2)
+    }
+    END {
+      for (key in count) {
+        more = count[key] > 3 ? ", +" (count[key] - 3) " more" : ""
+        print key "/ (" count[key] "): " names[key] more
+      }
+    }' | sort -k2)
+  (( any )) || echo "  (none)"
+
+  echo
+  echo "==> New migrations that mention something this setup uses"
+  echo "    Migrations are where Omarchy changes how existing installs work"
+  local migration text others=0
+  any=0
+  while IFS= read -r migration; do
+    [[ -n $migration ]] || continue
+    text=$(gh api "repos/$OMARCHY_REPO/contents/$migration?ref=$head_sha" -H "Accept: application/vnd.github.raw" 2>/dev/null || true)
+    if ! grep -qiE "$OMARCHY_KEYWORDS" <<<"$text"; then
+      others=$((others + 1))
+      continue
+    fi
+    any=1
+    echo "  $migration"
+    awk '/^#[^!]/ && n < 3 { sub(/^# */, "      "); print; n++ }' <<<"$text"
+  done < <(comm -13 <(echo "$base_files" | grep '^migrations/' | sort) <(echo "$head_files" | grep '^migrations/' | sort) || true)
+  (( any )) || echo "  (none)"
+  (( others )) && echo "  ($others more about areas this setup doesn't use)"
+
+  echo
+  local area
+  echo "==> Omarchy areas not yet classified as ported or skipped"
+  echo "    Decide each one, then add it to OMARCHY_PARITY_PATHS or OMARCHY_SKIPPED_AREAS"
+  any=0
+  while IFS= read -r area; do
+    omarchy_matches "$area" OMARCHY_PARITY_PATHS && continue
+    omarchy_matches "$area" OMARCHY_SKIPPED_AREAS && continue
+    any=1
+    echo "  $area"
+  done < <(omarchy_area <<<"$head_files" | sort -u)
+  (( any )) || echo "  (none)"
 
   echo
   echo "==> Other commits whose title mentions something this setup uses"

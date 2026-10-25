@@ -4,9 +4,9 @@
 # macOS only. gemini is Google's Gemini CLI, which Omarchy doesn't ship; there
 # `gemini` names Antigravity, which is agy here too.
 #
-# Two departures from Omarchy. cursor-agent comes from the Brewfile: its download
-# bundles its own rg and node, which mise would put ahead of Homebrew's on PATH,
-# and its http backend takes no option to expose only cursor-agent.
+# Two departures from Omarchy. cursor-agent is left out: its download bundles its
+# own rg and node, which mise would put ahead of Homebrew's on PATH, and its http
+# backend takes no option to expose only cursor-agent.
 # auto_update = "4h" is left out: on mise 2026.10.19 it breaks how the shim calls
 # the agent, so the com.sogamoso.agents-update LaunchAgent upgrades them every
 # four hours instead.

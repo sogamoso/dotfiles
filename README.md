@@ -127,8 +127,8 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles status` | Branch, ahead/behind, dirty files |
 | `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, 1Password, Vicinae, brew autoupdate) and print the fix for anything wrong |
 | `dotfiles vicinae [status \| save \| reset]` | Compare Vicinae's settings and store extensions with the repo. `save` keeps what changed on this Mac (commit the result), `reset` drops it |
-| `dotfiles omarchy-downstream-candidates` | Review what changed in Omarchy since the last review and which of it to port, in Claude Code (Codex if Claude isn't installed) with the `omarchy-downstream` skill. `--list` prints the raw changes; `--mark-reviewed` records the review in `.omarchy-reviewed` |
-| `dotfiles agent [<name>]` | Show or set the default coding agent, like Omarchy's `omarchy default agent`, with the same names (`gemini` picks Antigravity, `cursor` the Cursor CLI). The `a` alias launches it with Omarchy's flags for that agent, and the herdr layouts use it when no agent is given |
+| `dotfiles omarchy-downstream-candidates` | Review what changed in Omarchy since the last review and which of it to port, in Claude Code (Codex if Claude isn't installed) with the `omarchy-downstream` skill. `--list` prints the raw changes: new and removed key bindings, commits touching what the macOS side ports, files added or removed outside the areas set aside as Linux-only, new migrations that mention something used here, and any Omarchy area not yet classified as ported or skipped. `--mark-reviewed` records the review in `.omarchy-reviewed` |
+| `dotfiles agent [<name>]` | Show or set the default coding agent, like Omarchy's `omarchy default agent`, with the same names (`gemini` picks Antigravity). The `a` alias launches it with Omarchy's flags for that agent, and the herdr layouts use it when no agent is given |
 | `dotfiles edit` | Open the repo in `$VISUAL` |
 
 Set `$DOTFILES` to override the repo location (default: `~/Code/sogamoso/dotfiles`).
@@ -433,7 +433,7 @@ Shell functions that build a whole herdr layout in one command. They run inside 
 | `hsl <count> <command>` | Tile into a grid and run the same command in every pane |
 | `hrl [<agent>]` | Review layout: agent left half, hunk diff watch top right, terminal bottom right |
 | `hrlm [<agent>]` | One workspace per subdirectory, each with a single `hrl` tab; the current workspace takes the first |
-| `hrw [<name>] [<agent>] [<task>]` | New agent on its own worktree off `origin/main`: a worktree workspace, grouped under the repo, running `hrl`, with the mise config trusted. Without a name the branch is named after the harness: `claude-1` for `cx`, `codex-1` for `cy`, `opencode-1` for `c`, `cursor-1`, `gemini-1`, any agent Omarchy's `omarchy default agent` offers, or `agent-1` for anything else. A task becomes the agent's first prompt. Also on `prefix + a` |
+| `hrw [<name>] [<agent>] [<task>]` | New agent on its own worktree off `origin/main`: a worktree workspace, grouped under the repo, running `hrl`, with the mise config trusted. Without a name the branch is named after the harness: `claude-1` for `cx`, `codex-1` for `cy`, `opencode-1` for `c`, `gemini-1`, any agent Omarchy's `omarchy default agent` offers, or `agent-1` for anything else. A task becomes the agent's first prompt. Also on `prefix + a` |
 | `hra` | Ask for the agent, task and branch, then run `hrw`. Also on `prefix + Shift + A` |
 | `hrd` | Finish the agent whose workspace this is: confirm, delete its branch, remove its worktree and close the workspace, like Omarchy's `gd`. Also on `prefix + f` |
 

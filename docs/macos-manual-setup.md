@@ -414,7 +414,7 @@ What is left worth tracking:
 | Tray | Not ported; the macOS menu bar is the tray |
 | Do not disturb, night light, screen recording, dictation and remote session indicators | Not ported. Focus and Night Shift state can't be read reliably without Full Disk Access or private interfaces, and macOS shows its own recording and dictation indicators. A remote session indicator wasn't attempted |
 | Herdr layouts (`hdl`/`hds`/`hdlm`/`hsl`) | ✅ Ported to zsh in `stow/zsh/.config/zsh/aliases/herdr.zsh` |
-| Coding agents Omarchy declares as lazy mise tools | ✅ Declared the same way in `stow/macos/.config/mise/conf.d/agents.toml`, Claude Code, Codex and OpenCode included. Cursor CLI stays in the Brewfile: its mise download bundles its own `rg` and `node`, which would shadow Homebrew's, and its backend can't expose only `cursor-agent` |
+| Coding agents Omarchy declares as lazy mise tools | ✅ Declared the same way in `stow/macos/.config/mise/conf.d/agents.toml`, Claude Code, Codex and OpenCode included. Cursor CLI isn't offered: its mise download bundles its own `rg` and `node`, which would shadow Homebrew's, and its backend can't expose only `cursor-agent`. Add it once mise can limit what it exposes |
 | Omarchy's other default mise tools (`uv`, `playwright`, `ghui`, `hey-cli`, `cf`, the `basecamp` CLI) | ✅ Declared the same way in `stow/macos/.config/mise/conf.d/tools.toml`; `gh` and `hunk` stay in the Brewfile |
 | Omarchy's `h` and `mup` aliases | ✅ `h` in `herdr.zsh`, `mup` in the `mise` alias pair |
 | Per-agent accounts (`omarchy-agent-account-*`), which switch an agent between logins | Not ported. `dotfiles agent run` starts each agent with Omarchy's flags but on its single default login |
