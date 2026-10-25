@@ -414,6 +414,17 @@ Shell functions that build a whole herdr layout in one command, ported from Omar
 | `hdlm <agent> [<agent2>]` | One `hdl` tab per subdirectory of the current directory |
 | `hsl <count> <command>` | Tile into a grid and run the same command in every pane |
 
+##### Review layouts
+
+Agent on the left half, `hunk diff --watch` top right, a terminal bottom right. Not an Omarchy port, so it ships for both shells in [`stow/zsh/.config/zsh/aliases/layouts.zsh`](stow/zsh/.config/zsh/aliases/layouts.zsh) and its bash twin. The agent defaults to `cx`.
+
+| Command | Layout |
+|---|---|
+| `hrl [<agent>]` | Review layout in the current herdr tab, renamed after the directory |
+| `hrlm [<agent>]` | One herdr workspace per subdirectory, each with a single `hrl` tab; the current workspace takes the first |
+| `trl [<agent>]` | Review layout in the current tmux window, renamed after the directory |
+| `trlm [<agent>]` | One tmux window per subdirectory, each running `trl`; the current window takes the first |
+
 #### Manual setup guide
 
 For the manual setup guide including Privacy & Security settings, Vicinae, and Tokyo Night theming: [`docs/macos-manual-setup.md`](docs/macos-manual-setup.md).
