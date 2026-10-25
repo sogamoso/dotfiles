@@ -1,0 +1,11 @@
+# The rest of the default tools Omarchy declares in
+# /etc/mise/conf.d/omarchy-tools.toml, declared the same way: each installs on
+# first run. gh and hunk come from the Brewfile and node from config.local.toml,
+# so they aren't repeated here. macOS only, as Omarchy declares them on Linux.
+[tools]
+basecamp = { version = "latest", lazy = true, minimum_release_age = "0s" }
+ghui = { version = "latest", lazy = true, minimum_release_age = "0s" }
+hey-cli = { version = "latest", lazy = true, minimum_release_age = "0s" }
+"npm:cf" = { version = "latest", lazy = true, lazy_bins = ["cf"], minimum_release_age = "0s" }
+playwright = { version = "latest", lazy = true, minimum_release_age = "0s" }
+uv = { version = "latest", lazy = true, minimum_release_age = "0s" }

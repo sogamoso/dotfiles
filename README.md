@@ -22,7 +22,7 @@ stow/
   git/                     # .gitconfig, global .gitignore, SSH allowed signers
   linux/                   # Omarchy-only configs (stowed only on Linux)
   macos/                   # macOS-only configs (stowed only on Darwin)
-  mise/                    # mise config (node + ruby via latest)
+  mise/                    # mise config (node + ruby via latest); the macOS agents and tools are in macos/.config/mise/conf.d
   nvim/                    # Neovim plugin overrides
   ruby/                    # .gemrc, .irbrc, .default-gems
   ssh/                     # SSH client config + signing key

@@ -12,8 +12,9 @@ OMARCHY_REPO="basecamp/omarchy"
 OMARCHY_STATE_FILE="${OMARCHY_STATE_FILE:-$DOTFILES/.omarchy-reviewed}"
 
 # Omarchy files whose behavior the macOS side ports: bindings, shell aliases
-# and functions, terminal tools, and the utilities status.sh, reminder.sh and
-# mic-mute.sh are ported from. Add a path when porting something new.
+# and functions, terminal tools, herdr, the coding agents (which mise installs
+# and how omarchy-agent launches each), and the utilities status.sh, reminder.sh
+# and mic-mute.sh are ported from. Add a path when porting something new.
 OMARCHY_PARITY_PATHS=(
   default/hypr/bindings.lua
   default/hypr/bindings
@@ -23,6 +24,10 @@ OMARCHY_PARITY_PATHS=(
   config/btop
   config/starship.toml
   config/nvim
+  config/herdr
+  etc/mise/conf.d/omarchy-tools.toml
+  bin/omarchy-agent
+  bin/omarchy-default-agent
   bin/omarchy-reminder
   bin/omarchy-battery-status
   bin/omarchy-weather-status

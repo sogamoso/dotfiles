@@ -6,6 +6,9 @@
 #
 # All of these build on $HERDR_PANE_ID, so they only work inside a herdr pane.
 
+# Omarchy's alias for herdr itself, from its default/bash/aliases
+alias h='herdr'
+
 # Echo a split ratio as a float
 # Usage: _herdr_ratio <numerator> <denominator>
 _herdr_ratio() {
