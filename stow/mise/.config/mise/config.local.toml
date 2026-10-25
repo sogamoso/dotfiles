@@ -1,5 +1,8 @@
 [settings]
 idiomatic_version_file_enable_tools = ["ruby", "node"]
+# Prebuilt Rubies, as Omarchy's dev-env setup chooses: an install or a mise up
+# takes seconds rather than a compile
+ruby.compile = false
 
 [tools]
 node = "latest"
