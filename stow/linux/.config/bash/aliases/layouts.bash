@@ -9,13 +9,81 @@ _layout_subdirs() {
   find "$PWD" -mindepth 1 -maxdepth 1 -type d ! -name '.*' | sort
 }
 
+# The agent to run when none is given: Omarchy's default agent through its `a`
+# alias when one is set, Claude Code through `cx` otherwise
+# Usage: _layout_default_agent
+_layout_default_agent() {
+  if command -v omarchy-default-agent >/dev/null && [[ -n $(omarchy-default-agent) ]]; then
+    echo a
+  else
+    echo cx
+  fi
+}
+
+# The harness an agent command runs, for naming its worktree branch. Covers
+# Omarchy's agent aliases and the agents `omarchy default agent` offers.
+# Usage: _layout_harness <agent>
+_layout_harness() {
+  local cmd="${1%% *}"
+  [[ $cmd == "a" ]] && cmd=$(omarchy-default-agent 2>/dev/null)
+
+  case "$cmd" in
+    cx|claude) echo claude ;;
+    cy|codex) echo codex ;;
+    c|opencode) echo opencode ;;
+    cursor-agent) echo cursor ;;
+    kiro-cli) echo kiro ;;
+    agy|amp|commandcode|copilot|crush|devin|dsh|freebuff|gemini|grok|hermes|kilo|kimi|mcode|muse|omp|openclaw|ori|pi|qwen) echo "$cmd" ;;
+    *) echo agent ;;
+  esac
+}
+
+# The first <prefix>-<n> that isn't a local branch yet
+# Usage: _layout_free_branch <prefix>
+_layout_free_branch() {
+  local n=1
+  while git show-ref --verify --quiet "refs/heads/$1-$n"; do (( n++ )); done
+  echo "$1-$n"
+}
+
+# An agent command that starts on a task, using each harness's own spelling
+# for an initial prompt, as omarchy-agent does. Fails for a harness without one.
+# Usage: _layout_with_prompt <agent> <prompt>
+_layout_with_prompt() {
+  local quoted
+  printf -v quoted '%q' "$2"
+
+  if [[ ${1%% *} == "a" ]]; then
+    echo "omarchy-agent --inline --prompt $quoted"
+    return
+  fi
+
+  case "$(_layout_harness "$1")" in
+    claude|codex|grok|muse|omp) echo "$1 -- $quoted" ;;
+    opencode) echo "$1 --prompt $quoted" ;;
+    cursor) echo "$1 agent -- $quoted" ;;
+    agy|gemini) echo "$1 --prompt-interactive $quoted" ;;
+    copilot) echo "$1 --interactive $quoted" ;;
+    pi) echo "$1 $quoted" ;;
+    *) echo "No known way to give $1 a task." >&2; return 1 ;;
+  esac
+}
+
+# Trust a new checkout's mise config, as Omarchy's ga does, so the agent and
+# terminal don't stop to ask
+# Usage: _layout_mise_trust <dir>
+_layout_mise_trust() {
+  command -v mise >/dev/null && mise trust --quiet "$1" >/dev/null 2>&1
+  return 0
+}
+
 # Review layout in the current herdr tab
 # Usage: hrl [<agent>]
 hrl() {
   [[ -z $HERDR_PANE_ID ]] && { echo "You must start herdr to use hrl."; return 1; }
 
   local current_dir="$PWD"
-  local agent="${1:-cx}"
+  local agent="${1:-$(_layout_default_agent)}"
   local agent_pane="$HERDR_PANE_ID"
   local diff_pane
 
@@ -34,7 +102,7 @@ hrl() {
 hrlm() {
   [[ -z $HERDR_PANE_ID ]] && { echo "You must start herdr to use hrlm."; return 1; }
 
-  local agent="${1:-cx}"
+  local agent="${1:-$(_layout_default_agent)}"
   local first=true
   local hrl_command dir pane_id
 
@@ -55,29 +123,85 @@ hrlm() {
 }
 
 # Review layout on a fresh worktree off origin/main, in a workspace of its own
-# that herdr groups under the repo's. Without a name the branch is agent-<n>.
-# Usage: hrw [<name>] [<agent>]
+# that herdr groups under the repo's. Without a name the branch is named after
+# the agent's harness, as in claude-1 or codex-2. A task, when given, is the
+# agent's first prompt. A herdr key binding runs it too, where only
+# HERDR_ACTIVE_PANE_ID is set.
+# Usage: hrw [<name>] [<agent>] [<task>]
 hrw() {
-  [[ -z $HERDR_PANE_ID ]] && { echo "You must start herdr to use hrw."; return 1; }
+  [[ -z ${HERDR_PANE_ID:-$HERDR_ACTIVE_PANE_ID} ]] && { echo "You must start herdr to use hrw."; return 1; }
   git rev-parse --git-dir >/dev/null 2>&1 || { echo "hrw must run inside a git repository."; return 1; }
 
   local name="${1:-}"
-  local agent="${2:-cx}"
-  local n=1
+  local agent="${2:-$(_layout_default_agent)}"
+  local task="${3:-}"
+  local agent_command="$agent"
   local response pane_id
+
+  if [[ -n $task ]]; then
+    agent_command=$(_layout_with_prompt "$agent" "$task") || return 1
+  fi
 
   git fetch --quiet origin main || return 1
 
-  if [[ -z $name ]]; then
-    while git show-ref --verify --quiet "refs/heads/agent-$n"; do (( n++ )); done
-    name="agent-$n"
-  fi
+  [[ -z $name ]] && name=$(_layout_free_branch "$(_layout_harness "$agent")")
 
   response=$(herdr worktree create --cwd "$PWD" --branch "$name" --base origin/main --label "$name" --focus 2>&1)
   pane_id=$(jq -r '.result.root_pane.pane_id // empty' <<<"$response")
   [[ -z $pane_id ]] && { jq -r '.error.message' <<<"$response"; return 1; }
 
-  herdr pane run "$pane_id" "$(printf 'hrl %q' "$agent")" >/dev/null
+  _layout_mise_trust "$(jq -r '.result.root_pane.cwd' <<<"$response")"
+  herdr pane run "$pane_id" "$(printf 'hrl %q' "$agent_command")" >/dev/null
+}
+
+# Ask for an agent, a task and an optional branch name, then run hrw with them.
+# What prefix+shift+a opens in a herdr popup. Escape at any prompt cancels.
+# Usage: hra
+hra() {
+  local agent task name candidate
+  local agents=""
+
+  for candidate in $(_layout_default_agent) cx cy c cursor-agent gemini agy amp copilot crush grok pi; do
+    [[ $candidate == "a" ]] && { agents+="a"$'\n'; continue; }
+    [[ $agents == *"$candidate"$'\n'* ]] && continue
+    command -v "$candidate" >/dev/null 2>&1 && agents+="$candidate"$'\n'
+  done
+
+  agent=$(printf '%s' "$agents" | gum choose --header "Agent") || return 0
+  task=$(gum input --placeholder "Task for $agent (blank to start without one)") || return 0
+  name=$(gum input --placeholder "Branch (blank for $(_layout_harness "$agent")-<n>)") || return 0
+
+  hrw "$name" "$agent" "$task"
+}
+
+# Finish an agent: delete its branch and remove its worktree, which closes its
+# workspace, after a confirmation, as Omarchy's gd does. Runs from any pane in
+# the agent's workspace, or from a herdr key binding.
+# Usage: hrd
+hrd() {
+  local workspace="${HERDR_WORKSPACE_ID:-$HERDR_ACTIVE_WORKSPACE_ID}"
+  [[ -z $workspace ]] && { echo "You must start herdr to use hrd."; return 1; }
+
+  local worktree branch worktree_dir response
+
+  worktree=$(herdr worktree list --workspace "$workspace" 2>/dev/null |
+    jq -c --arg ws "$workspace" '.result.worktrees[]? | select(.open_workspace_id == $ws and .is_linked_worktree)')
+  [[ -z $worktree ]] && { echo "hrd must run in an agent's worktree workspace."; return 1; }
+
+  branch=$(jq -r '.branch // empty' <<<"$worktree")
+  worktree_dir=$(jq -r '.path' <<<"$worktree")
+
+  gum confirm "Remove the ${branch:-detached} worktree and delete its branch?" || return 0
+
+  # Off the branch first so it can go now: removing the worktree closes this
+  # workspace, and this shell with it when hrd runs from one of its panes
+  if [[ -n $branch ]]; then
+    git -C "$worktree_dir" checkout --quiet --detach || return 1
+    git -C "$worktree_dir" branch --quiet -D "$branch" || return 1
+  fi
+
+  response=$(herdr worktree remove --workspace "$workspace" --force 2>&1) ||
+    { jq -r '.error.message // empty' <<<"$response"; return 1; }
 }
 
 # Review layout in the current tmux window
@@ -86,7 +210,7 @@ trl() {
   [[ -z $TMUX ]] && { echo "You must start tmux to use trl."; return 1; }
 
   local current_dir="$PWD"
-  local agent="${1:-cx}"
+  local agent="${1:-$(_layout_default_agent)}"
   local agent_pane="$TMUX_PANE"
   local diff_pane
 
@@ -104,7 +228,7 @@ trl() {
 trlm() {
   [[ -z $TMUX ]] && { echo "You must start tmux to use trlm."; return 1; }
 
-  local agent="${1:-cx}"
+  local agent="${1:-$(_layout_default_agent)}"
   local first=true
   local trl_command dir pane_id
 
@@ -124,23 +248,26 @@ trlm() {
 
 # Review layout on a fresh worktree off origin/main, in a window of its own.
 # The checkout goes where herdr would put it, so herdr can open it too.
-# Without a name the branch is agent-<n>.
-# Usage: trw [<name>] [<agent>]
+# Without a name the branch is named after the agent's harness, as in hrw, and
+# a task, when given, is the agent's first prompt.
+# Usage: trw [<name>] [<agent>] [<task>]
 trw() {
   [[ -z $TMUX ]] && { echo "You must start tmux to use trw."; return 1; }
   git rev-parse --git-dir >/dev/null 2>&1 || { echo "trw must run inside a git repository."; return 1; }
 
   local name="${1:-}"
-  local agent="${2:-cx}"
-  local n=1
+  local agent="${2:-$(_layout_default_agent)}"
+  local task="${3:-}"
+  local agent_command="$agent"
   local repo_root worktree_dir pane_id
+
+  if [[ -n $task ]]; then
+    agent_command=$(_layout_with_prompt "$agent" "$task") || return 1
+  fi
 
   git fetch --quiet origin main || return 1
 
-  if [[ -z $name ]]; then
-    while git show-ref --verify --quiet "refs/heads/agent-$n"; do (( n++ )); done
-    name="agent-$n"
-  fi
+  [[ -z $name ]] && name=$(_layout_free_branch "$(_layout_harness "$agent")")
 
   # The main checkout, even when run from inside another worktree
   repo_root=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")
@@ -152,6 +279,34 @@ trw() {
     git worktree add --quiet -b "$name" "$worktree_dir" origin/main || return 1
   fi
 
+  _layout_mise_trust "$worktree_dir"
   pane_id=$(tmux new-window -c "$worktree_dir" -n "$name" -P -F '#{pane_id}')
-  tmux send-keys -t "$pane_id" "$(printf 'trl %q' "$agent")" C-m
+  tmux send-keys -t "$pane_id" "$(printf 'trl %q' "$agent_command")" C-m
+}
+
+# Finish the agent in this window: delete its branch, remove its worktree and
+# close the window, after a confirmation, as Omarchy's gd does
+# Usage: trd
+trd() {
+  [[ -z $TMUX ]] && { echo "You must start tmux to use trd."; return 1; }
+
+  local git_dir common_dir branch worktree_dir
+
+  git_dir=$(git rev-parse --path-format=absolute --git-dir 2>/dev/null)
+  common_dir=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
+  [[ -z $git_dir || $git_dir == "$common_dir" ]] && { echo "trd must run inside an agent's worktree."; return 1; }
+
+  branch=$(git branch --show-current)
+  worktree_dir=$(git rev-parse --show-toplevel)
+
+  gum confirm "Remove the ${branch:-detached} worktree and delete its branch?" || return 0
+
+  if [[ -n $branch ]]; then
+    git checkout --quiet --detach || return 1
+    git branch --quiet -D "$branch" || return 1
+  fi
+
+  cd "$(dirname "$common_dir")" || return 1
+  git worktree remove --force "$worktree_dir" || return 1
+  tmux kill-window -t "$TMUX_PANE"
 }

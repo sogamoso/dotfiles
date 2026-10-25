@@ -392,7 +392,8 @@ The tmux twins of the herdr review layouts, from the same [`layouts.zsh`](stow/z
 |---|---|
 | `trl [<agent>]` | Review layout: agent left half, hunk diff watch top right, terminal bottom right |
 | `trlm [<agent>]` | One window per subdirectory, each running `trl`; the current window takes the first |
-| `trw [<name>] [<agent>]` | New agent on its own worktree off `origin/main`, in a new window running `trl`. Checkouts go under `~/.herdr/worktrees`, where herdr would put them |
+| `trw [<name>] [<agent>] [<task>]` | New agent on its own worktree off `origin/main`, in a new window running `trl`, with branches named and tasks passed as in `hrw`. Checkouts go under `~/.herdr/worktrees`, where herdr would put them |
+| `trd` | Finish the agent in this window: confirm, delete its branch, remove its worktree and close the window |
 
 ##### herdr
 
@@ -412,10 +413,15 @@ Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate th
 | `Cmd + Up/Down` | Previous / next workspace (also `prefix + Shift + P/N`) |
 | `prefix + w / b` | Workspace picker / toggle sidebar |
 | `prefix + q / ?` | Detach / show all bindings |
+| `prefix + a` | New agent on its own worktree (`hrw`) for the focused pane's repo |
+| `prefix + Shift + A` | New agent on a task: pick the agent, type the task and an optional branch (`hra`) |
+| `prefix + f` | Finish the focused agent: confirm, then delete its branch and worktree (`hrd`) |
+| `prefix + o` | Jump to the agent that last raised a notification, the latest one waiting on you (herdr default) |
+| `prefix + Cmd + 1-9` | Jump to agent 1–9 in the agents panel |
 
 ##### herdr layouts
 
-Shell functions that build a whole herdr layout in one command. They run inside a herdr pane. The `hd*` and `hsl` ones are ported from Omarchy and live in [`stow/zsh/.config/zsh/aliases/herdr.zsh`](stow/zsh/.config/zsh/aliases/herdr.zsh). The `hr*` review layouts are this repo's own, so they ship for both shells in [`stow/zsh/.config/zsh/aliases/layouts.zsh`](stow/zsh/.config/zsh/aliases/layouts.zsh) and its bash twin, with the agent defaulting to `cx`.
+Shell functions that build a whole herdr layout in one command. They run inside a herdr pane. The `hd*` and `hsl` ones are ported from Omarchy and live in [`stow/zsh/.config/zsh/aliases/herdr.zsh`](stow/zsh/.config/zsh/aliases/herdr.zsh). The `hr*` review layouts are this repo's own, so they ship for both shells in [`stow/zsh/.config/zsh/aliases/layouts.zsh`](stow/zsh/.config/zsh/aliases/layouts.zsh) and its bash twin. With no agent given they run Omarchy's default agent (its `a` alias) when one is set, and `cx` otherwise.
 
 | Command | Layout |
 |---|---|
@@ -425,7 +431,9 @@ Shell functions that build a whole herdr layout in one command. They run inside 
 | `hsl <count> <command>` | Tile into a grid and run the same command in every pane |
 | `hrl [<agent>]` | Review layout: agent left half, hunk diff watch top right, terminal bottom right |
 | `hrlm [<agent>]` | One workspace per subdirectory, each with a single `hrl` tab; the current workspace takes the first |
-| `hrw [<name>] [<agent>]` | New agent on its own worktree off `origin/main`: a worktree workspace, grouped under the repo, running `hrl`. The branch is `<name>`, or `agent-<n>` without one |
+| `hrw [<name>] [<agent>] [<task>]` | New agent on its own worktree off `origin/main`: a worktree workspace, grouped under the repo, running `hrl`, with the mise config trusted. Without a name the branch is named after the harness: `claude-1` for `cx`, `codex-1` for `cy`, `opencode-1` for `c`, `cursor-1`, `gemini-1`, any agent Omarchy's `omarchy default agent` offers, or `agent-1` for anything else. A task becomes the agent's first prompt. Also on `prefix + a` |
+| `hra` | Ask for the agent, task and branch, then run `hrw`. Also on `prefix + Shift + A` |
+| `hrd` | Finish the agent whose workspace this is: confirm, delete its branch, remove its worktree and close the workspace, like Omarchy's `gd`. Also on `prefix + f` |
 
 #### Manual setup guide
 
