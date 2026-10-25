@@ -54,6 +54,32 @@ hrlm() {
   done 3< <(_layout_subdirs)
 }
 
+# Review layout on a fresh worktree off origin/main, in a workspace of its own
+# that herdr groups under the repo's. Without a name the branch is agent-<n>.
+# Usage: hrw [<name>] [<agent>]
+hrw() {
+  [[ -z $HERDR_PANE_ID ]] && { echo "You must start herdr to use hrw."; return 1; }
+  git rev-parse --git-dir >/dev/null 2>&1 || { echo "hrw must run inside a git repository."; return 1; }
+
+  local name="${1:-}"
+  local agent="${2:-cx}"
+  local n=1
+  local response pane_id
+
+  git fetch --quiet origin main || return 1
+
+  if [[ -z $name ]]; then
+    while git show-ref --verify --quiet "refs/heads/agent-$n"; do (( n++ )); done
+    name="agent-$n"
+  fi
+
+  response=$(herdr worktree create --cwd "$PWD" --branch "$name" --base origin/main --label "$name" --focus 2>&1)
+  pane_id=$(jq -r '.result.root_pane.pane_id // empty' <<<"$response")
+  [[ -z $pane_id ]] && { jq -r '.error.message' <<<"$response"; return 1; }
+
+  herdr pane run "$pane_id" "$(printf 'hrl %q' "$agent")" >/dev/null
+}
+
 # Review layout in the current tmux window
 # Usage: trl [<agent>]
 trl() {
@@ -94,4 +120,38 @@ trlm() {
       tmux send-keys -t "$pane_id" "$trl_command" C-m
     fi
   done 3< <(_layout_subdirs)
+}
+
+# Review layout on a fresh worktree off origin/main, in a window of its own.
+# The checkout goes where herdr would put it, so herdr can open it too.
+# Without a name the branch is agent-<n>.
+# Usage: trw [<name>] [<agent>]
+trw() {
+  [[ -z $TMUX ]] && { echo "You must start tmux to use trw."; return 1; }
+  git rev-parse --git-dir >/dev/null 2>&1 || { echo "trw must run inside a git repository."; return 1; }
+
+  local name="${1:-}"
+  local agent="${2:-cx}"
+  local n=1
+  local repo_root worktree_dir pane_id
+
+  git fetch --quiet origin main || return 1
+
+  if [[ -z $name ]]; then
+    while git show-ref --verify --quiet "refs/heads/agent-$n"; do (( n++ )); done
+    name="agent-$n"
+  fi
+
+  # The main checkout, even when run from inside another worktree
+  repo_root=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")
+  worktree_dir="$HOME/.herdr/worktrees/$(basename "$repo_root")/${name//\//-}"
+
+  if git show-ref --verify --quiet "refs/heads/$name"; then
+    git worktree add --quiet "$worktree_dir" "$name" || return 1
+  else
+    git worktree add --quiet -b "$name" "$worktree_dir" origin/main || return 1
+  fi
+
+  pane_id=$(tmux new-window -c "$worktree_dir" -n "$name" -P -F '#{pane_id}')
+  tmux send-keys -t "$pane_id" "$(printf 'trl %q' "$agent")" C-m
 }

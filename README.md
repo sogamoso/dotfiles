@@ -384,6 +384,16 @@ Prefix is `Ctrl + Space`.
 | `Cmd + Left/Right` | Previous / next window |
 | `Cmd + Up/Down` | Previous / next session |
 
+##### tmux layouts
+
+The tmux twins of the herdr review layouts, from the same [`layouts.zsh`](stow/zsh/.config/zsh/aliases/layouts.zsh). They run inside a tmux pane.
+
+| Command | Layout |
+|---|---|
+| `trl [<agent>]` | Review layout: agent left half, hunk diff watch top right, terminal bottom right |
+| `trlm [<agent>]` | One window per subdirectory, each running `trl`; the current window takes the first |
+| `trw [<name>] [<agent>]` | New agent on its own worktree off `origin/main`, in a new window running `trl`. Checkouts go under `~/.herdr/worktrees`, where herdr would put them |
+
 ##### herdr
 
 Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate the tmux-style navigation (`Cmd + digits` for tabs, `Cmd + arrows` for tabs and workspaces). Config lives in [`stow/macos/.config/herdr/config.toml`](stow/macos/.config/herdr/config.toml).
@@ -405,7 +415,7 @@ Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate th
 
 ##### herdr layouts
 
-Shell functions that build a whole herdr layout in one command, ported from Omarchy. They run inside a herdr pane and live in [`stow/zsh/.config/zsh/aliases/herdr.zsh`](stow/zsh/.config/zsh/aliases/herdr.zsh).
+Shell functions that build a whole herdr layout in one command. They run inside a herdr pane. The `hd*` and `hsl` ones are ported from Omarchy and live in [`stow/zsh/.config/zsh/aliases/herdr.zsh`](stow/zsh/.config/zsh/aliases/herdr.zsh). The `hr*` review layouts are this repo's own, so they ship for both shells in [`stow/zsh/.config/zsh/aliases/layouts.zsh`](stow/zsh/.config/zsh/aliases/layouts.zsh) and its bash twin, with the agent defaulting to `cx`.
 
 | Command | Layout |
 |---|---|
@@ -413,17 +423,9 @@ Shell functions that build a whole herdr layout in one command, ported from Omar
 | `hds` | 2×2: editor, hunk diff watch, terminal, opencode |
 | `hdlm <agent> [<agent2>]` | One `hdl` tab per subdirectory of the current directory |
 | `hsl <count> <command>` | Tile into a grid and run the same command in every pane |
-
-##### Review layouts
-
-Agent on the left half, `hunk diff --watch` top right, a terminal bottom right. Not an Omarchy port, so it ships for both shells in [`stow/zsh/.config/zsh/aliases/layouts.zsh`](stow/zsh/.config/zsh/aliases/layouts.zsh) and its bash twin. The agent defaults to `cx`.
-
-| Command | Layout |
-|---|---|
-| `hrl [<agent>]` | Review layout in the current herdr tab, renamed after the directory |
-| `hrlm [<agent>]` | One herdr workspace per subdirectory, each with a single `hrl` tab; the current workspace takes the first |
-| `trl [<agent>]` | Review layout in the current tmux window, renamed after the directory |
-| `trlm [<agent>]` | One tmux window per subdirectory, each running `trl`; the current window takes the first |
+| `hrl [<agent>]` | Review layout: agent left half, hunk diff watch top right, terminal bottom right |
+| `hrlm [<agent>]` | One workspace per subdirectory, each with a single `hrl` tab; the current workspace takes the first |
+| `hrw [<name>] [<agent>]` | New agent on its own worktree off `origin/main`: a worktree workspace, grouped under the repo, running `hrl`. The branch is `<name>`, or `agent-<n>` without one |
 
 #### Manual setup guide
 
