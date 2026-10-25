@@ -4,16 +4,36 @@ set -euo pipefail
 # Adds the agent keys from layouts.bash to herdr's config. On Omarchy that file is
 # Omarchy's to ship, and an update migration can replace it through
 # omarchy-refresh-herdr, so Omarchy runs this after every update and the Linux
-# install runs it once. The blocks match the macOS herdr config; keep the two in
+# install runs it once. The keys match the macOS herdr config; keep the two in
 # sync.
 
 config="$HOME/.config/herdr/config.toml"
 marker="# dotfiles: agent keys"
 
 [[ -f $config ]] || exit 0
-grep -qxF "$marker" "$config" && exit 0
+changed=false
 
-cat >>"$config" <<'KEYS'
+# Alt+1..9 jumps to agents, as Cmd+1..9 does on macOS, and tabs keep prefix+1..9.
+# Both lines sit inside Omarchy's [keys], so its switch_tab line is rewritten in
+# place; if Omarchy changes that line, this says so rather than guessing.
+omarchy_switch_tab='switch_tab = ["prefix+1..9", "alt+1..9"]'
+if ! grep -q '^focus_agent = ' "$config"; then
+  if grep -qxF "$omarchy_switch_tab" "$config"; then
+    tmp=$(mktemp)
+    awk -v line="$omarchy_switch_tab" '
+      $0 == line { print "switch_tab = \"prefix+1..9\""; print "focus_agent = \"alt+1..9\""; next }
+      { print }
+    ' "$config" >"$tmp"
+    cat "$tmp" >"$config"
+    rm -f "$tmp"
+    changed=true
+  else
+    echo "herdr-agent-keys: Omarchy's switch_tab line changed; Alt+1..9 still switches tabs" >&2
+  fi
+fi
+
+if ! grep -qxF "$marker" "$config"; then
+  cat >>"$config" <<'KEYS'
 
 # dotfiles: agent keys
 [[keys.command]]
@@ -34,7 +54,9 @@ type = "popup"
 command = "\"$SHELL\" -ic 'hrd || read -r _'"
 description = "finish agent, removing its worktree and branch (hrd)"
 KEYS
+  changed=true
+fi
 
-if command -v herdr >/dev/null; then
+if $changed && command -v herdr >/dev/null; then
   herdr server reload-config >/dev/null 2>&1 || true
 fi

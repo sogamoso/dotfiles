@@ -9,11 +9,22 @@ _layout_subdirs() {
   find "$PWD" -mindepth 1 -maxdepth 1 -type d ! -name '.*' | sort
 }
 
-# The agent to run when none is given: Omarchy's default agent through its `a`
-# alias when one is set, Claude Code through `cx` otherwise
+# The default agent's name: Omarchy's on Omarchy, the one `dotfiles agent` sets
+# on macOS, or nothing when neither is chosen
+# Usage: _layout_default_agent_name
+_layout_default_agent_name() {
+  if command -v omarchy-default-agent >/dev/null; then
+    omarchy-default-agent
+  elif command -v dotfiles >/dev/null; then
+    dotfiles agent 2>/dev/null
+  fi
+}
+
+# The agent to run when none is given: the default agent through its `a` alias
+# when one is chosen, Claude Code through `cx` otherwise
 # Usage: _layout_default_agent
 _layout_default_agent() {
-  if command -v omarchy-default-agent >/dev/null && [[ -n $(omarchy-default-agent) ]]; then
+  if [[ -n $(_layout_default_agent_name) ]]; then
     echo a
   else
     echo cx
@@ -25,7 +36,7 @@ _layout_default_agent() {
 # Usage: _layout_harness <agent>
 _layout_harness() {
   local cmd="${1%% *}"
-  [[ $cmd == "a" ]] && cmd=$(omarchy-default-agent 2>/dev/null)
+  [[ $cmd == "a" ]] && cmd=$(_layout_default_agent_name)
 
   case "$cmd" in
     cx|claude) echo claude ;;
@@ -54,17 +65,27 @@ _layout_with_prompt() {
   printf -v quoted '%q' "$2"
 
   if [[ ${1%% *} == "a" ]]; then
-    echo "omarchy-agent --inline --prompt $quoted"
+    if command -v omarchy-agent >/dev/null; then
+      printf '%s\n' "omarchy-agent --inline --prompt $quoted"
+    else
+      printf '%s\n' "dotfiles agent run --prompt $quoted"
+    fi
     return
   fi
 
   case "$(_layout_harness "$1")" in
-    claude|codex|grok|muse|omp) echo "$1 -- $quoted" ;;
-    opencode) echo "$1 --prompt $quoted" ;;
-    cursor) echo "$1 agent -- $quoted" ;;
-    agy|gemini) echo "$1 --prompt-interactive $quoted" ;;
-    copilot) echo "$1 --interactive $quoted" ;;
-    pi) echo "$1 $quoted" ;;
+    claude|codex|commandcode|grok|mcode|muse|omp) printf '%s\n' "$1 -- $quoted" ;;
+    opencode) printf '%s\n' "$1 --prompt $quoted" ;;
+    cursor) printf '%s\n' "$1 agent -- $quoted" ;;
+    agy|gemini) printf '%s\n' "$1 --prompt-interactive $quoted" ;;
+    copilot) printf '%s\n' "$1 --interactive $quoted" ;;
+    crush) printf '%s\n' "$1 run $quoted" ;;
+    kilo) printf '%s\n' "$1 --prompt=$quoted" ;;
+    kimi) printf '%s\n' "$1 --prompt $quoted" ;;
+    ori) printf '%s\n' "$1 --interactive --prompt $quoted" ;;
+    pi) printf '%s\n' "$1 $quoted" ;;
+    qwen) printf '%s\n' "$1 --prompt-interactive=$quoted" ;;
+    amp) printf '%s\n' "$1 <<< $quoted" ;;
     *) echo "No known way to give $1 a task." >&2; return 1 ;;
   esac
 }
@@ -161,7 +182,7 @@ hra() {
   local agent task name candidate
   local agents=""
 
-  for candidate in $(_layout_default_agent) cx cy c cursor-agent gemini agy amp copilot crush grok pi; do
+  for candidate in $(_layout_default_agent) cx cy c cursor-agent gemini agy amp copilot crush grok kilo kimi mcode muse omp ori pi qwen commandcode; do
     [[ $candidate == "a" ]] && { agents+="a"$'\n'; continue; }
     [[ $agents == *"$candidate"$'\n'* ]] && continue
     command -v "$candidate" >/dev/null 2>&1 && agents+="$candidate"$'\n'

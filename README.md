@@ -128,6 +128,7 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, 1Password, Vicinae, brew autoupdate) and print the fix for anything wrong |
 | `dotfiles vicinae [status \| save \| reset]` | Compare Vicinae's settings and store extensions with the repo. `save` keeps what changed on this Mac (commit the result), `reset` drops it |
 | `dotfiles omarchy-downstream-candidates` | Review what changed in Omarchy since the last review and which of it to port, in Claude Code (Codex if Claude isn't installed) with the `omarchy-downstream` skill. `--list` prints the raw changes; `--mark-reviewed` records the review in `.omarchy-reviewed` |
+| `dotfiles agent [<name>]` | Show or set the default coding agent, like Omarchy's `omarchy default agent`, with the same names (`gemini` picks Antigravity, `cursor` the Cursor CLI). The `a` alias launches it with Omarchy's flags for that agent, and the herdr layouts use it when no agent is given |
 | `dotfiles edit` | Open the repo in `$VISUAL` |
 
 Set `$DOTFILES` to override the repo location (default: `~/Code/sogamoso/dotfiles`).
@@ -397,7 +398,7 @@ The tmux twins of the herdr review layouts, from the same [`layouts.zsh`](stow/z
 
 ##### herdr
 
-Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate the tmux-style navigation (`Cmd + digits` for tabs, `Cmd + arrows` for tabs and workspaces). Config lives in [`stow/macos/.config/herdr/config.toml`](stow/macos/.config/herdr/config.toml).
+Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate the tmux-style navigation (`Cmd + arrows` for tabs and workspaces), except `Cmd + digits`, which jump to agents. Config lives in [`stow/macos/.config/herdr/config.toml`](stow/macos/.config/herdr/config.toml).
 
 | Hotkey | Action |
 |---|---|
@@ -407,7 +408,8 @@ Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate th
 | `prefix + z / x` | Zoom / close pane |
 | `prefix + r / [` | Resize mode / copy mode (`v` select, `y` copy) |
 | `prefix + c` | New tab |
-| `Cmd + 1-9` | Switch tab (also `prefix + 1-9`) |
+| `Cmd + 1-9` | Jump to agent 1–9, in workspace order; on Omarchy `Alt + 1-9` |
+| `prefix + 1-9` | Switch tab |
 | `Cmd + Left/Right` | Previous / next tab |
 | `Cmd + Shift + Left/Right` | Move tab left / right |
 | `Cmd + Up/Down` | Previous / next workspace (also `prefix + Shift + P/N`) |
@@ -421,7 +423,7 @@ Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate th
 
 ##### herdr layouts
 
-Shell functions that build a whole herdr layout in one command. They run inside a herdr pane. The `hd*` and `hsl` ones are ported from Omarchy and live in [`stow/zsh/.config/zsh/aliases/herdr.zsh`](stow/zsh/.config/zsh/aliases/herdr.zsh). The `hr*` review layouts are this repo's own, so they ship for both shells in [`stow/zsh/.config/zsh/aliases/layouts.zsh`](stow/zsh/.config/zsh/aliases/layouts.zsh) and its bash twin. With no agent given they run Omarchy's default agent (its `a` alias) when one is set, and `cx` otherwise.
+Shell functions that build a whole herdr layout in one command. They run inside a herdr pane. The `hd*` and `hsl` ones are ported from Omarchy and live in [`stow/zsh/.config/zsh/aliases/herdr.zsh`](stow/zsh/.config/zsh/aliases/herdr.zsh). The `hr*` review layouts are this repo's own, so they ship for both shells in [`stow/zsh/.config/zsh/aliases/layouts.zsh`](stow/zsh/.config/zsh/aliases/layouts.zsh) and its bash twin. With no agent given they run the default agent through `a` when one is set (`omarchy default agent` on Omarchy, `dotfiles agent` on macOS), and `cx` otherwise.
 
 | Command | Layout |
 |---|---|

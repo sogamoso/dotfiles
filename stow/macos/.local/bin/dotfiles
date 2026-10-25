@@ -23,6 +23,9 @@ Commands:
   omarchy-downstream-candidates [--list | --mark-reviewed]
             Review Omarchy changes worth porting, in Claude Code (or Codex);
             --list prints the raw changes, --mark-reviewed records the review
+  agent [<name> | run [--prompt <text>]]
+            Show or set the default coding agent, like omarchy default agent;
+            run launches it the way omarchy-agent does (the a alias)
   edit      Open the repo in \$VISUAL (defaults to nvim)
   help      Show this message
 EOF
@@ -423,6 +426,113 @@ cmd_vicinae() {
   esac
 }
 
+# The default coding agent, mirroring `omarchy default agent` and omarchy-agent:
+# the same names, and each agent started with the same unattended flags. Omarchy's
+# per-agent accounts aren't ported. Devin and Kiro are left out until mise can
+# install them on macOS (see the gaps in docs/macos-manual-setup.md).
+AGENT_FILE="$HOME/.config/dotfiles/defaults/agent"
+
+agent_name() {
+  case "$1" in
+    pi) echo pi ;;
+    omp|oh-my-pi) echo omp ;;
+    opencode|open-code) echo opencode ;;
+    ori|openrouter) echo ori ;;
+    claude|claude-code) echo claude ;;
+    codex) echo codex ;;
+    crush) echo crush ;;
+    grok) echo grok ;;
+    agy|antigravity|antigravity-cli|gemini|gemini-cli) echo agy ;;
+    copilot|github-copilot) echo copilot ;;
+    muse|muse-code|musecode) echo muse ;;
+    cursor|cursor-agent) echo cursor-agent ;;
+    kimi|kimi-code) echo kimi ;;
+    qwen|qwen-code) echo qwen ;;
+    dsh|deepseek|deepseek-harness) echo dsh ;;
+    mcode|minimax-code|minimax) echo mcode ;;
+    freebuff) echo freebuff ;;
+    kilo|kilocode|kilo-code) echo kilo ;;
+    amp|ampcode) echo amp ;;
+    commandcode|command-code|cmdc) echo commandcode ;;
+    *) return 1 ;;
+  esac
+}
+
+agent_run() {
+  local agent prompt="" clipboard=false
+  local -a command
+
+  [[ ${1:-} == "--prompt" ]] && prompt=${2:?--prompt needs a value}
+  [[ -f $AGENT_FILE ]] && read -r agent <"$AGENT_FILE"
+  if [[ -z ${agent:-} ]]; then
+    echo "Choose a default agent with: dotfiles agent <name>" >&2
+    exit 1
+  fi
+
+  case "$agent" in
+    opencode) command=(opencode --auto); [[ -n $prompt ]] && command+=(--prompt "$prompt") ;;
+    agy) command=(agy --dangerously-skip-permissions); [[ -n $prompt ]] && command+=(--prompt-interactive "$prompt") ;;
+    copilot) command=(copilot --allow-all); [[ -n $prompt ]] && command+=(--interactive "$prompt") ;;
+    crush) if [[ -n $prompt ]]; then command=(crush run "$prompt"); else command=(crush --yolo); fi ;;
+    claude) command=(claude --permission-mode auto); [[ -n $prompt ]] && command+=(-- "$prompt") ;;
+    grok) command=(grok --permission-mode bypassPermissions); [[ -n $prompt ]] && command+=(-- "$prompt") ;;
+    codex) command=(codex --approve-for-me); [[ -n $prompt ]] && command+=(-- "$prompt") ;;
+    cursor-agent) command=(cursor-agent --yolo --trust); [[ -n $prompt ]] && command+=(agent -- "$prompt") ;;
+    muse) command=(muse --approval-mode never); [[ -n $prompt ]] && command+=(-- "$prompt") ;;
+    omp) command=(omp --auto-approve); [[ -n $prompt ]] && command+=(-- "$prompt") ;;
+    ori) command=(ori code); [[ -n $prompt ]] && command+=(--interactive --prompt "$prompt") ;;
+    pi) command=(pi); [[ -n $prompt ]] && command+=("$prompt") ;;
+    kimi) if [[ -n $prompt ]]; then command=(kimi --prompt "$prompt"); else command=(kimi --yolo); fi ;;
+    qwen) command=(qwen --yolo); [[ -n $prompt ]] && command+=("--prompt-interactive=$prompt") ;;
+    dsh) command=(env DSH_PERMISSION_MODE=danger-full-access dsh web); clipboard=true ;;
+    mcode) command=(mcode); [[ -n $prompt ]] && command+=(-- "$prompt") ;;
+    freebuff) command=(freebuff); clipboard=true ;;
+    kilo) command=(kilo --auto); [[ -n $prompt ]] && command+=("--prompt=$prompt") ;;
+    amp)
+      # Amp takes its first message from piped input; a positional one exits after a turn
+      if [[ -n $prompt ]]; then
+        command=(bash -c 'printf "%s\n" "$1" | exec amp --dangerously-allow-all' amp "$prompt")
+      else
+        command=(amp --dangerously-allow-all)
+      fi
+      ;;
+    commandcode) command=(commandcode --yolo); [[ -n $prompt ]] && command+=(-- "$prompt") ;;
+    *) echo "Unsupported default agent: $agent" >&2; exit 1 ;;
+  esac
+
+  # Agents with no starting prompt get it on the clipboard instead, as Omarchy does
+  if $clipboard && [[ -n $prompt ]]; then
+    printf '%s' "$prompt" | pbcopy
+    echo "The task is on the clipboard; paste it into $agent."
+  fi
+
+  exec "${command[@]}"
+}
+
+cmd_agent() {
+  local agent
+  case "${1:-}" in
+    "")
+      [[ -f $AGENT_FILE ]] && read -r agent <"$AGENT_FILE" && echo "$agent"
+      return 0
+      ;;
+    run) shift; agent_run "$@" ;;
+    *)
+      if ! agent=$(agent_name "$1"); then
+        echo "Unknown agent: $1" >&2
+        exit 64
+      fi
+      if ! command -v "$agent" >/dev/null; then
+        echo "$agent isn't installed: it isn't in the Brewfile or the mise agents" >&2
+        exit 1
+      fi
+      mkdir -p "$(dirname "$AGENT_FILE")"
+      echo "$agent" >"$AGENT_FILE"
+      echo "Default agent: $agent"
+      ;;
+  esac
+}
+
 cmd_edit() {
   ${VISUAL:-nvim} "$DOTFILES"
 }
@@ -437,6 +547,7 @@ case "${1:-help}" in
   doctor)         cmd_doctor ;;
   vicinae)        shift; cmd_vicinae "$@" ;;
   omarchy-downstream-candidates) shift; cmd_omarchy "$@" ;;
+  agent)          shift; cmd_agent "$@" ;;
   edit)           cmd_edit ;;
   help|-h|--help) usage ;;
   *)              echo "Unknown command: $1" >&2; usage >&2; exit 64 ;;
