@@ -414,6 +414,9 @@ What is left worth tracking:
 | Tray | Not ported; the macOS menu bar is the tray |
 | Do not disturb, night light, screen recording, dictation and remote session indicators | Not ported. Focus and Night Shift state can't be read reliably without Full Disk Access or private interfaces, and macOS shows its own recording and dictation indicators. A remote session indicator wasn't attempted |
 | Herdr layouts (`hdl`/`hds`/`hdlm`/`hsl`) | ✅ Ported to zsh in `stow/zsh/.config/zsh/aliases/herdr.zsh` |
+| Coding agents Omarchy declares as lazy mise tools | ✅ Declared the same way in `stow/macos/.config/mise/conf.d/agents.toml`; Claude Code, Codex, OpenCode, Cursor CLI and Gemini CLI come from the Brewfile |
+| Devin CLI and Kiro CLI | Not ported. Omarchy's mise entries download Linux builds only. Add them once mise can fetch Apple Silicon builds on demand |
+| Agents updating themselves every four hours (mise `auto_update`) | Not ported. On mise 2026.10.19 it breaks how the shim calls the agent, so the agents update with `mise upgrade`. Revisit after a mise upgrade |
 | SSH reconnect and terminal cleanup on drop | ✅ Keepalives surface a dead link in ~45s; no terminal-state reset |
 | Themes generating nvim/btop/VS Code colors from one colorset | No generator. `themes/tokyo-night/colors.toml` is the palette to copy by hand into apps without a Tokyo Night theme, Slack included |
 | Visual theme and background switchers | No equivalent |

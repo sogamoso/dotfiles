@@ -417,7 +417,7 @@ Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate th
 | `prefix + Shift + A` | New agent on a task: pick the agent, type the task and an optional branch (`hra`) |
 | `prefix + f` | Finish the focused agent: confirm, then delete its branch and worktree (`hrd`) |
 | `prefix + o` | Jump to the agent that last raised a notification, the latest one waiting on you (herdr default) |
-| `prefix + Cmd + 1-9` | Jump to agent 1–9 in the agents panel |
+| `prefix + Shift + 1-9` | Switch to workspace 1–9, and so to an agent, since each agent has its own (herdr default) |
 
 ##### herdr layouts
 
@@ -455,6 +455,7 @@ The Linux setup (`install/linux/all.sh`) runs these scripts in order:
 |--------|-------------|
 | `../dotfiles/stow.sh` | Stows the cross-platform packages plus `linux`, taking `~/.config/hypr/bindings.lua` over from `/etc/skel` |
 | `bashrc.sh` | Appends the personal supplement source to `.bashrc` |
+| `herdr-keys.sh` | Adds the agent keys (`prefix + a`, `prefix + Shift + A`, `prefix + f`) to Omarchy's herdr config |
 
 #### What gets customized
 
@@ -464,6 +465,7 @@ The Linux setup (`install/linux/all.sh`) runs these scripts in order:
 | Shell | `~/.config/bash/supplement.bash` plus per-tool aliases, sourced from Omarchy's own bashrc slot |
 | Theme | Stock `tokyo-night`; Omarchy already ships it and the colors match |
 | Bar, menu, notifications | Omarchy stock — nothing ported |
+| herdr | Omarchy's config, plus the agent keys appended by an Omarchy `post-update.d` hook, so they come back if an update replaces the file. The keys match the macOS ones |
 
 #### Binding deltas
 
@@ -483,4 +485,5 @@ Everything else matches Omarchy's defaults.
 - **`herdr.zsh`** — Omarchy ships `default/bash/fns/herdr` natively. The zsh file is a hand-port for macOS; re-porting it would shadow the real thing.
 - **Typora** — `Super + Shift + W` keeps Omarchy's Omawrite. Typora is a macOS habit, not a reason to add a package here.
 - **sketchybar plugins and Vicinae script commands** — Omarchy's bar and `omarchy menu` already cover reminders, the keybinding cheatsheet, and system toggles.
-- **ghostty, btop, herdr, git, lazygit configs** — Omarchy ships its own and rewrites them on every theme switch. Stowing the macOS versions would fight its theming.
+- **ghostty, btop, git, lazygit configs** — Omarchy ships its own and rewrites them on every theme switch. Stowing the macOS versions would fight its theming.
+- **The herdr config** — Omarchy ships its own, following the terminal's palette, and only `omarchy-refresh-herdr` replaces it. Only the agent keys are added to it (see above).

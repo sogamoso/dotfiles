@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Adds the agent keys from layouts.bash to herdr's config. On Omarchy that file is
+# Omarchy's to ship, and an update migration can replace it through
+# omarchy-refresh-herdr, so Omarchy runs this after every update and the Linux
+# install runs it once. The blocks match the macOS herdr config; keep the two in
+# sync.
+
+config="$HOME/.config/herdr/config.toml"
+marker="# dotfiles: agent keys"
+
+[[ -f $config ]] || exit 0
+grep -qxF "$marker" "$config" && exit 0
+
+cat >>"$config" <<'KEYS'
+
+# dotfiles: agent keys
+[[keys.command]]
+key = "prefix+a"
+type = "popup"
+command = "\"$SHELL\" -ic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hrw || read -r _'"
+description = "new agent on its own worktree (hrw)"
+
+[[keys.command]]
+key = "prefix+shift+a"
+type = "popup"
+command = "\"$SHELL\" -ic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hra || read -r _'"
+description = "new agent on a task (hra)"
+
+[[keys.command]]
+key = "prefix+f"
+type = "popup"
+command = "\"$SHELL\" -ic 'hrd || read -r _'"
+description = "finish agent, removing its worktree and branch (hrd)"
+KEYS
+
+if command -v herdr >/dev/null; then
+  herdr server reload-config >/dev/null 2>&1 || true
+fi

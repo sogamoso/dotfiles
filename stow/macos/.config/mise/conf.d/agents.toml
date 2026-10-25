@@ -1,0 +1,25 @@
+# The coding agents Omarchy declares in /etc/mise/conf.d/omarchy-tools.toml, so
+# both machines offer the same ones. Each installs on first run and costs nothing
+# until then. Omarchy declares them itself on Linux, so this is macOS only.
+#
+# Left out: Claude Code, Codex, OpenCode, Cursor CLI and Gemini CLI, which come
+# from the Brewfile; devin and kiro-cli, whose Omarchy entries download Linux
+# builds only. Omarchy's auto_update = "4h" is left out too: on mise 2026.10.19
+# it breaks how the shim calls the agent, so these update with `mise upgrade`.
+[tools]
+amp = { version = "latest", lazy = true, lazy_bins = ["amp"], minimum_release_age = "0s" }
+antigravity-cli = { version = "latest", lazy = true, minimum_release_age = "0s" }
+copilot = { version = "latest", lazy = true, minimum_release_age = "0s" }
+crush = { version = "latest", lazy = true, minimum_release_age = "0s" }
+grok = { version = "latest", lazy = true, minimum_release_age = "0s" }
+muse = { version = "latest", lazy = true, minimum_release_age = "0s" }
+"npm:@deepseek-ai/dsh" = { version = "latest", lazy = true, lazy_bins = ["dsh"], minimum_release_age = "0s" }
+"npm:@kilocode/cli" = { version = "latest", lazy = true, lazy_bins = ["kilo"], minimum_release_age = "0s" }
+"npm:@minimax-ai/code" = { version = "latest", lazy = true, lazy_bins = ["mcode"], minimum_release_age = "0s", allow_builds = "better-sqlite3" }
+"npm:@moonshot-ai/kimi-code" = { version = "latest", lazy = true, lazy_bins = ["kimi"], minimum_release_age = "0s" }
+"npm:command-code" = { version = "latest", lazy = true, lazy_bins = ["commandcode"], minimum_release_age = "0s" }
+"npm:freebuff" = { version = "latest", lazy = true, lazy_bins = ["freebuff"], minimum_release_age = "0s" }
+oh-my-pi = { version = "latest", lazy = true, minimum_release_age = "0s" }
+ori = { version = "latest", lazy = true, minimum_release_age = "0s" }
+pi = { version = "latest", lazy = true, minimum_release_age = "0s" }
+qwen = { version = "latest", lazy = true, minimum_release_age = "0s" }

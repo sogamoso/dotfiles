@@ -60,3 +60,9 @@ if [[ -n $failed ]]; then
 else
   log_success "Dotfiles stowed"
 fi
+
+# Lazy mise tools, such as the agents in the macOS mise conf.d, only get a command
+# on PATH once their shims exist, and stow can add or drop one
+if command -v mise >/dev/null; then
+  mise reshim
+fi

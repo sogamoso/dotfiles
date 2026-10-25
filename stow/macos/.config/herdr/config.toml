@@ -34,10 +34,6 @@ resize_pane_right = "ctrl+alt+shift+right"
 move_tab_previous = "alt+shift+left"
 move_tab_next     = "alt+shift+right"
 
-# Jump straight to agent N in the agents panel; prefix+o already opens whichever
-# agent last raised a notification.
-focus_agent = "prefix+alt+1..9"
-
 # A new review agent on its own worktree (hrw from layouts.zsh), for the repo the
 # focused pane is in. A popup rather than a detached shell, so a failure stays on
 # screen until a key is pressed; on success it closes on its own.
