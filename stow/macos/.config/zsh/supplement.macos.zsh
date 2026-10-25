@@ -20,3 +20,6 @@ if [[ -t 1 ]] && command -v op >/dev/null 2>&1 && command -v compdef >/dev/null 
   eval "$(op completion zsh)"
   compdef _op op
 fi
+
+# Tokyo Night for gum's prompts
+source "$HOME/.config/zsh/gum.zsh"

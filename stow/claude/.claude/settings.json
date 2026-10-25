@@ -58,6 +58,7 @@
       }
     }
   },
+  "theme": "custom:omarchy",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "inputNeededNotifEnabled": true,

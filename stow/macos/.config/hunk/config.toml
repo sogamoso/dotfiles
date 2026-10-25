@@ -1,0 +1,3 @@
+# Follow the terminal's palette, so hunk is Tokyo Night like Ghostty. Hunk
+# otherwise defaults to github-dark-default.
+theme = "terminal"
