@@ -119,7 +119,7 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 
 | Command | Action |
 |---|---|
-| `dotfiles update` | Pull, sync Brewfile, restow, reload services, install Vicinae extensions added on another Mac. Also runs daily at 10:30, followed by `dotfiles doctor`, from the `com.sogamoso.dotfiles-daily` agent (skipped on battery). That run only installs new Brewfile entries and leaves upgrades to brew autoupdate, which can ask for a password; a notification gives the result and opens the log at `/tmp/com.sogamoso.dotfiles-daily.log` |
+| `dotfiles update` | Pull, sync Brewfile, restow, reload services, install Vicinae extensions added on another Mac, update every installed mise tool (`mise up`, as `omarchy update` does). Also runs daily at 10:30, followed by `dotfiles doctor`, from the `com.sogamoso.dotfiles-daily` agent (skipped on battery). That run only installs new Brewfile entries and leaves upgrades to brew autoupdate, which can ask for a password; a notification gives the result and opens the log at `/tmp/com.sogamoso.dotfiles-daily.log` |
 | `dotfiles pull` | Git pull only |
 | `dotfiles brew` | Sync Brewfile via `brew bundle`, keep brew autoupdate current |
 | `dotfiles stow` | Re-stow all packages |

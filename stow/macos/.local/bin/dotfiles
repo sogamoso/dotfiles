@@ -10,7 +10,7 @@ usage() {
 Usage: dotfiles <command>
 
 Commands:
-  update    Pull, sync Brewfile, restow, reload services
+  update    Pull, sync Brewfile, restow, reload services, update mise tools
   pull      Git pull only
   brew      Sync Brewfile, keep brew autoupdate current
   stow      Re-stow all dotfile packages
@@ -158,8 +158,17 @@ cmd_update() {
   cmd_reload
   # Picks up extensions added on the other Mac; settings arrive through the stow
   run python3 "$DOTFILES/install/lib/vicinae.py" install || true
+  # Every installed mise tool, as omarchy update does: an update is a request
+  # for current versions, so mise's cooldown on new releases is skipped, the
+  # same call the mup alias makes. Tools never run stay uninstalled.
+  local mise_failed=0
+  MISE_MINIMUM_RELEASE_AGE=0 run mise up || mise_failed=1
   if (( brew_failed )); then
     echo "==> Homebrew step failed; run dotfiles brew in a terminal to finish it"
+    return 1
+  fi
+  if (( mise_failed )); then
+    echo "==> mise up failed; see its output above"
     return 1
   fi
 }
