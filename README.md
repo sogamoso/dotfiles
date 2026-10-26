@@ -182,6 +182,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `aerospace.sh` | Starts AeroSpace only if not already running |
 | `vicinae.sh` | Points Vicinae's `settings.json` at the stowed `dotfiles.json`, installs the store extensions in `extensions.txt`, then launches it |
 | `neovim.sh` | Builds `~/Applications/Neovim.app`, which opens files in Neovim in a new Ghostty window, and makes it the default for text and code file types (via `duti`) |
+| `terminal.sh` | Makes Ghostty the default terminal: it runs double-clicked `.command` and `.tool` scripts and Unix executables, which open in Terminal.app otherwise (via `duti`). `.sh` files stay with Neovim, and `ssh://` and `x-man-page://` links with Terminal.app, since Ghostty doesn't take them |
 | `manual_steps.sh` | Opens the manual setup guide, first run only |
 
 #### Workspace layout
@@ -478,6 +479,7 @@ The Linux setup (`install/linux/all.sh`) runs these scripts in order:
 |--------|-------------|
 | `../dotfiles/stow.sh` | Stows the cross-platform packages plus `linux`, taking `~/.config/hypr/bindings.lua` over from `/etc/skel` |
 | `bashrc.sh` | Appends the personal supplement source to `.bashrc` |
+| `terminal.sh` | Makes Ghostty the default terminal, in place of Omarchy's foot, through `omarchy-default-terminal`, which installs it if missing and writes `~/.config/xdg-terminals.list` |
 | `herdr-keys.sh` | Adds the agent keys (`prefix + a`, `prefix + Shift + A`, `prefix + f`), the worktree plugin's `prefix + u` and the [pull request status](#pull-request-status) (tab bar entry, sidebar row, `prefix + Shift + U`) to Omarchy's herdr config |
 | `terminal-browser.sh` | Installs [terminal-browser](https://github.com/zenbu-labs/terminal-browser) for the pull request popup, which macOS gets from its Homebrew cask: the pinned release, checked against the cask's sha256, linked into `~/.local/bin`. Bump the version and both sums together, from the cask |
 
@@ -488,6 +490,7 @@ The Linux setup (`install/linux/all.sh`) runs these scripts in order:
 | Keybindings | `~/.config/hypr/bindings.lua` — only the app deltas, via `o.rebind` / `o.bind` |
 | Shell | `~/.config/bash/supplement.bash` plus per-tool aliases, sourced from Omarchy's own bashrc slot |
 | Theme | Stock `tokyo-night`; Omarchy already ships it and the colors match |
+| Terminal | Ghostty, as on macOS, instead of Omarchy's default foot. Set with Omarchy's own `omarchy-default-terminal`, so Super + Return and every other terminal launch follow it; its config is Omarchy's |
 | Bar, menu, notifications | Omarchy stock — nothing ported |
 | herdr | Omarchy's config, plus the agent and plugin keys and the pull request status added by an Omarchy `post-update.d` hook, so they come back if an update replaces the file. The status command joins Omarchy's own `tab_bar_right` line; the hook warns if that line changes. The keys match the macOS ones. The [herdr plugins](#herdr-plugins) and the `herdr` stow package are the same as on macOS |
 
