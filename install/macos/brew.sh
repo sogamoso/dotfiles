@@ -21,7 +21,6 @@ log_heading "Installing Homebrew packages..."
 source "$REPO_DIR/install/lib/brew-trust.sh"
 brew_trust_taps "$REPO_DIR/Brewfile"
 
-# Install personal packages (Omadots handles core packages)
 brew bundle --file "$REPO_DIR/Brewfile"
 brew cleanup || log_warn "brew cleanup had errors (often root-owned kegs from sudo services); continuing"
 

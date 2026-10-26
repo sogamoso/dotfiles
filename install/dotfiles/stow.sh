@@ -13,8 +13,8 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 # Ensure .ssh exists before stowing SSH config
 mkdir -p "$HOME/.ssh"
 
-# Claude Code writes its own settings, and Omadots/Omarchy copy a whole config
-# tree into ~/.config, mise's included. Nothing is known to write
+# Claude Code writes its own settings, and Omarchy copies a whole config tree
+# into ~/.config, mise's included. Nothing is known to write
 # ~/.codex/AGENTS.md — it's here because a real file at that path conflicts the
 # whole codex package, not just the one link. Skills are not stowed: they go to
 # two agents, so skills.sh links them and handles what ui.sh leaves behind.

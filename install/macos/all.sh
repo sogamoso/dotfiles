@@ -4,7 +4,7 @@ set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 bash "$DIR/xcode.sh"
-bash "$DIR/omadots.sh"
+bash "$DIR/lazyvim.sh"
 bash "$DIR/security.sh"
 bash "$DIR/brew.sh"
 

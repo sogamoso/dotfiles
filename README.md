@@ -159,14 +159,14 @@ Two patterns keep configs portable:
 
 ### macOS
 
-Heavily inspired by [Omarchy](https://github.com/basecamp/omarchy), built on top of [Omadots](https://github.com/omacom-io/omadots). Works on a fresh macOS install with no prior tooling. The installer bootstraps everything from scratch — shell framework, packages, and dotfile symlinks.
+Heavily inspired by [Omarchy](https://github.com/basecamp/omarchy), with its shell, tmux and starship configs ported from Omarchy's own: zsh files in `stow/zsh/.config/zsh/omarchy/` mirror its `default/bash`. Works on a fresh macOS install with no prior tooling. The installer bootstraps everything from scratch — editor, packages, and dotfile symlinks.
 
 The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 
 | Script | What it does |
 |--------|-------------|
 | `xcode.sh` | Checks for Xcode Command Line Tools, opens installer if missing, then exits for rerun after install |
-| `omadots.sh` | Installs [Omadots](https://github.com/omacom-io/omadots) for LazyVim; the shell, tmux and starship configs come from Omarchy's, ported in the stow packages |
+| `lazyvim.sh` | Installs the [LazyVim](https://www.lazyvim.org) starter into `~/.config/nvim` if missing, before stow links the repo's plugins into it |
 | `security.sh` | Turns off Remote Login (SSH goes through Tailscale SSH), hardens sshd, enables the firewall |
 | `brew.sh` | Installs all packages from `Brewfile` |
 | `onepassword.sh` | Opens 1Password for sign-in and SSH agent setup |
