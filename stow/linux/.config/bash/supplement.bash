@@ -14,6 +14,9 @@ export LANG="en_US.UTF-8"
 export VISUAL="nvim"
 export SUDO_EDITOR="nvim"
 
+# terminal-browser sends usage telemetry unless told not to
+export TERMINAL_BROWSER_NO_TELEMETRY=1
+
 # Personal aliases
 if [[ -d "$HOME/.config/bash/aliases" ]]; then
   for file in "$HOME/.config/bash/aliases"/*.bash; do

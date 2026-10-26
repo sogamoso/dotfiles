@@ -20,6 +20,7 @@ stow/
   codex/                   # Codex AGENTS.md (points at the Claude Code instructions)
   editorconfig/            # .editorconfig
   git/                     # .gitconfig, global .gitignore, SSH allowed signers
+  herdr/                   # Third-party herdr plugin config and the pull request status scripts (herdr's own config is per OS)
   linux/                   # Omarchy-only configs (stowed only on Linux)
   macos/                   # macOS-only configs (stowed only on Darwin)
   mise/                    # mise config (node + ruby via latest); the macOS agents and tools are in macos/.config/mise/conf.d
@@ -123,9 +124,9 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles pull` | Git pull only |
 | `dotfiles brew` | Sync Brewfile via `brew bundle`, keep brew autoupdate current |
 | `dotfiles stow` | Re-stow all packages |
-| `dotfiles reload` | Re-stow, relink skills, restart SketchyBar, reload AeroSpace, restart a stale herdr server |
+| `dotfiles reload` | Re-stow, relink skills, restart SketchyBar, reload AeroSpace, restart a stale herdr server, relink the herdr plugins |
 | `dotfiles status` | Branch, ahead/behind, dirty files |
-| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, 1Password, Vicinae, brew autoupdate) and print the fix for anything wrong |
+| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, herdr plugins, 1Password, Vicinae, brew autoupdate) and print the fix for anything wrong |
 | `dotfiles vicinae [status \| save \| reset]` | Compare Vicinae's settings and store extensions with the repo. `save` keeps what changed on this Mac (commit the result), `reset` drops it |
 | `dotfiles omarchy-downstream-candidates` | Review what changed in Omarchy since the last review and which of it to port, in Claude Code (Codex if Claude isn't installed) with the `omarchy-downstream` skill. `--list` prints the raw changes: new and removed key bindings, commits touching what the macOS side ports, files added or removed outside the areas set aside as Linux-only, new migrations that mention something used here, and any Omarchy area not yet classified as ported or skipped. `--mark-reviewed` records the review in `.omarchy-reviewed` |
 | `dotfiles agent [<name>]` | Show or set the default coding agent, like Omarchy's `omarchy default agent`, with the same names (`gemini` picks Antigravity, `cursor` the Cursor CLI). The `a` alias launches it with Omarchy's flags for that agent, and the herdr layouts use it when no agent is given |
@@ -146,6 +147,7 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `codex.sh` | Installs the third-party Codex marketplaces and plugins |
 | `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server with Claude Code and Codex, and caches its token where the shells can export it |
 | `skills.sh` | Links every skill into both `~/.claude/skills` and `~/.codex/skills` — see [Skills](#skills) |
+| `herdr-plugins.sh` | Installs the pinned third-party herdr plugins and links the ones in `herdr-plugins/` — see [herdr plugins](#herdr-plugins) |
 
 ## Cross-platform design
 
@@ -420,6 +422,9 @@ Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate th
 | `prefix + a` | New agent on its own worktree (`hrw`) for the focused pane's repo |
 | `prefix + Shift + A` | New agent on a task: pick the agent, type the task and an optional branch (`hra`) |
 | `prefix + f` | Finish the focused agent: confirm, then delete its branch and worktree (`hrd`) |
+| `prefix + u` | Paste a pull request, an issue or a branch and get a worktree with an agent on it ([worktree plugin](#herdr-plugins)) |
+| `Ctrl + click` a pull request link | The same, for that pull request, from a pane in its repo ([worktree plugin](#herdr-plugins)) |
+| `prefix + Shift + U` | Open the focused branch's pull request in terminal-browser, in a popup; `Ctrl + Q` closes it ([pull request status](#pull-request-status)) |
 | `prefix + o` | Jump to the agent that last raised a notification, the latest one waiting on you (herdr default) |
 | `prefix + Shift + 1-9` | Switch to workspace 1–9, and so to an agent, since each agent has its own (herdr default) |
 
@@ -438,6 +443,20 @@ Shell functions that build a whole herdr layout in one command. They run inside 
 | `hrw [<name>] [<agent>] [<task>]` | New agent on its own worktree off `origin/main`: a worktree workspace, grouped under the repo, running `hrl`, with the mise config trusted. Without a name the branch is named after the harness: `claude-1` for `cx`, `codex-1` for `cy`, `opencode-1` for `c`, `cursor-1`, `gemini-1`, any agent Omarchy's `omarchy default agent` offers, or `agent-1` for anything else. A task becomes the agent's first prompt. Also on `prefix + a` |
 | `hra` | Ask for the agent, task and branch, then run `hrw`. Also on `prefix + Shift + A` |
 | `hrd` | Finish the agent whose workspace this is: confirm, delete its branch, remove its worktree and close the workspace, like Omarchy's `gd`. Also on `prefix + f` |
+
+##### herdr plugins
+
+Two plugins, set up on both Macs and Omarchy by `install/dotfiles/herdr-plugins.sh` and again on every `dotfiles reload`. `dotfiles doctor` checks both.
+
+[mkdir700/herdr-plugin-worktree](https://github.com/mkdir700/herdr-plugin-worktree) creates a worktree from a pull request, an issue or a branch and starts an agent on it, as Paseo and Conductor do. `prefix + u` opens its prompt. It's third-party code that launches agents, so it's pinned to a commit that was read first, in `install/lib/herdr-plugins.sh`; bump the pin only after reading what changed. Its config, in the `herdr` stow package, starts the agents through `cx` and `cy`, so they run with the same flags as everywhere else, rather than the `--dangerously-skip-permissions` its example config would set up. It needs `node` and a signed-in `gh`. It opens a fork's pull request like any other, agent included, so open those with care: our plugin below holds back what it can.
+
+The worktrees plugin in [`herdr-plugins/`](herdr-plugins) fills in what that one leaves out, and is linked from this checkout. Every new worktree, whether `hrw`, the worktree plugin or herdr's sidebar made it, gets its mise config trusted and a copy of the main checkout's env files (`.env`, `.env.local` and the like, up to three levels deep, `node_modules` skipped), which git leaves out of a fresh worktree. Files the worktree already has are left alone. A checkout whose commit isn't on `origin` or another local branch, such as a fork's pull request, gets neither. A `Ctrl + click` on a GitHub pull request link in a pane of that repo opens the worktree plugin's prompt and answers it with the link and the default agent, except for a fork's pull request, where it stops at the agent question for you to answer or cancel.
+
+##### Pull request status
+
+Every herdr workspace whose branch has an open pull request shows it under the branch in the sidebar, and the tab bar counts them, as in `PRs 🟢 2 🟠 1 🔴 1`. Green `passed` means checks are green, it's mergeable and nothing is asked of it: ready to merge. Orange `running` means checks are still running, it's waiting on review, or it's a draft. Red `blocked` means a check failed, it conflicts, changes were requested, or it's behind its base.
+
+`pr-status.sh`, in the `herdr` stow package, works this out every 30 seconds from one `gh pr list` per repo, run by the tab bar's status area, and reports it as each workspace's `$pr` token. The sidebar rows and their colours are in the herdr config. `prefix + Shift + U` opens the pull request in [terminal-browser](https://github.com/zenbu-labs/terminal-browser), a Chromium that draws in the terminal, inside a popup, so only one is ever open; `Ctrl + Q` closes it. It draws through the Kitty graphics protocol, which herdr passes on, so it needs a terminal that speaks it, such as Ghostty; Alacritty doesn't. macOS installs it from its Homebrew cask, Omarchy through `install/linux/terminal-browser.sh`, and where it's missing the default browser opens the pull request instead. Its usage telemetry, on by default, is turned off: `TERMINAL_BROWSER_NO_TELEMETRY=1` is set by both shells' supplement and by the popup itself. Everything here works the same on Omarchy.
 
 #### Manual setup guide
 
@@ -459,7 +478,8 @@ The Linux setup (`install/linux/all.sh`) runs these scripts in order:
 |--------|-------------|
 | `../dotfiles/stow.sh` | Stows the cross-platform packages plus `linux`, taking `~/.config/hypr/bindings.lua` over from `/etc/skel` |
 | `bashrc.sh` | Appends the personal supplement source to `.bashrc` |
-| `herdr-keys.sh` | Adds the agent keys (`prefix + a`, `prefix + Shift + A`, `prefix + f`) to Omarchy's herdr config |
+| `herdr-keys.sh` | Adds the agent keys (`prefix + a`, `prefix + Shift + A`, `prefix + f`), the worktree plugin's `prefix + u` and the [pull request status](#pull-request-status) (tab bar entry, sidebar row, `prefix + Shift + U`) to Omarchy's herdr config |
+| `terminal-browser.sh` | Installs [terminal-browser](https://github.com/zenbu-labs/terminal-browser) for the pull request popup, which macOS gets from its Homebrew cask: the pinned release, checked against the cask's sha256, linked into `~/.local/bin`. Bump the version and both sums together, from the cask |
 
 #### What gets customized
 
@@ -469,7 +489,7 @@ The Linux setup (`install/linux/all.sh`) runs these scripts in order:
 | Shell | `~/.config/bash/supplement.bash` plus per-tool aliases, sourced from Omarchy's own bashrc slot |
 | Theme | Stock `tokyo-night`; Omarchy already ships it and the colors match |
 | Bar, menu, notifications | Omarchy stock — nothing ported |
-| herdr | Omarchy's config, plus the agent keys appended by an Omarchy `post-update.d` hook, so they come back if an update replaces the file. The keys match the macOS ones |
+| herdr | Omarchy's config, plus the agent and plugin keys and the pull request status added by an Omarchy `post-update.d` hook, so they come back if an update replaces the file. The status command joins Omarchy's own `tab_bar_right` line; the hook warns if that line changes. The keys match the macOS ones. The [herdr plugins](#herdr-plugins) and the `herdr` stow package are the same as on macOS |
 
 #### Binding deltas
 
