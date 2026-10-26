@@ -385,10 +385,14 @@ Prefix is `Ctrl + Space`.
 
 ##### tmux layouts
 
-The tmux twins of the herdr review layouts, from the same [`layouts.zsh`](stow/zsh/.config/zsh/aliases/layouts.zsh). They run inside a tmux pane.
+Shell functions that build a whole tmux layout in one command. They run inside a tmux pane. The `td*` and `tsl` ones are Omarchy's, from the port in [`stow/zsh/.config/zsh/omarchy/fns/tmux.zsh`](stow/zsh/.config/zsh/omarchy/fns/tmux.zsh). The `tr*` ones are the tmux twins of the herdr review layouts, from the same [`layouts.zsh`](stow/zsh/.config/zsh/aliases/layouts.zsh).
 
 | Command | Layout |
 |---|---|
+| `tdl <agent> [<agent2>]` | Editor left, agent in a 30% column right, terminal strip along the bottom; a second agent splits the agent column. `ic`, `ix` and `icx` start it with OpenCode, Claude Code, or both |
+| `tds` | 2×2: editor, hunk diff watch, terminal, opencode |
+| `tdlm <agent> [<agent2>]` | One `tdl` window per subdirectory of the current directory, with the session renamed after it; the current window takes the first |
+| `tsl <count> <command>` | Tile into a grid and run the same command in every pane |
 | `trl [<agent>]` | Review layout: agent left half, hunk diff watch top right, terminal bottom right |
 | `trlm [<agent>]` | One window per subdirectory, each running `trl`; the current window takes the first |
 | `trw [<name>] [<agent>] [<task>]` | New agent on its own worktree off `origin/main`, in a new window running `trl`, with branches named and tasks passed as in `hrw`. Checkouts go under `~/.herdr/worktrees`, where herdr would put them |
