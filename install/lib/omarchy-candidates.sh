@@ -20,8 +20,9 @@ OMARCHY_STATE_FILE="${OMARCHY_STATE_FILE:-$DOTFILES/.omarchy-reviewed}"
 # listed paths, so a whole approach Omarchy already had (agents as lazy mise
 # tools, its mise settings) never surfaced. Classifying everything closes that.
 
-# Ported: changes here can need bringing over. Shell aliases and functions,
-# terminal tools, herdr, git, the coding agents (which mise installs, how
+# Ported: changes here can need bringing over. The shell (default/bash, ported
+# file for file to stow/zsh/.config/zsh/omarchy), the tmux, starship and git
+# configs the macOS side copies, terminal tools, herdr, the coding agents (which mise installs, how
 # omarchy-agent launches each, the default agent), mise itself, hooks, launchers
 # and webapps, capture, the bar widgets SketchyBar ports, toggles, updates, the
 # CLI tools Omarchy installs, and the utilities status.sh, reminder.sh and
