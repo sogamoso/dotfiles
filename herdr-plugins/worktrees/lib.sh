@@ -15,7 +15,7 @@ github_slug() {
 }
 
 # Whether a checkout holds a fork's pull request. Nothing from such a checkout
-# runs on its own: no paseo.json setup, terminals or teardown, no mise trust and
+# runs on its own and nothing is copied into it: no mise trust, no env files and
 # no agent, since anyone can open a pull request from a fork. pr.sh marks it
 # twice, both out of the fork's reach: its branch in the repo's git config, in
 # place before the worktree.created hook runs, and the worktree's own git dir,
@@ -27,16 +27,6 @@ untrusted_checkout() {
   [[ -n $git_dir && -e $git_dir/untrusted-checkout ]] && return 0
   branch=$(git -C "$1" branch --show-current 2>/dev/null)
   [[ -n $branch && $(git -C "$1" config --get "branch.$branch.untrustedCheckout") == "true" ]]
-}
-
-# Where created.sh keeps the paseo.json a worktree was made with: its own git
-# dir, so teardown and terminals follow the config setup ran with, whatever
-# later happens to the checkout's copy
-# Usage: paseo_config <worktree>
-paseo_config() {
-  local git_dir
-  git_dir=$(git -C "$1" rev-parse --absolute-git-dir 2>/dev/null) || return 1
-  echo "$git_dir/paseo.json"
 }
 
 # The main checkout of the repo <dir> is in, even from one of its worktrees.
@@ -62,14 +52,4 @@ checkout_for() {
     fi
   done
   return 1
-}
-
-# A tab in a workspace, left unfocused, running a command in its shell
-# Usage: open_tab <workspace> <cwd> <label> [<command>]
-open_tab() {
-  local pane
-  pane=$("$herdr" tab create --workspace "$1" --cwd "$2" --label "$3" --no-focus |
-    jq -r '.result.root_pane.pane_id')
-  [[ -n ${4:-} ]] && "$herdr" pane run "$pane" "$4" >/dev/null
-  return 0
 }

@@ -196,15 +196,14 @@ hra() {
 }
 
 # Finish an agent: delete its branch and remove its worktree, which closes its
-# workspace, after a confirmation, as Omarchy's gd does. The repo's paseo.json
-# teardown runs first. Runs from any pane in the agent's workspace, or from a
-# herdr key binding.
+# workspace, after a confirmation, as Omarchy's gd does. Runs from any pane in
+# the agent's workspace, or from a herdr key binding.
 # Usage: hrd
 hrd() {
   local workspace="${HERDR_WORKSPACE_ID:-$HERDR_ACTIVE_WORKSPACE_ID}"
   [[ -z $workspace ]] && { echo "You must start herdr to use hrd."; return 1; }
 
-  local worktree branch worktree_dir response plugin_root
+  local worktree branch worktree_dir response
 
   worktree=$(herdr worktree list --workspace "$workspace" 2>/dev/null |
     jq -c --arg ws "$workspace" '.result.worktrees[]? | select(.open_workspace_id == $ws and .is_linked_worktree)')
@@ -214,15 +213,6 @@ hrd() {
   worktree_dir=$(jq -r '.path' <<<"$worktree")
 
   gum confirm "Remove the ${branch:-detached} worktree and delete its branch?" || return 0
-
-  # Teardown comes from the worktrees plugin, which ran setup, and runs while
-  # the checkout and its branch are still there
-  plugin_root=$(herdr plugin list --plugin dotfiles.worktrees --json 2>/dev/null |
-    jq -r '.result.plugins[0].plugin_root // empty')
-  if [[ -n $plugin_root ]]; then
-    bash "$plugin_root/paseo.sh" teardown "$worktree_dir" ||
-      gum confirm "Teardown failed. Remove the worktree anyway?" || return 1
-  fi
 
   # Off the branch first so it can go now: removing the worktree closes this
   # workspace, and this shell with it when hrd runs from one of its panes

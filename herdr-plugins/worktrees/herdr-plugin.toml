@@ -1,11 +1,11 @@
-# Paseo-style worktree workspaces: a new checkout follows the repo's paseo.json,
-# and a pull request opens as a workspace of its own. Linked from this checkout
-# by install/dotfiles/herdr-plugins.sh.
+# Worktree workspaces after Paseo's: a new checkout comes ready to work in, and
+# a pull request opens as a workspace of its own. Linked from this checkout by
+# install/dotfiles/herdr-plugins.sh.
 id = "dotfiles.worktrees"
 name = "Worktrees"
 version = "0.1.0"
 min_herdr_version = "0.7.4"
-description = "Run paseo.json setup in new worktrees and open pull requests as worktree workspaces"
+description = "Ready new worktrees with mise trust and env files, and open pull requests as worktree workspaces"
 platforms = ["linux", "macos"]
 
 # Every new checkout, whether hrw, open-pr or herdr's sidebar made it
