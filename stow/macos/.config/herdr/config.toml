@@ -69,6 +69,16 @@ type = "plugin_action"
 command = "worktree.create"
 description = "worktree from a pull request, issue or branch"
 
+# The focused pane's pull request in terminal-browser, in a popup, so there's
+# only one and it closes (Ctrl+Q) before anything else
+[[keys.command]]
+key = "prefix+shift+u"
+type = "popup"
+command = "\"$HOME/.config/herdr/scripts/pr-open.sh\""
+description = "open this branch's pull request in terminal-browser"
+width = "90%"
+height = "90%"
+
 [theme]
 name = "tokyo-night"
 
@@ -80,6 +90,21 @@ accent = "#7aa2f7"
 status_indicators = "symbols"
 show_agent_labels_on_pane_borders = false
 agent_panel_sort = "spaces"
+# Counts open pull requests by status, and tags each workspace with its own
+# (the $pr row below). The script lives in the cross-platform herdr stow package.
+tab_bar_right = [
+  { type = "command", command = "\"$HOME/.config/herdr/scripts/pr-status.sh\"", interval_seconds = 30, timeout_seconds = 20 },
+]
+
+# herdr's default rows, plus the workspace's pull request: green once it's
+# ready to merge, orange while checks run or it waits on review, red when
+# something has to change first
+[ui.sidebar.spaces]
+rows = [
+  ["state_icon", "workspace"],
+  ["branch", "git_status"],
+  [{ token = "$pr", rules = [{ contains = "passed", fg = "#9ece6a" }, { contains = "running", fg = "#ff9e64" }, { contains = "blocked", fg = "#f7768e", bold = true }] }],
+]
 
 [ui.sound]
 enabled = false

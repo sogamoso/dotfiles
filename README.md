@@ -20,7 +20,7 @@ stow/
   codex/                   # Codex AGENTS.md (points at the Claude Code instructions)
   editorconfig/            # .editorconfig
   git/                     # .gitconfig, global .gitignore, SSH allowed signers
-  herdr/                   # Config for third-party herdr plugins (herdr's own config is per OS)
+  herdr/                   # Third-party herdr plugin config and the pull request status scripts (herdr's own config is per OS)
   linux/                   # Omarchy-only configs (stowed only on Linux)
   macos/                   # macOS-only configs (stowed only on Darwin)
   mise/                    # mise config (node + ruby via latest); the macOS agents and tools are in macos/.config/mise/conf.d
@@ -424,6 +424,7 @@ Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate th
 | `prefix + f` | Finish the focused agent: confirm, then delete its branch and worktree (`hrd`) |
 | `prefix + u` | Paste a pull request, an issue or a branch and get a worktree with an agent on it ([worktree plugin](#herdr-plugins)) |
 | `Ctrl + click` a pull request link | The same, for that pull request, from a pane in its repo ([worktree plugin](#herdr-plugins)) |
+| `prefix + Shift + U` | Open the focused branch's pull request in terminal-browser, in a popup; `Ctrl + Q` closes it ([pull request status](#pull-request-status)) |
 | `prefix + o` | Jump to the agent that last raised a notification, the latest one waiting on you (herdr default) |
 | `prefix + Shift + 1-9` | Switch to workspace 1–9, and so to an agent, since each agent has its own (herdr default) |
 
@@ -450,6 +451,12 @@ Two plugins, set up on both Macs and Omarchy by `install/dotfiles/herdr-plugins.
 [mkdir700/herdr-plugin-worktree](https://github.com/mkdir700/herdr-plugin-worktree) creates a worktree from a pull request, an issue or a branch and starts an agent on it, as Paseo and Conductor do. `prefix + u` opens its prompt. It's third-party code that launches agents, so it's pinned to a commit that was read first, in `install/lib/herdr-plugins.sh`; bump the pin only after reading what changed. Its config, in the `herdr` stow package, starts the agents through `cx` and `cy`, so they run with the same flags as everywhere else, rather than the `--dangerously-skip-permissions` its example config would set up. It needs `node` and a signed-in `gh`. It opens a fork's pull request like any other, agent included, so open those with care: our plugin below holds back what it can.
 
 The worktrees plugin in [`herdr-plugins/`](herdr-plugins) fills in what that one leaves out, and is linked from this checkout. Every new worktree, whether `hrw`, the worktree plugin or herdr's sidebar made it, gets its mise config trusted and a copy of the main checkout's env files (`.env`, `.env.local` and the like, up to three levels deep, `node_modules` skipped), which git leaves out of a fresh worktree. Files the worktree already has are left alone. A checkout whose commit isn't on `origin` or another local branch, such as a fork's pull request, gets neither. A `Ctrl + click` on a GitHub pull request link in a pane of that repo opens the worktree plugin's prompt and answers it with the link and the default agent, except for a fork's pull request, where it stops at the agent question for you to answer or cancel.
+
+##### Pull request status
+
+Every herdr workspace whose branch has an open pull request shows it under the branch in the sidebar, and the tab bar counts them, as in `PRs 🟢 2 🟠 1 🔴 1`. Green `passed` means checks are green, it's mergeable and nothing is asked of it: ready to merge. Orange `running` means checks are still running, it's waiting on review, or it's a draft. Red `blocked` means a check failed, it conflicts, changes were requested, or it's behind its base.
+
+`pr-status.sh`, in the `herdr` stow package, works this out every 30 seconds from one `gh pr list` per repo, run by the tab bar's status area, and reports it as each workspace's `$pr` token. The sidebar rows and their colours are in the herdr config. `prefix + Shift + U` opens the pull request in [terminal-browser](https://github.com/zenbu-labs/terminal-browser), a Chromium that draws in the terminal, inside a popup, so only one is ever open. It falls back to the default browser where terminal-browser isn't installed, as on Omarchy, which has no Homebrew for its cask.
 
 #### Manual setup guide
 
