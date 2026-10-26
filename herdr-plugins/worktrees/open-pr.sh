@@ -11,9 +11,11 @@ set -euo pipefail
 
 source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 
-url="${HERDR_PLUGIN_CLICKED_URL:-}"
-[[ $url =~ ^https://github\.com/([^/]+/[^/]+)/pull/[0-9]+ ]] || exit 0
+# Rebuilt from its parts, so the plugin and the fork check below read the
+# same pull request whatever trails the number
+[[ ${HERDR_PLUGIN_CLICKED_URL:-} =~ ^https://github\.com/([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)/pull/([0-9]+) ]] || exit 0
 slug=$(echo "${BASH_REMATCH[1]}" | tr '[:upper:]' '[:lower:]')
+url="https://github.com/$slug/pull/${BASH_REMATCH[2]}"
 
 fail() {
   "$herdr" notification show "Can't open the pull request" --body "$1" >/dev/null
