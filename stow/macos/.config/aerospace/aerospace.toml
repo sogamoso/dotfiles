@@ -13,7 +13,7 @@ persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 start-at-login = true
 
 after-startup-command = [
-    'exec-and-forget borders active_color=0xffff9e64 inactive_color=0xff414868 width=4.0'
+    'exec-and-forget borders active_color=0xff7aa2f7 inactive_color=0xaa595959 width=2.0' # Omarchy: Hyprland border, 2px, Tokyo Night accent active, translucent gray inactive
 ]
 
 # Tiling: windows open on the current workspace (like Omarchy).
