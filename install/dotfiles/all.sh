@@ -18,3 +18,4 @@ bash "$DIR/opencode.sh"
 # uidotsh.sh first: it writes the token skills.sh checks ui.sh access with
 bash "$DIR/uidotsh.sh"
 bash "$DIR/skills.sh"
+bash "$DIR/herdr-plugins.sh"

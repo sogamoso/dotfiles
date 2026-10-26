@@ -1,0 +1,26 @@
+# What mkdir700/herdr-plugin-worktree, installed alongside, leaves out: a new
+# checkout comes ready to work in, and a Ctrl-click on a pull request link
+# hands the link to that plugin's own flow. Linked from this checkout by
+# install/dotfiles/herdr-plugins.sh.
+id = "dotfiles.worktrees"
+name = "Worktrees"
+version = "0.2.0"
+min_herdr_version = "0.7.4"
+description = "Ready new worktrees with mise trust and env files, and open clicked pull request links with the worktree plugin"
+platforms = ["linux", "macos"]
+
+# Every new checkout, whether hrw, the worktree plugin or herdr's sidebar made it
+[[events]]
+on = "worktree.created"
+command = ["bash", "created.sh"]
+
+[[actions]]
+id = "open-pr"
+title = "Open a pull request in its own worktree"
+command = ["bash", "open-pr.sh"]
+
+[[link_handlers]]
+id = "github-pr"
+title = "Open pull request in its own worktree"
+pattern = "^https://github\\.com/[^/]+/[^/]+/pull/[0-9]+([/?#].*)?$"
+action = "open-pr"
