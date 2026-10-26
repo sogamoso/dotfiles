@@ -48,7 +48,10 @@ response=$("$herdr" worktree create --cwd "$repo" --branch "$branch" --base "$ba
 pane=$(jq -r '.result.root_pane.pane_id // empty' <<<"$response" 2>/dev/null || true)
 [[ -z $pane ]] && { jq -r '.error.message' <<<"$response" 2>/dev/null || echo "$response"; exit 1; } >&2
 
+path=$(jq -r '.result.root_pane.cwd' <<<"$response")
 if [[ -n $upstream ]]; then
-  git -C "$(jq -r '.result.root_pane.cwd' <<<"$response")" branch --quiet --set-upstream-to "$upstream"
+  git -C "$path" branch --quiet --set-upstream-to "$upstream"
   "$herdr" pane run "$pane" hrl >/dev/null
+else
+  touch "$(git -C "$path" rev-parse --absolute-git-dir)/untrusted-checkout"
 fi

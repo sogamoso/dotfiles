@@ -14,13 +14,17 @@ github_slug() {
   echo "${BASH_REMATCH[1]%.git}" | tr '[:upper:]' '[:lower:]'
 }
 
-# Whether a checkout holds a fork's pull request, which pr.sh marks in the
-# repo's local git config, out of the fork's reach. Nothing from such a
-# checkout runs on its own: no paseo.json setup, terminals or teardown, no mise
-# trust and no agent, since anyone can open a pull request from a fork.
+# Whether a checkout holds a fork's pull request. Nothing from such a checkout
+# runs on its own: no paseo.json setup, terminals or teardown, no mise trust and
+# no agent, since anyone can open a pull request from a fork. pr.sh marks it
+# twice, both out of the fork's reach: its branch in the repo's git config, in
+# place before the worktree.created hook runs, and the worktree's own git dir,
+# which still holds once the checkout moves off that branch.
 # Usage: untrusted_checkout <worktree>
 untrusted_checkout() {
-  local branch
+  local git_dir branch
+  git_dir=$(git -C "$1" rev-parse --absolute-git-dir 2>/dev/null)
+  [[ -n $git_dir && -e $git_dir/untrusted-checkout ]] && return 0
   branch=$(git -C "$1" branch --show-current 2>/dev/null)
   [[ -n $branch && $(git -C "$1" config --get "branch.$branch.untrustedCheckout") == "true" ]]
 }
