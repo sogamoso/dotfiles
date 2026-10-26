@@ -18,7 +18,6 @@ bash "$DIR/../dotfiles/stow.sh"
 # --install adds the root daemon that re-allows after background upgrades.
 bash "$HOME/.config/dotfiles/firewall.sh"
 bash "$HOME/.config/dotfiles/firewall.sh" --install
-bash "$DIR/tmux.sh"
 bash "$DIR/preferences.sh"
 bash "$DIR/pwas.sh"
 bash "$DIR/mailto.sh"

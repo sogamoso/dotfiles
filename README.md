@@ -166,12 +166,11 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | Script | What it does |
 |--------|-------------|
 | `xcode.sh` | Checks for Xcode Command Line Tools, opens installer if missing, then exits for rerun after install |
-| `omadots.sh` | Installs [Omadots](https://github.com/omacom-io/omadots) for LazyVim and the tmux and starship configs; the shell comes from the Omarchy port in `stow/zsh` |
+| `omadots.sh` | Installs [Omadots](https://github.com/omacom-io/omadots) for LazyVim; the shell, tmux and starship configs come from Omarchy's, ported in the stow packages |
 | `security.sh` | Turns off Remote Login (SSH goes through Tailscale SSH), hardens sshd, enables the firewall |
 | `brew.sh` | Installs all packages from `Brewfile` |
 | `onepassword.sh` | Opens 1Password for sign-in and SSH agent setup |
 | `../dotfiles/stow.sh` | Stows the cross-platform packages plus `zsh` and `macos` into `$HOME` |
-| `tmux.sh` | Installs TPM (tmux plugin manager) if missing |
 | `preferences.sh` | macOS system defaults |
 | `pwas.sh` | Installs Chrome PWAs (Audible, Gmail, Google Calendar, X, YouTube) |
 | `mailto.sh` | Builds the Gmail `mailto:` handler and sets it as the system default |

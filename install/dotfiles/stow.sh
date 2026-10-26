@@ -30,6 +30,8 @@ case "$(uname -s)" in
     take_ownership \
       "$HOME/.zshrc" \
       "$HOME/.zprofile" \
+      "$HOME/.config/tmux/tmux.conf" \
+      "$HOME/.config/starship.toml" \
       "$HOME/.config/btop/btop.conf" \
       "$HOME/.config/ghostty/config" \
       "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-run.plist" \
