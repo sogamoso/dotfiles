@@ -22,18 +22,24 @@ log_heading "Installing herdr plugins..."
 failed=""
 for entry in "${HERDR_THIRD_PARTY_PLUGINS[@]}"; do
   read -r id source commit <<<"$entry"
-  installed=$(herdr plugin list --plugin "$id" --json 2>/dev/null |
-    jq -r '.result.plugins[0].source.resolved_commit // empty' 2>/dev/null || true)
+  enabled="" installed=""
+  read -r enabled installed < <(herdr plugin list --plugin "$id" --json 2>/dev/null |
+    jq -r '.result.plugins[0] | "\(.enabled) \(.source.resolved_commit // "")"' 2>/dev/null) || true
   if [[ $installed == "$commit" ]]; then
     log_item "$id (up to date)"
   elif herdr plugin install "$source" --ref "$commit" --yes >/dev/null; then
     log_item "$id"
   else
     failed+=" $id"
+    continue
+  fi
+  # Reinstalling keeps a disabled plugin disabled, unlike linking
+  if [[ $enabled == "false" ]] && ! herdr plugin enable "$id" >/dev/null; then
+    failed+=" $id"
   fi
 done
 
-[[ -n $failed ]] && log_warn "Could not install:$failed"
+[[ -n $failed ]] && log_warn "Could not install or enable:$failed"
 
 log_heading "Linking herdr plugins..."
 
