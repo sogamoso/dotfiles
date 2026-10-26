@@ -4,7 +4,9 @@ set -euo pipefail
 # Opens a pull request as a worktree workspace, grouped under its repo, and
 # starts the review layout (hrl) in it, as hrw does for a new branch. A pull
 # request from this repo checks out its own branch, tracking origin so a push
-# lands on the pull request; one from a fork gets pr-<number>. When the branch
+# lands on the pull request. One from a fork gets pr-<number>, marked untrusted
+# (see lib.sh): it opens to a plain shell, since the agents run with their
+# approvals off and would be reading the fork's instructions. When the branch
 # already has a checkout, that one opens instead.
 # Usage: pr.sh <repo> <number>
 
@@ -38,11 +40,15 @@ fi
 
 git -C "$repo" fetch --quiet origin "$refspec"
 
+# Before the checkout exists, so the worktree.created hook already sees it.
+# Deleting the branch, as hrd does, drops it.
+[[ -z $upstream ]] && git -C "$repo" config "branch.$branch.untrustedCheckout" true
+
 response=$("$herdr" worktree create --cwd "$repo" --branch "$branch" --base "$base" --label "$branch" --focus 2>&1)
 pane=$(jq -r '.result.root_pane.pane_id // empty' <<<"$response" 2>/dev/null || true)
 [[ -z $pane ]] && { jq -r '.error.message' <<<"$response" 2>/dev/null || echo "$response"; exit 1; } >&2
 
 if [[ -n $upstream ]]; then
   git -C "$(jq -r '.result.root_pane.cwd' <<<"$response")" branch --quiet --set-upstream-to "$upstream"
+  "$herdr" pane run "$pane" hrl >/dev/null
 fi
-"$herdr" pane run "$pane" hrl >/dev/null

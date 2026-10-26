@@ -13,6 +13,8 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 worktree=$(jq -r '.data.worktree.path' <<<"$HERDR_PLUGIN_EVENT_JSON")
 workspace=$(jq -r '.data.workspace.workspace_id' <<<"$HERDR_PLUGIN_EVENT_JSON")
 
+untrusted_checkout "$worktree" && exit 0
+
 if command -v mise >/dev/null; then
   mise trust --quiet "$worktree" >/dev/null 2>&1 || true
 fi

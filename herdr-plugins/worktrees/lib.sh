@@ -14,6 +14,17 @@ github_slug() {
   echo "${BASH_REMATCH[1]%.git}" | tr '[:upper:]' '[:lower:]'
 }
 
+# Whether a checkout holds a fork's pull request, which pr.sh marks in the
+# repo's local git config, out of the fork's reach. Nothing from such a
+# checkout runs on its own: no paseo.json setup, terminals or teardown, no mise
+# trust and no agent, since anyone can open a pull request from a fork.
+# Usage: untrusted_checkout <worktree>
+untrusted_checkout() {
+  local branch
+  branch=$(git -C "$1" branch --show-current 2>/dev/null)
+  [[ -n $branch && $(git -C "$1" config --get "branch.$branch.untrustedCheckout") == "true" ]]
+}
+
 # The top of a checkout of owner/repo: <dir>'s own when it is one, or else the
 # first under ~/Work, laid out as ~/Work/<owner>/<repo> or ~/Work/<repo>
 # Usage: checkout_for <owner/repo> [<dir>]
