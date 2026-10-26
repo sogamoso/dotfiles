@@ -1,13 +1,12 @@
-# Personal additions for Omadots-managed shells.
-# Assumes Omadots have already been installed.
-# Sourced from ~/.zshrc via install/dotfiles/zshrc.sh.
-# Only includes things Omadots doesn't provide.
+# Personal additions on top of the Omarchy port in ~/.config/zsh/omarchy.
+# Sourced from ~/.zshrc right after it. Only includes things Omarchy doesn't
+# provide.
 
 # Locale (needed for SSH to remote hosts)
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 
-# Editors — Omadots sets EDITOR=nvim in ~/.config/shell/envs; set the rest here
+# Editors — omarchy/envs.zsh sets EDITOR to nvim; set the rest here
 export VISUAL="nvim"
 export SUDO_EDITOR="nvim"
 

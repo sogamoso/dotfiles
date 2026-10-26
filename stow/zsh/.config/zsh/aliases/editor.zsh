@@ -1,3 +1,3 @@
-# Editors — Omadots provides n() for nvim; this is the plain vim shortcut
+# Editors — Omarchy provides n() for nvim; this is the plain vim shortcut
 
 alias v='vim'

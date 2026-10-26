@@ -71,10 +71,10 @@ gbD() {
   git branch -D "$branch"
 }
 
-# Override Omadots' gd (worktree remover) with git diff
+# Override Omarchy's gd (worktree remover) with git diff
 gd() { git diff "$@"; }
 
-# Omadots' worktree remover, renamed
+# Omarchy's worktree remover, renamed
 gwrm() {
   if gum confirm "Remove worktree and branch?"; then
     local cwd base branch root worktree

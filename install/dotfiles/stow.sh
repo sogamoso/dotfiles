@@ -26,7 +26,10 @@ take_ownership \
 
 case "$(uname -s)" in
   Darwin)
+    # Macs set up before the Omarchy port have these as real files from Omadots
     take_ownership \
+      "$HOME/.zshrc" \
+      "$HOME/.zprofile" \
       "$HOME/.config/btop/btop.conf" \
       "$HOME/.config/ghostty/config" \
       "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-run.plist" \

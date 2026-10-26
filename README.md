@@ -26,7 +26,7 @@ stow/
   nvim/                    # Neovim plugin overrides
   ruby/                    # .gemrc, .irbrc, .default-gems
   ssh/                     # SSH client config + signing key
-  zsh/                     # Shell supplement + per-tool aliases (macOS; bash twin lives in linux/)
+  zsh/                     # .zshrc, .zprofile, the zsh port of Omarchy's shell, supplement + per-tool aliases (macOS; bash twin lives in linux/)
 ```
 
 ### How it works
@@ -139,7 +139,6 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 
 | Script | What it does |
 |--------|-------------|
-| `zshrc.sh` | Appends personal supplement source to `.zshrc` |
 | `hushlogin.sh` | Suppresses "Last login" terminal message |
 | `coderabbit.sh` | Configures git filter to strip Coderabbit config from `.gitconfig` |
 | `aerospace-gap.sh` | Configures git filter to pin the sketchybar-rewritten `outer.top` gap |
@@ -167,7 +166,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | Script | What it does |
 |--------|-------------|
 | `xcode.sh` | Checks for Xcode Command Line Tools, opens installer if missing, then exits for rerun after install |
-| `omadots.sh` | Installs [Omadots](https://github.com/omacom-io/omadots) shell framework and keeps its `~/.zprofile` from loading `~/.zshrc` twice |
+| `omadots.sh` | Installs [Omadots](https://github.com/omacom-io/omadots) for LazyVim and the tmux and starship configs; the shell comes from the Omarchy port in `stow/zsh` |
 | `security.sh` | Turns off Remote Login (SSH goes through Tailscale SSH), hardens sshd, enables the firewall |
 | `brew.sh` | Installs all packages from `Brewfile` |
 | `onepassword.sh` | Opens 1Password for sign-in and SSH agent setup |
