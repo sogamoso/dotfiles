@@ -410,6 +410,15 @@ cmd_doctor() {
     bad "Vicinae differs from the repo:"$'\n'"$drift" "dotfiles vicinae save to keep it, or dotfiles vicinae reset to drop it"
   fi
 
+  echo "==> Shell"
+  # Omadots' ~/.zprofile sources .zshrc unconditionally, so terminals load it
+  # twice and the second try init opens try's picker
+  if [[ -f $HOME/.zprofile && "$(<"$HOME/.zprofile")" == ". ~/.zshrc" ]]; then
+    bad "~/.zprofile loads ~/.zshrc a second time in every terminal" "bash $DOTFILES/install/macos/omadots.sh"
+  else
+    ok "~/.zshrc loads once per shell"
+  fi
+
   echo "==> Homebrew"
   if [[ "$(brew autoupdate status 2>/dev/null)" == *"running"* ]]; then
     ok "brew autoupdate running"
