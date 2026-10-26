@@ -422,7 +422,7 @@ What is left worth tracking:
 | Per-agent accounts (`omarchy-agent-account-*`), which switch an agent between logins | Not ported. `dotfiles agent run` starts each agent with Omarchy's flags but on its single default login |
 | Devin CLI and Kiro CLI | Not ported. Omarchy's mise entries download Linux builds only. Add them once mise can fetch Apple Silicon builds on demand |
 | Agents updating themselves every four hours (mise `auto_update`) | ✅ By another route: on mise 2026.10.19 `auto_update` breaks how the shim calls the agent, so the `com.sogamoso.agents-update` LaunchAgent runs `mise upgrade` on the installed agents every four hours. Retry `auto_update` after a mise upgrade |
-| SSH reconnect and terminal cleanup on drop | ✅ Keepalives surface a dead link in ~45s; no terminal-state reset |
+| SSH reconnect and terminal cleanup on drop | ✅ Omarchy's `ssh` wrapper, ported in `stow/zsh/.config/zsh/omarchy/fns/ssh-reconnect.zsh`: a dropped interactive session gets its mouse tracking and alternate screen disarmed and reconnects, and keepalives surface a dead link in ~45s |
 | Themes generating nvim/btop/VS Code colors from one colorset | No generator. `themes/tokyo-night/colors.toml` is the palette to copy by hand into apps without a Tokyo Night theme, Slack included |
 | Visual theme and background switchers | No equivalent |
 | `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
