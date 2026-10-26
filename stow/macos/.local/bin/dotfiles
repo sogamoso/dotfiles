@@ -379,6 +379,22 @@ cmd_doctor() {
       ok "$id linked from this checkout"
     fi
   done
+  # Third-party plugins hold their pin until reinstalled, so a bumped pin stays
+  # unapplied until the next reload
+  source "$DOTFILES/install/lib/herdr-plugins.sh"
+  local entry source commit installed
+  for entry in "${HERDR_THIRD_PARTY_PLUGINS[@]}"; do
+    read -r id source commit <<<"$entry"
+    installed=$(herdr plugin list --plugin "$id" --json 2>/dev/null |
+      jq -r '.result.plugins[0] | select(.enabled) | .source.resolved_commit // empty' 2>/dev/null || true)
+    if [[ -z $installed ]]; then
+      bad "$id ($source) isn't installed or is disabled" "dotfiles reload"
+    elif [[ $installed != "$commit" ]]; then
+      bad "$id is at ${installed:0:7}, pinned to ${commit:0:7}" "dotfiles reload"
+    else
+      ok "$id at its pinned commit"
+    fi
+  done
 
   echo "==> Stow"
   # A file added to a package stays unlinked until the next stow, and whatever

@@ -1,31 +1,23 @@
-# Worktree workspaces after Paseo's: a new checkout comes ready to work in, and
-# a pull request opens as a workspace of its own. Linked from this checkout by
+# What mkdir700/herdr-plugin-worktree, installed alongside, leaves out: a new
+# checkout comes ready to work in, and a Ctrl-click on a pull request link
+# hands the link to that plugin's own flow. Linked from this checkout by
 # install/dotfiles/herdr-plugins.sh.
 id = "dotfiles.worktrees"
 name = "Worktrees"
-version = "0.1.0"
+version = "0.2.0"
 min_herdr_version = "0.7.4"
-description = "Ready new worktrees with mise trust and env files, and open pull requests as worktree workspaces"
+description = "Ready new worktrees with mise trust and env files, and open clicked pull request links with the worktree plugin"
 platforms = ["linux", "macos"]
 
-# Every new checkout, whether hrw, open-pr or herdr's sidebar made it
+# Every new checkout, whether hrw, the worktree plugin or herdr's sidebar made it
 [[events]]
 on = "worktree.created"
 command = ["bash", "created.sh"]
 
-# Ctrl-click on a pull request link, or prefix+u for the picker
 [[actions]]
 id = "open-pr"
 title = "Open a pull request in its own worktree"
 command = ["bash", "open-pr.sh"]
-
-[[panes]]
-id = "pr-picker"
-title = "Pull requests"
-placement = "popup"
-width = "80%"
-height = "60%"
-command = ["bash", "pick-pr.sh"]
 
 [[link_handlers]]
 id = "github-pr"

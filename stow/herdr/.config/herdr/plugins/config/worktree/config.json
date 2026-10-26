@@ -1,0 +1,6 @@
+{
+  "agents": {
+    "claude": { "command": "cx" },
+    "codex": { "command": "cy" }
+  }
+}

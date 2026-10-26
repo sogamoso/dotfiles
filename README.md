@@ -20,6 +20,7 @@ stow/
   codex/                   # Codex AGENTS.md (points at the Claude Code instructions)
   editorconfig/            # .editorconfig
   git/                     # .gitconfig, global .gitignore, SSH allowed signers
+  herdr/                   # Config for third-party herdr plugins (herdr's own config is per OS)
   linux/                   # Omarchy-only configs (stowed only on Linux)
   macos/                   # macOS-only configs (stowed only on Darwin)
   mise/                    # mise config (node + ruby via latest); the macOS agents and tools are in macos/.config/mise/conf.d
@@ -146,7 +147,7 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `codex.sh` | Installs the third-party Codex marketplaces and plugins |
 | `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server with Claude Code and Codex, and caches its token where the shells can export it |
 | `skills.sh` | Links every skill into both `~/.claude/skills` and `~/.codex/skills` — see [Skills](#skills) |
-| `herdr-plugins.sh` | Links the herdr plugins in `herdr-plugins/` from this checkout — see [herdr plugins](#herdr-plugins) |
+| `herdr-plugins.sh` | Installs the pinned third-party herdr plugins and links the ones in `herdr-plugins/` — see [herdr plugins](#herdr-plugins) |
 
 ## Cross-platform design
 
@@ -421,8 +422,8 @@ Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate th
 | `prefix + a` | New agent on its own worktree (`hrw`) for the focused pane's repo |
 | `prefix + Shift + A` | New agent on a task: pick the agent, type the task and an optional branch (`hra`) |
 | `prefix + f` | Finish the focused agent: confirm, then delete its branch and worktree (`hrd`) |
-| `prefix + u` | Pick one of the repo's open pull requests and open it on its own worktree ([worktrees plugin](#herdr-plugins)) |
-| `Ctrl + click` a pull request link | Open that pull request on its own worktree ([worktrees plugin](#herdr-plugins)) |
+| `prefix + u` | Paste a pull request, an issue or a branch and get a worktree with an agent on it ([worktree plugin](#herdr-plugins)) |
+| `Ctrl + click` a pull request link | The same, for that pull request, from a pane in its repo ([worktree plugin](#herdr-plugins)) |
 | `prefix + o` | Jump to the agent that last raised a notification, the latest one waiting on you (herdr default) |
 | `prefix + Shift + 1-9` | Switch to workspace 1–9, and so to an agent, since each agent has its own (herdr default) |
 
@@ -444,11 +445,11 @@ Shell functions that build a whole herdr layout in one command. They run inside 
 
 ##### herdr plugins
 
-The plugins in [`herdr-plugins/`](herdr-plugins) are linked from this checkout by `install/dotfiles/herdr-plugins.sh`, on both Macs and Omarchy, and again on every `dotfiles reload`. `dotfiles doctor` checks they still point here.
+Two plugins, set up on both Macs and Omarchy by `install/dotfiles/herdr-plugins.sh` and again on every `dotfiles reload`. `dotfiles doctor` checks both.
 
-The worktrees plugin brings over the parts of [Paseo](https://paseo.sh)'s worktree workspaces that need no per-repo config. Every new worktree, whether `hrw`, a pull request or herdr's sidebar made it, gets its mise config trusted and a copy of the main checkout's env files (`.env`, `.env.local` and the like, up to three levels deep, `node_modules` skipped), which git leaves out of a fresh worktree. Files the worktree already has are left alone.
+[mkdir700/herdr-plugin-worktree](https://github.com/mkdir700/herdr-plugin-worktree) creates a worktree from a pull request, an issue or a branch and starts an agent on it, as Paseo and Conductor do. `prefix + u` opens its prompt. It's third-party code that launches agents, so it's pinned to a commit that was read first, in `install/lib/herdr-plugins.sh`; bump the pin only after reading what changed. Its config, in the `herdr` stow package, starts the agents through `cx` and `cy`, so they run with the same flags as everywhere else, rather than the `--dangerously-skip-permissions` its example config would set up. It needs `node` and a signed-in `gh`. It opens a fork's pull request like any other, agent included, so open those with care.
 
-Pull requests open as workspaces of their own, as Paseo's checkout-pr does: on `prefix + u` from a picker, or with a `Ctrl + click` on a GitHub pull request link in any pane, which uses that pane's checkout of the repo or else one under `~/Work`. A pull request from the same repo checks out its branch, tracking `origin` so pushes land on it, and its workspace runs `hrl`. One from a fork gets `pr-<number>` and is never trusted, since anyone can open one: no mise trust, no env files and no agent, which would run with its approvals off on the fork's instructions. It opens to a plain shell. A branch that already has a checkout opens that one instead. It needs `gh` signed in.
+The worktrees plugin in [`herdr-plugins/`](herdr-plugins) fills in what that one leaves out, and is linked from this checkout. Every new worktree, whether `hrw`, the worktree plugin or herdr's sidebar made it, gets its mise config trusted and a copy of the main checkout's env files (`.env`, `.env.local` and the like, up to three levels deep, `node_modules` skipped), which git leaves out of a fresh worktree. Files the worktree already has are left alone. A `Ctrl + click` on a GitHub pull request link in a pane of that repo opens the worktree plugin's prompt and answers it with the link and the default agent.
 
 #### Manual setup guide
 
@@ -470,7 +471,7 @@ The Linux setup (`install/linux/all.sh`) runs these scripts in order:
 |--------|-------------|
 | `../dotfiles/stow.sh` | Stows the cross-platform packages plus `linux`, taking `~/.config/hypr/bindings.lua` over from `/etc/skel` |
 | `bashrc.sh` | Appends the personal supplement source to `.bashrc` |
-| `herdr-keys.sh` | Adds the agent keys (`prefix + a`, `prefix + Shift + A`, `prefix + f`) and the worktrees plugin's `prefix + u` to Omarchy's herdr config |
+| `herdr-keys.sh` | Adds the agent keys (`prefix + a`, `prefix + Shift + A`, `prefix + f`) and the worktree plugin's `prefix + u` to Omarchy's herdr config |
 
 #### What gets customized
 

@@ -14,42 +14,10 @@ github_slug() {
   echo "${BASH_REMATCH[1]%.git}" | tr '[:upper:]' '[:lower:]'
 }
 
-# Whether a checkout holds a fork's pull request. Nothing from such a checkout
-# runs on its own and nothing is copied into it: no mise trust, no env files and
-# no agent, since anyone can open a pull request from a fork. pr.sh marks it
-# twice, both out of the fork's reach: its branch in the repo's git config, in
-# place before the worktree.created hook runs, and the worktree's own git dir,
-# which still holds once the checkout moves off that branch.
-# Usage: untrusted_checkout <worktree>
-untrusted_checkout() {
-  local git_dir branch
-  git_dir=$(git -C "$1" rev-parse --absolute-git-dir 2>/dev/null)
-  [[ -n $git_dir && -e $git_dir/untrusted-checkout ]] && return 0
-  branch=$(git -C "$1" branch --show-current 2>/dev/null)
-  [[ -n $branch && $(git -C "$1" config --get "branch.$branch.untrustedCheckout") == "true" ]]
-}
-
-# The main checkout of the repo <dir> is in, even from one of its worktrees.
-# herdr only creates and opens worktrees from the main one.
+# The main checkout of the repo <dir> is in, even from one of its worktrees
 # Usage: main_checkout <dir>
 main_checkout() {
   local common_dir
   common_dir=$(git -C "$1" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || return 1
   dirname "$common_dir"
-}
-
-# The main checkout of owner/repo: <dir>'s repo when it is one, or else the
-# first under ~/Work, laid out as ~/Work/<owner>/<repo> or ~/Work/<repo>
-# Usage: checkout_for <owner/repo> [<dir>]
-checkout_for() {
-  local want dir
-  want=$(echo "$1" | tr '[:upper:]' '[:lower:]')
-  for dir in "${2:-}" "$HOME"/Work/*/*/ "$HOME"/Work/*/; do
-    [[ -n $dir && -d $dir ]] || continue
-    if [[ $(github_slug "$dir") == "$want" ]]; then
-      main_checkout "$dir"
-      return
-    fi
-  done
-  return 1
 }

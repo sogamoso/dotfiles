@@ -60,14 +60,14 @@ type = "popup"
 command = "\"$SHELL\" -ic 'hrd || read -r _'"
 description = "finish agent, removing its worktree and branch (hrd)"
 
-# Pick one of the repo's open pull requests and open it on its own worktree,
-# with the review layout. Ctrl-clicking a pull request link does the same.
-# Both come from the worktrees plugin in herdr-plugins/.
+# Paste a pull request, an issue or a branch and get a worktree with an agent
+# on it, from mkdir700/herdr-plugin-worktree (pinned in install/lib). Ctrl-
+# clicking a pull request link runs the same flow, through herdr-plugins/.
 [[keys.command]]
 key = "prefix+u"
 type = "plugin_action"
-command = "dotfiles.worktrees.open-pr"
-description = "open a pull request on its own worktree"
+command = "worktree.create"
+description = "worktree from a pull request, issue or branch"
 
 [theme]
 name = "tokyo-night"

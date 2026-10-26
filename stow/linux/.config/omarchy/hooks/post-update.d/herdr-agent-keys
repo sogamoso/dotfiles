@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Adds the agent keys from layouts.bash, and the key for the worktrees plugin in
-# herdr-plugins/, to herdr's config. On Omarchy that file is Omarchy's to ship,
-# and an update migration can replace it through omarchy-refresh-herdr, so
-# Omarchy runs this after every update and the Linux install runs it once. The
-# keys match the macOS herdr config; keep the two in sync.
+# Adds the agent keys from layouts.bash, and the key for the worktree plugin, to
+# herdr's config. On Omarchy that file is Omarchy's to ship, and an update
+# migration can replace it through omarchy-refresh-herdr, so Omarchy runs this
+# after every update and the Linux install runs it once. The keys match the
+# macOS herdr config; keep the two in sync.
 
 config="$HOME/.config/herdr/config.toml"
 marker="# dotfiles: agent keys"
@@ -58,16 +58,16 @@ KEYS
 fi
 
 # Its own marker, so a config that already has the agent keys still gets it
-plugin_marker="# dotfiles: worktrees plugin keys"
+plugin_marker="# dotfiles: worktree plugin keys"
 if ! grep -qxF "$plugin_marker" "$config"; then
   cat >>"$config" <<'KEYS'
 
-# dotfiles: worktrees plugin keys
+# dotfiles: worktree plugin keys
 [[keys.command]]
 key = "prefix+u"
 type = "plugin_action"
-command = "dotfiles.worktrees.open-pr"
-description = "open a pull request on its own worktree"
+command = "worktree.create"
+description = "worktree from a pull request, issue or branch"
 KEYS
   changed=true
 fi
