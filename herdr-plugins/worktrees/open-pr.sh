@@ -36,4 +36,10 @@ pane=$("$herdr" plugin pane open --plugin worktree --entrypoint prompt --placeme
 "$herdr" pane wait-output "$pane" --match "or branch name:" --timeout 15000 >/dev/null
 "$herdr" pane run "$pane" "$url" >/dev/null
 "$herdr" pane wait-output "$pane" --match "Agent [" --timeout 15000 >/dev/null
-"$herdr" pane send-keys "$pane" Enter >/dev/null
+
+# A fork's pull request stops at the agent question: an agent started on it
+# would act on instructions from whoever opened it, so that's a choice to make
+# by hand, or to back out of with Ctrl-C. A failed lookup counts as a fork.
+fork=$(gh pr view "$url" --json isCrossRepository --jq .isCrossRepository 2>/dev/null || echo true)
+[[ $fork == "false" ]] && "$herdr" pane send-keys "$pane" Enter >/dev/null
+exit 0
