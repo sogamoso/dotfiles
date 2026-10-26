@@ -123,9 +123,9 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles pull` | Git pull only |
 | `dotfiles brew` | Sync Brewfile via `brew bundle`, keep brew autoupdate current |
 | `dotfiles stow` | Re-stow all packages |
-| `dotfiles reload` | Re-stow, relink skills, restart SketchyBar, reload AeroSpace, restart a stale herdr server |
+| `dotfiles reload` | Re-stow, relink skills, restart SketchyBar, reload AeroSpace, restart a stale herdr server, relink the herdr plugins |
 | `dotfiles status` | Branch, ahead/behind, dirty files |
-| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, 1Password, Vicinae, brew autoupdate) and print the fix for anything wrong |
+| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, herdr plugins, 1Password, Vicinae, brew autoupdate) and print the fix for anything wrong |
 | `dotfiles vicinae [status \| save \| reset]` | Compare Vicinae's settings and store extensions with the repo. `save` keeps what changed on this Mac (commit the result), `reset` drops it |
 | `dotfiles omarchy-downstream-candidates` | Review what changed in Omarchy since the last review and which of it to port, in Claude Code (Codex if Claude isn't installed) with the `omarchy-downstream` skill. `--list` prints the raw changes: new and removed key bindings, commits touching what the macOS side ports, files added or removed outside the areas set aside as Linux-only, new migrations that mention something used here, and any Omarchy area not yet classified as ported or skipped. `--mark-reviewed` records the review in `.omarchy-reviewed` |
 | `dotfiles agent [<name>]` | Show or set the default coding agent, like Omarchy's `omarchy default agent`, with the same names (`gemini` picks Antigravity, `cursor` the Cursor CLI). The `a` alias launches it with Omarchy's flags for that agent, and the herdr layouts use it when no agent is given |
@@ -146,6 +146,7 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `codex.sh` | Installs the third-party Codex marketplaces and plugins |
 | `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server with Claude Code and Codex, and caches its token where the shells can export it |
 | `skills.sh` | Links every skill into both `~/.claude/skills` and `~/.codex/skills` — see [Skills](#skills) |
+| `herdr-plugins.sh` | Links the herdr plugins in `herdr-plugins/` from this checkout — see [herdr plugins](#herdr-plugins) |
 
 ## Cross-platform design
 
@@ -420,6 +421,8 @@ Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate th
 | `prefix + a` | New agent on its own worktree (`hrw`) for the focused pane's repo |
 | `prefix + Shift + A` | New agent on a task: pick the agent, type the task and an optional branch (`hra`) |
 | `prefix + f` | Finish the focused agent: confirm, then delete its branch and worktree (`hrd`) |
+| `prefix + u` | Pick one of the repo's open pull requests and open it on its own worktree ([worktrees plugin](#herdr-plugins)) |
+| `Ctrl + click` a pull request link | Open that pull request on its own worktree ([worktrees plugin](#herdr-plugins)) |
 | `prefix + o` | Jump to the agent that last raised a notification, the latest one waiting on you (herdr default) |
 | `prefix + Shift + 1-9` | Switch to workspace 1–9, and so to an agent, since each agent has its own (herdr default) |
 
@@ -437,7 +440,15 @@ Shell functions that build a whole herdr layout in one command. They run inside 
 | `hrlm [<agent>]` | One workspace per subdirectory, each with a single `hrl` tab; the current workspace takes the first |
 | `hrw [<name>] [<agent>] [<task>]` | New agent on its own worktree off `origin/main`: a worktree workspace, grouped under the repo, running `hrl`, with the mise config trusted. Without a name the branch is named after the harness: `claude-1` for `cx`, `codex-1` for `cy`, `opencode-1` for `c`, `cursor-1`, `gemini-1`, any agent Omarchy's `omarchy default agent` offers, or `agent-1` for anything else. A task becomes the agent's first prompt. Also on `prefix + a` |
 | `hra` | Ask for the agent, task and branch, then run `hrw`. Also on `prefix + Shift + A` |
-| `hrd` | Finish the agent whose workspace this is: confirm, delete its branch, remove its worktree and close the workspace, like Omarchy's `gd`. Also on `prefix + f` |
+| `hrd` | Finish the agent whose workspace this is: confirm, run the repo's `paseo.json` teardown, delete its branch, remove its worktree and close the workspace, like Omarchy's `gd`. Also on `prefix + f` |
+
+##### herdr plugins
+
+The plugins in [`herdr-plugins/`](herdr-plugins) are linked from this checkout by `install/dotfiles/herdr-plugins.sh`, on both Macs and Omarchy, and again on every `dotfiles reload`. `dotfiles doctor` checks they still point here.
+
+The worktrees plugin brings herdr's worktree workspaces closer to [Paseo](https://paseo.sh)'s. Every new worktree, whether `hrw`, a pull request or herdr's sidebar made it, gets its mise config trusted and follows the repo's [`paseo.json`](https://paseo.sh/docs/worktrees#paseojson), the same file Paseo reads. `worktree.setup` runs in a `setup` tab that closes once it succeeds and stays open on the error when it fails. Each `worktree.terminals` entry gets a tab running its command, and `hrd` runs `worktree.teardown` before it removes the checkout. Setup sees Paseo's `PASEO_SOURCE_CHECKOUT_PATH`, `PASEO_WORKTREE_PATH` and `PASEO_BRANCH_NAME`. Paseo's scripts and services aren't supported, and the agent `hrw` starts doesn't wait for setup.
+
+Pull requests open as workspaces of their own, as Paseo's checkout-pr does: on `prefix + u` from a picker, or with a `Ctrl + click` on a GitHub pull request link in any pane, which uses that pane's checkout of the repo or else one under `~/Work`. A pull request from the same repo checks out its branch, tracking `origin` so pushes land on it. One from a fork gets `pr-<number>`. The workspace runs `hrl`, and a branch that already has a checkout opens that one instead. It needs `gh` signed in.
 
 #### Manual setup guide
 
@@ -459,7 +470,7 @@ The Linux setup (`install/linux/all.sh`) runs these scripts in order:
 |--------|-------------|
 | `../dotfiles/stow.sh` | Stows the cross-platform packages plus `linux`, taking `~/.config/hypr/bindings.lua` over from `/etc/skel` |
 | `bashrc.sh` | Appends the personal supplement source to `.bashrc` |
-| `herdr-keys.sh` | Adds the agent keys (`prefix + a`, `prefix + Shift + A`, `prefix + f`) to Omarchy's herdr config |
+| `herdr-keys.sh` | Adds the agent keys (`prefix + a`, `prefix + Shift + A`, `prefix + f`) and the worktrees plugin's `prefix + u` to Omarchy's herdr config |
 
 #### What gets customized
 
@@ -469,7 +480,7 @@ The Linux setup (`install/linux/all.sh`) runs these scripts in order:
 | Shell | `~/.config/bash/supplement.bash` plus per-tool aliases, sourced from Omarchy's own bashrc slot |
 | Theme | Stock `tokyo-night`; Omarchy already ships it and the colors match |
 | Bar, menu, notifications | Omarchy stock — nothing ported |
-| herdr | Omarchy's config, plus the agent keys appended by an Omarchy `post-update.d` hook, so they come back if an update replaces the file. The keys match the macOS ones |
+| herdr | Omarchy's config, plus the agent and plugin keys appended by an Omarchy `post-update.d` hook, so they come back if an update replaces the file. The keys match the macOS ones. The [herdr plugins](#herdr-plugins) are linked as on macOS |
 
 #### Binding deltas
 

@@ -15,9 +15,11 @@ Commands:
   pull      Git pull only
   brew      Sync Brewfile, keep brew autoupdate current
   stow      Re-stow all dotfile packages
-  reload    Re-stow, relink skills, restart SketchyBar, reload AeroSpace
+  reload    Re-stow, relink skills and herdr plugins, restart SketchyBar,
+            reload AeroSpace
   status    Show repo state (branch, ahead/behind, dirty files)
-  doctor    Check this Mac's setup: Tailscale, SSH, firewall, agents, skills
+  doctor    Check this Mac's setup: Tailscale, SSH, firewall, agents, skills,
+            herdr plugins
   vicinae [status | save | reset]
             Compare Vicinae's settings and extensions with the repo; save
             keeps what changed here, reset throws it away
@@ -143,6 +145,8 @@ cmd_reload() {
     if herdr tab list 2>&1 | grep -q protocol_mismatch; then
       run brew services restart herdr
     fi
+    # After the restart, so the link reaches a server that speaks its protocol
+    run "$DOTFILES/install/dotfiles/herdr-plugins.sh"
   fi
   if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/neovim.sh" ]]; then
     run "$DOTFILES/install/macos/neovim.sh"
@@ -356,6 +360,24 @@ cmd_doctor() {
         ok "${dir/#$HOME/~}/$skill → live ui.sh stub"
       fi
     done
+  done
+
+  echo "==> herdr plugins"
+  # A plugin linked from a checkout that has since moved keeps its old path,
+  # and its hooks and keys stop working without an error
+  local plugin id root
+  for plugin in "$DOTFILES"/herdr-plugins/*/; do
+    plugin=$(cd -P "$plugin" && pwd)
+    id=$(awk -F '"' '/^id = / { print $2; exit }' "$plugin/herdr-plugin.toml")
+    root=$(herdr plugin list --plugin "$id" --json 2>/dev/null |
+      jq -r '.result.plugins[0] | select(.enabled) | .plugin_root' 2>/dev/null || true)
+    if [[ -z $root ]]; then
+      bad "$id isn't linked or is disabled" "dotfiles reload"
+    elif [[ $root != "$plugin" ]]; then
+      bad "$id is linked from ${root/#$HOME/~}" "dotfiles reload"
+    else
+      ok "$id linked from this checkout"
+    fi
   done
 
   echo "==> Stow"

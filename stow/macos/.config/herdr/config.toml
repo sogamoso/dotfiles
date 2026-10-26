@@ -60,6 +60,15 @@ type = "popup"
 command = "\"$SHELL\" -ic 'hrd || read -r _'"
 description = "finish agent, removing its worktree and branch (hrd)"
 
+# Pick one of the repo's open pull requests and open it on its own worktree,
+# with the review layout. Ctrl-clicking a pull request link does the same.
+# Both come from the worktrees plugin in herdr-plugins/.
+[[keys.command]]
+key = "prefix+u"
+type = "plugin_action"
+command = "dotfiles.worktrees.open-pr"
+description = "open a pull request on its own worktree"
+
 [theme]
 name = "tokyo-night"
 
