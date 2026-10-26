@@ -15,8 +15,17 @@
 [tag]
   gpgSign = true
 
+# co, br, ci, st and push.autoSetupRemote are Omarchy's config/git/config,
+# folded in here rather than kept as a second file beside this one
 [alias]
+  co = checkout
+  br = branch
+  ci = commit
+  st = status
   sw = switch
+
+[push]
+  autoSetupRemote = true
 
 [init]
   defaultBranch = main
