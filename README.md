@@ -456,7 +456,7 @@ The worktrees plugin in [`herdr-plugins/`](herdr-plugins) fills in what that one
 
 Every herdr workspace whose branch has an open pull request shows it under the branch in the sidebar, and the tab bar counts them, as in `PRs 🟢 2 🟠 1 🔴 1`. Green `passed` means checks are green, it's mergeable and nothing is asked of it: ready to merge. Orange `running` means checks are still running, it's waiting on review, or it's a draft. Red `blocked` means a check failed, it conflicts, changes were requested, or it's behind its base.
 
-`pr-status.sh`, in the `herdr` stow package, works this out every 30 seconds from one `gh pr list` per repo, run by the tab bar's status area, and reports it as each workspace's `$pr` token. The sidebar rows and their colours are in the herdr config. `prefix + Shift + U` opens the pull request in [terminal-browser](https://github.com/zenbu-labs/terminal-browser), a Chromium that draws in the terminal, inside a popup, so only one is ever open. It falls back to the default browser where terminal-browser isn't installed, as on Omarchy, which has no Homebrew for its cask.
+`pr-status.sh`, in the `herdr` stow package, works this out every 30 seconds from one `gh pr list` per repo, run by the tab bar's status area, and reports it as each workspace's `$pr` token. The sidebar rows and their colours are in the herdr config. `prefix + Shift + U` opens the pull request in [terminal-browser](https://github.com/zenbu-labs/terminal-browser), a Chromium that draws in the terminal, inside a popup, so only one is ever open; `Ctrl + Q` closes it. It draws through the Kitty graphics protocol, which herdr passes on, so it needs a terminal that speaks it, such as Ghostty; Alacritty doesn't. macOS installs it from its Homebrew cask, Omarchy through `install/linux/terminal-browser.sh`, and where it's missing the default browser opens the pull request instead. Its usage telemetry, on by default, is turned off: `TERMINAL_BROWSER_NO_TELEMETRY=1` is set by both shells' supplement and by the popup itself. Everything here works the same on Omarchy.
 
 #### Manual setup guide
 
@@ -478,7 +478,8 @@ The Linux setup (`install/linux/all.sh`) runs these scripts in order:
 |--------|-------------|
 | `../dotfiles/stow.sh` | Stows the cross-platform packages plus `linux`, taking `~/.config/hypr/bindings.lua` over from `/etc/skel` |
 | `bashrc.sh` | Appends the personal supplement source to `.bashrc` |
-| `herdr-keys.sh` | Adds the agent keys (`prefix + a`, `prefix + Shift + A`, `prefix + f`) and the worktree plugin's `prefix + u` to Omarchy's herdr config |
+| `herdr-keys.sh` | Adds the agent keys (`prefix + a`, `prefix + Shift + A`, `prefix + f`), the worktree plugin's `prefix + u` and the [pull request status](#pull-request-status) (tab bar entry, sidebar row, `prefix + Shift + U`) to Omarchy's herdr config |
+| `terminal-browser.sh` | Installs [terminal-browser](https://github.com/zenbu-labs/terminal-browser) for the pull request popup, which macOS gets from its Homebrew cask: the pinned release, checked against the cask's sha256, linked into `~/.local/bin`. Bump the version and both sums together, from the cask |
 
 #### What gets customized
 
@@ -488,7 +489,7 @@ The Linux setup (`install/linux/all.sh`) runs these scripts in order:
 | Shell | `~/.config/bash/supplement.bash` plus per-tool aliases, sourced from Omarchy's own bashrc slot |
 | Theme | Stock `tokyo-night`; Omarchy already ships it and the colors match |
 | Bar, menu, notifications | Omarchy stock — nothing ported |
-| herdr | Omarchy's config, plus the agent and plugin keys appended by an Omarchy `post-update.d` hook, so they come back if an update replaces the file. The keys match the macOS ones. The [herdr plugins](#herdr-plugins) are linked as on macOS |
+| herdr | Omarchy's config, plus the agent and plugin keys and the pull request status added by an Omarchy `post-update.d` hook, so they come back if an update replaces the file. The status command joins Omarchy's own `tab_bar_right` line; the hook warns if that line changes. The keys match the macOS ones. The [herdr plugins](#herdr-plugins) and the `herdr` stow package are the same as on macOS |
 
 #### Binding deltas
 
