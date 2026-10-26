@@ -5,7 +5,8 @@ set -euo pipefail
 # Paseo does: from the worktree, with Paseo's variables set, as one script that
 # stops at the first failing command, whether the config gives a string or an
 # array of commands. Paseo reads the file from the base branch; this reads the
-# checkout's own, which is the same file for a branch just made from that base.
+# copy created.sh saved when the worktree was made, which is that same file for
+# a branch just made from the base, and stays put while the checkout changes.
 # Succeeds quietly when the repo has no such phase, and for a fork's pull
 # request, whose paseo.json is the fork's to write. created.sh runs setup, hrd
 # runs teardown before it removes the checkout.
@@ -15,7 +16,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 
 phase="$1"
 worktree="$2"
-config="$worktree/paseo.json"
+config=$(paseo_config "$worktree") || exit 0
 
 [[ -f $config ]] || exit 0
 untrusted_checkout "$worktree" && exit 0

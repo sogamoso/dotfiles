@@ -28,3 +28,7 @@ if [[ -n $failed ]]; then
 else
   log_success "herdr plugins linked"
 fi
+
+# A running server keeps the keys it started with, so a key bound to a plugin
+# action, newly stowed or pulled, waits for this. Nothing to do with none running.
+herdr server reload-config >/dev/null 2>&1 || true

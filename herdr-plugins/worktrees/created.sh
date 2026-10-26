@@ -19,8 +19,9 @@ if command -v mise >/dev/null; then
   mise trust --quiet "$worktree" >/dev/null 2>&1 || true
 fi
 
-config="$worktree/paseo.json"
-[[ -f $config ]] || exit 0
+[[ -f $worktree/paseo.json ]] || exit 0
+config=$(paseo_config "$worktree")
+cp "$worktree/paseo.json" "$config"
 
 if jq -e '.worktree.setup // empty' "$config" >/dev/null; then
   open_tab "$workspace" "$worktree" setup "$(printf 'bash %q setup %q && bash %q %q %q && exit' \

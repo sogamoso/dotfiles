@@ -40,6 +40,14 @@ fi
 
 git -C "$repo" fetch --quiet origin "$refspec"
 
+# herdr checks out a branch that already exists as it is, ignoring --base, so
+# bring it up to the pull request first when that's a fast-forward. A branch
+# with commits of its own is left alone.
+if git -C "$repo" show-ref --verify --quiet "refs/heads/$branch" &&
+  git -C "$repo" merge-base --is-ancestor "$branch" "$base"; then
+  git -C "$repo" branch --quiet --force "$branch" "$base"
+fi
+
 # Before the checkout exists, so the worktree.created hook already sees it.
 # Deleting the branch, as hrd does, drops it.
 [[ -z $upstream ]] && git -C "$repo" config "branch.$branch.untrustedCheckout" true

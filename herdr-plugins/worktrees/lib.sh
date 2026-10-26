@@ -29,6 +29,16 @@ untrusted_checkout() {
   [[ -n $branch && $(git -C "$1" config --get "branch.$branch.untrustedCheckout") == "true" ]]
 }
 
+# Where created.sh keeps the paseo.json a worktree was made with: its own git
+# dir, so teardown and terminals follow the config setup ran with, whatever
+# later happens to the checkout's copy
+# Usage: paseo_config <worktree>
+paseo_config() {
+  local git_dir
+  git_dir=$(git -C "$1" rev-parse --absolute-git-dir 2>/dev/null) || return 1
+  echo "$git_dir/paseo.json"
+}
+
 # The main checkout of the repo <dir> is in, even from one of its worktrees.
 # herdr only creates and opens worktrees from the main one.
 # Usage: main_checkout <dir>

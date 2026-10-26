@@ -10,7 +10,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 
 workspace="$1"
 worktree="$2"
-config="$worktree/paseo.json"
+config=$(paseo_config "$worktree") || exit 0
 
 [[ -f $config ]] || exit 0
 untrusted_checkout "$worktree" && exit 0
