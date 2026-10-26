@@ -2,7 +2,11 @@
 set -euo pipefail
 
 REPO="https://github.com/sogamoso/dotfiles.git"
-DEST="$HOME/Code/sogamoso/dotfiles"
+DEST="$HOME/Work/sogamoso/dotfiles"
+# A machine set up before the move to ~/Work keeps its checkout where it is;
+# bootstrap moves it, so cloning a second copy here would only collide with it
+OLD_DEST="$HOME/Code/sogamoso/dotfiles"
+[[ ! -d $DEST && -d $OLD_DEST ]] && DEST="$OLD_DEST"
 
 # Use gum-styled logging when available (re-runs), plain echo on first run
 LOG_SH="$DEST/install/lib/log.sh"
