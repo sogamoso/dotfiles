@@ -22,11 +22,11 @@ OMARCHY_STATE_FILE="${OMARCHY_STATE_FILE:-$DOTFILES/.omarchy-reviewed}"
 
 # Ported: changes here can need bringing over. The shell (default/bash, ported
 # file for file to stow/zsh/.config/zsh/omarchy), the tmux, starship and git
-# configs the macOS side copies, terminal tools, herdr, the coding agents (which mise installs, how
-# omarchy-agent launches each, the default agent), mise itself, hooks, launchers
-# and webapps, capture, the bar widgets SketchyBar ports, toggles, updates, the
-# CLI tools Omarchy installs, and the utilities status.sh, reminder.sh and
-# mic-mute.sh are ported from.
+# configs the macOS side copies, terminal tools, herdr, the coding agents (which
+# mise installs, how omarchy-agent launches each, the default agent), mise
+# itself, hooks, launchers and webapps, capture, the bar widgets SketchyBar
+# ports, toggles, updates, the CLI tools Omarchy installs, and the utilities
+# status.sh, reminder.sh and mic-mute.sh are ported from.
 OMARCHY_PARITY_PATHS=(
   default/hypr/bindings.lua
   default/hypr/bindings
