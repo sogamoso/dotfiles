@@ -29,7 +29,16 @@ untrusted_checkout() {
   [[ -n $branch && $(git -C "$1" config --get "branch.$branch.untrustedCheckout") == "true" ]]
 }
 
-# The top of a checkout of owner/repo: <dir>'s own when it is one, or else the
+# The main checkout of the repo <dir> is in, even from one of its worktrees.
+# herdr only creates and opens worktrees from the main one.
+# Usage: main_checkout <dir>
+main_checkout() {
+  local common_dir
+  common_dir=$(git -C "$1" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || return 1
+  dirname "$common_dir"
+}
+
+# The main checkout of owner/repo: <dir>'s repo when it is one, or else the
 # first under ~/Work, laid out as ~/Work/<owner>/<repo> or ~/Work/<repo>
 # Usage: checkout_for <owner/repo> [<dir>]
 checkout_for() {
@@ -38,9 +47,19 @@ checkout_for() {
   for dir in "${2:-}" "$HOME"/Work/*/*/ "$HOME"/Work/*/; do
     [[ -n $dir && -d $dir ]] || continue
     if [[ $(github_slug "$dir") == "$want" ]]; then
-      git -C "$dir" rev-parse --show-toplevel
+      main_checkout "$dir"
       return
     fi
   done
   return 1
+}
+
+# A tab in a workspace, left unfocused, running a command in its shell
+# Usage: open_tab <workspace> <cwd> <label> [<command>]
+open_tab() {
+  local pane
+  pane=$("$herdr" tab create --workspace "$1" --cwd "$2" --label "$3" --no-focus |
+    jq -r '.result.root_pane.pane_id')
+  [[ -n ${4:-} ]] && "$herdr" pane run "$pane" "$4" >/dev/null
+  return 0
 }

@@ -15,7 +15,7 @@ fail() {
   exit 1
 }
 
-repo=$(git -C "${PR_REPO:-$HOME}" rev-parse --show-toplevel 2>/dev/null) ||
+repo=$(main_checkout "${PR_REPO:-$HOME}") ||
   fail "The focused pane isn't in a git repository."
 slug=$(github_slug "$repo") || fail "$(basename "$repo") has no GitHub origin."
 

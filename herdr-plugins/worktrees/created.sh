@@ -4,9 +4,9 @@ set -euo pipefail
 # The worktree.created hook. Trusts the new checkout's mise config, as hrw does,
 # so a checkout made from the sidebar gets it too. Then follows the repo's
 # paseo.json: worktree.setup runs in a tab of its own, which closes when setup
-# succeeds and stays open on the error when it fails, and every entry in
-# worktree.terminals gets a tab running its command. Agents don't wait for
-# setup: hrw starts its agent alongside it.
+# succeeds and stays open on the error when it fails, and the worktree.terminals
+# tabs open once setup has succeeded, since they may need what it installs.
+# Agents don't wait for setup: hrw starts its agent alongside it.
 
 source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 
@@ -22,20 +22,9 @@ fi
 config="$worktree/paseo.json"
 [[ -f $config ]] || exit 0
 
-# A tab in the new workspace, left unfocused, running a command in its shell
-# Usage: open_tab <label> [<command>]
-open_tab() {
-  local pane
-  pane=$("$herdr" tab create --workspace "$workspace" --cwd "$worktree" --label "$1" --no-focus |
-    jq -r '.result.root_pane.pane_id')
-  [[ -n ${2:-} ]] && "$herdr" pane run "$pane" "$2" >/dev/null
-  return 0
-}
-
 if jq -e '.worktree.setup // empty' "$config" >/dev/null; then
-  open_tab setup "$(printf 'bash %q setup %q && exit' "$HERDR_PLUGIN_ROOT/paseo.sh" "$worktree")"
+  open_tab "$workspace" "$worktree" setup "$(printf 'bash %q setup %q && bash %q %q %q && exit' \
+    "$HERDR_PLUGIN_ROOT/paseo.sh" "$worktree" "$HERDR_PLUGIN_ROOT/terminals.sh" "$workspace" "$worktree")"
+else
+  bash "$HERDR_PLUGIN_ROOT/terminals.sh" "$workspace" "$worktree"
 fi
-
-jq -c '.worktree.terminals[]?' "$config" | while IFS= read -r terminal; do
-  open_tab "$(jq -r '.name // "terminal"' <<<"$terminal")" "$(jq -r '.command // empty' <<<"$terminal")"
-done

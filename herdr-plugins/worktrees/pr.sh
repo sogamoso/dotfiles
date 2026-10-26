@@ -12,7 +12,7 @@ set -euo pipefail
 
 source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 
-repo="$1"
+repo=$(main_checkout "$1") || { echo "$1 isn't in a git repository." >&2; exit 1; }
 number="$2"
 
 slug=$(github_slug "$repo") || { echo "$repo has no GitHub origin." >&2; exit 1; }
@@ -44,7 +44,8 @@ git -C "$repo" fetch --quiet origin "$refspec"
 # Deleting the branch, as hrd does, drops it.
 [[ -z $upstream ]] && git -C "$repo" config "branch.$branch.untrustedCheckout" true
 
-response=$("$herdr" worktree create --cwd "$repo" --branch "$branch" --base "$base" --label "$branch" --focus 2>&1)
+# Checked below rather than by errexit, so a failure shows herdr's message
+response=$("$herdr" worktree create --cwd "$repo" --branch "$branch" --base "$base" --label "$branch" --focus 2>&1) || true
 pane=$(jq -r '.result.root_pane.pane_id // empty' <<<"$response" 2>/dev/null || true)
 [[ -z $pane ]] && { jq -r '.error.message' <<<"$response" 2>/dev/null || echo "$response"; exit 1; } >&2
 
