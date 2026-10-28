@@ -1,2 +1,5 @@
 [settings]
 experimental = true
+
+[tools]
+shellcheck = "0.11.0"
