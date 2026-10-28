@@ -215,7 +215,7 @@ SketchyBar, configured in [`stow/macos/.config/sketchybar/`](stow/macos/.config/
 | Mic | Microphone is muted; click toggles | While muted |
 | Reminder | A reminder is queued, with the count when there are several; click lists them | While queued |
 | Stay awake | A caffeinate assertion is held (workhours or manual) | While held |
-| Agents | The fullest current usage limit across Claude Code and Codex, yellow from 80% and red from 95%; click lists each agent's plan and limits with reset times, right-click starts Claude Code | Once a limit has been read |
+| Agents | Usage limits for Claude Code, Codex, Cursor and Grok; the icon turns red once any limit reaches 90%. Click lists each agent's plan, limits and time until reset; right-click starts Claude Code, middle-click checks again | Always |
 | Dotfiles update | Commits behind origin; click runs `dotfiles update` | While behind |
 
 #### Hotkeys

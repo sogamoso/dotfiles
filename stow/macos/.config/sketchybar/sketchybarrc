@@ -184,15 +184,15 @@ sketchybar --add item input_source right \
     click_script="$PLUGIN_DIR/switch_input_source.sh" \
     script="$PLUGIN_DIR/input_source.sh"
 
-# Agent usage — the fullest current limit across Claude Code and Codex.
-# Omarchy parity: click opens a popup with each agent's plan and limits,
-# right click starts Claude Code. Polled every 15 minutes, as Omarchy does,
-# since Anthropic rate-limits its usage endpoint readily.
+# Agent usage limits for Claude Code, Codex, Cursor and Grok. Omarchy parity:
+# the icon alone, red once any limit reaches 90%; click opens a popup with each
+# agent's plan and limits, right click starts Claude Code, middle click checks
+# again. Polled every 15 minutes, as Omarchy does, since Anthropic
+# rate-limits its usage endpoint readily.
 sketchybar --add item agents right \
   --set agents \
-    icon="󰚩" \
-    label.padding_left=2 \
-    drawing=off \
+    icon="󱚣" \
+    label.drawing=off \
     update_freq=900 \
     popup.align=right \
     popup.background.color=$SURFACE \
@@ -201,27 +201,38 @@ sketchybar --add item agents right \
     popup.background.border_color=$MUTED \
     script="$PLUGIN_DIR/agents.sh" \
   --subscribe agents mouse.clicked mouse.exited.global system_woke
-for agent in claude codex cursor antigravity; do
+for agent in antigravity claude codex cursor grok; do
   sketchybar --add item "agents.$agent" popup.agents \
     --set "agents.$agent" \
       icon.font="$FONT:Bold:13.0" \
-      icon.width=110 \
+      icon.width=130 \
       label.font="$FONT:Regular:12.0" \
       padding_left=10 \
       padding_right=10
-  for row in 1 2 3; do
+  for row in 1 2 3 4; do
     sketchybar --add item "agents.$agent.$row" popup.agents \
       --set "agents.$agent.$row" \
         drawing=off \
         icon.font="$FONT:Regular:12.0" \
         icon.color=$MUTED \
-        icon.width=110 \
+        icon.width=130 \
         icon.padding_left=12 \
         label.font="$FONT:Regular:12.0" \
         padding_left=10 \
         padding_right=10
   done
 done
+# Omarchy's panel carries a button that starts the default agent
+sketchybar --add item agents.start popup.agents \
+  --set agents.start \
+    icon="󰆍" \
+    icon.font="$FONT:Bold:13.0" \
+    label="Start Claude Code" \
+    label.font="$FONT:Bold:12.0" \
+    label.padding_left=8 \
+    padding_left=10 \
+    padding_right=10 \
+    click_script="sketchybar --set agents popup.drawing=off; $LAUNCH --new Ghostty --args -e claude"
 
 # Dotfiles update indicator — visible only when local repo is behind origin
 sketchybar --add item dotfiles_update right \

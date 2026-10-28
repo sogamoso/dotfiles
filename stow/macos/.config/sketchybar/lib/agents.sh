@@ -45,7 +45,9 @@ agents_claude() {
       else sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | fromdateiso8601 end;
     {plan: $plan, status: "", limits: [
       (.five_hour  | select(. != null) | {label: "Session", percent: .utilization, resets: (.resets_at | epoch)}),
-      (.seven_day  | select(. != null) | {label: "Weekly",  percent: .utilization, resets: (.resets_at | epoch)})
+      (.seven_day  | select(. != null) | {label: "Weekly",  percent: .utilization, resets: (.resets_at | epoch)}),
+      (.limits[]? | select(.kind == "weekly_scoped" and .scope.model.display_name != null)
+        | {label: "\(.scope.model.display_name) weekly", percent: .percent, resets: (.resets_at | epoch)})
     ]}' 2>/dev/null || agents_status "$plan" "Unexpected answer from Anthropic"
 }
 
@@ -84,8 +86,105 @@ agents_codex() {
          | ($b.primary, $b.secondary) | select(. != null)
          | {label: ((if $b.limitId == "codex" or $b.limitName == null then "" else "\($b.limitName) " end)
                     + (.windowDurationMins | window_label)),
-            percent: .usedPercent, resets: .resetsAt} ]}' 2>/dev/null ||
+            percent: .usedPercent, resets: .resetsAt} ]
+         + ([$r.rateLimitResetCredits.credits[]? | select(.status == "available")] as $free
+            | if ($free | length) == 0 then [] else
+                [{label: "Free resets", text: "\($free | length) available",
+                  resets: ($free | map(.expiresAt) | min)}] end)}' 2>/dev/null ||
     agents_status "" "Unexpected answer from codex app-server"
+}
+
+# Cursor's CLI keeps its login in the keychain on macOS. Usage comes from the
+# dashboard service the CLI itself calls, as Omarchy's collector does. Like
+# Claude's, the token reaches curl through pipes only and goes nowhere else.
+agents_cursor() {
+  local usage plan
+  security find-generic-password -s cursor-access-token >/dev/null 2>&1 || return 0
+
+  usage=$(agents_cursor_call GetCurrentPeriodUsage) || { agents_status "" "$usage"; return; }
+  plan=$(agents_cursor_call GetPlanInfo) || plan='{}'
+
+  jq -nc --argjson u "$usage" --argjson p "$plan" '
+    ($p.planInfo // {}) as $plan
+    | (if ($plan.includedUsagePeriod // "" | test("WEEK")) then "Weekly" else "Monthly" end) as $window
+    | (($plan.includedUsageResetsAt // $u.billingCycleEnd // "0") | tonumber / 1000 | floor) as $resets
+    | ($u.spendLimitUsage // {}) as $spend
+    | {plan: ($plan.planName // ""), status: "", limits: [
+        {label: "Included", percent: ($u.planUsage.totalPercentUsed // 0), resets: $resets},
+        {label: "Auto models", percent: ($u.planUsage.autoPercentUsed // 0), resets: $resets},
+        {label: "Named models", percent: ($u.planUsage.apiPercentUsed // 0), resets: $resets},
+        (if ($spend.individualLimit // 0) > 0 then
+          {label: "On-demand", percent: (100 * ($spend.individualUsed // 0) / $spend.individualLimit), resets: $resets}
+         else empty end)
+      ] | map(.label |= if . == "Included" then $window else . end)}' 2>/dev/null ||
+    agents_status "" "Unexpected answer from Cursor"
+}
+
+# Prints the answer, or the reason it failed, which is what the caller shows
+agents_cursor_call() {
+  local response code
+  response=$(security find-generic-password -s cursor-access-token -w 2>/dev/null |
+    sed 's/^/Authorization: Bearer /' |
+    curl -sS --proto '=https' --max-time 10 -X POST -H @- \
+      -H 'Content-Type: application/json' -H 'Connect-Protocol-Version: 1' -H 'x-cursor-client-type: cli' \
+      -d '{}' -w '\n%{http_code}' "https://api2.cursor.sh/aiserver.v1.DashboardService/$1" 2>/dev/null)
+  code=${response##*$'\n'}
+  case "$code" in
+    200)     printf '%s' "${response%$'\n'*}" ;;
+    401|403) echo "Signed out: run cursor-agent login"; return 1 ;;
+    000|"")  echo "Offline"; return 1 ;;
+    *)       echo "Usage check failed (HTTP $code)"; return 1 ;;
+  esac
+}
+
+# Grok keeps its login in ~/.grok/auth.json on every platform, and asks the
+# same billing endpoint its /usage view does. Its access token lives six hours
+# and Grok mints a new one whenever it starts, so a lapsed one isn't a sign-out.
+agents_grok() {
+  local auth="${GROK_HOME:-$HOME/.grok}/auth.json" plan expires credits monthly code
+  [[ -f $auth ]] || return 0
+  plan=$(jq -r '.payload | fromjson | .settings.subscription_tier_display // ""' \
+    "${GROK_HOME:-$HOME/.grok}/settings_cache.json" 2>/dev/null)
+
+  expires=$(jq -r 'to_entries[0].value.expires_at // empty | sub("\\.[0-9]+"; "") | sub("Z$"; "") + "Z" | fromdateiso8601' "$auth" 2>/dev/null)
+  if [[ -n $expires ]] && (( expires <= $(date +%s) )); then
+    agents_status "$plan" "Token lapsed: run grok to renew it"
+    return
+  fi
+
+  credits=$(agents_grok_call 'https://cli-chat-proxy.grok.com/v1/billing?format=credits') || {
+    agents_status "$plan" "$credits"; return; }
+  # A unified-billing account can also carry a monthly quota; a quota of zero
+  # means there is none
+  if jq -e '.config.isUnifiedBillingUser == true' <<<"$credits" >/dev/null 2>&1; then
+    monthly=$(agents_grok_call 'https://cli-chat-proxy.grok.com/v1/billing') || monthly='{}'
+  fi
+
+  jq -nc --arg plan "$plan" --argjson c "$credits" --argjson m "${monthly:-{\}}" '
+    def epoch: sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | fromdateiso8601;
+    $c.config as $cc
+    | {plan: $plan, status: "", limits: [
+        ($cc.currentPeriod | select(. != null)
+          | {label: (if (.type // "" | test("WEEK")) then "Weekly" else "Monthly" end),
+             percent: ($cc.creditUsagePercent // 0), resets: (.end | epoch)}),
+        ($m.config // {} | select((.monthlyLimit.val // 0) > 0)
+          | {label: "Monthly", percent: (100 * (.used.val // 0) / .monthlyLimit.val),
+             resets: (.billingPeriodEnd | epoch)})
+      ]}' 2>/dev/null || agents_status "$plan" "Unexpected answer from Grok"
+}
+
+agents_grok_call() {
+  local response code
+  response=$(jq -r 'to_entries[0].value | "Authorization: Bearer \(.key)"' "${GROK_HOME:-$HOME/.grok}/auth.json" 2>/dev/null |
+    curl -sS --proto '=https' --max-time 8 -H @- -H 'Accept: application/json' \
+      -w '\n%{http_code}' "$1" 2>/dev/null)
+  code=${response##*$'\n'}
+  case "$code" in
+    200)     printf '%s' "${response%$'\n'*}" ;;
+    401|403) echo "Signed out: run grok login"; return 1 ;;
+    000|"")  echo "Offline"; return 1 ;;
+    *)       echo "Usage check failed (HTTP $code)"; return 1 ;;
+  esac
 }
 
 # A record with no numbers, so the cached ones stay on show with the reason

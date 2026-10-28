@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Agent usage limits, after Omarchy's agents widget. The bar shows the fullest
-# current limit across agents; a click opens a popup with each agent's plan
-# and limits, and a right click starts Claude Code.
+# Agent usage limits, after Omarchy's agents widget. The bar holds the icon
+# alone, turning red once any agent's limit reaches 90%. A click opens a popup
+# with each agent's plan, limits and time until they reset; a right click
+# starts Claude Code, and a middle click checks again now.
 #
 # Each refresh caches the last good numbers per agent, so a refused or failed
 # check shows them as stale with the reason instead of blanking the item.
@@ -11,16 +12,20 @@ source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/colors.sh"
 source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/agents.sh"
 
 CACHE="${TMPDIR:-/tmp}/dotfiles-agents"
-# Cursor and Antigravity have no usage source yet; they hold their place
-AGENTS=("claude|Claude Code" "codex|Codex" "cursor|Cursor" "antigravity|Antigravity")
-ROWS=3
+# Alphabetical, as Omarchy orders them. Antigravity has no usage source here
+# yet and holds its place.
+AGENTS=("antigravity|Antigravity" "claude|Claude Code" "codex|Codex" "cursor|Cursor" "grok|Grok")
+FETCHED=(claude codex cursor grok)
+ROWS=4
+ALARM=90
 
+# $1 is the minimum seconds between checks: the routine poll and a click can
+# land together, and Anthropic rate-limits its usage endpoint readily
 refresh() {
   local id record
-  # The routine poll and a click can land together; one check is enough
-  debounce agents-refresh 300 || return 0
+  debounce agents-refresh "$1" || return 0
   mkdir -p "$CACHE"
-  for id in claude codex; do
+  for id in "${FETCHED[@]}"; do
     (
       record=$("agents_$id")
       if [[ -z $record ]]; then
@@ -38,12 +43,17 @@ refresh() {
   wait
 }
 
-when() {
-  if (( $1 - $(date +%s) < 86400 )); then date -r "$1" +%H:%M; else date -r "$1" '+%a %H:%M'; fi
-}
-
-severity_color() {
-  if (( $1 >= 95 )); then echo "$RED"; elif (( $1 >= 80 )); then echo "$YELLOW"; else echo "$TEXT"; fi
+# Time until a reset, the way Omarchy writes it: 2d 3h, 19h 40m, 5m
+until_reset() {
+  local left=$(( $1 - $(date +%s) ))
+  (( left < 60 )) && left=60
+  if (( left >= 86400 )); then
+    echo "$(( left / 86400 ))d $(( left % 86400 / 3600 ))h"
+  elif (( left >= 3600 )); then
+    echo "$(( left / 3600 ))h $(( left % 3600 / 60 ))m"
+  else
+    echo "$(( left / 60 ))m"
+  fi
 }
 
 meter() {
@@ -53,7 +63,9 @@ meter() {
 }
 
 render() {
-  local entry id name file plan status fetched n count percent label resets worst=-1 args=()
+  local entry id name file plan status fetched n count percent label text resets color
+  local now worst=0 args=()
+  now=$(date +%s)
   for entry in "${AGENTS[@]}"; do
     id=${entry%%|*}
     name=${entry#*|}
@@ -68,18 +80,26 @@ render() {
       fetched=$(jq -r '.fetched // empty' "$file")
       if [[ -n $status ]]; then
         label="$status${fetched:+ · as of $(date -r "$fetched" +%H:%M)}"
-        args+=(--set "agents.$id" icon="$name" label="$label" label.color=$YELLOW)
+        args+=(--set "agents.$id" icon="$name" label="$label" label.color=$RED)
       else
         args+=(--set "agents.$id" icon="$name" label="$plan" label.color=$MUTED)
       fi
       count=$(jq '.limits | length' "$file")
       for (( n = 0; n < count && n < ROWS; n++ )); do
-        percent=$(jq -r ".limits[$n].percent | round" "$file")
         label=$(jq -r ".limits[$n].label" "$file")
+        text=$(jq -r ".limits[$n].text // empty" "$file")
         resets=$(jq -r ".limits[$n].resets // empty" "$file")
-        args+=(--set "agents.$id.$((n + 1))" drawing=on icon="$label"
-          label="$(meter "$percent") $(printf '%3s' "$percent")%${resets:+  resets $(when "$resets")}"
-          label.color="$(severity_color "$percent")")
+        if [[ -n $text ]]; then
+          args+=(--set "agents.$id.$((n + 1))" drawing=on icon="$label" label.color=$TEXT
+            label="$text${resets:+ · expire in $(until_reset "$resets")}")
+          continue
+        fi
+        percent=$(jq -r ".limits[$n].percent | round" "$file")
+        # A window whose reset has passed starts again from nothing
+        [[ -n $resets ]] && (( resets <= now )) && percent=0
+        (( percent >= ALARM )) && color=$RED || color=$TEXT
+        args+=(--set "agents.$id.$((n + 1))" drawing=on icon="$label" label.color="$color"
+          label="$(meter "$percent") $(printf '%3s' "$percent")%${resets:+  $(until_reset "$resets")}")
         (( percent > worst )) && worst=$percent
       done
     fi
@@ -88,32 +108,35 @@ render() {
     done
   done
 
-  if (( worst < 0 )); then
-    args+=(--set "$NAME" drawing=off)
-  else
-    args+=(--set "$NAME" drawing=on label="$worst%" label.color="$(severity_color "$worst")")
-  fi
+  (( worst >= ALARM )) && color=$RED || color=$TEXT
+  args+=(--set "$NAME" icon.color="$color")
   sketchybar "${args[@]}"
 }
 
 case "${SENDER:-}" in
   mouse.clicked)
-    if [[ ${BUTTON:-} == "right" ]]; then
-      "$HOME/.config/aerospace/launch-or-focus.sh" --new Ghostty --args -e claude
-    else
-      render
-      sketchybar --set "$NAME" popup.drawing=toggle
-      # Opening the popup is when fresh numbers matter; the debounce keeps
-      # repeated opens from hammering the endpoints
-      { refresh && render; } &
-    fi
+    case "${BUTTON:-}" in
+      right)
+        "$HOME/.config/aerospace/launch-or-focus.sh" --new Ghostty --args -e claude
+        ;;
+      other)
+        refresh 15
+        render
+        ;;
+      *)
+        render
+        sketchybar --set "$NAME" popup.drawing=toggle
+        # Opening the popup is when fresh numbers matter, as in Omarchy
+        { refresh 300 && render; } &
+        ;;
+    esac
     ;;
   mouse.exited.global)
     sketchybar --set "$NAME" popup.drawing=off
     ;;
   *)
     render
-    refresh
+    refresh 300
     render
     ;;
 esac
