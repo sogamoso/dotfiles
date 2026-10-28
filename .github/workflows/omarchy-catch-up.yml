@@ -187,4 +187,5 @@ jobs:
         run: |
           git push --quiet --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$BRANCH"
           gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$BRANCH" \
+            --assignee "$GITHUB_REPOSITORY_OWNER" \
             --title "Catch up with Omarchy" --body-file "$RUNNER_TEMP/in/body.md"
