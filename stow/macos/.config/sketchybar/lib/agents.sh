@@ -141,7 +141,7 @@ agents_cursor_call() {
 # same billing endpoint its /usage view does. Its access token lives six hours
 # and Grok mints a new one whenever it starts, so a lapsed one isn't a sign-out.
 agents_grok() {
-  local auth="${GROK_HOME:-$HOME/.grok}/auth.json" plan expires credits monthly code
+  local auth="${GROK_HOME:-$HOME/.grok}/auth.json" plan expires credits monthly='{}' code
   [[ -f $auth ]] || return 0
   plan=$(jq -r '.payload | fromjson | .settings.subscription_tier_display // ""' \
     "${GROK_HOME:-$HOME/.grok}/settings_cache.json" 2>/dev/null)
@@ -160,7 +160,7 @@ agents_grok() {
     monthly=$(agents_grok_call 'https://cli-chat-proxy.grok.com/v1/billing') || monthly='{}'
   fi
 
-  jq -nc --arg plan "$plan" --argjson c "$credits" --argjson m "${monthly:-{\}}" '
+  jq -nc --arg plan "$plan" --argjson c "$credits" --argjson m "$monthly" '
     def epoch: sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | fromdateiso8601;
     $c.config as $cc
     | {plan: $plan, status: "", limits: [
