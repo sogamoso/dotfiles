@@ -120,13 +120,13 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 
 | Command | Action |
 |---|---|
-| `dotfiles update` | Pull, sync Brewfile, restow, reload services, install Vicinae extensions added on another Mac, update every installed mise tool (`mise up`, as `omarchy update` does). Also runs daily at 10:30, followed by `dotfiles doctor`, from the `com.sogamoso.dotfiles-daily` agent (skipped on battery). That run only installs new Brewfile entries and leaves upgrades to brew autoupdate, which can ask for a password; a notification gives the result and opens the log at `/tmp/com.sogamoso.dotfiles-daily.log` |
+| `dotfiles update` | Pull, sync Brewfile, restow, reload services, install Vicinae extensions added on another Mac, update every installed mise tool (`mise up`, as `omarchy update` does), then run `dotfiles doctor`. Also runs daily at 10:30, followed by `dotfiles doctor`, from the `com.sogamoso.dotfiles-daily` agent (skipped on battery). That run only installs new Brewfile entries and leaves upgrades to brew autoupdate, which can ask for a password; a notification gives the result and opens the log at `/tmp/com.sogamoso.dotfiles-daily.log` |
 | `dotfiles pull` | Git pull only |
 | `dotfiles brew` | Sync Brewfile via `brew bundle`, keep brew autoupdate current |
 | `dotfiles stow` | Re-stow all packages |
 | `dotfiles reload` | Re-stow, relink skills, restart SketchyBar, reload AeroSpace, restart a stale herdr server, relink the herdr plugins |
 | `dotfiles status` | Branch, ahead/behind, dirty files |
-| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, herdr plugins, 1Password, Vicinae, brew autoupdate) and print the fix for anything wrong |
+| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, herdr plugins, 1Password, keyboard shortcuts, login items, GitHub CLI, mailto, Screen Sharing, Vicinae, LanguageTool, brew autoupdate) and print the fix for anything wrong. Also runs at the end of bootstrap and of `dotfiles update` |
 | `dotfiles vicinae [status \| save \| reset]` | Compare Vicinae's settings and store extensions with the repo. `save` keeps what changed on this Mac (commit the result), `reset` drops it |
 | `dotfiles omarchy-downstream-candidates` | Review what changed in Omarchy since the last review and which of it to port, in Claude Code (Codex if Claude isn't installed) with the `omarchy-downstream` skill. `--list` prints the raw changes: new and removed key bindings, commits touching what the macOS side ports, files added or removed outside the areas set aside as Linux-only, new migrations that mention something used here, and any Omarchy area not yet classified as ported or skipped. `--mark-reviewed` records the review in `.omarchy-reviewed` |
 | `dotfiles agent [<name>]` | Show or set the default coding agent, like Omarchy's `omarchy default agent`, with the same names (`gemini` picks Antigravity, `cursor` the Cursor CLI). The `a` alias launches it with Omarchy's flags for that agent, and the herdr layouts use it when no agent is given |

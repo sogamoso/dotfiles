@@ -11,7 +11,8 @@ usage() {
 Usage: dotfiles <command>
 
 Commands:
-  update    Pull, sync Brewfile, restow, reload services, update mise tools
+  update    Pull, sync Brewfile, restow, reload services, update mise tools,
+            then run doctor
   pull      Git pull only
   brew      Sync Brewfile, keep brew autoupdate current
   stow      Re-stow all dotfile packages
@@ -174,6 +175,12 @@ cmd_update() {
   # same call the mup alias makes. Tools never run stay uninstalled.
   local mise_failed=0
   MISE_MINIMUM_RELEASE_AGE=0 run mise up || mise_failed=1
+  # A manual update ends with the checks the daily run makes. That run calls
+  # doctor itself, to report the update and the checks apart.
+  local doctor_failed=0
+  if [[ -z ${DOTFILES_UNATTENDED:-} ]]; then
+    cmd_doctor || doctor_failed=1
+  fi
   if (( brew_failed )); then
     echo "==> Homebrew step failed; run dotfiles brew in a terminal to finish it"
     return 1
@@ -182,6 +189,7 @@ cmd_update() {
     echo "==> mise up failed; see its output above"
     return 1
   fi
+  return "$doctor_failed"
 }
 
 cmd_status() {

@@ -36,6 +36,14 @@ esac
 # Personal dotfiles
 bash "$REPO_DIR/install/dotfiles/all.sh"
 
+# What's left to do. On a new Mac the manual steps still show as problems, so
+# this only reports and never fails the install.
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  log_heading "Checking the setup..."
+  DOTFILES="$REPO_DIR" "$HOME/.local/bin/dotfiles" doctor ||
+    log_warn "Some checks fail until the manual steps in docs/macos-manual-setup.md are done; rerun dotfiles doctor after them"
+fi
+
 log_heading "Finishing Sebastian's dotfiles installation..."
 log_success "Done!"
 

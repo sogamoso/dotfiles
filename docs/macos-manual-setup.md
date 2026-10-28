@@ -384,7 +384,8 @@ daily check notifies if that ever fails.
 
 ## 16. Confirm the setup with `dotfiles doctor`
 
-Once the steps above are done, run:
+Bootstrap ends by running it, so its list of problems is the manual steps still
+left. Once the steps above are done, run it again:
 
 ```
 dotfiles doctor
@@ -395,7 +396,8 @@ the firewall allowing `tailscaled` and `mosh-server`, the LaunchAgents (work
 hours on laptops only), the ui.sh skills, the system keyboard shortcuts, the
 1Password SSH agent, the login items, the GitHub CLI login, the `mailto:` handler, Screen Sharing (on for the
 Mac mini, off on laptops), LanguageTool's shortcuts and brew autoupdate. Anything wrong
-comes with the command that fixes it. Run it again whenever something seems off.
+comes with the command that fixes it. `dotfiles update` and the daily run end
+with it too; run it again whenever something seems off.
 
 ---
 
