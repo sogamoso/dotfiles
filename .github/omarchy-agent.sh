@@ -78,9 +78,10 @@ case "$agent:${1:-}" in
     # Scrubbing forces the default permission mode, so only the tools listed
     # run; OMARCHY_AGENT_DEBUG adds Claude Code's debug log, which says whether
     # the sandbox started
+    # OMARCHY_AGENT_PROBE_TOOLS adds tools for the sandbox check only
     CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1 claude -p "${2:?run needs a prompt}" \
       ${OMARCHY_AGENT_DEBUG:+--debug} --settings "$claude_settings" \
-      --allowedTools "$(IFS=,; echo "${claude_tools[*]}")" \
+      --allowedTools "$(IFS=,; echo "${claude_tools[*]}")${OMARCHY_AGENT_PROBE_TOOLS:+,$OMARCHY_AGENT_PROBE_TOOLS}" \
       --disallowedTools "$(IFS=,; echo "${claude_denied[*]}")"
     ;;
   codex:run)
