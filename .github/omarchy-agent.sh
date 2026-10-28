@@ -38,28 +38,30 @@ claude_tools=(
   "Bash(git status:*)" "Bash(git diff:*)" "Bash(git log:*)" "Bash(git show:*)"
   "Bash(git add:*)" "Bash(git rm:*)" "Bash(git mv:*)" "Bash(git commit:*)"
 )
-# An Edit rule covers every file-editing tool and a Read rule every reading one,
-# including paths a shell command names; Write and Glob rules match nothing
+# Edit and Read rules cover every editing and reading tool, including paths a
+# shell command names. Claude Code reports the Write, Grep and Glob rules as
+# matching nothing today; they stay in case a later version applies them.
 claude_denied=(
-  "Edit(.git/**)" "Edit(.github/**)" "Edit(.omarchy-upstream/**)"
-  # The process environment holds the agent's own token
-  "Read(//proc/**)"
+  "Edit(.git/**)" "Write(.git/**)"
+  "Edit(.github/**)" "Write(.github/**)"
+  "Edit(.omarchy-upstream/**)" "Write(.omarchy-upstream/**)"
+  # The process environment holds the agent's own token, and Claude Code's own
+  # files can hold it too
+  "Read(//proc/**)" "Grep(//proc/**)" "Glob(//proc/**)"
+  "Read(~/.claude/**)" "Grep(~/.claude/**)" "Glob(~/.claude/**)"
 )
 
 # Claude's shell commands run in its sandbox: no network, writes only in the
 # checkout, no /proc, so no command can read Claude's own environment, and
-# failIfUnavailable stops the run rather than going on unconfined. The runners
-# deny the nested user namespace the full sandbox sets up, so it runs in its
-# weaker nested mode; the sandbox check confirms that still cuts the network. The tools'
+# failIfUnavailable stops the run rather than going on unconfined. The tools'
 # environment is scrubbed of credentials too.
 claude_settings='{
   "sandbox": {
     "enabled": true,
     "failIfUnavailable": true,
-    "enableWeakerNestedSandbox": true,
     "allowUnsandboxedCommands": false,
     "autoAllowBashIfSandboxed": false,
-    "filesystem": { "denyRead": ["/proc"] },
+    "filesystem": { "denyRead": ["/proc", "~/.claude"] },
     "network": { "allowedDomains": [] }
   }
 }'
@@ -67,9 +69,14 @@ claude_settings='{
 case "$agent:${1:-}" in
   claude:install)
     npm install -g @anthropic-ai/claude-code
-    # The sandbox's backend; Ubuntu's AppArmor blocks the user namespaces it needs
+    # The sandbox's backend. Ubuntu's AppArmor blocks the user namespaces it
+    # needs, and its bwrap profile strips capabilities from the nested one the
+    # sandbox's seccomp helper creates; the runner is thrown away after the job
     sudo apt-get install -y --no-install-recommends bubblewrap socat
     sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+    for profile in /etc/apparmor.d/bwrap-userns-restrict /etc/apparmor.d/unprivileged_userns; do
+      [[ -f $profile ]] && sudo apparmor_parser -R "$profile" 2>/dev/null || true
+    done
     ;;
   codex:install)
     : "${OPENAI_API_KEY:?Set the OPENAI_API_KEY repository secret}"
@@ -79,11 +86,10 @@ case "$agent:${1:-}" in
   claude:run)
     : "${CLAUDE_CODE_OAUTH_TOKEN:?Set the CLAUDE_CODE_OAUTH_TOKEN repository secret}"
     # Scrubbing forces the default permission mode, so only the tools listed
-    # run; OMARCHY_AGENT_DEBUG adds Claude Code's debug log, which says whether
-    # the sandbox started
+    # run
     # OMARCHY_AGENT_PROBE_TOOLS adds tools for the sandbox check only
     CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1 claude -p "${2:?run needs a prompt}" \
-      ${OMARCHY_AGENT_DEBUG:+--debug} --settings "$claude_settings" \
+      --settings "$claude_settings" \
       --allowedTools "$(IFS=,; echo "${claude_tools[*]}")${OMARCHY_AGENT_PROBE_TOOLS:+,$OMARCHY_AGENT_PROBE_TOOLS}" \
       --disallowedTools "$(IFS=,; echo "${claude_denied[*]}")"
     ;;
