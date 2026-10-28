@@ -155,21 +155,17 @@ Dictation belongs to the direct-download build that the `macwhisper` cask instal
 
 ### CleanShot
 
-The capture chords are AeroSpace bindings now, driven through CleanShot's URL
-scheme, so they ship with the repo. What is left here is clearing CleanShot's
-own copies, which are stored per-machine and would otherwise fire alongside
-them. In CleanShot → Settings → Shortcuts, leave these **unassigned**:
+No shortcuts to assign. The capture chords are AeroSpace bindings, driven
+through CleanShot's URL scheme, so they ship with the repo. CleanShot keeps its
+own copies per machine, which would fire alongside them, so
+`install/macos/preferences.sh` clears them: **All-In-One** (`Cmd + Shift + 5`),
+**Capture Area** (`Cmd + Shift + 4`), **Capture Fullscreen** (`Cmd + Shift + 3`)
+and **Capture Text** (`Cmd + Shift + 6`). The chords also take over the macOS
+screenshot keys, whose **Screenshots** section step 2 already turns off.
+`dotfiles doctor` doesn't check CleanShot, so if an update brings a shortcut
+back, rerun `preferences.sh` or clear it in CleanShot → Settings → Shortcuts.
 
-- **General → All-In-One** (AeroSpace holds `Cmd + Shift + 5`)
-- **Screenshots → Capture Area** (AeroSpace holds `Cmd + Shift + 4`)
-- **Screenshots → Capture Fullscreen** (AeroSpace holds `Cmd + Shift + 3`)
-- **Screenshots → Capture Previous Area** — unassigned either way
-- **OCR → Capture Text** (AeroSpace holds `Cmd + Shift + 6`)
-
-These chords take over the macOS screenshot keys, so disable the **Screenshots**
-section in System Settings first (see step 2).
-
-Then in CleanShot → Settings:
+In CleanShot → Settings:
 
 - **General → Export → Export location** → `Downloads`
 - **General → After Capture** — for both Screenshot and Recording, enable **Show Quick Access Overlay** and **Copy file to clipboard**. Leave **Save**, **Upload to Cloud & copy link**, **Open Annotate tool**, **Pin to the screen** and **Open Video Editor** off. Set **Copy to clipboard** to **File**.
