@@ -439,7 +439,7 @@ What is left worth tracking:
 | SSH reconnect and terminal cleanup on drop | ✅ Omarchy's `ssh` wrapper, ported in `stow/zsh/.config/zsh/omarchy/fns/ssh-reconnect.zsh`: a dropped interactive session gets its mouse tracking and alternate screen disarmed and reconnects, and keepalives surface a dead link in ~45s |
 | Themes generating nvim/btop/VS Code colors from one colorset | No generator. `themes/tokyo-night/colors.toml` is the palette to copy by hand into apps without a Tokyo Night theme, Slack included |
 | Visual theme and background switchers | No equivalent |
-| `SUPER + Ctrl + A/B/W` — audio/bluetooth/wifi TUIs | ✅ Option+Ctrl+A/B/W → System Settings |
+| `SUPER + Ctrl + A/B/N` — audio/bluetooth/network TUIs | ✅ Option+Ctrl+A/B/N → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | ✅ Option+Ctrl+D/P → Displays and Battery settings (Energy on a desktop Mac) |
 | `SUPER + Ctrl + S` — share menu (clipboard, file or folder over LocalSend) | Option+Ctrl+S opens LocalSend itself; pick what to send there |
 | `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → MacWhisper: hold to talk (set by `preferences.sh`) |

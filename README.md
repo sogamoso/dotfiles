@@ -311,7 +311,7 @@ Each opens in Vicinae.
 | `Option + Ctrl + L` | Lock screen |
 | `Option + Ctrl + A` | Sound preferences |
 | `Option + Ctrl + B` | Bluetooth preferences |
-| `Option + Ctrl + W` | Wi-Fi preferences |
+| `Option + Ctrl + N` | Wi-Fi preferences |
 | `Option + Ctrl + D` | Displays preferences |
 | `Option + Ctrl + P` | Battery preferences (Energy on a desktop Mac) |
 | `Option + Shift + T` | btop in Ghostty |
