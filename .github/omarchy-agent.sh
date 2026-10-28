@@ -38,12 +38,12 @@ claude_tools=(
   "Bash(git status:*)" "Bash(git diff:*)" "Bash(git log:*)" "Bash(git show:*)"
   "Bash(git add:*)" "Bash(git rm:*)" "Bash(git mv:*)" "Bash(git commit:*)"
 )
+# An Edit rule covers every file-editing tool and a Read rule every reading one,
+# including paths a shell command names; Write and Glob rules match nothing
 claude_denied=(
-  "Edit(.git/**)" "Write(.git/**)"
-  "Edit(.github/**)" "Write(.github/**)"
-  "Edit(.omarchy-upstream/**)" "Write(.omarchy-upstream/**)"
+  "Edit(.git/**)" "Edit(.github/**)" "Edit(.omarchy-upstream/**)"
   # The process environment holds the agent's own token
-  "Read(//proc/**)" "Grep(//proc/**)" "Glob(//proc/**)"
+  "Read(//proc/**)"
 )
 
 # Claude's shell commands run in its sandbox: no network, writes only in the
@@ -75,8 +75,11 @@ case "$agent:${1:-}" in
     ;;
   claude:run)
     : "${CLAUDE_CODE_OAUTH_TOKEN:?Set the CLAUDE_CODE_OAUTH_TOKEN repository secret}"
+    # Scrubbing forces the default permission mode, so only the tools listed
+    # run; OMARCHY_AGENT_DEBUG adds Claude Code's debug log, which says whether
+    # the sandbox started
     CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1 claude -p "${2:?run needs a prompt}" \
-      --permission-mode acceptEdits --settings "$claude_settings" \
+      ${OMARCHY_AGENT_DEBUG:+--debug} --settings "$claude_settings" \
       --allowedTools "$(IFS=,; echo "${claude_tools[*]}")" \
       --disallowedTools "$(IFS=,; echo "${claude_denied[*]}")"
     ;;
