@@ -69,8 +69,10 @@ jobs:
         if: always()
         run: |
           expected=$(git hash-object .omarchy-nonce)
-          [[ -n $expected ]] && git cat-file -e "$expected" 2>/dev/null ||
-            { echo "::error::The sandboxed command didn't run, so the agent couldn't work"; exit 1; }
+          if [[ -z $expected ]] || ! git cat-file -e "$expected" 2>/dev/null; then
+            echo "::error::The sandboxed command didn't run, so the agent couldn't work"
+            exit 1
+          fi
           echo "A sandboxed command ran"
           for probe in proxy direct; do
             file=".omarchy-probe-$probe.txt"
