@@ -78,23 +78,39 @@ agents_codex() {
     agents_status "" "No answer from codex app-server"
     return
   fi
+  # Only an auth error is a sign-out; anything else says what went wrong
   if printf '%s' "$response" | jq -e '.error' >/dev/null 2>&1; then
-    agents_status "" "Signed out: run codex login"
+    agents_status "" "$(printf '%s' "$response" | jq -r '.error.message // "" |
+      if test("auth"; "i") then "Signed out: run codex login" else "Codex limits unavailable" end')"
     return
   fi
 
+  # Plans as Codex's own /status names them; a newer one keeps its wire name.
+  # A spend cap (seen on Business seats) comes with a reset but no period.
   printf '%s' "$response" | jq -c '
     def window_label: if . == 300 then "Session" elif . == 10080 then "Weekly"
       elif . != null and . % 60 == 0 then "\(. / 60)h" else "Limit" end;
+    def plan_name: {free: "Free", go: "Go", plus: "Plus", pro: "Pro 200", prolite: "Pro 100",
+      promax: "Pro 500", team: "Business", self_serve_business_usage_based: "Business",
+      self_serve_business_prolite: "Business Premium", business: "Enterprise",
+      enterprise_cbp_automation: "Enterprise (Automation)", enterprise_cbp_usage_based: "Enterprise",
+      ent26: "Enterprise", enterprise: "Enterprise", edu: "Edu", edu_plus: "Edu Plus",
+      edu_pro: "Edu Pro"}[.] // gsub("_"; " ");
     .result as $r
-    | {plan: ($r.rateLimits.planType // "" | sub("^self_serve_"; "") | gsub("_"; " ")
-             | split(" ") | map((.[:1] | ascii_upcase) + .[1:]) | join(" ")),
+    | ($r.rateLimitsByLimitId // {codex: $r.rateLimits}) as $buckets
+    | {plan: ([$buckets[]?.planType, $r.rateLimits.planType | strings] | first // "" | plan_name),
        status: "",
-       limits: [ ($r.rateLimitsByLimitId // {codex: $r.rateLimits}) | to_entries[] | .value as $b
+       limits: [ $buckets | to_entries[] | .value as $b
          | ($b.primary, $b.secondary) | select(. != null)
          | {label: ((if $b.limitId == "codex" or $b.limitName == null then "" else "\($b.limitName) " end)
                     + (.windowDurationMins | window_label)),
             percent: .usedPercent, resets: .resetsAt} ]
+         + ([$buckets[]?.individualLimit, $r.rateLimits.individualLimit | objects] | first // null
+            | if . == null then [] else
+                [{label: "Spend limit",
+                  percent: (if (.limit // 0) > 0 and .used != null then 100 * .used / .limit
+                            else 100 - (.remainingPercent // 100) end),
+                  resets: .resetsAt}] end)
          + ([$r.rateLimitResetCredits.credits[]? | select(.status == "available")] as $free
             | if ($free | length) == 0 then [] else
                 [{label: "Free resets", text: "\($free | length) available",
