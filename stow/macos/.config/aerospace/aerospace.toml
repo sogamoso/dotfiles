@@ -95,6 +95,12 @@ alt-ctrl-right = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscree
 alt-ctrl-up    = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace swap up --swap-focus'
 alt-ctrl-down  = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace swap down --swap-focus'
 
+# Move window to the monitor in that direction, onto the workspace it shows — Omarchy: SUPER + SHIFT + CTRL + arrows
+alt-ctrl-shift-left  = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-monitor --focus-follows-window left'
+alt-ctrl-shift-right = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-monitor --focus-follows-window right'
+alt-ctrl-shift-up    = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-monitor --focus-follows-window up'
+alt-ctrl-shift-down  = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-monitor --focus-follows-window down'
+
 # Window controls
 alt-w = ['close', 'exec-and-forget aerospace workspace $AEROSPACE_FOCUSED_WORKSPACE'] # Omarchy: SUPER + W — stay on workspace even if empty
 alt-q = ['close', 'exec-and-forget aerospace workspace $AEROSPACE_FOCUSED_WORKSPACE'] # Omarchy: SUPER + Q — second close chord, for hands used to Cmd+Q

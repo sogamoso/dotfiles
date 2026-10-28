@@ -259,6 +259,7 @@ Each opens in Vicinae.
 | `Option + Ctrl + Tab` | Switch to former workspace |
 | `Option + arrows` | Focus window left/right/up/down |
 | `Option + Ctrl + arrows` | Swap window with its neighbour |
+| `Option + Ctrl + Shift + arrows` | Move window to the monitor in that direction |
 | `Option + Shift + 1-9` | Move window to workspace and follow |
 | `Option + Shift + S` | Move window to scratchpad (workspace 10) and follow |
 | `Option + Shift + Cmd + 1-9` | Move window to workspace without following |
