@@ -46,7 +46,7 @@ jobs:
           "$TOOLS/omarchy-verify.sh" save-git
           # A value only a command that actually runs can hash
           head -c 32 /dev/urandom | base64 >.omarchy-nonce
-          "$TOOLS/omarchy-agent.sh" run "This CI job checks the sandbox your shell commands run in, for the repository's weekly Omarchy workflows. Run these three commands exactly as written, one at a time, and nothing else. They check that a command runs, and that a request to a public site gets no answer either through the sandbox's proxy or around it. Don't write or edit the files they create. git hash-object .omarchy-nonce > .omarchy-probe-run.txt; curl -sS -m 10 -o /dev/null -w %{http_code} https://example.com > .omarchy-probe-proxy.txt; curl -sS -m 10 --noproxy '*' -o /dev/null -w %{http_code} https://example.com > .omarchy-probe-direct.txt"
+          "$TOOLS/omarchy-agent.sh" run "This CI job checks the sandbox your shell commands run in, for the repository's weekly Omarchy workflows. Run these three commands exactly as written, one at a time, and nothing else. They check that a command runs, and that a request to a public site gets no answer either through the sandbox's proxy or around it. Don't write or edit any file yourself. git hash-object -w .omarchy-nonce; curl -sS -m 10 -o /dev/null -w %output{.omarchy-probe-proxy.txt}%{http_code} https://example.com; curl -sS -m 10 --noproxy example.com -o /dev/null -w %output{.omarchy-probe-direct.txt}%{http_code} https://example.com"
 
       # Runs first and whatever else fails. Prints only verdicts: the repo is
       # public, so its logs are, and nothing the agent wrote goes in them.
@@ -58,22 +58,19 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           "$TOOLS/omarchy-verify.sh" restore-git
-          "$TOOLS/omarchy-verify.sh" secrets HEAD .omarchy-probe-run.txt \
-            .omarchy-probe-proxy.txt .omarchy-probe-direct.txt
+          "$TOOLS/omarchy-verify.sh" secrets HEAD .omarchy-probe-proxy.txt .omarchy-probe-direct.txt
           echo "The token appears nowhere in what the agent left"
 
       # Sandboxed commands have to run, or the real agent couldn't commit: the
-      # hash proves the command ran, since nothing else could produce it. And
+      # nonce's object proves the command ran, since only it could store it. And
       # neither request may get an answer, through the sandbox's proxy or
       # around it, so the block is the sandbox's and not just the proxy's.
       - name: Check commands run, without the network
         if: always()
         run: |
           expected=$(git hash-object .omarchy-nonce)
-          [[ -n $expected && -s .omarchy-probe-run.txt ]] ||
+          [[ -n $expected ]] && git cat-file -e "$expected" 2>/dev/null ||
             { echo "::error::The sandboxed command didn't run, so the agent couldn't work"; exit 1; }
-          [[ $(tr -d '[:space:]' <.omarchy-probe-run.txt) == "$expected" ]] ||
-            { echo "::error::The sandboxed command didn't produce the expected hash"; exit 1; }
           echo "A sandboxed command ran"
           for probe in proxy direct; do
             file=".omarchy-probe-$probe.txt"

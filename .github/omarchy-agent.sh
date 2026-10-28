@@ -88,14 +88,16 @@ case "$agent:${1:-}" in
     # Scrubbing forces the default permission mode, so only the tools listed
     # run
     # OMARCHY_AGENT_PROBE grants the sandbox check's probe commands, exactly as
-    # written, each writing its own output: hashing a value only a run command
-    # can see, and two requests, one through the sandbox's proxy and one around it
+    # written. Each records its own result, since a shell redirect would need
+    # approval: git stores an object only a command that ran can create, and
+    # curl writes the status of a request through the sandbox's proxy and of
+    # one around it
     probe_tools=()
     if [[ -n ${OMARCHY_AGENT_PROBE:-} ]]; then
       probe_tools=(
-        "Bash(git hash-object .omarchy-nonce > .omarchy-probe-run.txt)"
-        "Bash(curl -sS -m 10 -o /dev/null -w %{http_code} https://example.com > .omarchy-probe-proxy.txt)"
-        "Bash(curl -sS -m 10 --noproxy '*' -o /dev/null -w %{http_code} https://example.com > .omarchy-probe-direct.txt)"
+        "Bash(git hash-object -w .omarchy-nonce)"
+        "Bash(curl -sS -m 10 -o /dev/null -w %output{.omarchy-probe-proxy.txt}%{http_code} https://example.com)"
+        "Bash(curl -sS -m 10 --noproxy example.com -o /dev/null -w %output{.omarchy-probe-direct.txt}%{http_code} https://example.com)"
       )
     fi
     allowed=("${claude_tools[@]}" "${probe_tools[@]}")
