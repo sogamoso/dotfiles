@@ -48,12 +48,15 @@ claude_denied=(
 
 # Claude's shell commands run in its sandbox: no network, writes only in the
 # checkout, no /proc, so no command can read Claude's own environment, and
-# failIfUnavailable stops the run rather than going on unconfined. The tools'
+# failIfUnavailable stops the run rather than going on unconfined. The runners
+# deny the nested user namespace the full sandbox sets up, so it runs in its
+# weaker nested mode; the sandbox check confirms that still cuts the network. The tools'
 # environment is scrubbed of credentials too.
 claude_settings='{
   "sandbox": {
     "enabled": true,
     "failIfUnavailable": true,
+    "enableWeakerNestedSandbox": true,
     "allowUnsandboxedCommands": false,
     "autoAllowBashIfSandboxed": false,
     "filesystem": { "denyRead": ["/proc"] },
