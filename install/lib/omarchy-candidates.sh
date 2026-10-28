@@ -394,15 +394,14 @@ EOF
   echo "==> Marked ${head%% *} as reviewed in ${OMARCHY_STATE_FILE#$DOTFILES/}"
 }
 
-# Run the review in an agent session, with the omarchy-downstream skill doing
-# the judgment the list can't: Claude Code first, Codex if Claude isn't there.
+# Run the review in a session with the default agent (dotfiles agent), with the
+# omarchy-downstream skill doing the judgment the list can't. The prompt names
+# the skill's file, so any agent can follow it, not only those that load skills.
 cmd_omarchy_review() {
   cd "$DOTFILES"
-  if command -v claude >/dev/null 2>&1; then
-    exec claude "/sogamoso-skills:omarchy-downstream"
-  elif command -v codex >/dev/null 2>&1; then
-    exec codex "Use the omarchy-downstream skill to review the Omarchy changes I should bring into these dotfiles."
+  if [[ -s $AGENT_FILE ]]; then
+    agent_run --prompt "Review the Omarchy changes worth bringing into these dotfiles, following the omarchy-downstream skill in .agents/skills/omarchy-downstream/SKILL.md."
   fi
-  echo "==> Neither claude nor codex is installed; here are the raw changes"
+  echo "==> No default agent (set one with dotfiles agent <name>); here are the raw changes"
   cmd_omarchy_list
 }

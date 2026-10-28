@@ -25,7 +25,7 @@ Commands:
             keeps what changed here, reset throws it away, install only
             adds the repo's missing extensions
   omarchy-downstream-candidates [--list | --classification | --mark-reviewed]
-            Review Omarchy changes worth porting, in Claude Code (or Codex);
+            Review Omarchy changes worth porting, with the default agent;
             --list prints the raw changes, --mark-reviewed records the review
   agent [<name> | run [--prompt <text>]]
             Show or set the default coding agent, like omarchy default agent;
