@@ -184,6 +184,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `vicinae.sh` | Points Vicinae's `settings.json` at the stowed `dotfiles.json`, installs the store extensions in `extensions.txt`, then launches it |
 | `neovim.sh` | Builds `~/Applications/Neovim.app`, which opens files in Neovim in a new Ghostty window, and makes it the default for text and code file types (via `duti`) |
 | `terminal.sh` | Makes Ghostty the default terminal: it runs double-clicked `.command` and `.tool` scripts and Unix executables, which open in Terminal.app otherwise (via `duti`). `.sh` files stay with Neovim, and `ssh://` and `x-man-page://` links with Terminal.app, since Ghostty doesn't take them |
+| `login-items.sh` | Adds the apps in `install/lib/login-items.sh` to the login items, leaving any others alone |
 | `manual_steps.sh` | Opens the manual setup guide, first run only |
 
 #### Workspace layout

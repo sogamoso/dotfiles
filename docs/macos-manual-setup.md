@@ -40,19 +40,10 @@ System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in
 
 ## 3. Login Items
 
-System Settings → General → Login Items — add:
-
-- AeroSpace
-- CleanShot X
-- Dropbox
-- Freedom
-- Gmail
-- Google Calendar
-- Google Drive
-- Granola
-- MacWhisper
-- Slack
-- Vicinae (registers itself on first launch)
+Nothing to do. `install/macos/login-items.sh` adds the apps listed in
+`install/lib/login-items.sh` and leaves any others alone, and `dotfiles doctor`
+names any that stop opening at login. It goes through System Events, so it
+needs the Automation grant in section 1.
 
 ---
 
@@ -94,6 +85,8 @@ Open a terminal and run:
 gh auth login
 ```
 
+`dotfiles doctor` reports it if the CLI is ever signed out.
+
 ---
 
 ## 6. Applying a Theme
@@ -108,10 +101,10 @@ Browse the available wallpapers and choose one. Then in System Settings → Wall
 
 ### Screen Saver
 
-1. Visit https://fliqlo.com/screensaver/
-2. Download and install Fliqlo
-3. System Settings → Wallpaper → Screen Saver → select **Fliqlo**
-4. System Settings → Wallpaper → Clock Appearance → set **Show large clock** to **Never** (prevents the system clock from overlapping with Fliqlo)
+The `fliqlo` cask in the Brewfile installs it. Then:
+
+1. System Settings → Wallpaper → Screen Saver → select **Fliqlo**
+2. System Settings → Wallpaper → Clock Appearance → set **Show large clock** to **Never** (prevents the system clock from overlapping with Fliqlo)
 
 ### Slack
 
@@ -393,7 +386,9 @@ dotfiles doctor
 
 It checks this Mac: Tailscale signed in with Tailscale SSH on, Remote Login off,
 the firewall allowing `tailscaled` and `mosh-server`, the LaunchAgents (work
-hours on laptops only), the ui.sh skills and brew autoupdate. Anything wrong
+hours on laptops only), the ui.sh skills, the 1Password SSH agent, the login
+items, the GitHub CLI login, the `mailto:` handler, Screen Sharing (on for the
+Mac mini, off on laptops), LanguageTool's shortcuts and brew autoupdate. Anything wrong
 comes with the command that fixes it. Run it again whenever something seems off.
 
 ---

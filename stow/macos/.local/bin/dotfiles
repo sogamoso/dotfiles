@@ -434,6 +434,71 @@ cmd_doctor() {
   else
     bad "Not kept in the menu bar: closing its window quits it" "1Password → Settings → General → Keep 1Password in the menu bar"
   fi
+  # git over SSH and commit signing both go through this agent
+  local agent_keys agent_status=0
+  agent_keys=$(SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock" ssh-add -l 2>&1) || agent_status=$?
+  if (( agent_status == 0 )); then
+    ok "SSH agent serving $(wc -l <<<"$agent_keys" | tr -d ' ') key(s)"
+  elif (( agent_status == 1 )); then
+    bad "SSH agent has no keys" "1Password → Settings → Developer → SSH Agent"
+  else
+    bad "SSH agent isn't running" "1Password → Settings → Developer → Use the SSH Agent"
+  fi
+
+  echo "==> Login items"
+  # Without one its feature just doesn't start: no MacWhisper, no dictation
+  source "$DOTFILES/install/lib/login-items.sh"
+  local login_items app missing_items=()
+  if ! login_items=$(login_item_paths 2>/dev/null); then
+    ok "Not checked: this process can't ask System Events"
+  else
+    for app in "${LOGIN_ITEMS[@]}"; do
+      grep -Fxq "$app" <<<"$login_items" || missing_items+=("$(basename "$app" .app)")
+    done
+    if (( ${#missing_items[@]} )); then
+      bad "Not opening at login: $(printf '%s, ' "${missing_items[@]}" | sed 's/, $//')" \
+        "bash $DOTFILES/install/macos/login-items.sh"
+    else
+      ok "All ${#LOGIN_ITEMS[@]} open at login"
+    fi
+  fi
+
+  echo "==> GitHub CLI"
+  # Only a missing login fails: an expired token or no network reads the same as
+  # a keychain the daily agent can't open
+  local gh_out
+  if gh_out=$(gh auth status --hostname github.com 2>&1); then
+    ok "Signed in"
+  elif [[ $gh_out == *"not logged into"* ]]; then
+    bad "Not signed in" "gh auth login"
+  else
+    ok "Not checked: $(head -1 <<<"$gh_out" | sed 's/^ *//')"
+  fi
+
+  echo "==> Mail"
+  # Nothing in the Chrome stack can take mailto:, so losing the applet's claim
+  # sends links to Mail.app
+  if defaults read com.apple.LaunchServices/com.apple.launchservices.secure 2>/dev/null |
+    grep -B2 'LSHandlerURLScheme = mailto' | grep -q 'LSHandlerRoleAll = "so.sogamo.gmail-mailto"'; then
+    ok "mailto: opens Gmail"
+  else
+    bad "mailto: isn't bound to Gmail Mailto" "bash $DOTFILES/install/macos/mailto.sh"
+  fi
+
+  echo "==> Screen Sharing"
+  # On for the Mac mini, reached over Tailscale; off on laptops, since it
+  # answers on every network they join
+  if launchctl print system/com.apple.screensharing >/dev/null 2>&1; then
+    if (( desktop )); then
+      ok "On"
+    else
+      bad "On, on a laptop" "System Settings → General → Sharing → turn off Screen Sharing"
+    fi
+  elif (( desktop )); then
+    bad "Off, so this Mac can't be reached by VNC" "System Settings → General → Sharing → Screen Sharing"
+  else
+    ok "Off"
+  fi
 
   echo "==> Vicinae"
   # Its GUI rewrites settings.json, so losing the import would drop the repo's
