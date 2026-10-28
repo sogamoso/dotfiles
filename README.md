@@ -149,6 +149,7 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server with Claude Code and Codex, and caches its token where the shells can export it |
 | `skills.sh` | Links every skill into both `~/.claude/skills` and `~/.codex/skills` — see [Skills](#skills) |
 | `herdr-plugins.sh` | Installs the pinned third-party herdr plugins and links the ones in `herdr-plugins/` — see [herdr plugins](#herdr-plugins) |
+| `herdr-integrations.sh` | Installs herdr's integrations for Claude Code, Codex, Cursor and Grok, so a restart resumes their conversations — see [herdr plugins](#herdr-plugins) |
 
 ## Cross-platform design
 
@@ -467,6 +468,8 @@ Three plugins, set up on both Macs and Omarchy by `install/dotfiles/herdr-plugin
 The worktrees plugin in [`herdr-plugins/`](herdr-plugins) fills in what that one leaves out, and is linked from this checkout. Every new worktree, whether `hrw`, the worktree plugin or herdr's sidebar made it, gets its mise config trusted and a copy of the main checkout's env files (`.env`, `.env.local` and the like, up to three levels deep, `node_modules` skipped), which git leaves out of a fresh worktree. Files the worktree already has are left alone. A checkout whose commit isn't on `origin` or another local branch, such as a fork's pull request, gets neither. A `Ctrl + click` on a GitHub pull request link in a pane of that repo opens the worktree plugin's prompt and answers it with the link and the default agent, except for a fork's pull request, where it stops at the agent question for you to answer or cancel.
 
 [qu8n/herdr-automatic-rename](https://github.com/qu8n/herdr-automatic-rename) names each tab after its foreground program, as tmux's `automatic-rename` does: `zsh` at a prompt, `tail` or `npm` while one runs, and an agent's task once it reports one. Tabs and workspaces get their `1`–`9` jump number in front, as in `[2] nvim`. Its shell hook, sourced from both supplements, renames the tab as each command starts and ends. Its config in the `herdr` stow package leaves out the directory and branch it would put in front, since the sidebar already shows both. A tab you rename by hand keeps that name until the plugin's `reset` action hands it back. It's pinned and read like the worktree plugin, and needs `jq`.
+
+herdr's own integrations for Claude Code, Codex, Cursor and Grok come from `install/dotfiles/herdr-integrations.sh`, on every host and again on every `dotfiles reload`, and `dotfiles doctor` checks each is current. Each adds a session start hook that tells herdr which conversation a pane holds. herdr already sees the agents without them, by reading their screens, but only with them does a herdr restart, a reboot included, bring each conversation back in its pane rather than an empty shell. It brings back the conversation, not the work in flight: tell the agent to carry on. Claude Code's hook sits in the stowed `settings.json` under `$HOME`, since the installer would write this machine's absolute path into it and add it again on every run; the script takes only the hook script from the installer. Codex asks once to approve its new hook.
 
 ##### Pull request status
 

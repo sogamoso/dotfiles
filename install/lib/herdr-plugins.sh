@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Sourced by install/dotfiles/herdr-plugins.sh and `dotfiles doctor` — never run directly.
+# Sourced by install/dotfiles/herdr-plugins.sh, herdr-integrations.sh and
+# `dotfiles doctor` — never run directly.
 
 # Third-party herdr plugins, one per line: plugin id, GitHub source, pinned commit.
 # The worktree plugin creates worktrees from a pull request, an issue or a
@@ -10,3 +11,6 @@ HERDR_THIRD_PARTY_PLUGINS=(
   "worktree mkdir700/herdr-plugin-worktree 3d7ec281bc7e6a36850d99b2f15c35a3ed3f1359"
   "herdr-automatic-rename qu8n/herdr-automatic-rename a99754357fdea3119c430fd0cad822eef9047895"
 )
+
+# herdr's own agent integrations, installed by install/dotfiles/herdr-integrations.sh
+HERDR_INTEGRATIONS=(claude codex cursor grok)

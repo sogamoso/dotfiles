@@ -150,6 +150,7 @@ cmd_reload() {
     fi
     # After the restart, so the link reaches a server that speaks its protocol
     run "$DOTFILES/install/dotfiles/herdr-plugins.sh"
+    run "$DOTFILES/install/dotfiles/herdr-integrations.sh"
   fi
   if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/neovim.sh" ]]; then
     run "$DOTFILES/install/macos/neovim.sh"
@@ -403,6 +404,17 @@ cmd_doctor() {
       bad "$id is at ${installed:0:7}, pinned to ${commit:0:7}" "dotfiles reload"
     else
       ok "$id at its pinned commit"
+    fi
+  done
+  # Without its integration an agent still shows in herdr, but a server restart
+  # leaves a bare shell where its conversation was
+  local agent status
+  for agent in "${HERDR_INTEGRATIONS[@]}"; do
+    status=$(herdr integration status 2>/dev/null | sed -n "s/^$agent: \([a-z ]*[a-z]\).*/\1/p")
+    if [[ $status == "current" ]]; then
+      ok "$agent integration current"
+    else
+      bad "$agent integration is ${status:-missing}" "dotfiles reload"
     fi
   done
 
