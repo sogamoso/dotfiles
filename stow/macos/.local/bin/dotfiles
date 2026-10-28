@@ -621,6 +621,20 @@ for entry in sys.argv[1:]:
     fi
   done
 
+  echo "==> CleanShot"
+  # preferences.sh deletes these; one set again fires alongside the AeroSpace
+  # binding for the same capture chord
+  local cs_key cs_set=()
+  for cs_key in LAVAtakeFullscreen LAVAtakeArea LAVAtakeAllInOne LAVAtakeOCR; do
+    defaults read pl.maketheweb.cleanshotx "$cs_key" >/dev/null 2>&1 && cs_set+=("$cs_key")
+  done
+  if (( ${#cs_set[@]} == 0 )); then
+    ok "Capture shortcuts left to AeroSpace"
+  else
+    bad "CleanShot has its own capture shortcuts again (${cs_set[*]})" \
+      "bash $DOTFILES/install/macos/preferences.sh"
+  fi
+
   echo "==> Grok"
   # One key in Grok's own config. reload puts it back if a /theme changed it.
   if grep -Eq '^theme = "(tokyonight|tokyo-night|tokyo)"$' "$HOME/.grok/config.toml" 2>/dev/null; then

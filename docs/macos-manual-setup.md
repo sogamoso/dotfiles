@@ -162,8 +162,7 @@ own copies per machine, which would fire alongside them, so
 **Capture Area** (`Cmd + Shift + 4`), **Capture Fullscreen** (`Cmd + Shift + 3`)
 and **Capture Text** (`Cmd + Shift + 6`). The chords also take over the macOS
 screenshot keys, whose **Screenshots** section step 2 already turns off.
-`dotfiles doctor` doesn't check CleanShot, so if an update brings a shortcut
-back, rerun `preferences.sh` or clear it in CleanShot → Settings → Shortcuts.
+`dotfiles doctor` flags it if an update brings one back.
 
 In CleanShot → Settings:
 
