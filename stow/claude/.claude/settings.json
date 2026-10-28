@@ -4,6 +4,20 @@
     "pr": "",
     "sessionUrl": false
   },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "^(startup|resume|clear|compact|fork)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/herdr-agent-state.sh\" session",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
@@ -24,7 +38,7 @@
     "claude-hud@claude-hud": true,
     "code-review@claude-plugins-official": true,
     "mattpocock-skills@mattpocock": true,
-    "cheque@cheque": true
+    "cheque@sendas": true
   },
   "extraKnownMarketplaces": {
     "dev-browser-marketplace": {
@@ -51,30 +65,16 @@
         "repo": "mattpocock/skills"
       }
     },
-    "cheque": {
+    "sendas": {
       "source": {
         "source": "github",
         "repo": "sendasorg/cheque"
       }
     }
   },
-  "theme": "custom:omarchy",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
+  "theme": "custom:omarchy",
   "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": true,
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "^(startup|resume|clear|compact|fork)$",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash \"$HOME/.claude/hooks/herdr-agent-state.sh\" session",
-            "timeout": 10
-          }
-        ]
-      }
-    ]
-  }
+  "agentPushNotifEnabled": true
 }
