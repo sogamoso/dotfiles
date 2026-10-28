@@ -27,7 +27,9 @@ BINARIES=(
   /opt/homebrew/opt/tailscale/bin/tailscaled
   /opt/homebrew/opt/mosh/bin/mosh-server
 )
-TAILSCALED_LABEL=sh.brew.tailscale
+# Homebrew 7 labels services sh.brew.*, but a daemon started by an older brew
+# keeps its homebrew.mxcl.* label until it's started again.
+TAILSCALED_LABELS=(sh.brew.tailscale homebrew.mxcl.tailscale)
 DAEMON_LABEL=com.sogamoso.firewall-sync
 DAEMON_SCRIPT=/usr/local/libexec/dotfiles/firewall.sh
 DAEMON_PLIST=/Library/LaunchDaemons/$DAEMON_LABEL.plist
@@ -97,9 +99,15 @@ allow() {
   done
 
   if tailscaled_outdated; then
-    as_root launchctl kickstart -k "system/$TAILSCALED_LABEL"
-    echo "Restarted tailscaled on the upgraded version"
-    changed=1
+    local label restarted=0
+    for label in "${TAILSCALED_LABELS[@]}"; do
+      launchctl print "system/$label" >/dev/null 2>&1 || continue
+      as_root launchctl kickstart -k "system/$label"
+      echo "Restarted tailscaled on the upgraded version"
+      changed=1 restarted=1
+      break
+    done
+    (( restarted )) || echo "tailscaled runs an old binary, but no Tailscale LaunchDaemon was found to restart" >&2
   fi
 
   (( changed )) || echo "Firewall already allows the current tailscaled and mosh-server"
