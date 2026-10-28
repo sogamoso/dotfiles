@@ -6,7 +6,9 @@ plugin_dir=$(ls -d "${CLAUDE_CONFIG_DIR:-$HOME/.claude}"/plugins/cache/claude-hu
   | sort -t. -k1,1n -k2,2n -k3,3n -k4,4n \
   | tail -1 | cut -f2-)
 
-hud=$(echo "$input" | /opt/homebrew/bin/node "${plugin_dir}dist/index.js")
+# The global node, not one a project in $cwd pins to a version claude-hud can't run on
+node=$(mise -C "$HOME" which node 2>/dev/null || command -v node)
+hud=$(echo "$input" | "$node" "${plugin_dir}dist/index.js")
 
 cwd=$(echo "$input" | jq -r .cwd)
 if git -C "$cwd" rev-parse --git-dir >/dev/null 2>&1; then
@@ -15,7 +17,7 @@ if git -C "$cwd" rev-parse --git-dir >/dev/null 2>&1; then
   if [[ $main != "$gitdir" ]]; then
     first=$(echo "$hud" | head -1)
     rest=$(echo "$hud" | tail -n +2)
-    hud="${first} \033[36m[worktree]\033[0m"$'\n'"${rest}"
+    hud="${first} "$'\033[36m[worktree]\033[0m\n'"${rest}"
   fi
 fi
 
