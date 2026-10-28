@@ -284,6 +284,7 @@ Each opens in Vicinae.
 | Hotkey | Action |
 |---|---|
 | `Option + Enter` | New Ghostty window |
+| `Option + Grave` | Quick terminal: Ghostty's drop-down console, under Esc (toggle) |
 | `Option + Shift + Enter` | New Chrome window |
 | `Option + Shift + N` | Neovim in a new Ghostty window |
 | `Option + Shift + C` | Open Google Calendar |

@@ -112,6 +112,7 @@ alt-o = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh $HOM
 alt-j = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace layout tiles horizontal vertical' # Omarchy: SUPER + J (toggle split)
 alt-l = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace layout tiles accordion' # Omarchy: SUPER + L (cycle workspace layout; AeroSpace has two)
 alt-cmd-l = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace layout tiles accordion' # Omarchy: SUPER + ALT + L (cycle the other way; with two layouts, the same toggle)
+alt-backtick = 'exec-and-forget $HOME/.config/dotfiles/quick-terminal.sh' # Omarchy: SUPER + grave (Quake console; Ghostty's quick terminal)
 alt-b = 'balance-sizes' # Balance all windows in workspace (no Omarchy equivalent)
 
 # Workspace cycling — Omarchy: SUPER + TAB

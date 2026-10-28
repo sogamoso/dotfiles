@@ -143,7 +143,7 @@ KEYS = {
     **{str(n): "1-9" for n in range(1, 10)},
     **{k: "arrows" for k in ("left", "right", "up", "down")},
     "minus": "- / =", "equal": "- / =",
-    "forwardDelete": "del", "slash": "/", "comma": ",", "esc": "escape",
+    "forwardDelete": "del", "slash": "/", "comma": ",", "esc": "escape", "backtick": "grave",
 }
 
 
