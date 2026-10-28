@@ -31,6 +31,9 @@ before=$(git -C "$DOTFILES" rev-parse HEAD 2>/dev/null)
   DOTFILES_UNATTENDED=1 "$CLI" update
 } >"$LOG" 2>&1
 update=$?
+# What stopped the update: the pull, Homebrew and mise up each end with a
+# "==> " line saying so. Read before doctor's output is appended.
+failure=$(grep -E '^==> .*(failed|in the way|No upstream|rewritten|not on |not ahead)' "$LOG" | tail -1 | sed 's/^==> //; s/:$//')
 after=$(git -C "$DOTFILES" rev-parse HEAD 2>/dev/null)
 
 {
@@ -47,7 +50,7 @@ changes="No new commits"
 (( pulled > 0 )) && changes="Pulled $pulled commit$( (( pulled == 1 )) || echo s)"
 
 if (( update != 0 )); then
-  notify "Dotfiles update failed" "$changes · run dotfiles brew in a terminal, or click for the log" -open "file://$LOG"
+  notify "Dotfiles update failed" "${failure:-$changes} · click for the log" -open "file://$LOG"
 elif (( doctor != 0 )); then
   # The first ✗ line names the problem; the log has the fix next to it
   problem=$(grep -m1 "✗" "$LOG" | sed 's/^ *✗ *//')
