@@ -145,7 +145,14 @@ cmd_reload() {
   # happened rather than on every reload.
   if command -v herdr >/dev/null 2>&1; then
     if herdr tab list 2>&1 | grep -q protocol_mismatch; then
-      run brew services restart herdr
+      source "$DOTFILES/install/lib/herdr-plugins.sh"
+      if on_herdr_machine_host; then
+        # No brew service on the mini (HERDR_LAUNCHD_ISSUE), and its own server
+        # only starts with the next connection, which the steps below need
+        echo "herdr's server is on an old build: run herdr server stop, then reconnect" >&2
+      else
+        run brew services restart herdr
+      fi
     fi
     # After the restart, so the link reaches a server that speaks its protocol
     run "$DOTFILES/install/dotfiles/herdr-plugins.sh"
@@ -419,15 +426,27 @@ cmd_doctor() {
   done
   # Long-running agents go on the mini, which every other host reaches from
   # its own herdr window
-  local self
-  self=$(tailscale status --self --json 2>/dev/null | jq -r '.Self.DNSName // empty' 2>/dev/null || true)
-  if [[ ${self%%.*} != "$HERDR_MACHINE_HOST" ]]; then
-    if herdr machine list --json 2>/dev/null |
-      jq -e --arg host "$HERDR_MACHINE" '.[] | select(.label == $host or .target == $host or .ssh_target == $host)' >/dev/null 2>&1; then
-      ok "$HERDR_MACHINE saved as a herdr machine"
+  if on_herdr_machine_host; then
+    if brew services list 2>/dev/null | grep -q '^herdr .*started'; then
+      bad "herdr runs as a brew service, which saved machines can't use (herdr#$HERDR_LAUNCHD_ISSUE)" \
+        "brew services stop herdr, then herdr machine add $HERDR_MACHINE from another Mac"
     else
-      bad "$HERDR_MACHINE isn't saved as a herdr machine" "herdr machine add $HERDR_MACHINE"
+      ok "herdr runs its own server, not the brew service"
     fi
+  elif herdr machine list --json 2>/dev/null |
+    jq -e --arg host "$HERDR_MACHINE" '.[] | select(.label == $host or .target == $host or .ssh_target == $host)' >/dev/null 2>&1; then
+    ok "$HERDR_MACHINE saved as a herdr machine"
+  else
+    bad "$HERDR_MACHINE isn't saved as a herdr machine" "herdr machine add $HERDR_MACHINE"
+  fi
+  # The mini's workaround stays only until herdr fixes the bug behind it
+  local issue_state
+  issue_state=$(gh api "repos/herdrdev/herdr/issues/$HERDR_LAUNCHD_ISSUE" --jq .state 2>/dev/null || true)
+  if [[ $issue_state == "closed" ]]; then
+    bad "herdr#$HERDR_LAUNCHD_ISSUE is closed: the mini can go back to the brew service" \
+      "update herdr, then drop HERDR_LAUNCHD_ISSUE in install/lib/herdr-plugins.sh"
+  elif [[ $issue_state == "open" ]]; then
+    ok "herdr#$HERDR_LAUNCHD_ISSUE still open, so the mini keeps herdr's own server"
   fi
 
   echo "==> Stow"

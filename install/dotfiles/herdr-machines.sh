@@ -11,8 +11,7 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/herdr-plugins.sh"
 command -v herdr >/dev/null || exit 0
 
 # The mini itself has nothing to add: its agents are Local there
-self=$(tailscale status --self --json 2>/dev/null | jq -r '.Self.DNSName // empty' 2>/dev/null || true)
-[[ ${self%%.*} == "$HERDR_MACHINE_HOST" ]] && exit 0
+on_herdr_machine_host && exit 0
 
 log_heading "Saving herdr machines..."
 

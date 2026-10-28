@@ -19,3 +19,17 @@ HERDR_INTEGRATIONS=(claude codex cursor grok)
 # its Tailscale name, which tells install/dotfiles/herdr-machines.sh it's on it
 HERDR_MACHINE="mac-mini"
 HERDR_MACHINE_HOST="sogamoso-m4-mac-mini"
+
+# herdr 0.9.5 never counts a server kept running by launchd as ready for saved
+# machines (https://github.com/herdrdev/herdr/issues/4205), so the mini runs
+# herdr's own background server instead of the brew service every other Mac
+# keeps. `dotfiles doctor` says when the issue closes: then drop the
+# on_herdr_machine_host branches in brew.sh, `dotfiles reload` and doctor.
+HERDR_LAUNCHD_ISSUE=4205
+
+# True on the mini itself, by its Tailscale name
+on_herdr_machine_host() {
+  local self
+  self=$(tailscale status --self --json 2>/dev/null | jq -r '.Self.DNSName // empty' 2>/dev/null || true)
+  [[ ${self%%.*} == "$HERDR_MACHINE_HOST" ]]
+}
