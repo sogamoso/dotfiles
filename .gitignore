@@ -3,5 +3,5 @@
 .omarchy-pr.md
 .omarchy-review/
 .omarchy-upstream/
-.omarchy-probe.txt
-.omarchy-probe-git.txt
+.omarchy-nonce
+.omarchy-probe-*.txt

@@ -87,10 +87,21 @@ case "$agent:${1:-}" in
     : "${CLAUDE_CODE_OAUTH_TOKEN:?Set the CLAUDE_CODE_OAUTH_TOKEN repository secret}"
     # Scrubbing forces the default permission mode, so only the tools listed
     # run
-    # OMARCHY_AGENT_PROBE_TOOLS adds tools for the sandbox check only
+    # OMARCHY_AGENT_PROBE grants the sandbox check's probe commands, exactly as
+    # written, each writing its own output: hashing a value only a run command
+    # can see, and two requests, one through the sandbox's proxy and one around it
+    probe_tools=()
+    if [[ -n ${OMARCHY_AGENT_PROBE:-} ]]; then
+      probe_tools=(
+        "Bash(git hash-object .omarchy-nonce > .omarchy-probe-run.txt)"
+        "Bash(curl -sS -m 10 -o /dev/null -w %{http_code} https://example.com > .omarchy-probe-proxy.txt)"
+        "Bash(curl -sS -m 10 --noproxy '*' -o /dev/null -w %{http_code} https://example.com > .omarchy-probe-direct.txt)"
+      )
+    fi
+    allowed=("${claude_tools[@]}" "${probe_tools[@]}")
     CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1 claude -p "${2:?run needs a prompt}" \
       --settings "$claude_settings" \
-      --allowedTools "$(IFS=,; echo "${claude_tools[*]}")${OMARCHY_AGENT_PROBE_TOOLS:+,$OMARCHY_AGENT_PROBE_TOOLS}" \
+      --allowedTools "$(IFS=,; echo "${allowed[*]}")" \
       --disallowedTools "$(IFS=,; echo "${claude_denied[*]}")"
     ;;
   codex:run)
