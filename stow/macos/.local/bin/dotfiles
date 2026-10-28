@@ -20,9 +20,10 @@ Commands:
             reload AeroSpace (the README lists every step)
   status    Show repo state (branch, ahead/behind, dirty files)
   doctor    Check this Mac's setup and print the fix for anything wrong
-  vicinae [status | save | reset]
+  vicinae [status | save | reset | install]
             Compare Vicinae's settings and extensions with the repo; save
-            keeps what changed here, reset throws it away
+            keeps what changed here, reset throws it away, install only
+            adds the repo's missing extensions
   omarchy-downstream-candidates [--list | --mark-reviewed]
             Review Omarchy changes worth porting, in Claude Code (or Codex);
             --list prints the raw changes, --mark-reviewed records the review
@@ -590,7 +591,7 @@ for entry in sys.argv[1:]:
   if grep -q '"dotfiles.json"' "$HOME/.config/vicinae/settings.json" 2>/dev/null; then
     ok "settings.json imports dotfiles.json"
   else
-    bad "settings.json doesn't import dotfiles.json" "dotfiles vicinae reset"
+    bad "settings.json doesn't import dotfiles.json" "dotfiles vicinae save to keep its settings, or dotfiles vicinae reset to drop them"
   fi
   local drift
   if drift=$(python3 "$DOTFILES/install/lib/vicinae.py" status); then
@@ -652,7 +653,7 @@ cmd_omarchy() {
 
 cmd_vicinae() {
   case "${1:-status}" in
-    status|save|reset) python3 "$DOTFILES/install/lib/vicinae.py" "${1:-status}" ;;
+    status|save|reset|install) python3 "$DOTFILES/install/lib/vicinae.py" "${1:-status}" ;;
     *) echo "Unknown option: $1" >&2; usage >&2; exit 64 ;;
   esac
 }

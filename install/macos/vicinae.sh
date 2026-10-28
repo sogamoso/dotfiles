@@ -8,10 +8,10 @@ log_heading "Installing Vicinae extensions..."
 if python3 "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/vicinae.py" install; then
   log_success "Vicinae extensions installed"
 else
-  log_warn "Some Vicinae extensions failed to install — rerun: dotfiles vicinae reset"
+  log_warn "Some Vicinae extensions failed to install — rerun: dotfiles vicinae install"
 fi
 if ! grep -q '"dotfiles.json"' "$HOME/.config/vicinae/settings.json"; then
-  log_warn "~/.config/vicinae/settings.json doesn't import dotfiles.json — run: dotfiles vicinae reset"
+  log_warn "~/.config/vicinae/settings.json doesn't import dotfiles.json — run dotfiles vicinae save to keep its settings, or reset to drop them"
 fi
 
 log_heading "Launching Vicinae..."
