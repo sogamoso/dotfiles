@@ -1,7 +1,18 @@
 #!/usr/bin/env bash
 # Runs a prompt through the coding agent the Omarchy workflows use, unattended.
 # The OMARCHY_AGENT repository variable picks it (claude or codex), and nothing
-# here assumes one, so switching agents is a settings change.
+# here assumes one, so switching agents is a settings change. Each agent reads
+# its own repository secret, and only the current agent's needs to be set:
+#
+#   claude  CLAUDE_CODE_OAUTH_TOKEN, from `claude setup-token`
+#   codex   OPENAI_API_KEY
+#
+# To switch, set the new agent's secret (gh prompts for the value, keeping it
+# out of shell history), then the variable, and delete the old secret:
+#
+#   gh secret set OPENAI_API_KEY --repo sogamoso/dotfiles
+#   gh variable set OMARCHY_AGENT --body codex --repo sogamoso/dotfiles
+#   gh secret delete CLAUDE_CODE_OAUTH_TOKEN --repo sogamoso/dotfiles
 #
 # The agent reads Omarchy's commits, which are third-party input, so it gets no
 # network tools and runs no code from the repo. The workflow fetches what it
@@ -58,10 +69,12 @@ case "$agent:${1:-}" in
     sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
     ;;
   codex:install)
+    : "${OPENAI_API_KEY:?Set the OPENAI_API_KEY repository secret}"
     npm install -g @openai/codex
     printenv OPENAI_API_KEY | codex login --with-api-key
     ;;
   claude:run)
+    : "${CLAUDE_CODE_OAUTH_TOKEN:?Set the CLAUDE_CODE_OAUTH_TOKEN repository secret}"
     CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1 claude -p "${2:?run needs a prompt}" \
       --permission-mode acceptEdits --settings "$claude_settings" \
       --allowedTools "$(IFS=,; echo "${claude_tools[*]}")" \
