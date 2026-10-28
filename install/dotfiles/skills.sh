@@ -21,7 +21,7 @@ UIDOTSH_URL="git@github.com:sogamoso/uidotsh-archive.git"
 UIDOTSH_DIR="${UIDOTSH_ARCHIVE_DIR:-$HOME/Work/sogamoso/uidotsh-archive}"
 [[ -d $UIDOTSH_DIR ]] || UIDOTSH_DIR="$HOME/Code/sogamoso/uidotsh-archive"  # a machine not yet moved to ~/Work
 
-# Both repos are private and cloned over SSH because they get pushed to, so a
+# All three repos are cloned over SSH because they get pushed to, so a
 # locked 1Password agent is a failure mode: BatchMode turns it into a fast
 # failure instead of a bootstrap-blocking prompt, and accept-new does the same
 # for the host key on a machine with no known_hosts yet.

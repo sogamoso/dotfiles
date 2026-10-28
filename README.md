@@ -51,11 +51,12 @@ package: stow lands a package in one place, and these need two.
 | Source | Holds | How |
 | --- | --- | --- |
 | `stubs/` in sogamoso/uidotsh-archive | The `ui`, `brand-kit` and `markup-from-image` stubs | linked |
-| [sogamoso/skills](https://github.com/sogamoso/skills) | Personal skills | plugin |
+| [sogamoso/skills](https://github.com/sogamoso/skills) | Personal skills | plugin, in Codex only: Claude Code syncs it from the claude.ai account |
 | [sendasorg/cheque](https://github.com/sendasorg/cheque) | cheque: delivering approved Linear issues through Pstack | plugin, for the user in both agents |
 
-Both repos are private and cloned over SSH, since they get pushed to — so a
-locked 1Password agent will skip them with a warning rather than fail the run.
+All three are cloned over SSH, since they get pushed to (the two sogamoso repos
+are private, cheque is public), so a locked 1Password agent will skip them with a
+warning rather than fail the run.
 A plugin source is registered from its repo's https URL, not its checkout, so
 each agent fetches its own copy and the skills land on a machine that cloned
 nothing. Reading them needs no SSH agent. The clone is there because it's a repo to
