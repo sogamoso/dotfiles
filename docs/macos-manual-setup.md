@@ -180,19 +180,18 @@ Then in CleanShot → Settings:
 
 ### LanguageTool
 
-LanguageTool for Desktop registers global shortcuts of its own, and its defaults
-land on AeroSpace chords, so its window pops up alongside them. In LanguageTool's
-settings, under its shortcuts, leave these **unassigned** or move them off:
+Nothing to assign. Its Correction and Paraphrasing shortcuts default to
+`Ctrl + Option + C` and `Ctrl + Option + P`, both AeroSpace bindings, and
+whichever app registers a chord first holds it, so the other one goes dead.
+`install/macos/preferences.sh` clears both, and `dotfiles doctor` flags it if
+an update brings either one back. Its built-in updater can't be turned off (it
+switches itself back on at launch); brew autoupdate and it just race to the same
+version.
 
-- **Correction** (default `Ctrl + Option + C`, which AeroSpace holds for CleanShot all-in-one)
-- **Paraphrasing** (default `Ctrl + Option + P`, which AeroSpace holds for the power panel)
-
-`defaults read org.languagetool.desktop` shows what is set, under the
-`KeyboardShortcuts_*` keys.
-
-Turn off its built-in updater too (`SUAutomaticallyUpdate`). The cask is in the
-Brewfile, so brew autoupdate already upgrades it; leaving both on means two
-updaters replacing the same app.
+If one did come back, the AeroSpace binding stays dead until AeroSpace
+registers it again, so run `aerospace reload-config` after clearing it. By
+hand, they're under **Settings… → Shortcuts**, opened from LanguageTool's menu
+bar icon.
 
 ---
 

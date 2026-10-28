@@ -61,6 +61,32 @@ else
   fi
 fi
 
+# LanguageTool: clear its Correction and Paraphrasing shortcuts, which default to
+# Option+Ctrl+C and Option+Ctrl+P, both AeroSpace bindings. Whichever app registers
+# a chord first holds it, so the other's binding goes dead. false is how its
+# shortcut library stores "unassigned"; deleting the key brings the default back.
+# It reads the shortcuts at launch and turns down a scripted quit, hence the
+# pkill. Its own updater stays on: it sets SUAutomaticallyUpdate back at launch.
+languagetool_was_running=false
+if pgrep -xq "LanguageTool for Desktop"; then
+  languagetool_was_running=true
+  osascript -e 'quit app id "org.languagetool.desktop"' 2>/dev/null || pkill -x "LanguageTool for Desktop" 2>/dev/null || true
+  for _ in {1..20}; do
+    pgrep -xq "LanguageTool for Desktop" || break
+    sleep 0.5
+  done
+fi
+
+if pgrep -xq "LanguageTool for Desktop"; then
+  log_warn "LanguageTool would not quit — clear its Correction and Paraphrasing shortcuts by hand"
+else
+  defaults write org.languagetool.desktop KeyboardShortcuts_Correction_Open -bool false
+  defaults write org.languagetool.desktop KeyboardShortcuts_Paraphrasing_Open -bool false
+  if [[ $languagetool_was_running == true ]]; then
+    open -b org.languagetool.desktop
+  fi
+fi
+
 # MacWhisper: dictation on Right ⌘, held to talk (Omarchy: hold Right Alt, which
 # is Command here). It also writes its preferences back on quit, so close it first.
 macwhisper_was_running=false
