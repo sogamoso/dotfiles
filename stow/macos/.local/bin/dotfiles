@@ -445,6 +445,31 @@ cmd_doctor() {
     bad "SSH agent isn't running" "1Password → Settings → Developer → Use the SSH Agent"
   fi
 
+  echo "==> Keyboard shortcuts"
+  # A macOS update or a click in System Settings can turn one back on, and then
+  # it takes the chord from AeroSpace, Vicinae or CleanShot
+  source "$DOTFILES/install/lib/symbolic-hotkeys.sh"
+  local hotkey_drift
+  if ! hotkey_drift=$(defaults export com.apple.symbolichotkeys - 2>/dev/null | python3 -c '
+import plistlib, sys
+current = plistlib.loads(sys.stdin.buffer.read()).get("AppleSymbolicHotKeys", {})
+for entry in sys.argv[1:]:
+    key, state, params = entry.split()
+    have = current.get(key, {})
+    want_on = state == "on"
+    if bool(have.get("enabled")) != want_on:
+        print(key, "is", "off" if want_on else "on")
+    elif want_on and have.get("value", {}).get("parameters") != [int(p) for p in params.split(",")]:
+        print(key, "is on a different key")
+' "${SYMBOLIC_HOTKEYS[@]}" 2>&1); then
+    bad "Couldn't read the system shortcuts: $(tail -1 <<<"$hotkey_drift")"
+  elif [[ -z $hotkey_drift ]]; then
+    ok "All ${#SYMBOLIC_HOTKEYS[@]} system shortcuts as expected"
+  else
+    bad "System shortcuts differ: $(paste -sd ',' - <<<"$hotkey_drift" | sed 's/,/, /g')" \
+      "bash $DOTFILES/install/macos/preferences.sh"
+  fi
+
   echo "==> Login items"
   # Without one its feature just doesn't start: no MacWhisper, no dictation
   source "$DOTFILES/install/lib/login-items.sh"

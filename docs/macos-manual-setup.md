@@ -26,15 +26,21 @@ Open each prompt as it appears during the install, or go here:
 
 ## 2. Disable Keyboard Shortcuts
 
-System Settings → Keyboard → Keyboard Shortcuts — disable all shortcuts in these sections:
+Nothing to do. `install/macos/preferences.sh` sets **System Settings → Keyboard →
+Keyboard Shortcuts** from `install/lib/symbolic-hotkeys.sh`, and `dotfiles doctor`
+flags any that change. These sections are turned off:
 
-1. **Mission Control** — conflicts with AeroSpace workspace bindings. After disabling, re-enable and rebind:
+1. **Mission Control** — conflicts with AeroSpace workspace bindings. Two stay on, rebound:
    - **Show Notification Center** → `Option + ,`
    - **Turn Do Not Disturb On/Off** → `Option + Ctrl + ,`
 2. **Windows** — conflicts with AeroSpace window bindings
 3. **Input Sources** — `Option + I` switches language instead (Fn does nothing), and `Ctrl + Space` stays free for the tmux and herdr prefix
 4. **Spotlight** — Vicinae takes that slot
 5. **Screenshots** — CleanShot takes `Cmd + Shift + 3/4/5` (see step 7)
+
+To change one, edit it in System Settings, then update its line in
+`symbolic-hotkeys.sh` to match (`defaults export com.apple.symbolichotkeys -`
+shows the values), or the next bootstrap puts it back.
 
 ---
 
@@ -386,8 +392,8 @@ dotfiles doctor
 
 It checks this Mac: Tailscale signed in with Tailscale SSH on, Remote Login off,
 the firewall allowing `tailscaled` and `mosh-server`, the LaunchAgents (work
-hours on laptops only), the ui.sh skills, the 1Password SSH agent, the login
-items, the GitHub CLI login, the `mailto:` handler, Screen Sharing (on for the
+hours on laptops only), the ui.sh skills, the system keyboard shortcuts, the
+1Password SSH agent, the login items, the GitHub CLI login, the `mailto:` handler, Screen Sharing (on for the
 Mac mini, off on laptops), LanguageTool's shortcuts and brew autoupdate. Anything wrong
 comes with the command that fixes it. Run it again whenever something seems off.
 

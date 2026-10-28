@@ -25,6 +25,21 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 15
 # Option+I switches input language instead, as Super+I does on Omarchy.
 defaults write com.apple.HIToolbox AppleFnUsageType -int 0
 
+# System keyboard shortcuts that would fight AeroSpace, Vicinae and CleanShot for
+# their chords, listed in lib/symbolic-hotkeys.sh. activateSettings applies them
+# now; otherwise they wait for the next login.
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/symbolic-hotkeys.sh"
+for entry in "${SYMBOLIC_HOTKEYS[@]}"; do
+  read -r id state params <<<"$entry"
+  enabled=false
+  [[ $state == "on" ]] && enabled=true
+  integers=$(sed -E 's/([0-9]+),?/<integer>\1<\/integer>/g' <<<"$params")
+  defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add "$id" \
+    "<dict><key>enabled</key><$enabled/><key>value</key><dict><key>parameters</key><array>$integers</array><key>type</key><string>standard</string></dict></dict>"
+done
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u ||
+  log_warn "Could not apply the keyboard shortcuts now — they take effect at the next login"
+
 # Accessibility: disable UI transparency. WindowServer only reads this at login,
 # so a fresh write leaves the revealed menu bar glassy on top of SketchyBar until
 # the next one. Writing needs Full Disk Access — skipped if denied.
