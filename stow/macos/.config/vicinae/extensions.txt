@@ -1,14 +1,17 @@
 raycast:Aayush9029/cleanshotx
 raycast:Codely/google-chrome
+raycast:Rob/granola
 raycast:abielzulio/chatgpt
 raycast:benvp/audio-device
 raycast:florisdobber/claude
 raycast:frouo/google-chrome-profiles
+raycast:fuksman/calendar
 raycast:gebeto/translate
 raycast:joao.mainka/raycast-timezone-converter
 raycast:josephschmitt/gif-search
 raycast:khasbilegt/1password
 raycast:koinzhang/copy-path
+raycast:lachero/gmail-accounts
 raycast:limonkufu/aerospace
 raycast:linear/linear
 raycast:marcjulian/obsidian
@@ -24,6 +27,7 @@ raycast:priithaamer/docker
 raycast:raycast/github
 raycast:thomas/color-picker
 raycast:thomas/downloads-manager
+raycast:thomas/google-calendar
 raycast:thomaslombart/messages
 raycast:tonka3000/gmail
 raycast:vercel/vercast
@@ -31,5 +35,6 @@ raycast:vimtor/tailwindcss
 raycast:vimtor/whatsapp
 raycast:vishaltelangre/google-drive
 raycast:vlades/herdr
+vicinae:knoopx/agenda
 vicinae:leonkohli/process-manager
 vicinae:nihalxkumar/freetube

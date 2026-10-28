@@ -45,6 +45,214 @@
         "labelsLimit": "100",
         "shouldHideRedundantIssues": false
       }
+    },
+    "@Aayush9029/store.raycast.cleanshotx": {
+      "entrypoints": {
+        "capture-area-raycast-aichat": {
+          "enabled": false
+        },
+        "hide-desktop-icons": {
+          "enabled": false
+        },
+        "manage-recording-presets": {
+          "enabled": false
+        },
+        "open-settings": {
+          "enabled": false
+        },
+        "show-desktop-icons": {
+          "enabled": false
+        },
+        "toggle-desktop-icons": {
+          "enabled": false
+        },
+        "view-uploads": {
+          "enabled": true
+        }
+      }
+    },
+    "@HenriChabrand/store.raycast.notion": {
+      "preferences": {
+        "open_in": "notion.id",
+        "properties_in_page_previews": true
+      }
+    },
+    "@Rob/store.raycast.granola": {
+      "preferences": {
+        "notionMaxBatchSize": "20"
+      }
+    },
+    "@abielzulio/store.raycast.chatgpt": {
+      "preferences": {
+        "useStream": true,
+        "isAutoSaveConversation": true,
+        "isHistoryPaused": false,
+        "isAutoLoadText": false,
+        "isAutoFullInput": true,
+        "isAutoTTS": false,
+        "useApiEndpoint": false,
+        "useVisionModel": false,
+        "useProxy": false,
+        "proxyProtocol": "http",
+        "useAzure": false
+      }
+    },
+    "@benvp/store.raycast.audio-device": {
+      "preferences": {
+        "systemOutput": true,
+        "favourite": "",
+        "favourite2": ""
+      }
+    },
+    "@florisdobber/store.raycast.claude": {
+      "preferences": {
+        "useStream": true,
+        "isAutoLoad": true,
+        "isAutoFullInput": true
+      }
+    },
+    "@frouo/store.raycast.google-chrome-profiles": {
+      "preferences": {
+        "browser": "chrome",
+        "newTabURL": "https://google.com/search?q=%query%",
+        "sortProfiles": "name",
+        "popToRootAfterOpen": false,
+        "directSwitch": false,
+        "focusWithoutNewWindow": true
+      }
+    },
+    "@fuksman/store.raycast.calendar": {
+      "enabled": false
+    },
+    "@gebeto/store.raycast.translate": {
+      "preferences": {
+        "langFrom": "auto",
+        "lang1": "en",
+        "lang2": "es",
+        "autoInput": true,
+        "defaultAction": "copy",
+        "prioritizeCrossLanguage": false
+      }
+    },
+    "@josephschmitt/store.raycast.gif-search": {
+      "preferences": {
+        "gridItemSize": "medium",
+        "gridTrendingItemSize": "medium",
+        "maxResults": "20",
+        "defaultAction": "copyFile",
+        "hideFilename": false,
+        "giphyLocale": "en",
+        "klipyLocale": "en",
+        "downloadPath": "/Users/sogamoso/Downloads"
+      }
+    },
+    "@knoopx/store.vicinae.agenda": {
+      "preferences": {
+        "refreshInterval": "15",
+        "timeFormat": "24h"
+      }
+    },
+    "@limonkufu/store.raycast.aerospace": {
+      "enabled": false
+    },
+    "@marcjulian/store.raycast.obsidian": {
+      "enabled": false,
+      "preferences": {
+        "configFileName": ".obsidian"
+      }
+    },
+    "@mattisssa/store.raycast.spotify-player": {
+      "preferences": {
+        "closeWindowOnAction": true
+      }
+    },
+    "@mrpunkin/store.raycast.raycast-zoxide": {
+      "preferences": {
+        "search-mode": "fuzzy",
+        "open-in": "com.apple.finder",
+        "open-in-terminal": "com.mitchellh.ghostty",
+        "open-in-editor": "TextEdit"
+      }
+    },
+    "@nhojb/store.raycast.brew": {
+      "preferences": {
+        "terminalApp": "ghostty",
+        "greedyUpgrades": true,
+        "disableDownloadConcurrency": false,
+        "pinnedFirst": true,
+        "closeAfterAction": true,
+        "verboseLogging": true
+      }
+    },
+    "@thomas/store.raycast.downloads-manager": {
+      "preferences": {
+        "lastestDownloadOrder": "addTime",
+        "deletionBehavior": "trash",
+        "showDeletingFilename": true,
+        "downloadsFolder": "/Users/sogamoso/Downloads"
+      }
+    },
+    "@thomaslombart/store.raycast.github": {
+      "preferences": {
+        "defaultSearchTerms": "author:@me",
+        "vscodeBuild": "vscode",
+        "repositoryCloneProtocol": "ssh",
+        "isOpenInBrowser": true,
+        "includeTeamReviewRequests": true,
+        "repositoryFilterMode": "all"
+      }
+    },
+    "@vimtor/store.raycast.whatsapp": {
+      "preferences": {
+        "defaultCountry": "PA"
+      }
+    },
+    "@vishaltelangre/store.raycast.google-drive": {
+      "preferences": {
+        "googleDriveRootPath": "~/Google Drive",
+        "shouldShowHiddenFiles": true,
+        "shouldShowDirectories": true,
+        "excludePaths": "",
+        "autoReindexingInterval": "604800000"
+      }
+    },
+    "@vlades/store.raycast.herdr": {
+      "preferences": {
+        "sessionEnterAction": "attach",
+        "terminalApplication": "com.mitchellh.ghostty",
+        "refreshInterval": "5",
+        "outputLines": "150",
+        "terminalFocusBehavior": "open",
+        "closeAfterPrompt": true,
+        "showIdleInMenuBar": true
+      }
+    },
+    "clipboard": {
+      "preferences": {
+        "monitoring": true,
+        "preserveTagged": true,
+        "ignoredApps": [],
+        "evictionThreshold": "604800",
+        "eraseOnStartup": false
+      }
+    },
+    "core": {
+      "entrypoints": {
+        "sponsor": {
+          "enabled": false
+        }
+      }
+    },
+    "power": {
+      "enabled": false
+    },
+    "system": {
+      "entrypoints": {
+        "browse-apps": {
+          "enabled": true
+        }
+      }
     }
-  }
+  },
+  "wrap_navigation": true
 }
