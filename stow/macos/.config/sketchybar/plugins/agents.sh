@@ -2,8 +2,8 @@
 # Agent usage limits, after Omarchy's agents widget. The bar holds the icon
 # alone, turning red once any agent's limit reaches 90%. A click opens a popup
 # with each agent's plan, limits and time until they reset; a right click
-# starts Claude Code in ~/Work, as Omarchy does, and a middle click checks
-# again now.
+# starts Claude Code in ~/Work with auto-approval, as Omarchy launches agents
+# (the same flag `dotfiles agent run` uses), and a middle click checks again.
 #
 # Each refresh caches the last good numbers per agent, so a refused or failed
 # check shows them as stale with the reason instead of blanking the item.
@@ -119,7 +119,7 @@ case "${SENDER:-}" in
   mouse.clicked)
     case "${BUTTON:-}" in
       right)
-        "$HOME/.config/aerospace/launch-or-focus.sh" --new Ghostty --args --working-directory="$HOME/Work" -e claude
+        "$HOME/.config/aerospace/launch-or-focus.sh" --new Ghostty --args --working-directory="$HOME/Work" -e claude --permission-mode auto
         ;;
       other)
         refresh 15

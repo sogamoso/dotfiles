@@ -232,7 +232,7 @@ sketchybar --add item agents.start popup.agents \
     label.padding_left=8 \
     padding_left=10 \
     padding_right=10 \
-    click_script="sketchybar --set agents popup.drawing=off; $LAUNCH --new Ghostty --args --working-directory=$HOME/Work -e claude"
+    click_script="sketchybar --set agents popup.drawing=off; $LAUNCH --new Ghostty --args --working-directory=$HOME/Work -e claude --permission-mode auto"
 
 # Dotfiles update indicator — visible only when local repo is behind origin
 sketchybar --add item dotfiles_update right \
