@@ -233,6 +233,6 @@ if.app-id = 'com.apple.MobileSMS'
 run = ['layout floating']
 
 [[on-window-detected]]
-# Omarchy floats its calculator too
+# Omarchy floats its calculator too, centred
 if.app-id = 'com.apple.calculator'
-run = ['layout floating']
+run = ['layout floating', 'exec-and-forget $HOME/.config/dotfiles/centre-window.sh com.apple.calculator']
