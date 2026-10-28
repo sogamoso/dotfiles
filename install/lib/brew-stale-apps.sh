@@ -18,8 +18,13 @@ brew_clear_stale_apps() {
   for app in "$(brew --prefix)"/Caskroom/*/*/*.app; do
     name=${app##*/}
     [[ -d $app && ! -L $app && -d "/Applications/$name" ]] || continue
-    mv "$app" "$HOME/.Trash/${name%.app} (Caskroom $stamp).app"
-    echo "==> Moved a stale $app to the Trash"
+    # Callers run under set -e, and a failed move must not skip what follows
+    # brew bundle (the firewall steps, in `dotfiles brew`)
+    if mv "$app" "$HOME/.Trash/${name%.app} (Caskroom $stamp).app"; then
+      echo "==> Moved a stale $app to the Trash"
+    else
+      echo "==> Couldn't move a stale $app to the Trash; its cask may fail to upgrade"
+    fi
   done
   return 0
 }
