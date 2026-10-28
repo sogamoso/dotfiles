@@ -178,6 +178,22 @@ Then in CleanShot → Settings:
   With **Save** off nothing is written to the export location automatically. A capture lives in the clipboard and in CleanShot's own media folder, and reaches `Downloads` only when you save it from the Quick Access overlay. That keeps the folder clean at the cost of losing any capture you dismiss without saving.
 - **Quick Access → Behavior** → enable **Auto-close**, **Action** → **Close**, **Interval** → **2 minutes**
 
+### LanguageTool
+
+LanguageTool for Desktop registers global shortcuts of its own, and its defaults
+land on AeroSpace chords, so its window pops up alongside them. In LanguageTool's
+settings, under its shortcuts, leave these **unassigned** or move them off:
+
+- **Correction** (default `Ctrl + Option + C`, which AeroSpace holds for CleanShot all-in-one)
+- **Paraphrasing** (default `Ctrl + Option + P`, which AeroSpace holds for the power panel)
+
+`defaults read org.languagetool.desktop` shows what is set, under the
+`KeyboardShortcuts_*` keys.
+
+Turn off its built-in updater too (`SUAutomaticallyUpdate`). The cask is in the
+Brewfile, so brew autoupdate already upgrades it; leaving both on means two
+updaters replacing the same app.
+
 ---
 
 ## 8. Set the Default Email Client
