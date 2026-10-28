@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # @vicinae.schemaVersion 1
-# @vicinae.title herdr Cheatsheet
+# @vicinae.title Cheatsheet - herdr
 # @vicinae.mode fullOutput
 # @vicinae.packageName Keyboard
 

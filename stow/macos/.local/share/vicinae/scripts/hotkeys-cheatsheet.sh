@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # @vicinae.schemaVersion 1
-# @vicinae.title Hotkeys Cheatsheet
+# @vicinae.title Cheatsheet - Hotkeys
 # @vicinae.mode fullOutput
 # @vicinae.packageName Keyboard
 
@@ -26,8 +26,8 @@ if [[ ! -r $README ]]; then
 fi
 
 case ${CHEATSHEET:-hotkeys} in
-  hotkeys) title="Hotkeys Cheatsheet" ;;
-  *) title="$CHEATSHEET Cheatsheet" ;;
+  hotkeys) title="Cheatsheet - Hotkeys" ;;
+  *) title="Cheatsheet - $CHEATSHEET" ;;
 esac
 
 # Turn the tables into the `## Section` and tab separated lines cheatsheet reads

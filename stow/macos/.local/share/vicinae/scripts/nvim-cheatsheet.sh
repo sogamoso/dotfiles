@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # @vicinae.schemaVersion 1
-# @vicinae.title Neovim Cheatsheet
+# @vicinae.title Cheatsheet - Neovim
 # @vicinae.mode fullOutput
 # @vicinae.packageName Keyboard
 
@@ -11,7 +11,7 @@ set -euo pipefail
 source "$HOME/.config/dotfiles/lib/cheatsheet.sh"
 
 # Key and description are tab separated
-cheatsheet "Neovim Cheatsheet" <<'EOF'
+cheatsheet "Cheatsheet - Neovim" <<'EOF'
 ## Find (Leader = Space)
 space space	Find files
 space /	Grep in project

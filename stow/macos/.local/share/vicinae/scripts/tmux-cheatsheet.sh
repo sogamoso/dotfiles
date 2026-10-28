@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # @vicinae.schemaVersion 1
-# @vicinae.title tmux Cheatsheet
+# @vicinae.title Cheatsheet - tmux
 # @vicinae.mode fullOutput
 # @vicinae.packageName Keyboard
 

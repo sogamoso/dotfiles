@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # @vicinae.schemaVersion 1
-# @vicinae.title Zed Cheatsheet
+# @vicinae.title Cheatsheet - Zed
 # @vicinae.mode fullOutput
 # @vicinae.packageName Keyboard
 
@@ -12,7 +12,7 @@ set -euo pipefail
 source "$HOME/.config/dotfiles/lib/cheatsheet.sh"
 
 # Key and description are tab separated
-cheatsheet "Zed Cheatsheet" <<'EOF'
+cheatsheet "Cheatsheet - Zed" <<'EOF'
 ## Find (Leader = Space)
 space space	Find files
 space /	Grep in project
