@@ -27,7 +27,8 @@ bindkey "^[[B" history-search-forward
 bindkey "^[[C" forward-char
 bindkey "^[[D" backward-char
 
-# Mark symlinked directories (add trailing slash)
+# cd into a symlinked directory lands on its real path. Omarchy's inputrc line
+# here only adds a trailing slash when completing one, which zsh does already.
 setopt CHASE_LINKS
 
 # Do not autocomplete hidden files unless explicitly starting with dot

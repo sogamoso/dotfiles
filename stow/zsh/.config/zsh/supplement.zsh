@@ -6,7 +6,8 @@
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 
-# Editors — omarchy/envs.zsh sets EDITOR to nvim; set the rest here
+# Editors — omarchy/envs.zsh sets EDITOR to nvim; VISUAL is set here, and
+# SUDO_EDITOR again so sudoedit stays on nvim when EDITOR is overridden
 export VISUAL="nvim"
 export SUDO_EDITOR="nvim"
 
