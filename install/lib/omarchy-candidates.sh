@@ -32,7 +32,6 @@ OMARCHY_PARITY_PATHS=(
   default/hypr/bindings
   default/bash
   default/bashrc
-  default/ghostty
   default/themed
   config/tmux
   config/ghostty
@@ -88,7 +87,7 @@ OMARCHY_SKIPPED_AREAS=(
   'install/omarchy-aarch64*' install/omarchy-other.packages install/omarchy-x86_64-only.packages
   # Linux desktop: Hyprland, Wayland, menus, notifications, input, displays, audio stack
   'bin/omarchy-hyprland*' 'bin/omarchy-menu*' 'bin/omarchy-notification*' 'bin/omarchy-osd*'
-  'bin/omarchy-shell*' 'bin/omarchy-show*' 'bin/omarchy-screensaver*' 'bin/omarchy-sleep*'
+  'bin/omarchy-shell*' 'bin/omarchy-show*' 'bin/omarchy-sleep*' 'bin/omarchy-realtime*'
   'bin/omarchy-power*' 'bin/omarchy-powerprofiles*' 'bin/omarchy-brightness*' 'bin/omarchy-display*'
   'bin/omarchy-monitor*' 'bin/omarchy-input*' 'bin/omarchy-bluetooth*' 'bin/omarchy-network*'
   'bin/omarchy-dns*' 'bin/omarchy-disk*' 'bin/omarchy-drive*' 'bin/omarchy-file*' 'bin/omarchy-dock*'
@@ -101,13 +100,13 @@ OMARCHY_SKIPPED_AREAS=(
   config/foot config/hypr config/hyprland-mimeapps.list config/hyprland-preview-share-picker
   config/imv config/kitty config/obsidian config/wireplumber config/xdg-desktop-portal
   default/agents default/alacritty default/alsa default/applications default/audio default/chromium
-  default/environment.d default/firefox default/fontconfig default/fonts default/foot default/gpg
+  default/environment.d default/firefox default/fontconfig default/fonts default/gpg
   default/gtk default/hypr default/i18n default/input-methods default/libalpm default/limine
   default/nautilus-python default/omarchy default/pacman default/plymouth default/regions
   default/sddm default/settings-runtime-profile default/snapper default/systemd default/tensaku
   default/udev default/uwsm default/v4l2-relayd default/voxtype default/wayland-sessions
   default/wireplumber default/xcompose default/xdg-terminal-exec
-  etc/cups etc/docker etc/fastfetch etc/gnupg etc/limine-entry-tool.d etc/mkinitcpio.conf.d
+  etc/cups etc/docker etc/pipewire etc/fastfetch etc/gnupg etc/limine-entry-tool.d etc/mkinitcpio.conf.d
   etc/modprobe.d etc/NetworkManager etc/nsswitch.conf etc/plymouth etc/profile.d etc/sddm.conf.d
   etc/security etc/sudoers.d etc/sysctl.d etc/systemd etc/sysusers.d etc/tmpfiles.d etc/udev
   etc/xdg etc/xkb
