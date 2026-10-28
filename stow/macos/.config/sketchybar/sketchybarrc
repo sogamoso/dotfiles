@@ -51,10 +51,10 @@ sketchybar --add item apple_menu left \
     label.drawing=off \
     padding_left=8 \
     padding_right=4 \
-    click_script='case "$BUTTON" in
-      right) open -na Ghostty ;;
+    click_script="case \"\$BUTTON\" in
+      right) $LAUNCH --new Ghostty ;;
       *)     vicinae vicinae://toggle ;;
-    esac'
+    esac"
 
 # Workspace indicators (1–9, 10 is scratchpad with no indicator)
 # Styling handled dynamically in plugins/space.sh (Omarchy parity)

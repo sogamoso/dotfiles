@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-open -a "Activity Monitor"
+exec "$HOME/.config/aerospace/launch-or-focus.sh" "Activity Monitor"
