@@ -89,6 +89,7 @@ explain_pull_failure() {
 cmd_brew() {
   local bundle_failed=0
   (source "$DOTFILES/install/lib/brew-trust.sh"; brew_trust_taps "$DOTFILES/Brewfile")
+  (source "$DOTFILES/install/lib/brew-stale-apps.sh"; brew_clear_stale_apps)
   # One cask failing (often one that needs sudo) shouldn't skip the firewall
   # and autoupdate steps below; report it at the end instead
   # Unattended (the daily agent), only install what's missing: upgrades are

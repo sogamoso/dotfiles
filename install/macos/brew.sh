@@ -20,6 +20,8 @@ log_heading "Installing Homebrew packages..."
 
 source "$REPO_DIR/install/lib/brew-trust.sh"
 brew_trust_taps "$REPO_DIR/Brewfile"
+source "$REPO_DIR/install/lib/brew-stale-apps.sh"
+brew_clear_stale_apps
 
 brew bundle --file "$REPO_DIR/Brewfile"
 brew cleanup || log_warn "brew cleanup had errors (often root-owned kegs from sudo services); continuing"
