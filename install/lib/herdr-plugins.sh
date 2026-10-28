@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Sourced by install/dotfiles/herdr-plugins.sh, herdr-integrations.sh and
-# `dotfiles doctor` — never run directly.
+# Sourced by install/dotfiles/herdr-plugins.sh, herdr-integrations.sh,
+# herdr-machines.sh and `dotfiles doctor` — never run directly.
 
 # Third-party herdr plugins, one per line: plugin id, GitHub source, pinned commit.
 # The worktree plugin creates worktrees from a pull request, an issue or a
@@ -14,3 +14,8 @@ HERDR_THIRD_PARTY_PLUGINS=(
 
 # herdr's own agent integrations, installed by install/dotfiles/herdr-integrations.sh
 HERDR_INTEGRATIONS=(claude codex cursor grok)
+
+# The machine every other host saves in herdr, by its ~/.ssh/config host, and
+# its Tailscale name, which tells install/dotfiles/herdr-machines.sh it's on it
+HERDR_MACHINE="mac-mini"
+HERDR_MACHINE_HOST="sogamoso-m4-mac-mini"

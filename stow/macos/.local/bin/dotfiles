@@ -151,6 +151,7 @@ cmd_reload() {
     # After the restart, so the link reaches a server that speaks its protocol
     run "$DOTFILES/install/dotfiles/herdr-plugins.sh"
     run "$DOTFILES/install/dotfiles/herdr-integrations.sh"
+    run "$DOTFILES/install/dotfiles/herdr-machines.sh"
   fi
   if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/neovim.sh" ]]; then
     run "$DOTFILES/install/macos/neovim.sh"
@@ -417,6 +418,18 @@ cmd_doctor() {
       bad "$agent integration is ${status:-missing}" "dotfiles reload"
     fi
   done
+  # Long-running agents go on the mini, which every other host reaches from
+  # its own herdr window
+  local self
+  self=$(tailscale status --self --json 2>/dev/null | jq -r '.Self.DNSName // empty' 2>/dev/null || true)
+  if [[ ${self%%.*} != "$HERDR_MACHINE_HOST" ]]; then
+    if herdr machine list --json 2>/dev/null |
+      jq -e --arg host "$HERDR_MACHINE" '.[] | select(.label == $host or .target == $host or .ssh_target == $host)' >/dev/null 2>&1; then
+      ok "$HERDR_MACHINE saved as a herdr machine"
+    else
+      bad "$HERDR_MACHINE isn't saved as a herdr machine" "herdr machine add $HERDR_MACHINE"
+    fi
+  fi
 
   echo "==> Stow"
   # A file added to a package stays unlinked until the next stow, and whatever
