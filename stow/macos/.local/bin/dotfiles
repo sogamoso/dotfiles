@@ -439,6 +439,14 @@ cmd_doctor() {
   else
     bad "$HERDR_MACHINE isn't saved as a herdr machine" "herdr machine add $HERDR_MACHINE"
   fi
+  # SSH and mosh logins land in herdr, so a stopped service locks them out
+  if ! on_herdr_machine_host; then
+    if brew services info herdr --json 2>/dev/null | jq -e '.[0].running' >/dev/null 2>&1; then
+      ok "herdr service running"
+    else
+      bad "herdr service isn't running" "brew services start herdr"
+    fi
+  fi
   # The mini's workaround stays only until herdr fixes the bug behind it
   local issue_state
   issue_state=$(gh api "repos/herdrdev/herdr/issues/$HERDR_LAUNCHD_ISSUE" --jq .state 2>/dev/null || true)
@@ -618,6 +626,11 @@ for entry in sys.argv[1:]:
     ok "brew autoupdate running"
   else
     bad "brew autoupdate isn't running" "dotfiles brew"
+  fi
+  if brew services info sketchybar --json 2>/dev/null | jq -e '.[0].running' >/dev/null 2>&1; then
+    ok "SketchyBar service running"
+  else
+    bad "SketchyBar service isn't running" "brew services restart sketchybar"
   fi
 
   if (( DOCTOR_FAILED )); then
