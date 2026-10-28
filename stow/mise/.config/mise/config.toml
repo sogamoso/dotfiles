@@ -1,5 +1,2 @@
-[env]
-_.path = "{{ cwd }}/bin"
-
 [settings]
 experimental = true
