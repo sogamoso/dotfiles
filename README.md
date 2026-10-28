@@ -304,6 +304,8 @@ Each opens in Vicinae.
 | `Option + Ctrl + A` | Sound preferences |
 | `Option + Ctrl + B` | Bluetooth preferences |
 | `Option + Ctrl + W` | Wi-Fi preferences |
+| `Option + Ctrl + D` | Displays preferences |
+| `Option + Ctrl + P` | Battery preferences (Energy on a desktop Mac) |
 | `Option + Shift + T` | btop in Ghostty |
 | `Option + Ctrl + S` | LocalSend: share files with Omarchy and phones |
 | `Option + Ctrl + V` | Clipboard history (Vicinae) |

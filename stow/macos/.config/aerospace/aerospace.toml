@@ -178,6 +178,9 @@ alt-ctrl-l  = 'exec-and-forget vicinae vicinae://launch/power/lock' # Omarchy: S
 alt-ctrl-a  = 'exec-and-forget open "x-apple.systempreferences:com.apple.Sound-Settings.extension"' # Omarchy: SUPER+Ctrl+A → audio controls
 alt-ctrl-b  = 'exec-and-forget open "x-apple.systempreferences:com.apple.BluetoothSettings"' # Omarchy: SUPER+Ctrl+B → bluetooth controls
 alt-ctrl-w  = 'exec-and-forget open "x-apple.systempreferences:com.apple.wifi-settings-extension"' # Omarchy: SUPER+Ctrl+W → wifi controls
+alt-ctrl-d  = 'exec-and-forget open "x-apple.systempreferences:com.apple.Displays-Settings.extension"' # Omarchy: SUPER+Ctrl+D → display panel
+# Battery on a laptop; macOS opens Energy instead on a desktop Mac
+alt-ctrl-p  = 'exec-and-forget open "x-apple.systempreferences:com.apple.Battery-Settings.extension"' # Omarchy: SUPER+Ctrl+P → power panel
 
 # Reminders — Omarchy: SUPER+Ctrl+R set, SUPER+Ctrl+ALT+R show, SUPER+SHIFT+Ctrl+R clear
 alt-ctrl-r       = 'exec-and-forget $HOME/.config/dotfiles/reminder.sh prompt'
