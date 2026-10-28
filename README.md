@@ -189,15 +189,14 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 
 | Workspace | Purpose | Apps |
 |---|---|---|
-| 1 | Browse | Chrome, Safari |
+| 1 | Browse | Chrome |
 | 2 | Dev | Ghostty |
 | 3 | Chat | Slack, WhatsApp, Discord |
 | 4 | Mail & calendar | Gmail, Google Calendar |
-| 5 | Other work apps | Notion |
-| 6 | Misc | Whatever |
-| 7 | Entertainment | Spotify, Podcasts |
-| 8–9 | Misc | Whatever |
-| 10 | Scratchpad | Temporary |
+| 5 | AI | Claude, ChatGPT, Grok, Wabi |
+| 6 | Basecamp | Basecamp |
+| 7–9 | Misc | Anything |
+| 10 | Scratchpad | Temporary windows (`Option + S`) |
 
 #### Status bar
 
