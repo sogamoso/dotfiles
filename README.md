@@ -298,6 +298,7 @@ Each opens in Vicinae.
 | `Option + Shift + B` | New Chrome window |
 | `Option + Shift + W` | Open Typora |
 | `Option + Shift + X` | Open X |
+| `Option + Shift + Q` | Calculator |
 | `Option + Shift + Cmd + X` | New X post |
 | `Option + Shift + Cmd + A` | Open ChatGPT |
 | `Option + Shift + Cmd + B` | Chrome incognito |
