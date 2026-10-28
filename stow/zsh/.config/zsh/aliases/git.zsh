@@ -25,7 +25,8 @@ alias grba='git rebase --abort'
 # Delete local branches already merged into HEAD
 gbdm() {
   local branches
-  branches=$(git branch --merged | grep -v '^*' | grep -v -E '^\s*(main|master)\s*$' | tr -d ' \n')
+  branches=$(git for-each-ref --merged HEAD --format='%(refname:short)' refs/heads |
+    grep -vxE "main|master|$(git branch --show-current)")
   [[ -z "$branches" ]] && echo "No merged branches to delete." && return 0
   echo "$branches" | xargs git branch -d
 }
