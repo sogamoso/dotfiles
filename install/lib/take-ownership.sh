@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Sourced by the stow scripts after log.sh — never run directly.
+# Sourced by install/dotfiles/stow.sh after log.sh — never run directly.
 
 # Installers that aren't ours drop real files where our stow packages want
 # symlinks, and stow aborts the whole package rather than clobber one. Move the

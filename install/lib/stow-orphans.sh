@@ -12,8 +12,9 @@
 # just the same — a live link into the stale copy is indistinguishable from a
 # live link into this one, so there is nothing safe to key off.
 #
-# Sourced by the three stow scripts so a moved or pruned checkout heals on the
-# next run, and by `dotfiles status` to report the damage without touching it.
+# Sourced by install/dotfiles/stow.sh so a moved or pruned checkout heals on the
+# next run, by work-dir.sh when it moves ~/Code, and by `dotfiles status` to
+# report the damage without touching it.
 
 # Directories stow writes into, derived from the packages themselves so a new
 # package bringing a new top-level dir is covered without editing this list.
