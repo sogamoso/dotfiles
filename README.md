@@ -227,14 +227,24 @@ Follows [Omarchy](https://github.com/basecamp/omarchy)'s Hyprland keybinding mod
 | Option | Alt/Option | Window management | Super |
 | Command | Cmd | App shortcuts + tmux | Alt |
 
+##### Cheatsheets
+
+Each opens in Vicinae.
+
+| Hotkey | Cheatsheet |
+|---|---|
+| `Option + K` | Hotkeys: everything but tmux and herdr |
+| `Option + Cmd + K` | tmux |
+| `Option + Ctrl + K` | herdr |
+| `Option + Shift + K` | Neovim |
+| `Option + Ctrl + Shift + K` | Zed |
+
 ##### Navigating
 
 | Hotkey | Action |
 |---|---|
 | `Option + Space` | Vicinae launcher |
 | `Option + Escape` | Apple menu |
-| `Option + K` | Hotkeys cheatsheet (Vicinae) |
-| `Option + Shift + K` | Neovim cheatsheet (Vicinae) |
 | `Option + 1-9` | Switch to workspace 1–9 |
 | `Option + S` | Switch to scratchpad (workspace 10) |
 | `Option + Tab` | Next workspace |
@@ -371,7 +381,7 @@ Ephemeral kitchen-timer-style reminders (die on logout/reboot).
 | `Ctrl + Cmd + arrows` | Navigate tmux panes |
 | `Ctrl + Cmd + Shift + arrows` | Resize tmux panes |
 
-##### tmux
+#### tmux
 
 Prefix is `Ctrl + Space`.
 
@@ -401,7 +411,7 @@ Shell functions that build a whole tmux layout in one command. They run inside a
 | `trw [<name>] [<agent>] [<task>]` | New agent on its own worktree off `origin/main`, in a new window running `trl`, with branches named and tasks passed as in `hrw`. Checkouts go under `~/.herdr/worktrees`, where herdr would put them |
 | `trd` | Finish the agent in this window: confirm, delete its branch, remove its worktree and close the window |
 
-##### herdr
+#### herdr
 
 Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate the tmux-style navigation (`Cmd + arrows` for tabs and workspaces), except `Cmd + digits`, which jump to agents. Config lives in [`stow/macos/.config/herdr/config.toml`](stow/macos/.config/herdr/config.toml).
 

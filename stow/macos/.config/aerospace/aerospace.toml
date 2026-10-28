@@ -169,6 +169,9 @@ f18          = 'exec-and-forget $HOME/.config/dotfiles/mic-mute.sh' # Omarchy: X
 alt-esc     = 'exec-and-forget $HOME/.local/share/vicinae/scripts/apple-menu.sh' # Omarchy: SUPER+Escape → system menu
 alt-k       = 'exec-and-forget vicinae "vicinae://launch/scripts/hotkeys-cheatsheet.sh?toggle=true"' # Omarchy: SUPER+K → keybindings
 alt-shift-k = 'exec-and-forget vicinae "vicinae://launch/scripts/nvim-cheatsheet.sh?toggle=true"'
+alt-cmd-k   = 'exec-and-forget vicinae "vicinae://launch/scripts/tmux-cheatsheet.sh?toggle=true"' # Omarchy: SUPER+ALT+K → tmux keybindings
+alt-ctrl-k  = 'exec-and-forget vicinae "vicinae://launch/scripts/herdr-cheatsheet.sh?toggle=true"' # Omarchy: SUPER+CTRL+K → herdr keybindings
+alt-ctrl-shift-k = 'exec-and-forget vicinae "vicinae://launch/scripts/zed-cheatsheet.sh?toggle=true"'
 alt-ctrl-e  = 'exec-and-forget vicinae "vicinae://launch/core/search-emojis?toggle=true"' # Omarchy: SUPER+Ctrl+E → emoji picker
 alt-ctrl-v  = 'exec-and-forget vicinae "vicinae://launch/clipboard/history?toggle=true"' # Omarchy: SUPER+Ctrl+V → clipboard manager
 alt-ctrl-l  = 'exec-and-forget vicinae vicinae://launch/power/lock' # Omarchy: SUPER+Ctrl+L → lock screen
