@@ -20,7 +20,7 @@ agents_claude() {
     .claudeAiOauth as $o
     | ($o.subscriptionType // "" | ascii_downcase) as $sub
     | ($o.rateLimitTier // "" | capture("max_(?<m>[0-9]+x)")?.m // "") as $max
-    | [($sub | if . == "" then empty else (.[:1] | ascii_upcase) + .[1:] end),
+    | [($sub | if . == "" or (. == "max" and $max != "") then empty else (.[:1] | ascii_upcase) + .[1:] end),
        (if $max == "" then empty else "Max \($max)" end)]
     | join(" · ")' 2>/dev/null)
 
@@ -40,14 +40,22 @@ agents_claude() {
     *)       agents_status "$plan" "Usage check failed (HTTP $code)"; return ;;
   esac
 
+  # A model's own allowance shows up only in the limits array, in any window
+  # (a weekly one only Fable draws from, say), named by the model and window
   printf '%s' "$response" | jq -c --arg plan "$plan" '
     def epoch: if . == null then null
       else sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | fromdateiso8601 end;
+    def window: ascii_downcase
+      | if test("month") then " monthly" elif test("week|day") then " weekly"
+        elif test("hour|session") then " session" else "" end;
     {plan: $plan, status: "", limits: [
-      (.five_hour  | select(. != null) | {label: "Session", percent: .utilization, resets: (.resets_at | epoch)}),
-      (.seven_day  | select(. != null) | {label: "Weekly",  percent: .utilization, resets: (.resets_at | epoch)}),
-      (.limits[]? | select(.kind == "weekly_scoped" and .scope.model.display_name != null)
-        | {label: "\(.scope.model.display_name) weekly", percent: .percent, resets: (.resets_at | epoch)})
+      (.five_hour  | select(.utilization != null) | {label: "Session", percent: .utilization, resets: (.resets_at | epoch)}),
+      (.seven_day  | select(.utilization != null) | {label: "Weekly",  percent: .utilization, resets: (.resets_at | epoch)}),
+      ([.limits[]? | select(.percent != null)
+        | {name: (.scope.model.display_name // .scope.model.id // ""), kind: (.kind // ""), percent, resets_at}
+        | select(.name != "")]
+        | reduce .[] as $l ([]; if any(.[]; .name == $l.name and .kind == $l.kind) then . else . + [$l] end) | .[]
+        | {label: "\(.name)\(.kind | window)", percent, resets: (.resets_at | epoch)})
     ]}' 2>/dev/null || agents_status "$plan" "Unexpected answer from Anthropic"
 }
 
