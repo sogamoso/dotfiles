@@ -1,1 +1,0 @@
-alias c='opencode --auto'
