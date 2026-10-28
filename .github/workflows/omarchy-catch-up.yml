@@ -6,10 +6,13 @@ name: Omarchy catch-up
 # description. Merging records the review; closing it leaves the same changes
 # for next week.
 #
-# Omarchy's commits are third-party input to an agent, so the agent runs with
-# read-only tokens and commits locally; the publish job checks the commits and
-# opens the pull request. A pull request opened with the workflow token doesn't
-# trigger check.yml, so the publish job runs the checks itself.
+# The agent reads Omarchy's commits, which are third-party input, so it runs
+# with no network tools, no repo code and no write token, from data this
+# workflow fetches first. Afterwards, the workflow's own scripts, copied aside
+# before the agent ran, check what it touched and that no secret leaked into it,
+# and the publish job checks again before opening the pull request, which a
+# person reviews before anything reaches main. A pull request opened with the
+# workflow token doesn't trigger check.yml, so the publish job runs the checks.
 on:
   schedule:
     - cron: "0 8 * * 1"
@@ -29,9 +32,8 @@ jobs:
       contents: read
       pull-requests: read
     outputs:
-      ported: ${{ steps.result.outputs.ported }}
+      ready: ${{ steps.result.outputs.ready }}
     env:
-      GH_TOKEN: ${{ github.token }}
       DOTFILES: ${{ github.workspace }}
       OMARCHY_AGENT: ${{ vars.OMARCHY_AGENT }}
     steps:
@@ -40,24 +42,53 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Put the dotfiles CLI on PATH
-        run: echo "$GITHUB_WORKSPACE/stow/macos/.local/bin" >>"$GITHUB_PATH"
+      - name: Set aside the workflow's own scripts
+        run: |
+          echo "TOOLS=$RUNNER_TEMP/tools" >>"$GITHUB_ENV"
+          TOOLS=$RUNNER_TEMP/tools
+          mkdir "$TOOLS"
+          cp .github/omarchy-*.sh "$TOOLS/"
+          echo "$GITHUB_WORKSPACE/stow/macos/.local/bin" >>"$GITHUB_PATH"
 
       # An open catch-up pull request already covers these changes; reviewing
       # again would duplicate it
       - name: Decide whether to review
         id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           open=$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$BRANCH" --state open --json number --jq length)
           if (( open > 0 )); then
             echo "A catch-up pull request is still open; skipping"
             echo "review=false" >>"$GITHUB_OUTPUT"
-          elif dotfiles omarchy-downstream-candidates --list | grep -q "Nothing new since the last review"; then
-            echo "Nothing new in Omarchy since the last review"
-            echo "review=false" >>"$GITHUB_OUTPUT"
-          else
-            echo "review=true" >>"$GITHUB_OUTPUT"
+            exit 0
           fi
+          mkdir .omarchy-review
+          dotfiles omarchy-downstream-candidates --list | tee .omarchy-review/report.txt
+          if grep -q "Nothing new since the last review" .omarchy-review/report.txt; then
+            echo "review=false" >>"$GITHUB_OUTPUT"
+            exit 0
+          fi
+          gh api "repos/basecamp/omarchy/commits/$(gh api repos/basecamp/omarchy -q .default_branch)" \
+            -q '.sha + " " + .commit.committer.date' >"$RUNNER_TEMP/head.txt"
+          echo "review=true" >>"$GITHUB_OUTPUT"
+
+      # Omarchy's history since the last review, without files over 1 MB, and
+      # the pull requests the report names, so the agent needs no network
+      - name: Fetch Omarchy for the agent
+        if: steps.gate.outputs.review == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          since=$(date -u -d "$(awk '!/^#/ && NF {print $2; exit}' .omarchy-reviewed) - 2 days" +%Y-%m-%dT%H:%M:%SZ)
+          git clone --quiet --filter=blob:limit=1m --shallow-since="$since" --no-checkout \
+            https://github.com/basecamp/omarchy .omarchy-upstream
+          mkdir -p .omarchy-review/prs
+          grep -oE '\(#[0-9]+\)' .omarchy-review/report.txt | tr -dc '0-9\n' | sort -u | head -100 |
+            while IFS= read -r pr; do
+              gh pr view "$pr" --repo basecamp/omarchy --json number,title,body,url,files \
+                >".omarchy-review/prs/$pr.json" || rm -f ".omarchy-review/prs/$pr.json"
+            done
 
       - name: Install zsh for the zsh syntax check
         if: steps.gate.outputs.review == 'true'
@@ -76,74 +107,84 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          .github/omarchy-agent.sh run "Review the Omarchy changes worth bringing into these dotfiles, following the omarchy-downstream skill in .agents/skills/omarchy-downstream/SKILL.md. This is an unattended run in the weekly GitHub Actions workflow: follow the skill's Unattended runs section in place of its steps 4 to 6."
+          "$TOOLS/omarchy-verify.sh" save-git
+          "$TOOLS/omarchy-agent.sh" run "Review the Omarchy changes worth bringing into these dotfiles, following the omarchy-downstream skill in .agents/skills/omarchy-downstream/SKILL.md. This is an unattended run in the weekly GitHub Actions workflow: follow the skill's Unattended runs section, which says where this workflow put the report, Omarchy's history and the pull requests."
 
-      - name: Check the commits and package them
+      - name: Check the review and record it
         id: result
         if: steps.gate.outputs.review == 'true'
+        env:
+          GIT_CONFIG_GLOBAL: /dev/null
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          count=$(git rev-list --count origin/main..HEAD)
-          if (( count == 0 )); then
-            echo "The review made no commits"
-            echo "ported=false" >>"$GITHUB_OUTPUT"
-            exit 0
-          fi
-          if [[ -n $(git status --porcelain) ]]; then
-            echo "::error::The review left uncommitted changes:"
-            git status --short
-            exit 1
-          fi
-          if git diff --name-only origin/main..HEAD | grep -q '^\.github/'; then
-            echo "::error::The review changed files under .github/, which it must not touch"
-            exit 1
-          fi
-          git diff --name-only origin/main..HEAD | grep -qx '.omarchy-reviewed' ||
-            { echo "::error::The review didn't record itself in .omarchy-reviewed"; exit 1; }
-          [[ -s .omarchy-pr.md ]] || { echo "::error::No pull request description in .omarchy-pr.md"; exit 1; }
+          "$TOOLS/omarchy-verify.sh" restore-git
+          "$TOOLS/omarchy-verify.sh" catch-up origin/main
+          "$TOOLS/omarchy-verify.sh" secrets origin/main .omarchy-pr.md
+          # The review point moves in the pull request, so merging records it
+          { grep '^#' .omarchy-reviewed; cat "$RUNNER_TEMP/head.txt"; } >"$RUNNER_TEMP/reviewed"
+          mv "$RUNNER_TEMP/reviewed" .omarchy-reviewed
+          git add .omarchy-reviewed
+          git commit --quiet -m "Record the Omarchy review up to $(cut -c1-9 "$RUNNER_TEMP/head.txt")" \
+            -m "The weekly catch-up reviewed every Omarchy change since the last recorded point; this pull request ports what it recommends and lists the rest."
           mkdir "$RUNNER_TEMP/out"
+          if [[ -s .omarchy-pr.md ]]; then
+            cp .omarchy-pr.md "$RUNNER_TEMP/out/body.md"
+          else
+            echo "Reviewed Omarchy up to $(cut -c1-9 "$RUNNER_TEMP/head.txt"). Nothing to port; merging records the review." >"$RUNNER_TEMP/out/body.md"
+          fi
           git bundle create "$RUNNER_TEMP/out/catch-up.bundle" origin/main..HEAD
-          cp .omarchy-pr.md "$RUNNER_TEMP/out/body.md"
-          echo "ported=true" >>"$GITHUB_OUTPUT"
+          echo "ready=true" >>"$GITHUB_OUTPUT"
 
       - uses: actions/upload-artifact@v7
-        if: steps.result.outputs.ported == 'true'
+        if: steps.result.outputs.ready == 'true'
         with:
           name: catch-up
           path: ${{ runner.temp }}/out/
 
   publish:
     needs: review
-    if: needs.review.outputs.ported == 'true'
+    if: needs.review.outputs.ready == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: write
       pull-requests: write
-    env:
-      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set aside main's checks
+        run: |
+          echo "TOOLS=$RUNNER_TEMP/tools" >>"$GITHUB_ENV"
+          TOOLS=$RUNNER_TEMP/tools
+          mkdir "$TOOLS"
+          cp .github/omarchy-*.sh "$TOOLS/"
 
       - uses: actions/download-artifact@v8
         with:
           name: catch-up
           path: ${{ runner.temp }}/in
 
-      - name: Check out the reviewed commits
+      - name: Check out the reviewed commits, checked again
         run: |
-          git fetch "$RUNNER_TEMP/in/catch-up.bundle" "HEAD:refs/heads/$BRANCH"
-          git checkout "$BRANCH"
+          git fetch --quiet "$RUNNER_TEMP/in/catch-up.bundle" "HEAD:refs/heads/$BRANCH"
+          git checkout --quiet "$BRANCH"
+          "$TOOLS/omarchy-verify.sh" catch-up origin/main recorded
 
       - name: Install zsh for the zsh syntax check
         run: sudo apt-get install -y --no-install-recommends zsh
 
+      # The branch leaves .github/ as it is on main, so this is main's check.py
       - name: Run the checks
         run: python3 .github/check.py
 
       - name: Open the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          git push --force origin "$BRANCH"
-          gh pr create --base main --head "$BRANCH" \
+          git push --quiet --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$BRANCH"
+          gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$BRANCH" \
             --title "Catch up with Omarchy" --body-file "$RUNNER_TEMP/in/body.md"

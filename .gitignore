@@ -1,3 +1,5 @@
-# Written by the agent in the Omarchy workflows, read by their publish jobs
+# Written or fetched by the Omarchy workflows around their agent runs
 .omarchy-commit.txt
 .omarchy-pr.md
+.omarchy-review/
+.omarchy-upstream/
