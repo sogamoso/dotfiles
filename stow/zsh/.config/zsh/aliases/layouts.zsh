@@ -108,8 +108,6 @@ hrl() {
   local agent_pane="$HERDR_PANE_ID"
   local diff_pane
 
-  herdr tab rename "$HERDR_TAB_ID" "$(basename "$current_dir")" >/dev/null
-
   diff_pane=$(herdr pane split "$agent_pane" --direction right --ratio 0.5 --cwd "$current_dir" --no-focus |
     jq -r '.result.pane.pane_id')
   herdr pane split "$diff_pane" --direction down --ratio 0.5 --cwd "$current_dir" --no-focus >/dev/null
