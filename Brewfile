@@ -4,7 +4,6 @@ tap "nikitabobko/tap", trusted: true
 
 brew "bat"
 brew "btop"
-brew "ccusage"
 brew "duti"
 brew "eza"
 brew "fd"

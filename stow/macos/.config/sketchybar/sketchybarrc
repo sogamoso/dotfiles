@@ -184,22 +184,44 @@ sketchybar --add item input_source right \
     click_script="$PLUGIN_DIR/switch_input_source.sh" \
     script="$PLUGIN_DIR/input_source.sh"
 
-# Claude Code usage — spend in the active billing block, from local transcripts.
-# Omarchy parity: click shows the usage, right click starts the agent. ccusage
-# prints and exits, so the window waits for a key rather than closing unread.
-sketchybar --add item claude_usage right \
-  --set claude_usage \
+# Agent usage — the fullest current limit across Claude Code and Codex.
+# Omarchy parity: click opens a popup with each agent's plan and limits,
+# right click starts Claude Code. Polled every 15 minutes, as Omarchy does,
+# since Anthropic rate-limits its usage endpoint readily.
+sketchybar --add item agents right \
+  --set agents \
     icon="󰚩" \
-    icon.color=$BLUE \
-    label.color=$BLUE \
     label.padding_left=2 \
     drawing=off \
-    update_freq=300 \
-    click_script="case \"\$BUTTON\" in
-      right) $LAUNCH --new Ghostty --args -e claude ;;
-      *)     $LAUNCH --new Ghostty --args --wait-after-command=true -e ccusage blocks ;;
-    esac" \
-    script="$PLUGIN_DIR/claude_usage.sh"
+    update_freq=900 \
+    popup.align=right \
+    popup.background.color=$SURFACE \
+    popup.background.corner_radius=6 \
+    popup.background.border_width=1 \
+    popup.background.border_color=$MUTED \
+    script="$PLUGIN_DIR/agents.sh" \
+  --subscribe agents mouse.clicked mouse.exited.global system_woke
+for agent in claude codex cursor antigravity; do
+  sketchybar --add item "agents.$agent" popup.agents \
+    --set "agents.$agent" \
+      icon.font="$FONT:Bold:13.0" \
+      icon.width=110 \
+      label.font="$FONT:Regular:12.0" \
+      padding_left=10 \
+      padding_right=10
+  for row in 1 2 3; do
+    sketchybar --add item "agents.$agent.$row" popup.agents \
+      --set "agents.$agent.$row" \
+        drawing=off \
+        icon.font="$FONT:Regular:12.0" \
+        icon.color=$MUTED \
+        icon.width=110 \
+        icon.padding_left=12 \
+        label.font="$FONT:Regular:12.0" \
+        padding_left=10 \
+        padding_right=10
+  done
+done
 
 # Dotfiles update indicator — visible only when local repo is behind origin
 sketchybar --add item dotfiles_update right \
