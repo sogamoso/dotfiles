@@ -233,7 +233,7 @@ Each opens in Vicinae.
 
 | Hotkey | Cheatsheet |
 |---|---|
-| `Option + K` | Hotkeys: everything but tmux and herdr |
+| `Option + K` | Hotkeys |
 | `Option + Cmd + K` | tmux |
 | `Option + Ctrl + K` | herdr |
 | `Option + Shift + K` | Neovim |
