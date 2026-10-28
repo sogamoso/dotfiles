@@ -41,6 +41,16 @@ UIDOTSH_ENV="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/uidotsh.env"
 [[ -r "$UIDOTSH_ENV" ]] && source "$UIDOTSH_ENV"
 unset UIDOTSH_ENV
 
+# herdr names a tab after its foreground program through this hook, which
+# renames it as each command starts and ends. Found through herdr rather than a
+# glob, which would also match an install a pin bump left behind.
+if [[ -n $HERDR_PANE_ID ]] && command -v herdr >/dev/null; then
+  HERDR_RENAME_HOOK="$(herdr plugin list --plugin herdr-automatic-rename --json 2>/dev/null |
+    jq -r '.result.plugins[0].source.managed_path // empty' 2>/dev/null)/shell/hook.zsh"
+  [[ -r "$HERDR_RENAME_HOOK" ]] && source "$HERDR_RENAME_HOOK"
+  unset HERDR_RENAME_HOOK
+fi
+
 # Auto-attach to tmux on SSH
 if [[ -z "$TMUX" && "$-" == *i* && -n "$SSH_TTY" ]]; then
   tmux attach || tmux new -s Work

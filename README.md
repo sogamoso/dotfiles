@@ -459,11 +459,13 @@ Shell functions that build a whole herdr layout in one command. They run inside 
 
 ##### herdr plugins
 
-Two plugins, set up on both Macs and Omarchy by `install/dotfiles/herdr-plugins.sh` and again on every `dotfiles reload`. `dotfiles doctor` checks both.
+Three plugins, set up on both Macs and Omarchy by `install/dotfiles/herdr-plugins.sh` and again on every `dotfiles reload`. `dotfiles doctor` checks all three.
 
 [mkdir700/herdr-plugin-worktree](https://github.com/mkdir700/herdr-plugin-worktree) creates a worktree from a pull request, an issue or a branch and starts an agent on it, as Paseo and Conductor do. `prefix + u` opens its prompt. It's third-party code that launches agents, so it's pinned to a commit that was read first, in `install/lib/herdr-plugins.sh`; bump the pin only after reading what changed. Its config, in the `herdr` stow package, starts the agents through `cx` and `cy`, so they run with the same flags as everywhere else, rather than the `--dangerously-skip-permissions` its example config would set up. It needs `node` and a signed-in `gh`. It opens a fork's pull request like any other, agent included, so open those with care: our plugin below holds back what it can.
 
 The worktrees plugin in [`herdr-plugins/`](herdr-plugins) fills in what that one leaves out, and is linked from this checkout. Every new worktree, whether `hrw`, the worktree plugin or herdr's sidebar made it, gets its mise config trusted and a copy of the main checkout's env files (`.env`, `.env.local` and the like, up to three levels deep, `node_modules` skipped), which git leaves out of a fresh worktree. Files the worktree already has are left alone. A checkout whose commit isn't on `origin` or another local branch, such as a fork's pull request, gets neither. A `Ctrl + click` on a GitHub pull request link in a pane of that repo opens the worktree plugin's prompt and answers it with the link and the default agent, except for a fork's pull request, where it stops at the agent question for you to answer or cancel.
+
+[qu8n/herdr-automatic-rename](https://github.com/qu8n/herdr-automatic-rename) names each tab after its foreground program, as tmux's `automatic-rename` does: `zsh` at a prompt, `tail` or `npm` while one runs, and an agent's task once it reports one. Tabs and workspaces get their `1`–`9` jump number in front, as in `[2] nvim`. Its shell hook, sourced from both supplements, renames the tab as each command starts and ends. Its config in the `herdr` stow package leaves out the directory and branch it would put in front, since the sidebar already shows both. A tab you rename by hand keeps that name until the plugin's `reset` action hands it back. It's pinned and read like the worktree plugin, and needs `jq`.
 
 ##### Pull request status
 

@@ -87,6 +87,9 @@ name = "tokyo-night"
 accent = "#7aa2f7"
 
 [ui]
+# The automatic rename plugin names tabs, and treats a name typed here as one
+# chosen by hand, which it then leaves alone. Omarchy's config sets it too.
+prompt_new_tab_name = false
 status_indicators = "symbols"
 show_agent_labels_on_pane_borders = false
 agent_panel_sort = "spaces"
