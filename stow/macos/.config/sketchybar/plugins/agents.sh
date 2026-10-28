@@ -13,20 +13,19 @@ source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/colors.sh"
 source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/agents.sh"
 
 CACHE="${TMPDIR:-/tmp}/dotfiles-agents"
-# Alphabetical, as Omarchy orders them. Antigravity has no usage source here
-# yet and holds its place.
-AGENTS=("antigravity|Antigravity" "claude|Claude Code" "codex|Codex" "cursor|Cursor" "grok|Grok")
-FETCHED=(claude codex cursor grok)
+# Alphabetical, as Omarchy orders them
+AGENTS=("claude|Claude Code" "codex|Codex" "cursor|Cursor" "grok|Grok")
 ROWS=4
 ALARM=90
 
 # $1 is the minimum seconds between checks: the routine poll and a click can
 # land together, and Anthropic rate-limits its usage endpoint readily
 refresh() {
-  local id record
+  local entry id record
   debounce agents-refresh "$1" || return 0
   mkdir -p "$CACHE"
-  for id in "${FETCHED[@]}"; do
+  for entry in "${AGENTS[@]}"; do
+    id=${entry%%|*}
     (
       record=$("agents_$id")
       if [[ -z $record ]]; then
@@ -73,9 +72,11 @@ render() {
     file="$CACHE/$id.json"
     count=0
 
+    # Omarchy leaves out an agent that isn't installed or signed in here
     if [[ ! -f $file ]]; then
-      args+=(--set "agents.$id" icon="$name" label="no usage source yet" label.color=$MUTED)
+      args+=(--set "agents.$id" drawing=off)
     else
+      args+=(--set "agents.$id" drawing=on)
       plan=$(jq -r '.plan // ""' "$file")
       status=$(jq -r '.status // ""' "$file")
       fetched=$(jq -r '.fetched // empty' "$file")
