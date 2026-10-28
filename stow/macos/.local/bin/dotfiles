@@ -309,6 +309,13 @@ cmd_doctor() {
       ok "Connected as $login"
     fi
     if [[ $run_ssh == "true" ]]; then ok "Tailscale SSH on"; else bad "Tailscale SSH off" "tailscale set --ssh"; fi
+    # tailscaled runs as root. brew services start without sudo adds a user copy
+    # that can't start, and launchd keeps respawning it.
+    if compgen -G "$HOME/Library/LaunchAgents/*tailscale*.plist" >/dev/null; then
+      bad "A user-level tailscale LaunchAgent sits beside the root daemon" "brew services stop tailscale"
+    else
+      ok "tailscaled runs only as the root daemon"
+    fi
   fi
 
   echo "==> SSH"
