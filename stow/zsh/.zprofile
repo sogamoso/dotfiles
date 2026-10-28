@@ -1,6 +1,8 @@
 # Every login shell, interactive or not, gets its tools on PATH here, as
 # Omarchy's env-bootstrap does from /etc/profile.d: `zsh -lc` callers such as
 # mosh's herdr command never read ~/.zshrc. Interactive shells build on it there.
+# Appended, so system binaries keep precedence in these shells, as Omarchy's
+# do; mise activate puts mise's tools first in interactive ones.
 if [[ -x /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
