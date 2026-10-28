@@ -394,11 +394,9 @@ left. Once the steps above are done, run it again:
 dotfiles doctor
 ```
 
-It checks this Mac: Tailscale signed in with Tailscale SSH on, Remote Login off,
-the firewall allowing `tailscaled` and `mosh-server`, the LaunchAgents (work
-hours on laptops only), the ui.sh skills, the system keyboard shortcuts, the
-1Password SSH agent, the login items, the GitHub CLI login, the `mailto:` handler, Screen Sharing (on for the
-Mac mini, off on laptops), LanguageTool's shortcuts and brew autoupdate. Anything wrong
+It checks everything the README's `dotfiles doctor` row lists, from Tailscale
+SSH and the firewall to the LaunchAgents (work hours on laptops only) and
+Screen Sharing (on for the Mac mini, off on laptops). Anything wrong
 comes with the command that fixes it. `dotfiles update` and the daily run end
 with it too; run it again whenever something seems off.
 

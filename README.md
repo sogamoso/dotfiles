@@ -32,12 +32,12 @@ stow/
 
 ### How it works
 
-`bootstrap` runs two phases:
+`bootstrap` first moves an older `~/Code` to `~/Work` (`install/dotfiles/work-dir.sh`), then runs two phases:
 
-1. **OS setup** — dispatches by `uname -s`.
-2. **Dotfiles** (`install/dotfiles/all.sh`) — cross-platform config symlinks via stow.
+1. **OS setup** — dispatches by `uname -s`. Each OS's `all.sh` stows the packages (`install/dotfiles/stow.sh`) as soon as the tools it needs are installed.
+2. **Dotfiles** (`install/dotfiles/all.sh`) — cross-platform setup for the agents, skills and herdr.
 
-After both phases it drops into a fresh login shell — zsh on macOS, bash on Omarchy.
+On macOS it then runs `dotfiles doctor` to list what's left to do by hand, and on both it drops into a fresh login shell — zsh on macOS, bash on Omarchy.
 
 ## Skills
 
@@ -125,9 +125,9 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles pull` | Git pull only |
 | `dotfiles brew` | Sync Brewfile via `brew bundle`, keep brew autoupdate current |
 | `dotfiles stow` | Re-stow all packages |
-| `dotfiles reload` | Re-stow, relink skills, restart SketchyBar, reload AeroSpace, restart a stale herdr server, relink the herdr plugins |
+| `dotfiles reload` | Re-stow, reapply the git filters and Grok's theme, relink skills, restart SketchyBar, sync the AeroSpace gap and reload AeroSpace, restart a stale herdr server, relink the herdr plugins and integrations, rebuild Neovim.app |
 | `dotfiles status` | Branch, ahead/behind, dirty files |
-| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, herdr plugins, 1Password, keyboard shortcuts, login items, GitHub CLI, mailto, Screen Sharing, Vicinae, LanguageTool, brew autoupdate) and print the fix for anything wrong. Also runs at the end of bootstrap and of `dotfiles update` |
+| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, herdr plugins, stow links, 1Password, keyboard shortcuts, login items, GitHub CLI, mailto, Screen Sharing, Vicinae, LanguageTool, Grok's theme, brew autoupdate) and print the fix for anything wrong. Also runs at the end of bootstrap and of `dotfiles update` |
 | `dotfiles vicinae [status \| save \| reset]` | Compare Vicinae's settings and store extensions with the repo. `save` keeps what changed on this Mac (commit the result), `reset` drops it |
 | `dotfiles omarchy-downstream-candidates` | Review what changed in Omarchy since the last review and which of it to port, in Claude Code (Codex if Claude isn't installed) with the `omarchy-downstream` skill. `--list` prints the raw changes: new and removed key bindings, commits touching what the macOS side ports, files added or removed outside the areas set aside as Linux-only, new migrations that mention something used here, and any Omarchy area not yet classified as ported or skipped. `--mark-reviewed` records the review in `.omarchy-reviewed` |
 | `dotfiles agent [<name>]` | Show or set the default coding agent, like Omarchy's `omarchy default agent`, with the same names (`gemini` picks Antigravity, `cursor` the Cursor CLI). The `a` alias launches it with Omarchy's flags for that agent, and the herdr layouts use it when no agent is given |
@@ -146,11 +146,13 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `aerospace-gap.sh` | Configures git filter to pin the sketchybar-rewritten `outer.top` gap |
 | `claude-code.sh` | Installs Claude Code marketplaces, plugins, and configures claude-hud |
 | `codex.sh` | Installs the third-party Codex marketplaces and plugins |
+| `opencode.sh` | Sets OpenCode to follow the terminal theme and leave updates to mise, as Omarchy does, without stowing a config that holds secrets |
 | `grok.sh` | Sets Grok's theme to Tokyo Night in `~/.grok/config.toml`, and leaves the rest of that file to Grok |
 | `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server with Claude Code and Codex, and caches its token where the shells can export it |
-| `skills.sh` | Links every skill into both `~/.claude/skills` and `~/.codex/skills` — see [Skills](#skills) |
+| `skills.sh` | Installs the agent skills, as plugins where a source is packaged for them and linked into `~/.claude/skills` and `~/.codex/skills` otherwise — see [Skills](#skills) |
 | `herdr-plugins.sh` | Installs the pinned third-party herdr plugins and links the ones in `herdr-plugins/` — see [herdr plugins](#herdr-plugins) |
 | `herdr-integrations.sh` | Installs herdr's integrations for Claude Code, Codex, Cursor and Grok, so a restart resumes their conversations — see [herdr plugins](#herdr-plugins) |
+| `herdr-machines.sh` | Saves the Mac mini as a herdr machine on every other host, so its workspaces and agents show in the same herdr window |
 
 ## Cross-platform design
 
@@ -182,10 +184,11 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `sketchybar.sh` | Configures SketchyBar status bar |
 | `~/.config/dotfiles/firewall.sh` | Lets the current `tailscaled` and `mosh-server` through the macOS firewall and restarts a `tailscaled` left on an old binary. Upgrades re-block them, so `--install` adds a root LaunchDaemon (`com.sogamoso.firewall-sync`) that does this after every Homebrew upgrade, running a root-owned copy from `/usr/local/libexec/dotfiles`. A daily user-level `--check` (`com.sogamoso.firewall-check`) notifies if that ever fails |
 | `tailscale.sh` | Starts Tailscale and turns on Tailscale SSH, waiting up to 5 minutes for the browser sign-in on a new machine |
-| `aerospace.sh` | Starts AeroSpace only if not already running |
+| `aerospace.sh` | Starts AeroSpace on the first bootstrap, and prints the workspace layout |
 | `vicinae.sh` | Points Vicinae's `settings.json` at the stowed `dotfiles.json`, installs the store extensions in `extensions.txt`, then launches it |
 | `neovim.sh` | Builds `~/Applications/Neovim.app`, which opens files in Neovim in a new Ghostty window, and makes it the default for text and code file types (via `duti`) |
 | `terminal.sh` | Makes Ghostty the default terminal: it runs double-clicked `.command` and `.tool` scripts and Unix executables, which open in Terminal.app otherwise (via `duti`). `.sh` files stay with Neovim, and `ssh://` and `x-man-page://` links with Terminal.app, since Ghostty doesn't take them |
+| `apps.sh` | Installs apps Homebrew has no cask for (Wabi), checking the download's Developer ID |
 | `login-items.sh` | Adds the apps in `install/lib/login-items.sh` to the login items, leaving any others alone |
 | `manual_steps.sh` | Opens the manual setup guide, first run only |
 

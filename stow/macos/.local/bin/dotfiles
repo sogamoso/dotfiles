@@ -17,10 +17,9 @@ Commands:
   brew      Sync Brewfile, keep brew autoupdate current
   stow      Re-stow all dotfile packages
   reload    Re-stow, relink skills and herdr plugins, restart SketchyBar,
-            reload AeroSpace
+            reload AeroSpace (the README lists every step)
   status    Show repo state (branch, ahead/behind, dirty files)
-  doctor    Check this Mac's setup: Tailscale, SSH, firewall, agents, skills,
-            herdr plugins
+  doctor    Check this Mac's setup and print the fix for anything wrong
   vicinae [status | save | reset]
             Compare Vicinae's settings and extensions with the repo; save
             keeps what changed here, reset throws it away
