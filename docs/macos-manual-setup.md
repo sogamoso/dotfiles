@@ -375,8 +375,11 @@ Blink and has to be set up by hand:
        RequestTTY yes
        RemoteCommand /bin/zsh -lc 'exec herdr'
 
-The first connection in a while opens a Tailscale check in the browser (the SSH
-rule's check mode); it holds for 12 hours. Homebrew upgrades re-block
+The SSH rule in the tailnet policy is `accept`, not `check`: `autogroup:member`
+into `autogroup:self` as `autogroup:nonroot`, so an account reaches only its own
+devices, never as root, and with no browser check. Check mode asked again every
+12 hours, which herdr's background connection to the Mac mini (a saved machine,
+see the README's herdr plugins) can't answer. Homebrew upgrades re-block
 `mosh-server` in the firewall; a root daemon re-allows it on its own, and a
 daily check notifies if that ever fails.
 
