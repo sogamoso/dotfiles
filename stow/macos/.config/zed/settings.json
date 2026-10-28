@@ -1,21 +1,21 @@
 {
   "cli_default_open_behavior": "existing_window",
   "project_panel": {
-    "dock": "right"
+    "dock": "left"
   },
   "outline_panel": {
-    "dock": "right"
+    "dock": "left"
   },
   "collaboration_panel": {
-    "dock": "right"
+    "dock": "left"
   },
   "agent": {
-    "dock": "left",
+    "dock": "right",
     "favorite_models": [],
     "model_parameters": []
   },
   "git_panel": {
-    "dock": "right"
+    "dock": "left"
   },
   "which_key": {
     "enabled": true

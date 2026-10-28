@@ -33,7 +33,7 @@ ${B}space c r${R}                ${D}Rename symbol${R}
 ${B}space c f${R}                ${D}Format${R}
 ${B}space x x${R}                ${D}Diagnostics panel${R}
 ${B}[d${R} / ${B}]d${R}                  ${D}Prev / next diagnostic${R}
-${B}gcc${R} / ${B}Ctrl+/${R}             ${D}Toggle comment${R}
+${B}gcc${R} / ${B}Cmd+/${R}              ${D}Toggle comment${R}
 
 ${B}${Y}── Go to (LSP) ─────────────────────────────────────────${R}
 ${B}g d${R}                      ${D}Definition${R}
@@ -56,13 +56,13 @@ ${B}Ctrl+h/j/k/l${R}             ${D}Move between windows${R}
 ${B}space w d${R}                ${D}Close window${R}
 
 ${B}${C}── Terminal & quit ─────────────────────────────────────${R}
-${B}Ctrl+\`${R}                   ${D}Toggle terminal${R}
+${B}Ctrl+/${R}                   ${D}Toggle terminal${R}
 ${B}space f t${R}                ${D}Terminal${R}
 ${B}space q q${R}                ${D}Quit${R}
 ${B}space l${R}                  ${D}Extensions${R}
 
 ${B}${Y}── Agent ───────────────────────────────────────────────${R}
-${B}Cmd+?${R}                    ${D}Toggle agent panel (left dock)${R}
+${B}Cmd+?${R}                    ${D}Toggle agent panel (right dock)${R}
 ${B}Enter${R}                    ${D}Send message (in agent panel)${R}
 ${B}Ctrl+Enter${R}               ${D}Inline assistant${R}
 "

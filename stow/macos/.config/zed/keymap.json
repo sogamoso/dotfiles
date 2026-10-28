@@ -33,6 +33,12 @@
     }
   },
   {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-/": "terminal_panel::Toggle"
+    }
+  },
+  {
     "context": "Workspace && !Terminal",
     "bindings": {
       "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
