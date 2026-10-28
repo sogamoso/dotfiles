@@ -34,7 +34,7 @@ tdl() {
   tmux send-keys -t "$editor_pane" "$EDITOR ." C-m
 
   # Select the nvim pane for focus
-  tmux select-pane -t "$opencode_pane"
+  tmux select-pane -t "$editor_pane"
 }
 
 # Create a Tmux Dev Square layout with editor, diff watch, terminal, and opencode
@@ -113,12 +113,12 @@ tsl() {
     local split_target="${panes[-1]}"
     new_pane=$(tmux split-window -h -t "$split_target" -c "$current_dir" -P -F '#{pane_id}')
     panes+=("$new_pane")
-    tmux select-layout -t "${panes[0]}" tiled
+    tmux select-layout -t "${panes[1]}" tiled
   done
 
   for pane in "${panes[@]}"; do
     tmux send-keys -t "$pane" "$cmd" C-m
   done
 
-  tmux select-pane -t "${panes[0]}"
+  tmux select-pane -t "${panes[1]}"
 }
