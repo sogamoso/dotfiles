@@ -214,7 +214,8 @@ SketchyBar, configured in [`stow/macos/.config/sketchybar/`](stow/macos/.config/
 | Workspaces 1–9 | Focused workspace; click to switch, scroll to step through them as Option + Tab does | Always |
 | Clock | Date and time (centered when an external display is attached); click opens Google Calendar, right-click switches format | Always |
 | Weather | Conditions and temperature from wttr.in, beside the clock; click opens the forecast, right-click notifies the full reading, middle-click refreshes | Once a fetch succeeds |
-| CPU, Wi-Fi, Bluetooth | System state | Always |
+| CPU, Wi-Fi | System state | Always |
+| Bluetooth | Off, or a device connected | Unless it's on with nothing connected |
 | Input source | Active keyboard layout; click switches it | While more than one is enabled |
 | Volume | Output volume; click opens Sound settings, right-click mutes, scroll changes it | Always |
 | Battery | Charge, plus time remaining under 20%; click opens Battery settings, right-click toggles the percentage | While discharging or charging |
@@ -381,6 +382,7 @@ Ephemeral kitchen-timer-style reminders (die on logout/reboot).
 
 | Hotkey | Action |
 |---|---|
+| `Cmd + T` | New window |
 | `Ctrl + Shift + E` | Split down |
 | `Ctrl + Shift + O` | Split right |
 | `Ctrl + Shift + T` | New tab |
