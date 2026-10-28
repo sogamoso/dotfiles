@@ -128,19 +128,28 @@ agents_cursor() {
   usage=$(agents_cursor_call GetCurrentPeriodUsage) || { agents_status "" "$usage"; return; }
   plan=$(agents_cursor_call GetPlanInfo) || plan='{}'
 
+  # The included allowance runs on the billing cycle unless the plan says it's
+  # weekly (an enum that arrives as 2 or as its name), with its own reset. The
+  # on-demand budget always runs on the billing cycle. Timestamps are
+  # milliseconds, though one small enough to be seconds is read as seconds.
   jq -nc --argjson u "$usage" --argjson p "$plan" '
+    def epoch: tonumber? // 0 | if . > 0 and . < 100000000000 then . else . / 1000 end | floor;
+    def dollars: round | "$\(. / 100 | floor).\(. % 100 | tostring | if length < 2 then "0" + . else . end)";
     ($p.planInfo // {}) as $plan
-    | (if ($plan.includedUsagePeriod // "" | test("WEEK")) then "Weekly" else "Monthly" end) as $window
-    | (($plan.includedUsageResetsAt // $u.billingCycleEnd // "0") | tonumber / 1000 | floor) as $resets
+    | ($plan.includedUsagePeriod | . == 2 or ((strings | ascii_upcase | test("WEEKLY")) // false)) as $weekly
+    | ($u.billingCycleEnd | epoch) as $cycle
+    | (if $weekly then ($plan.includedUsageResetsAt | epoch) else $cycle end) as $resets
+    | ($u.planUsage // {}) as $use
     | ($u.spendLimitUsage // {}) as $spend
     | {plan: ($plan.planName // ""), status: "", limits: [
-        {label: "Included", percent: ($u.planUsage.totalPercentUsed // 0), resets: $resets},
-        {label: "Auto models", percent: ($u.planUsage.autoPercentUsed // 0), resets: $resets},
-        {label: "Named models", percent: ($u.planUsage.apiPercentUsed // 0), resets: $resets},
-        (if ($spend.individualLimit // 0) > 0 then
-          {label: "On-demand", percent: (100 * ($spend.individualUsed // 0) / $spend.individualLimit), resets: $resets}
-         else empty end)
-      ] | map(.label |= if . == "Included" then $window else . end)}' 2>/dev/null ||
+        ([["totalPercentUsed", (if $weekly then "Weekly" else "Monthly" end)],
+          ["autoPercentUsed", "Auto models"], ["apiPercentUsed", "Named models"]][]
+          | .[0] as $key | select($use | has($key)) | {label: .[1], percent: $use[$key], resets: $resets}),
+        (($spend.individualLimit // 0 | tonumber) as $cap | select($cap > 0)
+          | ($spend.individualUsed // 0 | tonumber) as $used
+          | {label: "On-demand \($used | dollars) / \($cap | dollars)",
+             percent: (100 * $used / $cap), resets: $cycle})
+      ]}' 2>/dev/null ||
     agents_status "" "Unexpected answer from Cursor"
 }
 
