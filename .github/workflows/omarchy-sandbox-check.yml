@@ -46,7 +46,17 @@ jobs:
           "$TOOLS/omarchy-verify.sh" save-git
           # A value only a command that actually runs can hash
           head -c 32 /dev/urandom | base64 >.omarchy-nonce
-          "$TOOLS/omarchy-agent.sh" run "This CI job checks the sandbox your shell commands run in, for the repository's weekly Omarchy workflows. Run these three commands exactly as written, one at a time, and nothing else. They check that a command runs, and that a request to a public site gets no answer either through the sandbox's proxy or around it. Don't write or edit any file yourself. git hash-object -w .omarchy-nonce; curl -sS -m 10 -o /dev/null -w %output{.omarchy-probe-proxy.txt}%{http_code} https://example.com; curl -sS -m 10 --noproxy example.com -o /dev/null -w %output{.omarchy-probe-direct.txt}%{http_code} https://example.com"
+          prompt="This CI job checks the sandbox your shell commands run in, for the repository's weekly Omarchy workflows. Run these three commands exactly as written, one at a time, and nothing else. They check that a command runs, and that a request to a public site gets no answer either through the sandbox's proxy or around it. Don't write or edit any file yourself. git hash-object -w .omarchy-nonce; curl -sS -m 10 -o /dev/null -w %output{.omarchy-probe-proxy.txt}%{http_code} https://example.com; curl -sS -m 10 --noproxy example.com -o /dev/null -w %output{.omarchy-probe-direct.txt}%{http_code} https://example.com"
+          # The agent sometimes declines a prompt like this and runs nothing,
+          # which looks just like a sandbox that runs nothing. Asking again
+          # tells the two apart: anything that ran is a real result and ends
+          # the retries, and an agent that fails outright fails the step
+          for attempt in 1 2 3; do
+            "$TOOLS/omarchy-agent.sh" run "$prompt"
+            git cat-file -e "$(git hash-object .omarchy-nonce)" 2>/dev/null && break
+            compgen -G '.omarchy-probe-*.txt' >/dev/null && break
+            echo "::warning::Attempt $attempt ran none of the commands; the agent may have declined"
+          done
 
       # Runs first and whatever else fails. Prints only verdicts: the repo is
       # public, so its logs are, and nothing the agent wrote goes in them.
@@ -70,7 +80,7 @@ jobs:
         run: |
           expected=$(git hash-object .omarchy-nonce)
           if [[ -z $expected ]] || ! git cat-file -e "$expected" 2>/dev/null; then
-            echo "::error::The sandboxed command didn't run, so the agent couldn't work"
+            echo "::error::The sandboxed command didn't run, so the agent couldn't work (or it declined every attempt)"
             exit 1
           fi
           echo "A sandboxed command ran"
