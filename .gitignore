@@ -1,0 +1,3 @@
+# Written by the agent in the Omarchy workflows, read by their publish jobs
+.omarchy-commit.txt
+.omarchy-pr.md
