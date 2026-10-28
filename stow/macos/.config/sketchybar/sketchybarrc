@@ -252,7 +252,7 @@ sketchybar --add item display_watcher left \
   --set display_watcher \
     drawing=off \
     script="$PLUGIN_DIR/display_change.sh" \
-  --subscribe display_watcher display_change display_added display_removed
+  --subscribe display_watcher display_change
 
 sketchybar --update
 
