@@ -211,7 +211,7 @@ omarchy_classification() {
   echo "    Drop each one, or point it at where the files moved"
   any=0
   for list in OMARCHY_PARITY_PATHS OMARCHY_SKIPPED_AREAS; do
-    local ref="$list[@]"
+    local ref="${list}[@]"
     for pattern in "${!ref}"; do
       omarchy_listed_exists "$pattern" "$files" "$areas" && continue
       any=1
