@@ -32,25 +32,45 @@ claude_denied=(
   "Edit(.github/**)" "Write(.github/**)"
   "Edit(.omarchy-upstream/**)" "Write(.omarchy-upstream/**)"
   # The process environment holds the agent's own token
-  "Read(//proc/**)"
+  "Read(//proc/**)" "Grep(//proc/**)" "Glob(//proc/**)"
 )
+
+# Claude's shell commands run in its sandbox: no network, writes only in the
+# checkout, no /proc, so no command can read Claude's own environment, and
+# failIfUnavailable stops the run rather than going on unconfined. The tools'
+# environment is scrubbed of credentials too.
+claude_settings='{
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": true,
+    "allowUnsandboxedCommands": false,
+    "autoAllowBashIfSandboxed": false,
+    "filesystem": { "denyRead": ["/proc"] },
+    "network": { "allowedDomains": [] }
+  }
+}'
 
 case "$agent:${1:-}" in
   claude:install)
     npm install -g @anthropic-ai/claude-code
+    # The sandbox's backend; Ubuntu's AppArmor blocks the user namespaces it needs
+    sudo apt-get install -y --no-install-recommends bubblewrap socat
+    sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
     ;;
   codex:install)
     npm install -g @openai/codex
     printenv OPENAI_API_KEY | codex login --with-api-key
     ;;
   claude:run)
-    claude -p "${2:?run needs a prompt}" --permission-mode acceptEdits \
+    CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1 claude -p "${2:?run needs a prompt}" \
+      --permission-mode acceptEdits --settings "$claude_settings" \
       --allowedTools "$(IFS=,; echo "${claude_tools[*]}")" \
       --disallowedTools "$(IFS=,; echo "${claude_denied[*]}")"
     ;;
   codex:run)
     # Commands run sandboxed: writes stay in the checkout and there's no
-    # network, which is what a manipulated agent would need to reach anything
+    # network. Codex's sandbox doesn't hide its own credentials file, though,
+    # so the workflow's secret scan is the only check on that path
     codex exec --full-auto "${2:?run needs a prompt}"
     ;;
   *)

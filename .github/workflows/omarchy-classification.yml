@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     outputs:
-      changed: ${{ steps.result.outputs.changed }}
+      changed: ${{ steps.package.outputs.changed }}
     env:
       DOTFILES: ${{ github.workspace }}
       OMARCHY_AGENT: ${{ vars.OMARCHY_AGENT }}
@@ -94,7 +94,6 @@ jobs:
         if: steps.check.outputs.drift == 'true'
         env:
           GIT_CONFIG_GLOBAL: /dev/null
-          GH_TOKEN: ${{ github.token }}
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
@@ -102,13 +101,21 @@ jobs:
           "$TOOLS/omarchy-verify.sh" classification
           if git diff --quiet; then
             echo "The agent changed nothing"
-            echo "changed=false" >>"$GITHUB_OUTPUT"
             exit 0
           fi
           "$TOOLS/omarchy-classification-guard.sh" <(git show HEAD:install/lib/omarchy-candidates.sh) install/lib/omarchy-candidates.sh
           "$TOOLS/omarchy-verify.sh" secrets HEAD .omarchy-commit.txt
           [[ -s .omarchy-commit.txt ]] || { echo "::error::No commit message in .omarchy-commit.txt"; exit 1; }
-          # Only list entries changed, so the edited file is safe to source now
+          echo "checked=true" >>"$GITHUB_OUTPUT"
+
+      # Only list entries changed, so the edited file is safe to source now, and
+      # this step holds no secrets in case it weren't
+      - name: Package the edit
+        id: package
+        if: steps.result.outputs.checked == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
           dotfiles omarchy-downstream-candidates --classification
           mkdir "$RUNNER_TEMP/out"
           git diff >"$RUNNER_TEMP/out/classification.patch"
@@ -116,7 +123,7 @@ jobs:
           echo "changed=true" >>"$GITHUB_OUTPUT"
 
       - uses: actions/upload-artifact@v7
-        if: steps.result.outputs.changed == 'true'
+        if: steps.package.outputs.changed == 'true'
         with:
           name: classification
           path: ${{ runner.temp }}/out/

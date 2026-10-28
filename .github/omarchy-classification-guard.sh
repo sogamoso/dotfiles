@@ -36,11 +36,17 @@ if ! diff <(outside "$original") <(outside "$edited") >/dev/null; then
   exit 1
 fi
 
-# An entry is a bare path, or a single-quoted glob; a line holds entries and may
-# end in a comment
+# An entry is a bare path, or a single-quoted glob. A line holds entries, a
+# comment, or entries then a comment after whitespace: the shell only starts a
+# comment at a word's start, so foo#$(cmd) would run cmd.
 entry="([A-Za-z0-9._/+@-]+|'[A-Za-z0-9._/+@*?-]+')"
-line="^[[:space:]]*(${entry}([[:space:]]+${entry})*)?[[:space:]]*(#.*)?$"
+line="^[[:space:]]*((${entry}([[:space:]]+${entry})*)([[:space:]]+#.*)?|#.*)?[[:space:]]*$"
+# And, as a second check, nothing that could expand or run outside a comment.
+# A comment at a line's start or after whitespace is inert, and the line rule
+# above already forces that.
+unsafe='[]$`()\\;&|<>{}[]'
 bad=$(inside "$edited" | grep -Ev "$line" || true)
+bad+=$(inside "$edited" | sed -E 's/(^|[[:space:]])#.*$//' | grep -E "$unsafe" || true)
 if [[ -n $bad ]]; then
   echo "::error::Lines in the lists that aren't plain entries or comments:"
   echo "$bad"
