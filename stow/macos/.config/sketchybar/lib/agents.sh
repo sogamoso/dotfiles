@@ -197,7 +197,11 @@ agents_grok() {
     def epoch: sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | fromdateiso8601;
     $c.config as $cc
     | {plan: $plan, status: "", limits: [
+        # Protobuf JSON leaves out a zero, so a missing percentage is none
+        # used, except on a unified-billing account, whose usage counts
+        # against the monthly quota instead
         ($cc.currentPeriod | select(. != null)
+          | select($cc.creditUsagePercent != null or $cc.isUnifiedBillingUser != true)
           | {label: (if (.type // "" | test("WEEK")) then "Weekly" else "Monthly" end),
              percent: ($cc.creditUsagePercent // 0), resets: (.end | epoch)}),
         ($m.config // {} | select((.monthlyLimit.val // 0) > 0)
