@@ -7,7 +7,7 @@ source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/colors.sh"
 PERCENT_FILE="${TMPDIR:-/tmp}/dotfiles-sketchybar-battery-percent"
 if [[ ${SENDER:-} == "mouse.clicked" ]]; then
   if [[ ${BUTTON:-} != "right" ]]; then
-    open "x-apple.systempreferences:com.apple.preference.battery"
+    open "x-apple.systempreferences:com.apple.Battery-Settings.extension"
     exit 0
   fi
   if [[ -e $PERCENT_FILE ]]; then rm -f "$PERCENT_FILE"; else touch "$PERCENT_FILE"; fi

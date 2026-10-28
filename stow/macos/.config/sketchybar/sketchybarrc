@@ -164,7 +164,7 @@ sketchybar --add item bluetooth right \
     icon.font="$FONT:Bold:17.0" \
     update_freq=10 \
     label.drawing=off \
-    click_script="open 'x-apple.systempreferences:com.apple.preferences.Bluetooth'" \
+    click_script="open 'x-apple.systempreferences:com.apple.BluetoothSettings'" \
     script="$PLUGIN_DIR/bluetooth.sh"
 
 # Input source
