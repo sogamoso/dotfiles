@@ -24,7 +24,7 @@ Commands:
             Compare Vicinae's settings and extensions with the repo; save
             keeps what changed here, reset throws it away, install only
             adds the repo's missing extensions
-  omarchy-downstream-candidates [--list | --mark-reviewed]
+  omarchy-downstream-candidates [--list | --classification | --mark-reviewed]
             Review Omarchy changes worth porting, in Claude Code (or Codex);
             --list prints the raw changes, --mark-reviewed records the review
   agent [<name> | run [--prompt <text>]]
@@ -667,6 +667,7 @@ cmd_omarchy() {
   case "${1:-}" in
     --list)          cmd_omarchy_list ;;
     --mark-reviewed) cmd_omarchy_mark_reviewed ;;
+    --classification) cmd_omarchy_classification ;;
     "")              cmd_omarchy_review ;;
     *)               echo "Unknown option: $1" >&2; usage >&2; exit 64 ;;
   esac

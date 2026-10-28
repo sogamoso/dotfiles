@@ -172,6 +172,67 @@ omarchy_chord_ported() {
   grep -qxF "$chord" <<<"$compact"
 }
 
+# Whether a listed path or glob still names something in Omarchy's tree: a
+# glob matches an area, a plain entry an area, a file, or a directory
+omarchy_listed_exists() {
+  local pattern=$1 files=$2 areas=$3 area
+  if [[ $pattern == *[*?[]* ]]; then
+    while IFS= read -r area; do
+      # shellcheck disable=SC2053
+      [[ $area == $pattern ]] && return 0
+    done <<<"$areas"
+    return 1
+  fi
+  grep -qxF "$pattern" <<<"$areas" && return 0
+  grep -qxF "$pattern" <<<"$files" && return 0
+  awk -v prefix="$pattern/" 'index($0, prefix) == 1 { found = 1; exit } END { exit !found }' <<<"$files"
+}
+
+# Both ways the two lists drift from Omarchy's tree: areas in neither list,
+# and listed entries that no longer exist upstream. Returns 1 if either finds
+# something, so a scheduled check can act on it.
+omarchy_classification() {
+  local files=$1 areas area pattern list found=0 any
+  areas=$(omarchy_area <<<"$files" | sort -u)
+
+  echo "==> Omarchy areas not yet classified as ported or skipped"
+  echo "    Decide each one, then add it to OMARCHY_PARITY_PATHS or OMARCHY_SKIPPED_AREAS"
+  any=0
+  while IFS= read -r area; do
+    omarchy_matches "$area" OMARCHY_PARITY_PATHS && continue
+    omarchy_matches "$area" OMARCHY_SKIPPED_AREAS && continue
+    any=1
+    echo "  $area"
+  done <<<"$areas"
+  (( any )) && found=1 || echo "  (none)"
+
+  echo
+  echo "==> Listed entries that no longer exist in Omarchy"
+  echo "    Drop each one, or point it at where the files moved"
+  any=0
+  for list in OMARCHY_PARITY_PATHS OMARCHY_SKIPPED_AREAS; do
+    local ref="$list[@]"
+    for pattern in "${!ref}"; do
+      omarchy_listed_exists "$pattern" "$files" "$areas" && continue
+      any=1
+      echo "  $pattern ($list)"
+    done
+  done
+  (( any )) && found=1 || echo "  (none)"
+
+  return $(( found ))
+}
+
+# Only the classification check, at Omarchy's head
+cmd_omarchy_classification() {
+  command -v gh >/dev/null 2>&1 || { echo "gh is required" >&2; return 1; }
+  local head
+  head=$(omarchy_head)
+  echo "==> Omarchy ($OMARCHY_REPO) at ${head:0:9}"
+  echo
+  omarchy_classification "$(omarchy_files_at "${head%% *}")"
+}
+
 cmd_omarchy_list() {
   command -v gh >/dev/null 2>&1 || { echo "gh is required" >&2; return 1; }
   local base base_date head head_sha head_date
@@ -297,17 +358,7 @@ cmd_omarchy_list() {
   (( others )) && echo "  ($others more about areas this setup doesn't use)"
 
   echo
-  local area
-  echo "==> Omarchy areas not yet classified as ported or skipped"
-  echo "    Decide each one, then add it to OMARCHY_PARITY_PATHS or OMARCHY_SKIPPED_AREAS"
-  any=0
-  while IFS= read -r area; do
-    omarchy_matches "$area" OMARCHY_PARITY_PATHS && continue
-    omarchy_matches "$area" OMARCHY_SKIPPED_AREAS && continue
-    any=1
-    echo "  $area"
-  done < <(omarchy_area <<<"$head_files" | sort -u)
-  (( any )) || echo "  (none)"
+  omarchy_classification "$head_files" || true
 
   echo
   echo "==> Other commits whose title mentions something this setup uses"
