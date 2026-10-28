@@ -11,9 +11,6 @@
 # "powered off, nothing connected" instead of failing, so blueutil showed the
 # off icon while Bluetooth was on. system_profiler needs no permission.
 
-# sketchybar runs under launchd, whose PATH has no Homebrew prefix
-export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
-
 hide() { sketchybar --set "$NAME" drawing=off; exit 0; }
 
 command -v jq >/dev/null 2>&1 || hide

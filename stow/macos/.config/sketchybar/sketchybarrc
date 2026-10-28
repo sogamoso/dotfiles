@@ -13,7 +13,8 @@ MBHEIGHT_BIN="$CACHE_DIR/menu_bar_height"
 build_swift "$PLUGIN_DIR/menu_bar_height.swift" "$MBHEIGHT_BIN"
 BAR_HEIGHT=$("$MBHEIGHT_BIN" 2>/dev/null || echo 30)
 
-# Sync AeroSpace outer.top gap with the bar height (no reload — reload() handles that).
+# Sync AeroSpace outer.top gap with the bar height; the script reloads AeroSpace
+# only when the gap changed.
 # Side effect: compiles $CACHE_DIR/has_external_display, which we reuse below.
 "$PLUGIN_DIR/sync_aerospace_gap.sh"
 HAS_EXTERNAL=$("$CACHE_DIR/has_external_display" 2>/dev/null || echo 0)
@@ -93,7 +94,7 @@ sketchybar --add item weather "$CLOCK_POSITION" \
     script="$PLUGIN_DIR/weather.sh" \
   --subscribe weather mouse.clicked
 
-# Battery (NOTE: system_woke event may not fire on all macOS versions)
+# Battery
 sketchybar --add item battery right \
   --set battery \
     update_freq=120 \
@@ -246,7 +247,7 @@ sketchybar --add item dotfiles_update right \
     click_script="$LAUNCH --new Ghostty --args -e $HOME/.local/bin/dotfiles update" \
     script="$PLUGIN_DIR/dotfiles_update.sh"
 
-# Display change watcher — reloads bar when displays are added/removed (NOTE: system_woke may not fire on all macOS)
+# Display change watcher — reloads bar when displays are added/removed
 sketchybar --add item display_watcher left \
   --set display_watcher \
     drawing=off \

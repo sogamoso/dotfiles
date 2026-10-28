@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Patch AeroSpace outer.top to match the sketchybar height.
-# Called at sketchybar startup and by the shell reload() function before
-# aerospace reload-config, ensuring correct ordering.
+# Called at sketchybar startup, by fullscreen-desktop.sh, and by dotfiles reload
+# before it reloads AeroSpace. Reloads AeroSpace itself only when the gap changed.
 
 source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/common.sh"
 
