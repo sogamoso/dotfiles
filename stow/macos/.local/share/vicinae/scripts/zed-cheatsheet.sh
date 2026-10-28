@@ -8,61 +8,58 @@
 # Laid out like the Neovim cheatsheet, since ~/.config/zed/keymap.json binds
 # LazyVim's keys to their Zed equivalents; change this along with that file. The
 # rest are Zed's vim mode and macOS defaults.
+set -euo pipefail
+source "$HOME/.config/dotfiles/lib/cheatsheet.sh"
 
-B='\033[1m'     # bold
-D='\033[2m'     # dim
-C='\033[36m'    # cyan
-Y='\033[33m'    # yellow
-R='\033[0m'     # reset
+# Key and description are tab separated
+cheatsheet "Zed Cheatsheet" <<'EOF'
+## Find (Leader = Space)
+space space	Find files
+space /	Grep in project
+space ,	Switch buffer
+space f r	Recent files (top of the file finder)
+space f p	Recent projects
+space f n	New file
+space e	File explorer
+space s k	Search keymaps
+space s C	Command palette
 
-echo -e "
-${B}${C}── Find (Leader = Space) ───────────────────────────────${R}
-${B}space space${R}              ${D}Find files${R}
-${B}space /${R}                  ${D}Grep in project${R}
-${B}space ,${R}                  ${D}Switch buffer${R}
-${B}space f r${R}                ${D}Recent files (top of the file finder)${R}
-${B}space f p${R}                ${D}Recent projects${R}
-${B}space f n${R}                ${D}New file${R}
-${B}space e${R}                  ${D}File explorer${R}
-${B}space s k${R}                ${D}Search keymaps${R}
-${B}space s C${R}                ${D}Command palette${R}
+## Code
+space c a	Code action
+space c r	Rename symbol
+space c f	Format
+space x x	Diagnostics panel
+[d / ]d	Prev / next diagnostic
+gcc / Cmd + /	Toggle comment
 
-${B}${C}── Code ────────────────────────────────────────────────${R}
-${B}space c a${R}                ${D}Code action${R}
-${B}space c r${R}                ${D}Rename symbol${R}
-${B}space c f${R}                ${D}Format${R}
-${B}space x x${R}                ${D}Diagnostics panel${R}
-${B}[d${R} / ${B}]d${R}                  ${D}Prev / next diagnostic${R}
-${B}gcc${R} / ${B}Cmd+/${R}              ${D}Toggle comment${R}
+## Go to (LSP)
+g d	Definition
+g r	References
+g I	Implementation
+g y	Type definition
+K	Hover docs
 
-${B}${Y}── Go to (LSP) ─────────────────────────────────────────${R}
-${B}g d${R}                      ${D}Definition${R}
-${B}g r${R}                      ${D}References${R}
-${B}g I${R}                      ${D}Implementation${R}
-${B}g y${R}                      ${D}Type definition${R}
-${B}K${R}                        ${D}Hover docs${R}
+## Git
+space g g	lazygit
+space g s	Git panel
+space g b	Blame line
+[c / ]c	Prev / next hunk
 
-${B}${C}── Git ─────────────────────────────────────────────────${R}
-${B}space g g${R}                ${D}lazygit${R}
-${B}space g s${R}                ${D}Git panel${R}
-${B}space g b${R}                ${D}Blame line${R}
-${B}[c${R} / ${B}]c${R}                  ${D}Prev / next hunk${R}
+## Buffers & windows
+Shift + H / Shift + L	Prev / next buffer
+space b d	Close buffer
+space - / space |	Split below / right
+Ctrl + H/J/K/L	Move between windows
+space w d	Close window
 
-${B}${C}── Buffers & windows ───────────────────────────────────${R}
-${B}Shift+h${R} / ${B}Shift+l${R}        ${D}Prev / next buffer${R}
-${B}space b d${R}                ${D}Close buffer${R}
-${B}space -${R} / ${B}space |${R}        ${D}Split below / right${R}
-${B}Ctrl+h/j/k/l${R}             ${D}Move between windows${R}
-${B}space w d${R}                ${D}Close window${R}
+## Terminal & quit
+Ctrl + /	Toggle terminal
+space f t	Terminal
+space q q	Quit
+space l	Extensions
 
-${B}${C}── Terminal & quit ─────────────────────────────────────${R}
-${B}Ctrl+/${R}                   ${D}Toggle terminal${R}
-${B}space f t${R}                ${D}Terminal${R}
-${B}space q q${R}                ${D}Quit${R}
-${B}space l${R}                  ${D}Extensions${R}
-
-${B}${Y}── Agent ───────────────────────────────────────────────${R}
-${B}Cmd+?${R}                    ${D}Toggle agent panel (right dock)${R}
-${B}Enter${R}                    ${D}Send message (in agent panel)${R}
-${B}Ctrl+Enter${R}               ${D}Inline assistant${R}
-"
+## Agent
+Cmd + ?	Toggle agent panel (right dock)
+Enter	Send message (in agent panel)
+Ctrl + Enter	Inline assistant
+EOF

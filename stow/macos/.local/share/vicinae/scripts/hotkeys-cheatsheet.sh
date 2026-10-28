@@ -14,6 +14,7 @@
 # cheatsheets of their own, from the README's "tmux" and "herdr" sections:
 # tmux-cheatsheet.sh and herdr-cheatsheet.sh run this with CHEATSHEET set.
 set -euo pipefail
+source "$HOME/.config/dotfiles/lib/cheatsheet.sh"
 
 DOTFILES="${DOTFILES:-$HOME/Work/sogamoso/dotfiles}"
 [[ -d $DOTFILES ]] || DOTFILES="$HOME/Code/sogamoso/dotfiles"  # a machine not yet moved to ~/Work
@@ -24,28 +25,17 @@ if [[ ! -r $README ]]; then
   exit 1
 fi
 
+case ${CHEATSHEET:-hotkeys} in
+  hotkeys) title="Hotkeys Cheatsheet" ;;
+  *) title="$CHEATSHEET Cheatsheet" ;;
+esac
+
+# Turn the tables into the `## Section` and tab separated lines cheatsheet reads
 awk -v mode="${CHEATSHEET:-hotkeys}" '
-  BEGIN { B = "\033[1m"; D = "\033[2m"; C = "\033[36m"; R = "\033[0m" }
-
-  # awk counts bytes, so measure and pad by hand to keep ─, → and – aligned
-  function width(s) {
-    gsub(/[\300-\367][\200-\277]+/, "x", s)
-    return length(s)
-  }
-
-  function repeat(s, n,   out) {
-    while (n-- > 0) out = out s
-    return out
-  }
-
   # Held back until the first row, so a heading over prose alone never prints
   function heading(title) {
     pending = ""
     title_pending = title
-  }
-
-  function print_heading(title) {
-    printf "\n%s%s── %s %s%s\n", B, C, title, repeat("─", 52 - width(title)), R
   }
 
   function cell(s) {
@@ -55,14 +45,13 @@ awk -v mode="${CHEATSHEET:-hotkeys}" '
     return s
   }
 
-  function flush(   n, f, i, key, desc) {
+  function flush(   n, f, i, desc) {
     if (pending == "") return
     n = split(pending, f, "|")
     desc = cell(f[3])
     for (i = 4; i < n; i++) desc = desc " · " cell(f[i])
-    key = cell(f[2])
-    if (title_pending != "") { print_heading(title_pending); title_pending = "" }
-    printf "%s%s%s %s%s%s\n", B, key repeat(" ", 28 - width(key)), R, D, desc, R
+    if (title_pending != "") { print "## " title_pending; title_pending = "" }
+    print cell(f[2]) "\t" desc
     pending = ""
   }
 
@@ -82,4 +71,4 @@ awk -v mode="${CHEATSHEET:-hotkeys}" '
   /^\|/ { flush(); pending = $0; next }
   { flush() }
   END { flush() }
-' "$README"
+' "$README" | cheatsheet "$title"
