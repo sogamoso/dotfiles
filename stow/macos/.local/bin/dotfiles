@@ -122,6 +122,8 @@ cmd_reload() {
   for filter in aerospace-gap coderabbit; do
     run "$DOTFILES/install/dotfiles/$filter.sh"
   done
+  # Grok's theme is one key in a file Grok owns, so restowing doesn't set it.
+  run "$DOTFILES/install/dotfiles/grok.sh"
   # Skills are linked, not stowed, so restowing doesn't pick up a new one, a
   # renamed category, or a dropped one. Cheap when nothing changed.
   local skills="$DOTFILES/install/dotfiles/skills.sh"
@@ -446,6 +448,14 @@ cmd_doctor() {
     ok "Settings and extensions match the repo"
   else
     bad "Vicinae differs from the repo:"$'\n'"$drift" "dotfiles vicinae save to keep it, or dotfiles vicinae reset to drop it"
+  fi
+
+  echo "==> Grok"
+  # One key in Grok's own config. reload puts it back if a /theme changed it.
+  if grep -Eq '^theme = "(tokyonight|tokyo-night|tokyo)"$' "$HOME/.grok/config.toml" 2>/dev/null; then
+    ok "Theme is Tokyo Night"
+  else
+    bad "Theme isn't Tokyo Night" "dotfiles reload"
   fi
 
   echo "==> Homebrew"

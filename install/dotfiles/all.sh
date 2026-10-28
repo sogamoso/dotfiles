@@ -15,6 +15,7 @@ bash "$DIR/aerospace-gap.sh"
 bash "$DIR/claude-code.sh"
 bash "$DIR/codex.sh"
 bash "$DIR/opencode.sh"
+bash "$DIR/grok.sh"
 # uidotsh.sh first: it writes the token skills.sh checks ui.sh access with
 bash "$DIR/uidotsh.sh"
 bash "$DIR/skills.sh"

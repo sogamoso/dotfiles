@@ -145,6 +145,7 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `aerospace-gap.sh` | Configures git filter to pin the sketchybar-rewritten `outer.top` gap |
 | `claude-code.sh` | Installs Claude Code marketplaces, plugins, and configures claude-hud |
 | `codex.sh` | Installs the third-party Codex marketplaces and plugins |
+| `grok.sh` | Sets Grok's theme to Tokyo Night in `~/.grok/config.toml`, and leaves the rest of that file to Grok |
 | `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server with Claude Code and Codex, and caches its token where the shells can export it |
 | `skills.sh` | Links every skill into both `~/.claude/skills` and `~/.codex/skills` — see [Skills](#skills) |
 | `herdr-plugins.sh` | Installs the pinned third-party herdr plugins and links the ones in `herdr-plugins/` — see [herdr plugins](#herdr-plugins) |
