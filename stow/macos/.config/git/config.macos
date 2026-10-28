@@ -1,2 +1,12 @@
 [gpg "ssh"]
   program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+# gh as the GitHub credential helper, as `gh auth setup-git` writes it. The
+# empty helper clears any set before it; the full path is for apps launched
+# outside a shell, whose PATH has no Homebrew.
+[credential "https://github.com"]
+  helper =
+  helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+  helper =
+  helper = !/opt/homebrew/bin/gh auth git-credential
