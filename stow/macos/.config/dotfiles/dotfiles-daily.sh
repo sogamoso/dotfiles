@@ -16,7 +16,6 @@ GROUP_ID="dotfiles-daily"
 source "$HOME/.config/dotfiles/lib/notify.sh"
 
 DOTFILES="${DOTFILES:-$HOME/Work/sogamoso/dotfiles}"
-[[ -d $DOTFILES ]] || DOTFILES="$HOME/Code/sogamoso/dotfiles"  # a machine not yet moved to ~/Work
 CLI="$HOME/.local/bin/dotfiles"
 LOG="/tmp/com.sogamoso.dotfiles-daily.log"
 

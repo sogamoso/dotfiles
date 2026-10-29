@@ -32,7 +32,7 @@ stow/
 
 ### How it works
 
-`bootstrap` first moves an older `~/Code` to `~/Work` (`install/dotfiles/work-dir.sh`), then runs two phases:
+`bootstrap` runs two phases:
 
 1. **OS setup** — dispatches by `uname -s`. Each OS's `all.sh` stows the packages (`install/dotfiles/stow.sh`) as soon as the tools it needs are installed.
 2. **Dotfiles** (`install/dotfiles/all.sh`) — cross-platform setup for the agents, skills and herdr.
@@ -148,7 +148,7 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles agent [<name> \| run [--pick] [--prompt <text>]]` | Show or set the default coding agent, like Omarchy's `omarchy default agent`, with the same names (`gemini` picks Antigravity, `cursor` the Cursor CLI). `run` launches it with Omarchy's flags for that agent, as the `a` alias does; `--pick` asks for one when none is set, which is how `Option + Shift + Ctrl + A` opens it. The herdr layouts use it when no agent is given |
 | `dotfiles edit` | Open the repo in `$VISUAL` |
 
-Set `$DOTFILES` to override the repo location (default: `~/Work/sogamoso/dotfiles`). Work lives in `~/Work`, as on Omarchy, with `~/Work/tries` for `try`; `install/dotfiles/work-dir.sh` moves an older `~/Code` there on bootstrap or `dotfiles update` and leaves `~/Code` linking to it.
+Set `$DOTFILES` to override the repo location (default: `~/Work/sogamoso/dotfiles`). Work lives in `~/Work`, as on Omarchy, with `~/Work/tries` for `try`.
 
 ### Dotfiles setup
 

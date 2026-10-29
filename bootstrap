@@ -16,8 +16,8 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
   trap 'kill "$SUDO_LOOP_PID" 2>/dev/null || true' EXIT
 fi
 
-# Omarchy's ~/Work first, before anything stows from or records the repo's path
-bash "$REPO_DIR/install/dotfiles/work-dir.sh"
+# Work lives in ~/Work as on Omarchy, with ~/Work/tries for try
+mkdir -p "$HOME/Work/tries"
 
 # OS specific setup
 case "$(uname -s)" in

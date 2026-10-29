@@ -4,7 +4,6 @@
 set -euo pipefail
 
 DOTFILES="${DOTFILES:-$HOME/Work/sogamoso/dotfiles}"
-[[ -d $DOTFILES ]] || DOTFILES="$HOME/Code/sogamoso/dotfiles"  # a machine not yet moved to ~/Work
 
 usage() {
   cat <<EOF
@@ -187,10 +186,6 @@ cmd_update() {
     before=$(git -C "$DOTFILES" rev-parse HEAD)
     cmd_pull
   fi
-  # Moves ~/Code to ~/Work on a machine that hasn't moved yet; from then on the
-  # repo is used at its new path, so stow links point there
-  run bash "$DOTFILES/install/dotfiles/work-dir.sh"
-  DOTFILES=$(cd -P "$DOTFILES" && pwd)
   # Bash parsed this script's functions before the pull, so a pull that changed
   # them would run the rest of the update on the old version
   if [[ -n $before ]] && ! git -C "$DOTFILES" diff --quiet "$before" HEAD -- stow/macos/.local/bin/dotfiles; then

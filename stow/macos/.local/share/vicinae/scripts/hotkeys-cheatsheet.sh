@@ -17,7 +17,6 @@ set -euo pipefail
 source "$HOME/.config/dotfiles/lib/cheatsheet.sh"
 
 DOTFILES="${DOTFILES:-$HOME/Work/sogamoso/dotfiles}"
-[[ -d $DOTFILES ]] || DOTFILES="$HOME/Code/sogamoso/dotfiles"  # a machine not yet moved to ~/Work
 README="$DOTFILES/README.md"
 
 if [[ ! -r $README ]]; then
