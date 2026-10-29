@@ -1,4 +1,5 @@
-# Review layouts: agent left, hunk diff watch top right, terminal bottom right.
+# Review layouts: agent in the left 60%, hunk diff watch in the top 60% of the
+# right side, terminal below it.
 #
 # Not an Omarchy port, so unlike herdr.zsh this pair carries a bash copy. The
 # bodies stay byte-identical, which keeps them to syntax both shells share:
@@ -108,9 +109,10 @@ hrl() {
   local agent_pane="$HERDR_PANE_ID"
   local diff_pane
 
-  diff_pane=$(herdr pane split "$agent_pane" --direction right --ratio 0.5 --cwd "$current_dir" --no-focus |
+  # herdr's ratio is the first pane's share
+  diff_pane=$(herdr pane split "$agent_pane" --direction right --ratio 0.6 --cwd "$current_dir" --no-focus |
     jq -r '.result.pane.pane_id')
-  herdr pane split "$diff_pane" --direction down --ratio 0.5 --cwd "$current_dir" --no-focus >/dev/null
+  herdr pane split "$diff_pane" --direction down --ratio 0.6 --cwd "$current_dir" --no-focus >/dev/null
 
   herdr pane run "$diff_pane" "hunk diff --watch" >/dev/null
   herdr pane run "$agent_pane" "$agent" >/dev/null
@@ -236,8 +238,9 @@ trl() {
 
   tmux rename-window -t "$agent_pane" "$(basename "$current_dir")"
 
-  diff_pane=$(tmux split-window -h -l 50% -d -t "$agent_pane" -c "$current_dir" -P -F '#{pane_id}')
-  tmux split-window -v -l 50% -d -t "$diff_pane" -c "$current_dir"
+  # tmux's -l sizes the new pane
+  diff_pane=$(tmux split-window -h -l 40% -d -t "$agent_pane" -c "$current_dir" -P -F '#{pane_id}')
+  tmux split-window -v -l 40% -d -t "$diff_pane" -c "$current_dir"
 
   tmux send-keys -t "$diff_pane" "hunk diff --watch" C-m
   tmux send-keys -t "$agent_pane" "$agent" C-m
