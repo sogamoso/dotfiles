@@ -8,7 +8,12 @@ plugin_dir=$(ls -d "${CLAUDE_CONFIG_DIR:-$HOME/.claude}"/plugins/cache/claude-hu
 
 # The global node, not one a project in $cwd pins to a version claude-hud can't run on
 node=$(mise -C "$HOME" which node 2>/dev/null || command -v node)
-hud=$(echo "$input" | "$node" "${plugin_dir}dist/index.js")
+# Without the plugin there's no HUD to run, only the worktree mark below. No
+# set -e here: a status line that dies prints nothing at all.
+hud=""
+if [[ -n $plugin_dir ]]; then
+  hud=$(echo "$input" | "$node" "${plugin_dir}dist/index.js")
+fi
 
 cwd=$(echo "$input" | jq -r .cwd)
 if git -C "$cwd" rev-parse --git-dir >/dev/null 2>&1; then
