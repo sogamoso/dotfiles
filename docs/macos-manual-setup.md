@@ -166,6 +166,7 @@ screenshot keys, whose **Screenshots** section step 2 already turns off.
 
 In CleanShot → Settings:
 
+- **Advanced → Allow URL scheme API** → on. Without it CleanShot drops every `cleanshot://` URL, and all the capture chords do nothing. `preferences.sh` writes the setting and `dotfiles doctor` checks it, but on CleanShot 5 the stored value doesn't reliably match what the app does: the write alone didn't bring the bindings back until the toggle was flipped here. If the chords do nothing while doctor passes, turn it off and on again.
 - **General → Export → Export location** → `Downloads`
 - **General → After Capture** — for both Screenshot and Recording, enable **Show Quick Access Overlay** and **Copy file to clipboard**. Leave **Save**, **Upload to Cloud & copy link**, **Open Annotate tool**, **Pin to the screen** and **Open Video Editor** off. Set **Copy to clipboard** to **File**.
 
