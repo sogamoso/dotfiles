@@ -131,3 +131,6 @@ enabled = false
 # the toast on screen, and only herdr's own toasts give it one to jump to.
 [ui.toast]
 delivery = "herdr"
+
+[experimental]
+kitty_graphics = true
