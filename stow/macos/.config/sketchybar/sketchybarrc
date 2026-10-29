@@ -95,9 +95,13 @@ sketchybar --add item clock "$CLOCK_POSITION" \
     script="CLOCK_COMPACT=$CLOCK_COMPACT $PLUGIN_DIR/clock.sh" \
   --subscribe clock mouse.clicked
 
-# Weather — beside the clock, wherever the clock sits
+# Weather — beside the clock, wherever the clock sits. Laptop-only it shows the
+# temperature alone, for the same lack of room beside the notch.
+WEATHER_ICON=on
+(( CLOCK_COMPACT == 1 )) && WEATHER_ICON=off
 sketchybar --add item weather "$CLOCK_POSITION" \
   --set weather \
+    icon.drawing="$WEATHER_ICON" \
     label.padding_left=4 \
     drawing=off \
     update_freq=1800 \
