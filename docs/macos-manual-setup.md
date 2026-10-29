@@ -73,9 +73,8 @@ Then trim third-party items by hand. macOS keeps this list in an encoded record 
 - SSMenuAgent
 - Tuple
 - Vicinae
-- Wabi
 
-Turn off every other app (Basecamp, Claude, Codex, Gemini, Granola, MacWhisper, Notion, Zoom, …). Turning one off stops its icon from ever appearing; the app itself keeps working. Vicinae shows no icon even while allowed, since `tray.enabled` is off in its stowed config.
+Turn off every other app (Basecamp, Brain.fm, ChatGPT, Claude, Gemini, Granola, MacWhisper, Notion, Slack, Wabi, Zoom, …). Turning one off stops its icon from ever appearing; the app itself keeps working. Vicinae shows no icon even while allowed, since `tray.enabled` is off in its stowed config.
 
 ### Opaque menu bar
 
