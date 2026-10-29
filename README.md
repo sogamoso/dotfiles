@@ -115,6 +115,21 @@ session via `launchctl getenv`, which is wider than the 0600 file it comes from 
 fine for a personal ui.sh token, not a pattern to reuse for anything with a
 larger blast radius.
 
+**Known issue: Codex rejects npm shims in a plugin.** Before Codex runs a
+plugin's hook it fingerprints the whole plugin directory, and that walk accepts
+only regular files and directories
+([openai/codex#56520](https://github.com/openai/codex/issues/56520), open as of
+0.165.0). episodic-memory installs its npm dependencies into its cache folder at
+session start, and npm writes command shims as symlinks under `node_modules/.bin`,
+so every new Codex session prints `Hook failed … unsupported plugin entry type`
+and the sync hook never runs there. Claude Code has no such check and runs the
+same sync, so conversations still get indexed. Until Codex fixes it, delete the
+symlinks from the cached plugin's `node_modules/.bin` directories (top level and
+nested); nothing in the plugin executes them, and the plugin reinstalls only when
+a package is missing, so the fix holds until its next release lands in a fresh
+cache folder. Codex then asks once to re-approve the hook. Kept out of the install
+scripts on purpose: the failure is loud and the fix is upstream.
+
 ## CLI
 
 A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day maintenance:
