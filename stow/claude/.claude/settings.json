@@ -95,5 +95,6 @@
       "$defaults",
       "Bash(rm:*) in ~/Work/sogamoso/dotfiles outside stow/ and install/ — irreversible local destruction"
     ]
-  }
+  },
+  "model": "best"
 }
