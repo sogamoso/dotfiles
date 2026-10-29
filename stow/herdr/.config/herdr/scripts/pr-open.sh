@@ -22,11 +22,12 @@ pane="${HERDR_ACTIVE_PANE_ID:-}"
 browser=$(command -v terminal-browser || echo "$HOME/.local/bin/terminal-browser")
 [[ ${1:-} == "--browser" || -z $pane ]] && browser=""
 
+# Only pull request URLs, since one gets typed into a pane's shell below
 branch=$(git -C "$cwd" branch --show-current 2>/dev/null || true)
 urls=()
 if [[ -n $branch ]]; then
   while IFS= read -r url; do
-    [[ -n $url ]] && urls+=("$url")
+    [[ $url =~ ^https://[A-Za-z0-9.-]+/[A-Za-z0-9._-]+/[A-Za-z0-9._-]+/pull/[0-9]+$ ]] && urls+=("$url")
   done < <(cd "$cwd" && gh pr list --head "$branch" --state open --json url --jq '.[].url' 2>/dev/null)
 fi
 
@@ -38,7 +39,8 @@ fi
 if [[ -x $browser ]]; then
   "$herdr" pane zoom --off --pane "$pane" >/dev/null 2>&1 || true
   new=$("$herdr" pane split --pane "$pane" --direction right --ratio 0.5 --cwd "$cwd" | jq -r '.result.pane.pane_id')
-  "$herdr" pane run "$new" "exec '$browser' open '${urls[0]}'" >/dev/null
+  printf -v command 'exec %q open %q' "$browser" "${urls[0]}"
+  "$herdr" pane run "$new" "$command" >/dev/null
   exit 0
 fi
 
