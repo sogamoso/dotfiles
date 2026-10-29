@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Usage: workspace_cycle.sh next|prev
+set -euo pipefail
 
 case "${1:-}" in
   next) STEP=1 ;;
