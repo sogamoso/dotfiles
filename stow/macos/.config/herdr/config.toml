@@ -71,15 +71,15 @@ type = "plugin_action"
 command = "worktree.create"
 description = "worktree from a pull request, issue or branch"
 
-# The focused pane's pull request in terminal-browser, in a popup, so there's
-# only one and it closes (Ctrl+Q) before anything else
+# The focused pane's pull request in terminal-browser, in a temporary pane
+# split off the focused one, which closes with it (Ctrl+Q). A pane, not a
+# popup: terminal-browser draws in the herdr pane named by HERDR_PANE_ID, which
+# a popup doesn't have, so there it showed nothing.
 [[keys.command]]
 key = "prefix+shift+u"
-type = "popup"
+type = "pane"
 command = "\"$HOME/.config/herdr/scripts/pr-open.sh\""
 description = "open this branch's pull request in terminal-browser"
-width = "90%"
-height = "90%"
 
 # The same in the default browser, where GitHub has a session
 [[keys.command]]

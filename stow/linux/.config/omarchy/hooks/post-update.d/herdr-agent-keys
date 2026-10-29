@@ -144,12 +144,28 @@ rows = [
 
 [[keys.command]]
 key = "prefix+shift+u"
-type = "popup"
+type = "pane"
 command = "\"$HOME/.config/herdr/scripts/pr-open.sh\""
 description = "open this branch's pull request in terminal-browser"
-width = "90%"
-height = "90%"
 KEYS
+  changed=true
+fi
+
+# The terminal-browser key used to run in a near full-screen popup, where
+# terminal-browser drew nothing: it draws in the herdr pane named by
+# HERDR_PANE_ID, which a popup doesn't have. A temporary pane has one, and
+# needs no size, so configs from then lose the popup type and the size.
+if grep -qxF 'key = "prefix+shift+u"' "$config" && grep -qxF 'width = "90%"' "$config"; then
+  tmp=$(mktemp)
+  awk '
+    $0 == "key = \"prefix+shift+u\"" { block = 1 }
+    block && $0 == "type = \"popup\"" { print "type = \"pane\""; next }
+    block && ($0 == "width = \"90%\"" || $0 == "height = \"90%\"") { next }
+    $0 == "" || /^\[\[/ { if ($0 == "" || $0 != "key = \"prefix+shift+u\"") block = 0 }
+    { print }
+  ' "$config" >"$tmp"
+  cat "$tmp" >"$config"
+  rm -f "$tmp"
   changed=true
 fi
 

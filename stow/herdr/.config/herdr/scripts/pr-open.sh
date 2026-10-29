@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Opens the focused pane's pull request. In terminal-browser by default, inside
-# the popup prefix+shift+u runs it in, so there's only ever one open and it has
-# to be closed (Ctrl+Q) before anything else. With --browser (prefix+shift+b),
+# Opens the focused pane's pull request. In terminal-browser by default, in the
+# temporary pane prefix+shift+u runs it in, which closes with it (Ctrl+Q);
+# terminal-browser takes over the herdr pane it's started in, so this can't be
+# a popup, which isn't one. With --browser (prefix+shift+b),
 # or without terminal-browser installed, the default browser opens it instead,
 # where GitHub has a session. A branch with several open pull requests gets a
 # tab for each in the browser, newest first as in the sidebar, and only the
