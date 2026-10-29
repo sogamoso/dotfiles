@@ -205,8 +205,8 @@ sketchybar --add item input_source right \
 # Agent usage limits for Claude Code, Codex, Cursor and Grok. Omarchy parity:
 # the icon alone, red once any limit reaches 90%; click opens a popup with each
 # agent's plan and limits, right click starts Claude Code, middle click checks
-# again. Polled every 15 minutes, as Omarchy does, since Anthropic
-# rate-limits its usage endpoint readily.
+# again. Polled every 15 minutes, as Omarchy does, since the usage endpoints
+# rate-limit readily.
 sketchybar --add item agents right \
   --set agents \
     icon="󱚣" \
@@ -219,15 +219,30 @@ sketchybar --add item agents right \
     popup.background.border_color=$MUTED \
     script="$PLUGIN_DIR/agents.sh" \
   --subscribe agents mouse.clicked mouse.exited.global system_woke
-for agent in claude codex cursor gemini grok; do
+# The stats line (today's and the week's tokens across every agent), then
+# one section per agent Omarchy has a collector for, plus Gemini CLI
+source "$CONFIG_DIR/lib/agents.sh"
+for row in 1 2; do
+  sketchybar --add item "agents.stats.$row" popup.agents \
+    --set "agents.stats.$row" \
+      drawing=off \
+      icon.font="$FONT:Bold:12.0" \
+      icon.color=$MUTED \
+      icon.width=130 \
+      label.font="$FONT:Regular:12.0" \
+      padding_left=10 \
+      padding_right=10
+done
+for agent in $(agents_ids); do
   sketchybar --add item "agents.$agent" popup.agents \
     --set "agents.$agent" \
+      drawing=off \
       icon.font="$FONT:Bold:13.0" \
       icon.width=130 \
       label.font="$FONT:Regular:12.0" \
       padding_left=10 \
       padding_right=10
-  for row in 1 2 3 4; do
+  for row in 1 2 3 4 5; do
     sketchybar --add item "agents.$agent.$row" popup.agents \
       --set "agents.$agent.$row" \
         drawing=off \

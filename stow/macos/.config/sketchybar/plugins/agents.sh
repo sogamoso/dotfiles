@@ -1,48 +1,40 @@
 #!/usr/bin/env bash
-# Agent usage limits, after Omarchy's agents widget. The bar holds the icon
-# alone, turning red once any agent's limit reaches 90%. A click opens a popup
-# with each agent's plan, limits and time until they reset; a right click
-# starts Claude Code in ~/Work with auto-approval, as Omarchy launches agents
-# (the same flag `dotfiles agent run` uses), and a middle click checks again.
+# Agent usage, after Omarchy's agents panel, drawn from the records Omarchy's
+# own collectors print (see lib/agents.sh). The bar holds the icon alone,
+# turning red once any agent's limit reaches 90%. A click opens a popup with
+# what today's and the week's tokens add up to, then each agent's plan,
+# limits, balance and time until they reset; a right click starts Claude Code
+# in ~/Work with auto-approval, as Omarchy launches agents (the same flag
+# `dotfiles agent run` uses), and a middle click checks again, forced, as
+# Omarchy's refresh button does.
 #
-# Each refresh caches the last good numbers per agent, so a refused or failed
-# check shows them as stale with the reason instead of blanking the item.
+# A collector that fails leaves the agent's last record on show; one that
+# keeps its last limits past a failed check says so in the record, and the
+# popup shows them with the time they were measured.
 
 source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/common.sh"
 source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/colors.sh"
 source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/agents.sh"
 
 CACHE="${TMPDIR:-/tmp}/dotfiles-agents"
-# Alphabetical, as Omarchy orders them
-AGENTS=("claude|Claude Code" "codex|Codex" "cursor|Cursor" "gemini|Gemini CLI" "grok|Grok")
-ROWS=4
+ROWS=5
 ALARM=90
 
 # $1 is the minimum seconds between checks: the routine poll and a click can
-# land together, and Anthropic rate-limits its usage endpoint readily
+# land together, and the usage endpoints rate-limit readily. $2 is --force.
 refresh() {
-  local entry id record
+  local id
   debounce agents-refresh "$1" || return 0
   mkdir -p "$CACHE"
-  for entry in "${AGENTS[@]}"; do
-    id=${entry%%|*}
-    (
-      record=$("agents_$id")
-      if [[ -z $record ]]; then
-        rm -f "$CACHE/$id.json"
-      elif [[ "$(jq -r '.limits == null' <<<"$record")" == "false" ]]; then
-        jq -c --argjson at "$(date +%s)" '. + {fetched: $at}' <<<"$record" >"$CACHE/$id.json"
-      elif [[ -f $CACHE/$id.json ]]; then
-        jq -c --argjson new "$record" '. + {status: $new.status}' "$CACHE/$id.json" >"$CACHE/$id.tmp" &&
-          mv "$CACHE/$id.tmp" "$CACHE/$id.json"
-      else
-        jq -c '. + {limits: [], fetched: null}' <<<"$record" >"$CACHE/$id.json"
-      fi
-    ) &
+  # Collectors forced together read the Codex rollouts they share once by
+  # knowing when the refresh began, as Omarchy's updater tells them
+  OMARCHY_AGENT_USAGE_REFRESH_AT=$(date +%s)
+  export OMARCHY_AGENT_USAGE_REFRESH_AT
+  for id in $(agents_ids); do
+    agents_collect "$CACHE" "$id" ${2:+"$2"} &
   done
   wait
 }
-
 # Time until a reset, the way Omarchy writes it: 2d 3h, 19h 40m, 5m
 until_reset() {
   local left=$(( $1 - $(date +%s) ))
@@ -62,48 +54,80 @@ meter() {
   echo "$out"
 }
 
+# Token counts the way Omarchy's hero line writes them: 1.2M, 340k
+tokens() {
+  local n=$1
+  if (( n >= 1000000000 )); then echo "$(( n / 1000000000 )).$(( n % 1000000000 / 100000000 ))B"
+  elif (( n >= 1000000 )); then echo "$(( n / 1000000 )).$(( n % 1000000 / 100000 ))M"
+  elif (( n >= 1000 )); then echo "$(( n / 1000 ))k"
+  else echo "$n"; fi
+}
+
 render() {
-  local entry id name file plan status fetched n count percent label text resets color
-  local now worst=0 args=()
+  local id file name plan status stale fetched asof n count label percent resets color
+  local now worst=0 args=() files=()
   now=$(date +%s)
-  for entry in "${AGENTS[@]}"; do
-    id=${entry%%|*}
-    name=${entry#*|}
+
+  # What the records' token counts add up to, the figures Omarchy's hero
+  # line rotates through
+  for file in "$CACHE"/*.json; do [[ -f $file ]] && files+=("$file"); done
+  local today prompts sessions week model
+  IFS=$'\t' read -r today prompts sessions week model < <(jq -s -r '
+    [(map(.todayTotalTokens // 0) | add), (map(.todayPrompts // 0) | add),
+     (map(.todaySessions // 0) | add), (map(.recentDays[]? | .messageCount // 0) | add),
+     (map(.todayTokensByModel // {} | to_entries[]) | group_by(.key)
+      | map({key: .[0].key, tokens: (map(.value) | add)}) | max_by(.tokens) | .key // "")]
+    | @tsv' "${files[@]}" /dev/null 2>/dev/null)
+  if (( ${today:-0} > 0 )); then
+    args+=(--set agents.stats.1 drawing=on icon="Today" label="$(tokens "$today") tokens · $prompts prompts · $sessions sessions")
+    args+=(--set agents.stats.2 drawing=on icon="This week" label="$(tokens "${week:-0}") tokens${model:+ · top model $model}")
+  else
+    args+=(--set agents.stats.1 drawing=off --set agents.stats.2 drawing=off)
+  fi
+
+  for id in $(agents_ids); do
     file="$CACHE/$id.json"
     count=0
 
-    # Omarchy leaves out an agent that isn't installed or signed in here
-    if [[ ! -f $file ]]; then
+    # An agent that isn't used or signed in here has no record, as in Omarchy.
+    # A record from before the widget read Omarchy's shape is none either.
+    if [[ ! -f $file ]] || ! jq -e '.schemaVersion' "$file" >/dev/null 2>&1; then
       args+=(--set "agents.$id" drawing=off)
     else
       args+=(--set "agents.$id" drawing=on)
-      plan=$(jq -r '.plan // ""' "$file")
-      status=$(jq -r '.status // ""' "$file")
-      fetched=$(jq -r '.fetched // empty' "$file")
+      name=$(jq -r '.name // .id' "$file")
+      plan=$(jq -r '.tierLabel // ""' "$file")
+      status=$(jq -r '.usageStatusText // ""' "$file")
+      stale=$(jq -r '.limitsStale == true' "$file")
+      fetched=$(jq -r '(.limitsFetchedAt // 0) / 1000 | floor' "$file")
+      asof=""
+      (( fetched > 0 )) && asof=" · as of $(date -r "$fetched" +%H:%M)"
       if [[ -n $status ]]; then
-        label="$status${fetched:+ · as of $(date -r "$fetched" +%H:%M)}"
-        args+=(--set "agents.$id" icon="$name" label="$label" label.color=$RED)
+        args+=(--set "agents.$id" icon="$name" label="$status$asof" label.color=$RED)
+      elif [[ $stale == true ]]; then
+        args+=(--set "agents.$id" icon="$name" label="$plan$asof" label.color=$MUTED)
       else
         args+=(--set "agents.$id" icon="$name" label="$plan" label.color=$MUTED)
       fi
-      count=$(jq '.limits | length' "$file")
-      for (( n = 0; n < count && n < ROWS; n++ )); do
-        label=$(jq -r ".limits[$n].label" "$file")
-        text=$(jq -r ".limits[$n].text // empty" "$file")
-        resets=$(jq -r ".limits[$n].resets // empty" "$file")
-        if [[ -n $text ]]; then
-          args+=(--set "agents.$id.$((n + 1))" drawing=on icon="$label" label.color=$TEXT
-            label="$text${resets:+ · expire in $(until_reset "$resets")}")
-          continue
-        fi
-        percent=$(jq -r ".limits[$n].percent | round" "$file")
+
+      # Each limit's meter, then the balance of a prepaid account
+      while IFS=$'\t' read -r label percent resets; do
+        (( count >= ROWS )) && break
         # A window whose reset has passed starts again from nothing
         [[ -n $resets ]] && (( resets <= now )) && percent=0
         (( percent >= ALARM )) && color=$RED || color=$TEXT
-        args+=(--set "agents.$id.$((n + 1))" drawing=on icon="$label" label.color="$color"
+        args+=(--set "agents.$id.$((count + 1))" drawing=on icon="$label" label.color="$color"
           label="$(meter "$percent") $(printf '%3s' "$percent")%${resets:+  $(until_reset "$resets")}")
         (( percent > worst )) && worst=$percent
-      done
+        count=$((count + 1))
+      done < <(jq -r '
+        def epoch: if . == null or . == "" then "" else
+          sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | (try fromdateiso8601 catch "") end;
+        (.limits[]? | [.label, ((.percent // 0) * 100 | round), (.resetsAt | epoch)]),
+        (.balance | select(. != null and (.funded // 0) > 0)
+          | ["Balance \(.remaining // 0 | . * 100 | round / 100) of \(.funded) \(.currency // "")\(if .estimated then " (est.)" else "" end)",
+             ((.spent // 0) * 100 / .funded | round), ""])
+        | @tsv' "$file" 2>/dev/null)
     fi
     for (( n = count; n < ROWS; n++ )); do
       args+=(--set "agents.$id.$((n + 1))" drawing=off)
@@ -122,7 +146,7 @@ case "${SENDER:-}" in
         "$HOME/.config/aerospace/launch-or-focus.sh" --new Ghostty --args --working-directory="$HOME/Work" -e claude --permission-mode auto
         ;;
       other)
-        refresh 15
+        refresh 15 --force
         render
         ;;
       *)

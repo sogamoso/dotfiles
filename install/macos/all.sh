@@ -21,6 +21,7 @@ bash "$HOME/.config/dotfiles/firewall.sh" --install
 bash "$DIR/preferences.sh"
 bash "$DIR/pwas.sh"
 bash "$DIR/mailto.sh"
+bash "$DIR/omarchy-agents.sh"
 bash "$DIR/sketchybar.sh"
 bash "$DIR/tailscale.sh"
 bash "$DIR/aerospace.sh"

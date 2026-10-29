@@ -144,6 +144,9 @@ cmd_reload() {
   local skills="$DOTFILES/install/dotfiles/skills.sh"
   [[ -x $skills ]] && run "$skills"
   if command -v sketchybar >/dev/null 2>&1; then
+    # The agents widget's collectors come from a pinned Omarchy checkout, which
+    # a bumped pin moves only when this runs
+    run "$DOTFILES/install/macos/omarchy-agents.sh"
     # Clear the markers that stop sketchybarrc retrying Swift helper builds, so
     # a repaired toolchain gets picked up here rather than staying failed.
     rm -f "$HOME"/.cache/sketchybar/*.failed
@@ -439,6 +442,25 @@ cmd_doctor() {
     bad "Older copies shadow mise's agents outside an activated shell: $copies" "dotfiles brew"
   else
     ok "Only mise installs the coding agents"
+  fi
+
+  echo "==> Agent usage collectors"
+  # The agents widget runs Omarchy's collectors from a checkout that holds its
+  # pin until reloaded, so a bumped pin stays unapplied until the next reload
+  source "$DOTFILES/install/lib/omarchy-agents.sh"
+  local omarchy_head
+  omarchy_head=$(git -C "$OMARCHY_AGENTS_DIR" rev-parse HEAD 2>/dev/null || true)
+  if [[ ! -f $OMARCHY_AGENTS_DIR/shell/plugins/agents/collectors.py ]]; then
+    bad "Omarchy's collectors aren't checked out at ${OMARCHY_AGENTS_DIR/#$HOME/~}" "dotfiles reload"
+  elif [[ $omarchy_head != "$OMARCHY_AGENTS_COMMIT" ]]; then
+    bad "Omarchy is at ${omarchy_head:0:7}, pinned to ${OMARCHY_AGENTS_COMMIT:0:7}" "dotfiles reload"
+  else
+    ok "Omarchy's collectors at their pinned commit"
+  fi
+  if "$OMARCHY_AGENTS_PYTHON" -c 'import tomllib' 2>/dev/null; then
+    ok "Python 3.11+ for the collectors"
+  else
+    bad "The collectors need Python 3.11+ at $OMARCHY_AGENTS_PYTHON" "brew install python"
   fi
 
   echo "==> Skills"
