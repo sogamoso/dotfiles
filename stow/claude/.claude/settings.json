@@ -79,5 +79,20 @@
   "skipDangerousModePermissionPrompt": true,
   "theme": "custom:omarchy",
   "inputNeededNotifEnabled": true,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "autoMode": {
+    "environment": [
+      "**Repository visibility**: Public — `sogamoso/dotfiles` (github.com:sogamoso/dotfiles.git). Any push here is publishing.",
+      "**Secrets management**: op (1Password CLI). Secrets and personal data never go into this repo.",
+      "**Default / protected branches**: `main` is the default branch and has no branch protection — treat as unprotected",
+      "**Host containment**: None — Claude Code runs on an ordinary developer machine with open internet, sometimes unattended on a Mac mini",
+      "**Shared checkout**: other agent sessions may work in the same checkout at once; don't stash, reset or pull over uncommitted changes you didn't make",
+      "**Trusted repo**: `/Users/sogamoso/Work/sogamoso/dotfiles` (origin: github.com:sogamoso/dotfiles.git) — only this repo's own work is safe to push here",
+      "**Routine CLIs**: herdr, dotfiles, mise, aerospace, vicinae, sketchybar, hunk, stow, brew — personal tooling used routinely under stow/, install/ and bootstrap paths"
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Bash(rm:*) in this repo outside stow/ and install/ paths — irreversible local destruction"
+    ]
+  }
 }
