@@ -39,25 +39,27 @@ move_tab_next     = "alt+shift+right"
 
 # A new review agent on its own worktree (hrw from layouts.zsh), for the repo the
 # focused pane is in. A popup rather than a detached shell, so a failure stays on
-# screen until a key is pressed; on success it closes on its own.
+# screen until a key is pressed; on success it closes on its own. Popups start
+# with a bare PATH (/usr/bin:/bin:...), and Omadots adds Homebrew and mise in
+# .zprofile, so the shell has to be a login one too or herdr and gum go missing.
 [[keys.command]]
 key = "prefix+a"
 type = "popup"
-command = "\"$SHELL\" -ic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hrw || read -r _'"
+command = "\"$SHELL\" -lic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hrw || read -r _'"
 description = "new agent on its own worktree (hrw)"
 
 # The same, after asking which agent, what task to start it on, and the branch.
 [[keys.command]]
 key = "prefix+shift+a"
 type = "popup"
-command = "\"$SHELL\" -ic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hra || read -r _'"
+command = "\"$SHELL\" -lic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hra || read -r _'"
 description = "new agent on a task (hra)"
 
 # Finish the focused agent: confirm, then delete its branch and worktree (hrd).
 [[keys.command]]
 key = "prefix+f"
 type = "popup"
-command = "\"$SHELL\" -ic 'hrd || read -r _'"
+command = "\"$SHELL\" -lic 'hrd || read -r _'"
 description = "finish agent, removing its worktree and branch (hrd)"
 
 # Paste a pull request, an issue or a branch and get a worktree with an agent

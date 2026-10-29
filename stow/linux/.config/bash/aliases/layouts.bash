@@ -166,8 +166,9 @@ hrw() {
   [[ -z $name ]] && name=$(_layout_free_branch "$(_layout_harness "$agent")")
 
   response=$(herdr worktree create --cwd "$PWD" --branch "$name" --base origin/main --label "$name" --focus 2>&1)
-  pane_id=$(jq -r '.result.root_pane.pane_id // empty' <<<"$response")
-  [[ -z $pane_id ]] && { jq -r '.error.message' <<<"$response"; return 1; }
+  # Anything but herdr's JSON, such as a shell error, is shown as it came
+  pane_id=$(jq -r '.result.root_pane.pane_id // empty' <<<"$response" 2>/dev/null)
+  [[ -z $pane_id ]] && { jq -er '.error.message' <<<"$response" 2>/dev/null || printf '%s\n' "$response"; return 1; }
 
   _layout_mise_trust "$(jq -r '.result.root_pane.cwd' <<<"$response")"
   herdr pane run "$pane_id" "$(printf 'hrl %q' "$agent_command")" >/dev/null
@@ -220,7 +221,7 @@ hrd() {
   fi
 
   response=$(herdr worktree remove --workspace "$workspace" --force 2>&1) ||
-    { jq -r '.error.message // empty' <<<"$response"; return 1; }
+    { jq -er '.error.message' <<<"$response" 2>/dev/null || printf '%s\n' "$response"; return 1; }
 }
 
 # Review layout in the current tmux window
