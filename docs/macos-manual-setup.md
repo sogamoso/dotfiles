@@ -225,7 +225,7 @@ profile. Do not try to pin it with an address — `/mail/u/<address>/` is not a 
 selector and Gmail answers it with *Temporary Error (404)*. Only a numeric index (`u/0`)
 works there, and that follows sign-in order rather than naming a mailbox.
 
-The script builds the app only when it is missing. Delete the bundle and rerun to rebuild.
+The script rebuilds the app when it is missing or when `mailto.sh` has changed since the last build, and sets the `mailto` binding on every run, so rerunning it is the fix when links stop opening Gmail.
 
 Confirm the binding took:
 

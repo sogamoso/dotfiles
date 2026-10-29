@@ -10,28 +10,41 @@ APP="$HOME/Applications/Gmail Mailto.app"
 BUNDLE_ID="so.sogamo.gmail-mailto"
 LSREGISTER=/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
 
-[[ -d "$APP" ]] && exit 0
+build_applet() {
+  log_heading "Building the Gmail mailto handler..."
+  rm -rf "$APP"
 
-log_heading "Building the Gmail mailto handler..."
-
-source_script="$(mktemp -t gmail-mailto)"
-cat > "$source_script" <<'APPLESCRIPT'
+  local source_script plist
+  source_script="$(mktemp -t gmail-mailto)"
+  cat > "$source_script" <<'APPLESCRIPT'
 on open location this_URL
   set encoded to do shell script "printf %s " & quoted form of this_URL & " | /usr/bin/perl -pe 's/([^A-Za-z0-9._~-])/sprintf(\"%%%02X\",ord($1))/ge'"
   do shell script "/usr/bin/open -na 'Google Chrome' --args --app=" & quoted form of ("https://mail.google.com/mail/?extsrc=mailto&url=" & encoded)
 end open location
 APPLESCRIPT
 
-osacompile -o "$APP" "$source_script"
-rm -f "$source_script"
+  osacompile -o "$APP" "$source_script"
+  rm -f "$source_script"
 
-plist="$APP/Contents/Info.plist"
-plutil -replace CFBundleIdentifier -string "$BUNDLE_ID" "$plist"
-plutil -replace CFBundleName -string "Gmail Mailto" "$plist"
-plutil -insert CFBundleURLTypes \
-  -json '[{"CFBundleURLName":"Mail","CFBundleURLSchemes":["mailto"]}]' "$plist"
-# No Dock icon or menu bar — the applet hands off and exits.
-plutil -replace LSUIElement -bool true "$plist"
+  plist="$APP/Contents/Info.plist"
+  plutil -replace CFBundleIdentifier -string "$BUNDLE_ID" "$plist"
+  plutil -replace CFBundleName -string "Gmail Mailto" "$plist"
+  plutil -insert CFBundleURLTypes \
+    -json '[{"CFBundleURLName":"Mail","CFBundleURLSchemes":["mailto"]}]' "$plist"
+  # No Dock icon or menu bar — the applet hands off and exits.
+  plutil -replace LSUIElement -bool true "$plist"
+  plutil -insert DotfilesBuildStamp -string "$stamp" "$plist"
+}
+
+# Rebuild only when this script changed since the last build, so an edit to the
+# AppleScript reaches Macs that already have the applet; the binding below is
+# reasserted on every run, which is what doctor's fix relies on.
+stamp=$(shasum "${BASH_SOURCE[0]}" | cut -d" " -f1)
+built=$(/usr/libexec/PlistBuddy -c "Print :DotfilesBuildStamp" "$APP/Contents/Info.plist" 2>/dev/null || true)
+
+if [[ $built != "$stamp" ]]; then
+  build_applet
+fi
 
 "$LSREGISTER" -f "$APP"
 duti -s "$BUNDLE_ID" mailto
