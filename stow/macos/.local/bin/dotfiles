@@ -659,9 +659,9 @@ for entry in sys.argv[1:]:
   # The AeroSpace bindings open cleanshot:// URLs, which CleanShot drops unless
   # this is on. A pass doesn't prove the URLs work — see preferences.sh.
   if [[ $(defaults read pl.maketheweb.cleanshotx allowURLSchemesAPI 2>/dev/null) == "1" ]]; then
-    ok "Accepts cleanshot:// URLs"
+    ok "URL scheme API setting is on (the stored value, not proof the URLs work)"
   else
-    bad "CleanShot ignores cleanshot:// URLs, so the capture bindings do nothing" \
+    bad "URL scheme API setting is off, so the capture bindings may do nothing" \
       "bash $DOTFILES/install/macos/preferences.sh"
   fi
 
