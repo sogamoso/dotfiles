@@ -13,7 +13,7 @@ tse() {
 tsel() {
   local country="${1-}"
 
-  if [[ -z "$country" ]]; then
+  if [[ -z $country ]]; then
     tailscale exit-node list
   else
     tailscale exit-node list -filter="$country"
@@ -33,7 +33,7 @@ tsec() {
   local node="${1-}"
   local usage="Usage: tsec <hostname|ip>"
 
-  if [[ -z "$node" ]]; then
+  if [[ -z $node ]]; then
     echo "$usage"
     return 1
   fi
@@ -69,7 +69,7 @@ tsvpn() {
 tsvpnl() {
   local country="${1-}"
 
-  if [[ -z "$country" ]]; then
+  if [[ -z $country ]]; then
     tsel | grep mullvad
   else
     tsel "$country" | grep mullvad
@@ -81,7 +81,7 @@ tsvpnc() {
   local location="${1-}"
   local hostname label
 
-  if [[ -z "$location" ]]; then
+  if [[ -z $location ]]; then
     hostname=$(tailscale exit-node suggest | head -1 | awk '{print $4}')
     hostname="${hostname%.}"
     label="suggested node"
@@ -90,7 +90,7 @@ tsvpnc() {
     label="$location"
   fi
 
-  if [[ -z "$hostname" ]]; then
+  if [[ -z $hostname ]]; then
     echo "No exit node found for '${location:-suggested}'"
     return 1
   fi
@@ -105,7 +105,7 @@ tsvpnd() {
 
   tsed
 
-  if [[ -n "$current" ]]; then
+  if [[ -n $current ]]; then
     echo "Disconnected from $current"
   else
     echo "No exit node was active"

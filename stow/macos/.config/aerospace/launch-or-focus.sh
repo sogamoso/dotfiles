@@ -13,12 +13,12 @@
 set -euo pipefail
 
 new=false
-if [[ "${1:-}" == "--new" ]]; then
+if [[ ${1:-} == "--new" ]]; then
   new=true
   shift
 fi
 
-if [[ $# -eq 0 ]]; then
+if (( $# == 0 )); then
   echo "Usage: $0 [--new] <bundle_id_or_app_name> [open-args...]" >&2
   exit 64
 fi
@@ -28,7 +28,7 @@ shift
 
 flags=()
 $new && flags+=("-n")
-if [[ "$target" == *.* ]]; then
+if [[ $target == *.* ]]; then
   flags+=("-b" "$target")
 else
   flags+=("-a" "$target")

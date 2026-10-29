@@ -5,7 +5,7 @@ set -euo pipefail
 # SIGPIPEs ioreg, and pipefail then killed the script (exit 141) before it slept
 idle_ns=$(ioreg -c IOHIDSystem | awk '/HIDIdleTime/ && !v {v=$NF} END {print v}')
 
-if [[ -z "$idle_ns" ]]; then
+if [[ -z $idle_ns ]]; then
   echo "Could not read HIDIdleTime — skipping sleep"
   exit 0
 fi

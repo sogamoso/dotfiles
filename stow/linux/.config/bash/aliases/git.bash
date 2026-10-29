@@ -27,7 +27,7 @@ gbdm() {
   local branches
   branches=$(git for-each-ref --merged HEAD --format='%(refname:short)' refs/heads |
     grep -vxE "main|master|$(git branch --show-current)")
-  [[ -z "$branches" ]] && echo "No merged branches to delete." && return 0
+  [[ -z $branches ]] && echo "No merged branches to delete." && return 0
   echo "$branches" | xargs git branch -d
 }
 
@@ -53,7 +53,7 @@ gswm() {
 
 # New branch off latest main/master
 gbc() {
-  if [[ -z "${1-}" ]]; then
+  if [[ -z ${1-} ]]; then
     echo "Usage: gbc <branch-name>"
     return 1
   fi
@@ -65,7 +65,7 @@ gbD() {
   local branch="${1:?Usage: gbD <branch>}"
   local worktree
   worktree=$(git worktree list --porcelain | awk -v b="$branch" '/^worktree /{wt=$2} $0 == "branch refs/heads/" b {print wt}')
-  if [[ -n "$worktree" ]]; then
+  if [[ -n $worktree ]]; then
     echo "Removing worktree: $worktree"
     git worktree remove --force "$worktree"
   fi
@@ -83,7 +83,7 @@ gwrm() {
     worktree="$(basename "$cwd")"
     root="${worktree%%--*}"
     branch="${worktree#*--}"
-    if [[ "$root" != "$worktree" ]]; then
+    if [[ $root != "$worktree" ]]; then
       cd "../$root" || return 1
       git worktree remove "$cwd" --force || return 1
       git branch -D "$branch"

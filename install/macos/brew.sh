@@ -28,7 +28,7 @@ brew cleanup || log_warn "brew cleanup had errors (often root-owned kegs from su
 
 # Flag packages not in the Brewfile
 STALE=$(brew bundle cleanup --file "$REPO_DIR/Brewfile" 2>&1 | grep -v "^Would uninstall\|^Run \`brew") || true
-if [[ -n "$STALE" ]]; then
+if [[ -n $STALE ]]; then
   log_success "Installed packages not in Brewfile:"
   echo "$STALE" | sed 's/^/  /'
   log_warn "Add them to the Brewfile to keep, or run: brew bundle cleanup --force"

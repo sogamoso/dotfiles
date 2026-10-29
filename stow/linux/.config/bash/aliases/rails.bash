@@ -22,14 +22,14 @@ rt() {
   local first="${1-}"
   local usage="Usage: rt spec/... [more spec files...] | rt test/... [more test files...]"
 
-  if [[ -z "$first" ]]; then
+  if [[ -z $first ]]; then
     echo "$usage"
     return 1
   fi
 
-  if [[ "$first" == spec/* ]]; then
+  if [[ $first == spec/* ]]; then
     bundle exec rspec "$@"
-  elif [[ "$first" == test/* ]]; then
+  elif [[ $first == test/* ]]; then
     rails test "$@"
   else
     echo "$usage"
