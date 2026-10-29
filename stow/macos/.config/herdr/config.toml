@@ -40,8 +40,8 @@ move_tab_next     = "alt+shift+right"
 # A new review agent on its own worktree (hrw from layouts.zsh), for the repo the
 # focused pane is in. A popup rather than a detached shell, so a failure stays on
 # screen until a key is pressed; on success it closes on its own. Popups start
-# with a bare PATH (/usr/bin:/bin:...), and Omadots adds Homebrew and mise in
-# .zprofile, so the shell has to be a login one too or herdr and gum go missing.
+# with a bare PATH (/usr/bin:/bin:...), and ~/.zprofile adds Homebrew and mise,
+# so the shell has to be a login one too or herdr and gum go missing.
 [[keys.command]]
 key = "prefix+a"
 type = "popup"
