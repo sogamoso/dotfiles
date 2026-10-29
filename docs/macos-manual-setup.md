@@ -109,7 +109,7 @@ Browse the available wallpapers and choose one. Then in System Settings → Wall
 
 The `fliqlo` cask in the Brewfile installs it. Then:
 
-1. System Settings → Wallpaper → Screen Saver → select **Fliqlo**
+1. System Settings → Wallpaper → Screen Saver → select **Fliqlo** (`dotfiles doctor` flags any display left on another one)
 2. System Settings → Wallpaper → Clock Appearance → set **Show large clock** to **Never** (prevents the system clock from overlapping with Fliqlo)
 
 ### Slack

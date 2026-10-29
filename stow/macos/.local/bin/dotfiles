@@ -576,6 +576,31 @@ for entry in sys.argv[1:]:
     ok "Pinned to ${DNS_SERVERS[*]}"
   fi
 
+  echo "==> Screen saver"
+  # The cask only installs Fliqlo; choosing it is a click in System Settings
+  local saver_out
+  if ! saver_out=$(python3 -c '
+import plistlib, sys
+def configs(o):
+    if isinstance(o, dict):
+        idle = o.get("Idle", {}).get("Content", {}).get("Choices", [])
+        for choice in idle:
+            if choice.get("Provider") == "com.apple.wallpaper.choice.screen-saver":
+                yield choice.get("Configuration", b"")
+            else:
+                yield b"other"
+        for v in o.values():
+            yield from configs(v)
+store = plistlib.load(open(sys.argv[1], "rb"))
+print(all(b"Fliqlo.saver" in c for c in configs(store)))
+' "$HOME/Library/Application Support/com.apple.wallpaper/Store/Index.plist" 2>&1); then
+    bad "Couldn't read the screen saver choice: $(tail -1 <<<"$saver_out")"
+  elif [[ $saver_out == "True" ]]; then
+    ok "Fliqlo"
+  else
+    bad "Not Fliqlo on every display" "System Settings → Wallpaper → Screen Saver → Fliqlo"
+  fi
+
   echo "==> Login items"
   # Without one its feature just doesn't start: no MacWhisper, no dictation
   source "$DOTFILES/install/lib/login-items.sh"
