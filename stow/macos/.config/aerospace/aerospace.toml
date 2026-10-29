@@ -57,28 +57,28 @@ alt-9 = 'workspace 9'
 alt-s = 'workspace 10' # SUPER+S → scratchpad
 
 # Move window to workspace and follow — Omarchy: SUPER + SHIFT + 1-9,0
-alt-shift-1 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 1'
-alt-shift-2 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 2'
-alt-shift-3 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 3'
-alt-shift-4 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 4'
-alt-shift-5 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 5'
-alt-shift-6 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 6'
-alt-shift-7 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 7'
-alt-shift-8 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 8'
-alt-shift-9 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 9'
-alt-shift-s = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 10'
+alt-shift-1 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 1 && sketchybar --trigger aerospace_windows_change'
+alt-shift-2 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 2 && sketchybar --trigger aerospace_windows_change'
+alt-shift-3 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 3 && sketchybar --trigger aerospace_windows_change'
+alt-shift-4 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 4 && sketchybar --trigger aerospace_windows_change'
+alt-shift-5 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 5 && sketchybar --trigger aerospace_windows_change'
+alt-shift-6 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 6 && sketchybar --trigger aerospace_windows_change'
+alt-shift-7 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 7 && sketchybar --trigger aerospace_windows_change'
+alt-shift-8 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 8 && sketchybar --trigger aerospace_windows_change'
+alt-shift-9 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 9 && sketchybar --trigger aerospace_windows_change'
+alt-shift-s = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace --focus-follows-window 10 && sketchybar --trigger aerospace_windows_change'
 
 # Move window to workspace without following — Omarchy: SUPER + SHIFT + ALT + 1-9,0
-alt-shift-cmd-1 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 1'
-alt-shift-cmd-2 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 2'
-alt-shift-cmd-3 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 3'
-alt-shift-cmd-4 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 4'
-alt-shift-cmd-5 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 5'
-alt-shift-cmd-6 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 6'
-alt-shift-cmd-7 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 7'
-alt-shift-cmd-8 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 8'
-alt-shift-cmd-9 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 9'
-alt-shift-cmd-s = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 10'
+alt-shift-cmd-1 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 1 && sketchybar --trigger aerospace_windows_change'
+alt-shift-cmd-2 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 2 && sketchybar --trigger aerospace_windows_change'
+alt-shift-cmd-3 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 3 && sketchybar --trigger aerospace_windows_change'
+alt-shift-cmd-4 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 4 && sketchybar --trigger aerospace_windows_change'
+alt-shift-cmd-5 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 5 && sketchybar --trigger aerospace_windows_change'
+alt-shift-cmd-6 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 6 && sketchybar --trigger aerospace_windows_change'
+alt-shift-cmd-7 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 7 && sketchybar --trigger aerospace_windows_change'
+alt-shift-cmd-8 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 8 && sketchybar --trigger aerospace_windows_change'
+alt-shift-cmd-9 = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 9 && sketchybar --trigger aerospace_windows_change'
+alt-shift-cmd-s = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-workspace 10 && sketchybar --trigger aerospace_windows_change'
 
 # Focus navigation — Omarchy: SUPER + arrows
 alt-left  = 'focus left'
@@ -102,8 +102,8 @@ alt-ctrl-shift-up    = 'exec-and-forget $HOME/.config/aerospace/leave-native-ful
 alt-ctrl-shift-down  = 'exec-and-forget $HOME/.config/aerospace/leave-native-fullscreen.sh aerospace move-node-to-monitor --focus-follows-window down'
 
 # Window controls
-alt-w = ['close', 'exec-and-forget aerospace workspace $AEROSPACE_FOCUSED_WORKSPACE'] # Omarchy: SUPER + W — stay on workspace even if empty
-alt-q = ['close', 'exec-and-forget aerospace workspace $AEROSPACE_FOCUSED_WORKSPACE'] # Omarchy: SUPER + Q — second close chord, for hands used to Cmd+Q
+alt-w = ['close', 'exec-and-forget aerospace workspace $AEROSPACE_FOCUSED_WORKSPACE && sleep 0.3 && sketchybar --trigger aerospace_windows_change'] # Omarchy: SUPER + W — stay on workspace even if empty
+alt-q = ['close', 'exec-and-forget aerospace workspace $AEROSPACE_FOCUSED_WORKSPACE && sleep 0.3 && sketchybar --trigger aerospace_windows_change'] # Omarchy: SUPER + Q — second close chord, for hands used to Cmd+Q
 alt-m = 'macos-native-minimize' # Omarchy: SUPER + M → minimize window to the dock
 ctrl-cmd-forwardDelete = 'exec-and-forget $HOME/.config/aerospace/close-all-windows.sh' # Omarchy: CTRL + ALT + DEL — close all windows across workspaces, jump to 1
 # Window keys go through leave-native-fullscreen.sh, which takes the window out

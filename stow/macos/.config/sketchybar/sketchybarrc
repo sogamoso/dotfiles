@@ -43,6 +43,10 @@ sketchybar --default \
 
 # Custom events
 sketchybar --add event aerospace_workspace_change
+# Moving or closing a window changes which workspaces have windows without
+# changing the focused one, so those bindings in aerospace.toml trigger this
+# (closing a beat later, once the app has let the window go)
+sketchybar --add event aerospace_windows_change
 
 # Launcher anchor — leftmost item (Omarchy parity: left = launcher, right = terminal)
 sketchybar --add item apple_menu left \
@@ -68,7 +72,7 @@ for i in {1..9}; do
       label.drawing=off \
       click_script="aerospace workspace $i && sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$i" \
       script="$PLUGIN_DIR/space.sh" \
-    --subscribe space.$i aerospace_workspace_change mouse.scrolled
+    --subscribe space.$i aerospace_workspace_change aerospace_windows_change mouse.scrolled
 done
 
 # Clock — centered when an external display is connected (Omarchy parity).
