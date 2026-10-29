@@ -319,7 +319,17 @@ doctor_agent_loaded() {
   if [[ -n $any_exit || -z $code || $code == "0" || $code == "(never exited)" ]]; then
     ok "$label loaded${code:+, last exit $code}"
   else
-    bad "$label last exited with $code" "See /tmp/$label.err and /tmp/$label.out"
+    # Not every agent logs to .err and .out: some write a .log of their own,
+    # and uidotsh-token keeps no log at all
+    local log logs=()
+    for log in "/tmp/$label.log" "/tmp/$label.err" "/tmp/$label.out"; do
+      [[ -s $log ]] && logs+=("$log")
+    done
+    if (( ${#logs[@]} )); then
+      bad "$label last exited with $code" "See ${logs[*]}"
+    else
+      bad "$label last exited with $code" "No log kept: launchctl print gui/$(id -u)/$label shows the program it runs"
+    fi
   fi
 }
 
