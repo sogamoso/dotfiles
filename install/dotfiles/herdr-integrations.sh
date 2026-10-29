@@ -16,6 +16,12 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/herdr-plugins.sh"
 
 log_heading "Installing herdr agent integrations..."
 
+# herdr refuses an integration whose agent config directory is missing, and
+# cursor-agent only creates ~/.cursor on its first run. It's a lazy mise tool, so
+# not even `mise install` fetches it, and on a machine where it has never run
+# the cursor hook would fail every time. The hook no-ops until the agent runs.
+mkdir -p "$HOME/.cursor"
+
 failed=""
 for agent in "${HERDR_INTEGRATIONS[@]}"; do
   if [[ $agent == "claude" ]]; then
