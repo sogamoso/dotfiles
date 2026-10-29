@@ -39,16 +39,19 @@ EOF
 run() { echo "==> $*"; "$@"; }
 
 cmd_pull() {
-  # --autostash: tools write some stowed files themselves (Claude Code its
-  # settings.json), and with pull.rebase on, git refuses to pull over them
-  if run git -C "$DOTFILES" pull --ff-only --autostash; then
+  # A fetch and a fast-forward rather than git pull: pull.rebase makes pull a
+  # rebase, which needs a clean tree, and --autostash would stash the work of an
+  # agent session in this checkout, leaving it in a stash when it conflicts. A
+  # fast-forward goes ahead past uncommitted changes, and refuses rather than
+  # overwrite one, such as a settings.json Claude Code rewrote.
+  if run git -C "$DOTFILES" fetch && run git -C "$DOTFILES" merge --ff-only '@{upstream}'; then
     return
   fi
   explain_pull_failure
   return 1
 }
 
-# `git pull --ff-only` prints the same "Not possible to fast-forward" whether you
+# `git merge --ff-only` prints the same "Not possible to fast-forward" whether you
 # have local commits to push or upstream history was rewritten under you — and the
 # fixes are opposites. Say which one it is and name the command that resolves it.
 explain_pull_failure() {
@@ -56,9 +59,10 @@ explain_pull_failure() {
   upstream=$(git -C "$DOTFILES" rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null || echo "")
 
   if [[ -n $(git -C "$DOTFILES" status --porcelain) ]]; then
-    echo "==> Uncommitted changes are in the way:"
+    echo "==> Uncommitted changes, which may be in the way:"
     git -C "$DOTFILES" status --short | sed 's/^/    /'
-    echo "    Commit or stash them, then: dotfiles pull"
+    echo "    If the error above names one, an agent session may be working on it:"
+    echo "    commit it, or drop a tool's rewrite of it, then: dotfiles pull"
     return
   fi
 
