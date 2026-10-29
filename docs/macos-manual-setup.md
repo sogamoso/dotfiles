@@ -76,6 +76,8 @@ Then trim third-party items by hand. macOS keeps this list in an encoded record 
 
 Turn off every other app (Basecamp, Brain.fm, ChatGPT, Claude, Gemini, Granola, MacWhisper, Notion, Slack, Wabi, Zoom, …). Turning one off stops its icon from ever appearing; the app itself keeps working. Vicinae shows no icon even while allowed, since `tray.enabled` is off in its stowed config.
 
+Brain.fm needs one more step. By default it runs as a menu bar app and positions its window under its icon every time it opens, so with the icon disallowed the window lands in the top-left corner. Brain.fm → Settings → App Behavior → **Run in Separate Window** makes it a normal window, which opens centred and stays where it is put. The AeroSpace rule for it only centres that separate window.
+
 ### Opaque menu bar
 
 The menu bar is set to auto-hide, so SketchyBar owns the top strip and the system bar only slides down on hover. macOS draws that reveal as translucent glass, which lets SketchyBar show through and puts two overlapping sets of items on screen.
