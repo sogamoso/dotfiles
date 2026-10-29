@@ -262,6 +262,21 @@ agent_last_exit() {
     awk -F' = ' '/last exit code = / && !seen {print $2; seen=1}'
 }
 
+# A string value from a TOML file, by dotted key (ui.theme), or nothing when the
+# file, the key or the parse is missing
+toml_value() {
+  python3 -c '
+import sys, tomllib
+try:
+    value = tomllib.load(open(sys.argv[1], "rb"))
+except Exception:
+    sys.exit()
+for key in sys.argv[2].split("."):
+    value = value.get(key) if isinstance(value, dict) else None
+print(value if isinstance(value, str) else "")
+' "$1" "$2" 2>/dev/null
+}
+
 doctor_agent_loaded() {
   local label=$1 any_exit=${2:-} code
   local plist="$HOME/Library/LaunchAgents/$label.plist"
@@ -640,22 +655,26 @@ for entry in sys.argv[1:]:
 
   echo "==> Grok"
   # One key in Grok's own config. reload puts it back if a /theme changed it.
-  if grep -Eq '^theme = "(tokyonight|tokyo-night|tokyo)"$' "$HOME/.grok/config.toml" 2>/dev/null; then
+  if [[ "$(toml_value "$HOME/.grok/config.toml" ui.theme)" =~ ^(tokyonight|tokyo-night|tokyo)$ ]]; then
     ok "Theme is Tokyo Night"
   else
     bad "Theme isn't Tokyo Night" "dotfiles reload"
   fi
-  # A /settings change rewrites it, and a session would stop at every prompt
-  if grep -Eq '^permission_mode = "auto"$' "$HOME/.grok/config.toml" 2>/dev/null; then
+  # A /settings change rewrites it, and a session would stop at every prompt.
+  # Parsed rather than grepped, so a key under another table doesn't count.
+  if [[ "$(toml_value "$HOME/.grok/config.toml" ui.permission_mode)" == "auto" ]]; then
     ok "Auto mode by default"
   else
     bad "Auto mode isn't the default" "dotfiles reload"
   fi
 
   echo "==> Codex"
-  # Keys in Codex's own config, which it rewrites with its plugins
-  if grep -Eq '^approval_policy = "on-request"$' "$HOME/.codex/config.toml" 2>/dev/null &&
-    grep -Eq '^approvals_reviewer = "auto_review"$' "$HOME/.codex/config.toml" 2>/dev/null; then
+  # Keys in Codex's own config, which it rewrites with its plugins. The sandbox
+  # is what keeps auto-review from approving work outside the workspace.
+  local codex_config="$HOME/.codex/config.toml"
+  if [[ "$(toml_value "$codex_config" approval_policy)" == "on-request" &&
+    "$(toml_value "$codex_config" approvals_reviewer)" == "auto_review" &&
+    "$(toml_value "$codex_config" sandbox_mode)" == "workspace-write" ]]; then
     ok "Auto-review by default"
   else
     bad "Auto-review isn't the default" "bash $DOTFILES/install/dotfiles/codex.sh"
