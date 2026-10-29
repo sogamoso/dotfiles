@@ -181,6 +181,9 @@ sketchybar --add item bluetooth right \
     script="$PLUGIN_DIR/bluetooth.sh"
 
 # Input source
+# macOS posts this whenever the input source changes, by Option+I, the menu or
+# anything else, so the poll only backs it up
+sketchybar --add event input_source_change com.apple.Carbon.TISNotifySelectedKeyboardInputSourceChanged
 sketchybar --add item input_source right \
   --set input_source \
     icon.drawing=off \
@@ -196,7 +199,8 @@ sketchybar --add item input_source right \
     padding_right=8 \
     update_freq=3 \
     click_script="$PLUGIN_DIR/switch_input_source.sh" \
-    script="$PLUGIN_DIR/input_source.sh"
+    script="$PLUGIN_DIR/input_source.sh" \
+  --subscribe input_source input_source_change
 
 # Agent usage limits for Claude Code, Codex, Cursor and Grok. Omarchy parity:
 # the icon alone, red once any limit reaches 90%; click opens a popup with each
