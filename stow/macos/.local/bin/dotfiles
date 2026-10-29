@@ -174,11 +174,21 @@ cmd_reload() {
 }
 
 cmd_update() {
-  cmd_pull
+  local before=""
+  if [[ -z ${DOTFILES_PULLED:-} ]]; then
+    before=$(git -C "$DOTFILES" rev-parse HEAD)
+    cmd_pull
+  fi
   # Moves ~/Code to ~/Work on a machine that hasn't moved yet; from then on the
   # repo is used at its new path, so stow links point there
   run bash "$DOTFILES/install/dotfiles/work-dir.sh"
   DOTFILES=$(cd -P "$DOTFILES" && pwd)
+  # Bash parsed this script's functions before the pull, so a pull that changed
+  # them would run the rest of the update on the old version
+  if [[ -n $before ]] && ! git -C "$DOTFILES" diff --quiet "$before" HEAD -- stow/macos/.local/bin/dotfiles; then
+    echo "==> The dotfiles CLI changed; continuing the update with the new version"
+    DOTFILES="$DOTFILES" DOTFILES_PULLED=1 exec "$DOTFILES/stow/macos/.local/bin/dotfiles" update
+  fi
   # A cask that needs sudo fails brew without a terminal, as in the daily
   # agent's run; the restow and reloads still apply, and the failure is
   # reported at the end
