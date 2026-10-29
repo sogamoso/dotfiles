@@ -54,8 +54,15 @@ chmod 600 "$TOKEN_ENV_FILE"
 plist="$HOME/Library/LaunchAgents/$LAUNCH_LABEL.plist"
 if [[ "$(uname -s)" == "Darwin" && -f $plist ]]; then
   launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
-  launchctl bootstrap "gui/$(id -u)" "$plist"
   launchctl enable "gui/$(id -u)/$LAUNCH_LABEL"
+  # bootout can return before launchd has torn the job down, and a bootstrap
+  # in that window fails, so it gets a few tries (as in preferences.sh)
+  for _ in 1 2 3 4 5; do
+    launchctl bootstrap "gui/$(id -u)" "$plist" 2>/dev/null && break
+    sleep 1
+  done
+  launchctl print "gui/$(id -u)/$LAUNCH_LABEL" >/dev/null 2>&1 ||
+    launchctl bootstrap "gui/$(id -u)" "$plist"
   log_item "Published the token to the launchd session for GUI-launched Codex"
 fi
 
