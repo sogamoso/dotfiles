@@ -7,6 +7,7 @@
   "permissions": {
     "defaultMode": "auto"
   },
+  "model": "best",
   "hooks": {
     "SessionStart": [
       {
@@ -95,6 +96,5 @@
       "**Dotfiles repo**: `~/Work/sogamoso/dotfiles` (github.com:sogamoso/dotfiles, public) is one of several repos the user works in. Only its own work is pushed there, and pushing it is publishing",
       "**Routine CLIs**: herdr, dotfiles, mise, aerospace, vicinae, sketchybar, hunk, stow, brew — personal tooling, used routinely in the dotfiles repo under stow/, install/ and bootstrap paths"
     ]
-  },
-  "model": "best"
+  }
 }
