@@ -81,6 +81,10 @@
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
   "autoMode": {
+    "soft_deny": [
+      "$defaults",
+      "Bash(rm:*) in ~/Work/sogamoso/dotfiles outside stow/ and install/ — irreversible local destruction"
+    ],
     "environment": [
       "$defaults",
       "**Repository visibility**: Public — `sogamoso/dotfiles` (github.com:sogamoso/dotfiles.git). Any push here is publishing.",
@@ -90,10 +94,6 @@
       "**Shared checkout**: other agent sessions may work in the same checkout at once; don't stash, reset or pull over uncommitted changes you didn't make",
       "**Dotfiles repo**: `~/Work/sogamoso/dotfiles` (github.com:sogamoso/dotfiles, public) is one of several repos the user works in. Only its own work is pushed there, and pushing it is publishing",
       "**Routine CLIs**: herdr, dotfiles, mise, aerospace, vicinae, sketchybar, hunk, stow, brew — personal tooling, used routinely in the dotfiles repo under stow/, install/ and bootstrap paths"
-    ],
-    "soft_deny": [
-      "$defaults",
-      "Bash(rm:*) in ~/Work/sogamoso/dotfiles outside stow/ and install/ — irreversible local destruction"
     ]
   },
   "model": "best"
