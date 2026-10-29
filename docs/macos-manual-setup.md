@@ -491,4 +491,4 @@ What is left worth tracking:
 | `SUPER + SHIFT + CTRL + G` — Google Messages | Not mapped; no PWA installed |
 | `SUPER + SHIFT + P` — Google Photos | Not mapped; no PWA installed |
 | `SUPER + SHIFT + ALT + M` — cliamp music TUI | No macOS equivalent; Spotify is on Option+Shift+M |
-| `SUPER + SHIFT + ALT + A` — Grok | Option+Shift+Cmd+A opens ChatGPT instead |
+| `SUPER + SHIFT + ALT + A` — Grok | Option+Shift+Cmd+A opens ChatGPT instead, on purpose: it's the more used of the two, and Grok has no native Mac app. Omarchy's Linux binding is overridden to match |
