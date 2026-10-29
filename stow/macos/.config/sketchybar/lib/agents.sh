@@ -9,14 +9,15 @@
 
 # Rate limits come from Anthropic's OAuth usage endpoint, the one Omarchy's
 # agents panel reads, called with Claude Code's own login. The token goes from
-# the keychain to curl through pipes only: never a variable, a file, a
+# Claude's credential store to curl through pipes only: never a variable, a new file, a
 # here-string (bash 3.2 writes those to disk) or a command line, and only ever
 # to api.anthropic.com. The endpoint is undocumented and rate-limits readily.
 agents_claude() {
   local plan response code
-  security find-generic-password -s "Claude Code-credentials" >/dev/null 2>&1 || return 0
+  security find-generic-password -s "Claude Code-credentials" >/dev/null 2>&1 ||
+    [[ -f ${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.credentials.json ]] || return 0
 
-  plan=$(security find-generic-password -s "Claude Code-credentials" -w 2>/dev/null | jq -r '
+  plan=$(agents_claude_credentials | jq -r '
     .claudeAiOauth as $o
     | ($o.subscriptionType // "" | ascii_downcase) as $sub
     | ($o.rateLimitTier // "" | capture("max_(?<m>[0-9]+x)")?.m // "") as $max
@@ -24,7 +25,7 @@ agents_claude() {
        (if $max == "" then empty else "Max \($max)" end)]
     | join(" · ")' 2>/dev/null)
 
-  response=$(security find-generic-password -s "Claude Code-credentials" -w 2>/dev/null |
+  response=$(agents_claude_credentials |
     jq -r '"Authorization: Bearer \(.claudeAiOauth.accessToken // "")"' 2>/dev/null |
     curl -sS --proto '=https' --max-time 10 -H @- \
       -H 'anthropic-beta: oauth-2025-04-20' -H 'Accept: application/json' \
@@ -57,6 +58,12 @@ agents_claude() {
         | reduce .[] as $l ([]; if any(.[]; .name == $l.name and .kind == $l.kind) then . else . + [$l] end) | .[]
         | {label: "\(.name)\(.kind | window)", percent, resets: (.resets_at | epoch)})
     ]}' 2>/dev/null || agents_status "$plan" "Unexpected answer from Anthropic"
+}
+
+# Claude can fall back to a credential file when the keychain isn't available.
+agents_claude_credentials() {
+  security find-generic-password -s "Claude Code-credentials" -w 2>/dev/null ||
+    cat "${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.credentials.json" 2>/dev/null
 }
 
 # Codex reports its own limits over the app-server RPC, the way Omarchy reads
