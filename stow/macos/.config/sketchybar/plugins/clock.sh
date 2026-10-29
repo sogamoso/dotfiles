@@ -4,6 +4,10 @@
 # choice sticks. A left click opens the calendar, as Omarchy's does.
 #   normal: "Thursday 21:46"
 #   alt:    "28 May W22 2026"
+# CLOCK_COMPACT=1 (laptop screen only, set by sketchybarrc) drops the weekday
+# and the week number, which the space beside the notch can't fit:
+#   normal: "21:46"
+#   alt:    "28 May 2026"
 
 STATE_FILE="${TMPDIR:-/tmp}/dotfiles-sketchybar-clock"
 STATE=$(cat "$STATE_FILE" 2>/dev/null || echo "normal")
@@ -17,7 +21,9 @@ if [[ ${SENDER:-} == "mouse.clicked" ]]; then
   echo "$STATE" >"$STATE_FILE"
 fi
 
-if [[ $STATE == "alt" ]]; then
+if [[ ${CLOCK_COMPACT:-0} == 1 ]]; then
+  [[ $STATE == "alt" ]] && LABEL=$(date '+%d %B %Y') || LABEL=$(date '+%H:%M')
+elif [[ $STATE == "alt" ]]; then
   LABEL=$(date '+%d %B W%V %Y')
 else
   LABEL=$(date '+%A %H:%M')

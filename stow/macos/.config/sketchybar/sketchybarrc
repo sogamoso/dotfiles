@@ -76,13 +76,19 @@ done
 # with it; place ours at the rightmost of the right group so it sits where the
 # system clock would have been. Position re-evaluates on display change because
 # display_change.sh reloads sketchybar, which re-runs this whole file.
+# Laptop-only, the right group has the space between the notch and the screen
+# edge to share, so the clock drops the weekday and week number.
 CLOCK_POSITION=right
-(( HAS_EXTERNAL == 1 )) 2>/dev/null && CLOCK_POSITION=center
+CLOCK_COMPACT=1
+if (( HAS_EXTERNAL == 1 )) 2>/dev/null; then
+  CLOCK_POSITION=center
+  CLOCK_COMPACT=0
+fi
 sketchybar --add item clock "$CLOCK_POSITION" \
   --set clock \
     update_freq=5 \
     icon.drawing=off \
-    script="$PLUGIN_DIR/clock.sh" \
+    script="CLOCK_COMPACT=$CLOCK_COMPACT $PLUGIN_DIR/clock.sh" \
   --subscribe clock mouse.clicked
 
 # Weather — beside the clock, wherever the clock sits
