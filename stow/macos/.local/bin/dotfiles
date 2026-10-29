@@ -570,8 +570,9 @@ cmd_doctor() {
   # lives in that SSH login, which has no login keychain, so keychain-backed
   # tools fail in every pane: cursor-agent reports the keychain locked and
   # Claude Code can't read its credentials (herdr#966)
+  # pgrep skips its own ancestors, which the server is from inside a pane
   local server_pid
-  server_pid=$(pgrep -f '(^|/)herdr server$' | head -1 || true)
+  server_pid=$(pgrep -a -f '(^|/)herdr server$' | head -1 || true)
   if [[ -z $server_pid ]]; then
     : # the service or agent checks above already say so
   elif ps -Eww -o command= -p "$server_pid" | grep -q ' SSH_CONNECTION='; then
