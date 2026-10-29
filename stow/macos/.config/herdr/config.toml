@@ -45,21 +45,21 @@ move_tab_next     = "alt+shift+right"
 [[keys.command]]
 key = "prefix+a"
 type = "popup"
-command = "\"$SHELL\" -lic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hrw || read -r _'"
+command = "\"$SHELL\" -lic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hrw || read -sk1 \"?Press any key to close\"'"
 description = "new agent on its own worktree (hrw)"
 
 # The same, after asking which agent, what task to start it on, and the branch.
 [[keys.command]]
 key = "prefix+shift+a"
 type = "popup"
-command = "\"$SHELL\" -lic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hra || read -r _'"
+command = "\"$SHELL\" -lic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hra || read -sk1 \"?Press any key to close\"'"
 description = "new agent on a task (hra)"
 
 # Finish the focused agent: confirm, then delete its branch and worktree (hrd).
 [[keys.command]]
 key = "prefix+f"
 type = "popup"
-command = "\"$SHELL\" -lic 'hrd || read -r _'"
+command = "\"$SHELL\" -lic 'hrd || read -sk1 \"?Press any key to close\"'"
 description = "finish agent, removing its worktree and branch (hrd)"
 
 # Paste a pull request, an issue or a branch and get a worktree with an agent

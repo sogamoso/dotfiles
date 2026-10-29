@@ -39,21 +39,38 @@ if ! grep -qxF "$marker" "$config"; then
 [[keys.command]]
 key = "prefix+a"
 type = "popup"
-command = "\"$SHELL\" -ic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hrw || read -r _'"
+command = "\"$SHELL\" -ic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hrw || read -rsn1 -p \"Press any key to close\"'"
 description = "new agent on its own worktree (hrw)"
 
 [[keys.command]]
 key = "prefix+shift+a"
 type = "popup"
-command = "\"$SHELL\" -ic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hra || read -r _'"
+command = "\"$SHELL\" -ic 'cd \"$HERDR_ACTIVE_PANE_CWD\" && hra || read -rsn1 -p \"Press any key to close\"'"
 description = "new agent on a task (hra)"
 
 [[keys.command]]
 key = "prefix+f"
 type = "popup"
-command = "\"$SHELL\" -ic 'hrd || read -r _'"
+command = "\"$SHELL\" -ic 'hrd || read -rsn1 -p \"Press any key to close\"'"
 description = "finish agent, removing its worktree and branch (hrd)"
 KEYS
+  changed=true
+fi
+
+# The popups used to wait on a whole line, so only Enter or Ctrl+C closed one.
+# Keys added before that wait on one key now, Esc included.
+old_wait="|| read -r _'"
+new_wait='|| read -rsn1 -p \"Press any key to close\"'"'"
+if grep -qF "$old_wait" "$config"; then
+  tmp=$(mktemp)
+  # Through the environment, as below: awk -v would eat the backslashes
+  old="$old_wait" new="$new_wait" awk '
+    { while ((i = index($0, ENVIRON["old"])) > 0)
+        $0 = substr($0, 1, i - 1) ENVIRON["new"] substr($0, i + length(ENVIRON["old"])) }
+    { print }
+  ' "$config" >"$tmp"
+  cat "$tmp" >"$config"
+  rm -f "$tmp"
   changed=true
 fi
 
