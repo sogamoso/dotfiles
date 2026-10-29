@@ -14,15 +14,16 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 mkdir -p "$HOME/.ssh"
 
 # Claude Code writes its own settings, and Omarchy copies a whole config tree
-# into ~/.config, mise's included. Nothing is known to write
-# ~/.codex/AGENTS.md — it's here because a real file at that path conflicts the
-# whole codex package, not just the one link. Skills are not stowed: they go to
+# into ~/.config, mise's included. Nothing is known to write ~/.codex/AGENTS.md
+# or ~/.grok/AGENTS.md — they're here because a real file at either path
+# conflicts the whole package, not just the one link. Skills are not stowed: they go to
 # two agents, so skills.sh links them and handles what ui.sh leaves behind. The
 # herdr worktree plugin writes its example config on first use.
 take_ownership \
   "$HOME/.claude/keybindings.json" \
   "$HOME/.claude/settings.json" \
   "$HOME/.codex/AGENTS.md" \
+  "$HOME/.grok/AGENTS.md" \
   "$HOME/.config/herdr/plugins/config/worktree/config.json" \
   "$HOME/.config/mise/config.toml"
 
