@@ -109,12 +109,17 @@ cmd_brew() {
   # Allow upgraded tailscaled and mosh-server through the firewall and restart
   # a tailscaled left on its old binary; sudo only when something changed.
   # The daemon then does the same after background upgrades.
-  run "$HOME/.config/dotfiles/firewall.sh"
-  run "$HOME/.config/dotfiles/firewall.sh" --install
+  # Checked by hand: update calls this with ||, which turns set -e off in here
+  local firewall_failed=0
+  run "$HOME/.config/dotfiles/firewall.sh" || firewall_failed=1
+  run "$HOME/.config/dotfiles/firewall.sh" --install || firewall_failed=1
+  if (( firewall_failed )); then
+    echo "==> firewall step failed; see its output above"
+  fi
   if (( bundle_failed )); then
     echo "==> brew bundle failed for some Brewfile entries; see its output above"
-    return 1
   fi
+  (( bundle_failed == 0 && firewall_failed == 0 ))
 }
 
 cmd_stow() {
@@ -194,7 +199,14 @@ cmd_update() {
   # reported at the end
   local brew_failed=0
   cmd_brew || brew_failed=1
-  cmd_reload
+  # In a subshell with set -e of its own, so the first failing step stops the
+  # reload, as it would on its own, without ending the update before mise up
+  # and the summary. Under || or if, set -e would be off for the whole reload.
+  local reload_failed=0
+  set +e
+  (set -e; cmd_reload)
+  reload_failed=$?
+  set -e
   # Picks up extensions added on the other Mac; settings arrive through the stow
   run python3 "$DOTFILES/install/lib/vicinae.py" install || true
   # Every installed mise tool, as omarchy update does: an update is a request
@@ -210,6 +222,10 @@ cmd_update() {
   fi
   if (( brew_failed )); then
     echo "==> Homebrew step failed; run dotfiles brew in a terminal to finish it"
+    return 1
+  fi
+  if (( reload_failed )); then
+    echo "==> dotfiles reload failed; see its output above"
     return 1
   fi
   if (( mise_failed )); then
