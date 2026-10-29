@@ -205,6 +205,18 @@ else
   done
 fi
 
+# The mini runs herdr's server from a LaunchAgent of its own, in this login
+# session so its panes can reach the keychain; the other Macs keep the brew
+# service (see HERDR_LAUNCHD_ISSUE in install/lib/herdr-plugins.sh). A server
+# already running, as a remote attach starts one, holds the socket until
+# `herdr server stop`, after which launchd starts this one.
+if $is_mac_mini; then
+  reload_agent com.sogamoso.herdr-server
+else
+  launchctl bootout "gui/$(id -u)/com.sogamoso.herdr-server" 2>/dev/null || true
+  launchctl disable "gui/$(id -u)/com.sogamoso.herdr-server"
+fi
+
 # Apply user key remappings via hidutil at login (Lofree mic-mute → F18), check
 # daily that brew autoupdate hasn't left tailscaled or mosh-server blocked, run
 # dotfiles update and doctor daily, notifying the result, and upgrade the mise

@@ -165,9 +165,8 @@ cmd_reload() {
     if herdr tab list 2>&1 | grep -q protocol_mismatch; then
       source "$DOTFILES/install/lib/herdr-plugins.sh"
       if on_herdr_machine_host; then
-        # No brew service on the mini (HERDR_LAUNCHD_ISSUE), and its own server
-        # only starts with the next connection, which the steps below need
-        echo "herdr's server is on an old build: run herdr server stop, then reconnect" >&2
+        # The mini's own LaunchAgent rather than the brew service (HERDR_LAUNCHD_ISSUE)
+        run launchctl kickstart -k "gui/$(id -u)/com.sogamoso.herdr-server"
       else
         run brew services restart herdr
       fi
@@ -423,6 +422,12 @@ cmd_doctor() {
   doctor_agent_loaded com.sogamoso.agents-update
   [[ -r ${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/uidotsh.env ]] &&
     doctor_agent_loaded com.sogamoso.uidotsh-token
+  # The mini's herdr server; the other Macs run the brew service instead
+  if (( desktop )); then
+    doctor_agent_loaded com.sogamoso.herdr-server
+  else
+    doctor_agent_disabled com.sogamoso.herdr-server
+  fi
   local label
   for label in com.sogamoso.workhours.caffeinate-watch com.sogamoso.workhours.caffeinate-run com.sogamoso.workhours.sleep-if-idle; do
     if (( desktop )); then
@@ -528,9 +533,9 @@ cmd_doctor() {
   if on_herdr_machine_host; then
     if brew services list 2>/dev/null | grep -q '^herdr .*started'; then
       bad "herdr runs as a brew service, which saved machines can't use (herdr#$HERDR_LAUNCHD_ISSUE)" \
-        "brew services stop herdr, then herdr machine add $HERDR_MACHINE from another Mac"
+        "brew services stop herdr, then launchctl kickstart -k gui/$(id -u)/com.sogamoso.herdr-server"
     else
-      ok "herdr runs its own server, not the brew service"
+      ok "herdr runs from its own LaunchAgent, not the brew service"
     fi
   elif herdr machine list --json 2>/dev/null |
     jq -e --arg host "$HERDR_MACHINE" '.[] | select(.label == $host or .target == $host or .ssh_target == $host)' >/dev/null 2>&1; then
@@ -546,14 +551,33 @@ cmd_doctor() {
       bad "herdr service isn't running" "brew services start herdr"
     fi
   fi
+  # Panes inherit the server's launch context. Started by a remote attach, it
+  # lives in that SSH login, which has no login keychain, so keychain-backed
+  # tools fail in every pane: cursor-agent reports the keychain locked and
+  # Claude Code can't read its credentials (herdr#966)
+  local server_pid
+  server_pid=$(pgrep -f '(^|/)herdr server$' | head -1 || true)
+  if [[ -z $server_pid ]]; then
+    : # the service or agent checks above already say so
+  elif ps -Eww -o command= -p "$server_pid" | grep -q ' SSH_CONNECTION='; then
+    if on_herdr_machine_host; then
+      bad "herdr's server was started by a remote attach, so its panes can't reach the login keychain" \
+        "herdr server stop, and the LaunchAgent starts one in this login session"
+    else
+      bad "herdr's server was started over SSH, so its panes can't reach the login keychain" \
+        "herdr server stop, then brew services start herdr"
+    fi
+  else
+    ok "herdr's server started from this Mac's login session"
+  fi
   # The mini's workaround stays only until herdr fixes the bug behind it
   local issue_state
   issue_state=$(gh api "repos/herdrdev/herdr/issues/$HERDR_LAUNCHD_ISSUE" --jq .state 2>/dev/null || true)
   if [[ $issue_state == "closed" ]]; then
-    bad "herdr#$HERDR_LAUNCHD_ISSUE is closed: the mini can go back to the brew service" \
+    bad "herdr#$HERDR_LAUNCHD_ISSUE is closed: the mini can drop its LaunchAgent for the brew service" \
       "update herdr, then drop HERDR_LAUNCHD_ISSUE in install/lib/herdr-plugins.sh"
   elif [[ $issue_state == "open" ]]; then
-    ok "herdr#$HERDR_LAUNCHD_ISSUE still open, so the mini keeps herdr's own server"
+    ok "herdr#$HERDR_LAUNCHD_ISSUE still open, so the mini keeps its own herdr LaunchAgent"
   fi
 
   echo "==> Stow"

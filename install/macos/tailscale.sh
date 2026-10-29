@@ -3,7 +3,8 @@ set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 
 # herdr runs as a login-persistent background service (idempotent if already
-# started), except on the Mac mini: see HERDR_LAUNCHD_ISSUE. Telling the mini
+# started), except on the Mac mini, whose own LaunchAgent preferences.sh loads
+# (see HERDR_LAUNCHD_ISSUE). Telling the mini
 # apart takes its Tailscale name, so this waits for Tailscale to be signed in;
 # signed out, the service is left for dotfiles doctor to flag.
 start_herdr_service() {
