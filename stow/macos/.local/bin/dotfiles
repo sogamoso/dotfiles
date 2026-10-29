@@ -803,6 +803,7 @@ cmd_agent() {
     *)
       if ! agent=$(agent_name "$1"); then
         echo "Unknown agent: $1" >&2
+        echo "Usage: dotfiles agent <pi|omp|opencode|ori|claude|codex|crush|grok|agy|copilot|muse|cursor-agent|kimi|qwen|dsh|mcode|freebuff|kilo|amp|commandcode>" >&2
         exit 64
       fi
       if ! command -v "$agent" >/dev/null; then
