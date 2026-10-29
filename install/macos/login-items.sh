@@ -6,7 +6,7 @@ source "$LIB/login-items.sh"
 
 log_heading "Adding login items..."
 
-# Runs after pwas.sh and apps.sh, which install Gmail, Google Calendar and Wabi
+# Runs after pwas.sh, which installs Gmail and Google Calendar
 if ! current=$(login_item_paths 2>/dev/null); then
   log_warn "Could not read login items — grant Automation access to System Events and rerun"
   exit 0

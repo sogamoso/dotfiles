@@ -13,7 +13,6 @@ LOGIN_ITEMS=(
   "/Applications/MacWhisper.app"
   "/Applications/Slack.app"
   "/Applications/Vicinae.app"
-  "/Applications/Wabi.app"
   "$HOME/Applications/Chrome Apps.localized/Gmail.app"
   "$HOME/Applications/Chrome Apps.localized/Google Calendar.app"
 )
