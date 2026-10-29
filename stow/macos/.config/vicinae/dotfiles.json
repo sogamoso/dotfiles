@@ -58,7 +58,7 @@
           "enabled": false
         },
         "open-settings": {
-          "enabled": false
+          "enabled": true
         },
         "show-desktop-icons": {
           "enabled": false
@@ -73,7 +73,7 @@
     },
     "@HenriChabrand/store.raycast.notion": {
       "preferences": {
-        "open_in": "notion.id",
+        "open_in": "com.google.Chrome",
         "properties_in_page_previews": true
       }
     },
@@ -95,7 +95,8 @@
         "useProxy": false,
         "proxyProtocol": "http",
         "useAzure": false
-      }
+      },
+      "enabled": false
     },
     "@benvp/store.raycast.audio-device": {
       "preferences": {
@@ -109,7 +110,8 @@
         "useStream": true,
         "isAutoLoad": true,
         "isAutoFullInput": true
-      }
+      },
+      "enabled": false
     },
     "@frouo/store.raycast.google-chrome-profiles": {
       "preferences": {
@@ -122,7 +124,12 @@
       }
     },
     "@fuksman/store.raycast.calendar": {
-      "enabled": false
+      "enabled": true,
+      "preferences": {
+        "weekStart": "0",
+        "showWeeks": true,
+        "viewMode": "1"
+      }
     },
     "@gebeto/store.raycast.translate": {
       "preferences": {
@@ -153,7 +160,12 @@
       }
     },
     "@limonkufu/store.raycast.aerospace": {
-      "enabled": false
+      "enabled": false,
+      "preferences": {
+        "showFullBindings": true,
+        "showMenuBarExtras": true,
+        "showWorkspaceName": true
+      }
     },
     "@marcjulian/store.raycast.obsidian": {
       "enabled": false,
@@ -164,6 +176,23 @@
     "@mattisssa/store.raycast.spotify-player": {
       "preferences": {
         "closeWindowOnAction": true
+      },
+      "entrypoints": {
+        "cycleRepeat": {
+          "enabled": true
+        },
+        "dislike": {
+          "enabled": false
+        },
+        "like": {
+          "enabled": true
+        },
+        "startDJ": {
+          "enabled": true
+        },
+        "startRadio": {
+          "enabled": true
+        }
       }
     },
     "@mrpunkin/store.raycast.raycast-zoxide": {
@@ -171,7 +200,7 @@
         "search-mode": "fuzzy",
         "open-in": "com.apple.finder",
         "open-in-terminal": "com.mitchellh.ghostty",
-        "open-in-editor": "TextEdit"
+        "open-in-editor": "com.sogamoso.neovim"
       }
     },
     "@nhojb/store.raycast.brew": {
@@ -214,7 +243,8 @@
         "shouldShowDirectories": true,
         "excludePaths": "",
         "autoReindexingInterval": "604800000"
-      }
+      },
+      "enabled": false
     },
     "@vlades/store.raycast.herdr": {
       "preferences": {
@@ -240,6 +270,18 @@
       "entrypoints": {
         "sponsor": {
           "enabled": false
+        },
+        "forget-telemetry": {
+          "enabled": true
+        },
+        "inspect-local-storage": {
+          "enabled": true
+        },
+        "oauth-token-store": {
+          "enabled": true
+        },
+        "search-builtin-icons": {
+          "enabled": true
         }
       }
     },
@@ -249,6 +291,53 @@
     "system": {
       "entrypoints": {
         "browse-apps": {
+          "enabled": true
+        }
+      }
+    },
+    "@joao.mainka/store.raycast.raycast-timezone-converter": {
+      "preferences": {
+        "sortTimezones": "manually",
+        "hideWorldMap": false
+      }
+    },
+    "@koinzhang/store.raycast.copy-path": {
+      "preferences": {
+        "showCopyTip": true,
+        "showLastCopy": true,
+        "showTabTitle": false,
+        "useTildeForHome": false,
+        "multiPathSeparator": "\n",
+        "copyUrlContent": "Original",
+        "copyWhenUnSupported": "windowTitle"
+      }
+    },
+    "@mommertf/store.raycast.slack": {
+      "preferences": {
+        "showAiMessageSignature": false,
+        "closeRightSidebar": true
+      }
+    },
+    "@tonka3000/store.raycast.gmail": {
+      "preferences": {
+        "clientid": "362741237384-6e43b54kqfd9i73vqhpf9t0ja8kp5nn7.apps.googleusercontent.com"
+      }
+    },
+    "manage-shortcuts": {
+      "enabled": false,
+      "entrypoints": {
+        "create": {
+          "enabled": true
+        }
+      }
+    },
+    "theme": {
+      "enabled": false
+    },
+    "wm": {
+      "enabled": false,
+      "entrypoints": {
+        "switch-windows": {
           "enabled": true
         }
       }
