@@ -350,7 +350,7 @@
     "applications": {
       "entrypoints": {
         "com.sogamoso.neovim": {
-          "alias": "neovin,nvim,vim"
+          "alias": "neovim,nvim,vim"
         },
         "dev.zed.Zed": {
           "alias": "zed"
