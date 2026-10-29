@@ -64,7 +64,7 @@ tokens() {
 }
 
 render() {
-  local id file name plan status stale fetched asof n count label percent resets color
+  local id file name plan status stale fetched asof n count kind label percent resets text color
   local now worst=0 args=() files=()
   now=$(date +%s)
 
@@ -110,24 +110,42 @@ render() {
         args+=(--set "agents.$id" icon="$name" label="$plan" label.color=$MUTED)
       fi
 
-      # Each limit's meter, then the balance of a prepaid account
-      while IFS=$'\t' read -r label percent resets; do
+      # Each limit's meter, then the free resets Codex grants and the balance
+      # of a prepaid account, which drains toward empty rather than filling
+      # Split on a control character: to read, a tab is whitespace, so an
+      # empty field between two tabs would vanish and shift the rest
+      while IFS=$'\x1f' read -r kind label percent resets text; do
         (( count >= ROWS )) && break
-        # A window whose reset has passed starts again from nothing
-        [[ -n $resets ]] && (( resets <= now )) && percent=0
-        (( percent >= ALARM )) && color=$RED || color=$TEXT
-        args+=(--set "agents.$id.$((count + 1))" drawing=on icon="$label" label.color="$color"
-          label="$(meter "$percent") $(printf '%3s' "$percent")%${resets:+  $(until_reset "$resets")}")
-        (( percent > worst )) && worst=$percent
+        case "$kind" in
+          limit)
+            # A window whose reset has passed starts again from nothing
+            [[ -n $resets ]] && (( resets <= now )) && percent=0
+            (( percent >= ALARM )) && color=$RED || color=$TEXT
+            text="$(meter "$percent") $(printf '%3s' "$percent")%${resets:+  $(until_reset "$resets")}"
+            (( percent > worst )) && worst=$percent
+            ;;
+          balance)
+            (( percent <= 100 - ALARM )) && color=$RED || color=$TEXT
+            text="$(meter "$percent") $text"
+            ;;
+          *)
+            color=$TEXT
+            [[ -n $resets ]] && (( resets > now )) && text="$text · expire in $(until_reset "$resets")"
+            ;;
+        esac
+        args+=(--set "agents.$id.$((count + 1))" drawing=on icon="$label" label.color="$color" label="$text")
         count=$((count + 1))
       done < <(jq -r '
         def epoch: if . == null or . == "" then "" else
           sub("\\.[0-9]+"; "") | sub("\\+00:00$"; "Z") | (try fromdateiso8601 catch "") end;
-        (.limits[]? | [.label, ((.percent // 0) * 100 | round), (.resetsAt | epoch)]),
+        def money: . * 100 | round / 100;
+        (.limits[]? | ["limit", .label, ((.percent // 0) * 100 | round), (.resetsAt | epoch), ""]),
+        (.resetCredits | select(. != null and (.available // 0) > 0)
+          | ["credits", "Free resets", "", (.nextExpiresAt | epoch), "\(.available) available"]),
         (.balance | select(. != null and (.funded // 0) > 0)
-          | ["Balance \(.remaining // 0 | . * 100 | round / 100) of \(.funded) \(.currency // "")\(if .estimated then " (est.)" else "" end)",
-             ((.spent // 0) * 100 / .funded | round), ""])
-        | @tsv' "$file" 2>/dev/null)
+          | ["balance", "Balance", ((.remaining // 0) * 100 / .funded | round), "",
+             "\(.remaining // 0 | money) of \(.funded | money) \(.currency // "")\(if .estimated then " (est.)" else "" end) left"])
+        | map(tostring) | join("\u001f")' "$file" 2>/dev/null)
     fi
     for (( n = count; n < ROWS; n++ )); do
       args+=(--set "agents.$id.$((n + 1))" drawing=off)
