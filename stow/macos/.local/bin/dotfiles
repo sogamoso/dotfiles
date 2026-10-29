@@ -559,6 +559,23 @@ for entry in sys.argv[1:]:
       "bash $DOTFILES/install/macos/preferences.sh"
   fi
 
+  echo "==> DNS"
+  # Unpinned, a network handing out a resolver that drops queries breaks every
+  # lookup. Unpinning is also the fix for a captive portal that won't load, so a
+  # failure here may just be that, left undone.
+  source "$DOTFILES/install/lib/dns.sh"
+  local service dns_unpinned=()
+  while read -r service; do
+    [[ $(networksetup -getdnsservers "$service" | paste -sd ' ' -) == "${DNS_SERVERS[*]}" ]] ||
+      dns_unpinned+=("$service")
+  done < <(dns_services)
+  if (( ${#dns_unpinned[@]} )); then
+    bad "Not pinned to ${DNS_SERVERS[*]}: $(printf '%s, ' "${dns_unpinned[@]}" | sed 's/, $//')" \
+      "bash $DOTFILES/install/macos/preferences.sh"
+  else
+    ok "Pinned to ${DNS_SERVERS[*]}"
+  fi
+
   echo "==> Login items"
   # Without one its feature just doesn't start: no MacWhisper, no dictation
   source "$DOTFILES/install/lib/login-items.sh"

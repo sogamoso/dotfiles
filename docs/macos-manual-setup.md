@@ -381,7 +381,44 @@ daily check notifies if that ever fails.
 
 ---
 
-## 16. Confirm the setup with `dotfiles doctor`
+## 16. DNS is pinned (nothing to do, but read this when a network misbehaves)
+
+`install/macos/preferences.sh` sets every network service (Wi-Fi, Ethernet
+adapters, iPhone USB) to Cloudflare `1.1.1.1` and Quad9 `9.9.9.9`, the list in
+`install/lib/dns.sh`, and ignores whatever DNS the network hands out. Some
+networks hand out a resolver that drops queries, and then nothing resolves:
+`git push` fails with `Could not resolve hostname github.com` and pages don't
+load even though the Wi-Fi shows connected. Tailscale names keep working,
+since MagicDNS goes through `/etc/resolver` rather than these servers.
+
+The pin costs two things, both on networks that rely on their own DNS:
+
+- **Captive portals.** Hotel, café and airport Wi-Fi that needs you to sign in
+  or accept terms may never show that page, or show it and still not let you
+  through, because the network only answers its own DNS until you have.
+- **Local names.** Names that only the network's own DNS knows — an office
+  printer, an intranet site, a NAS at `nas.local-office` — don't resolve.
+  (`.local` names found through Bonjour are unaffected.)
+
+**Symptom: the Wi-Fi is connected but the sign-in page never appears, or a
+local name doesn't resolve while public sites work.** Unpin and take the
+network's DNS:
+
+```
+networksetup -setdnsservers Wi-Fi empty
+```
+
+(`networksetup -listallnetworkservices` names the other services, if the
+network came in another way.) Once past the sign-in page, pin it again:
+
+```
+networksetup -setdnsservers Wi-Fi 1.1.1.1 9.9.9.9
+```
+
+Until then `dotfiles doctor`, the daily run included, reports the service as
+not pinned, which doubles as the reminder.
+
+## 17. Confirm the setup with `dotfiles doctor`
 
 Bootstrap ends by running it, so its list of problems is the manual steps still
 left. Once the steps above are done, run it again:

@@ -40,6 +40,13 @@ done
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u ||
   log_warn "Could not apply the keyboard shortcuts now — they take effect at the next login"
 
+# DNS: the servers in lib/dns.sh on every network service, whatever the network
+# offers. docs/macos-manual-setup.md covers the tradeoffs and how to undo it.
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/dns.sh"
+while read -r service; do
+  networksetup -setdnsservers "$service" "${DNS_SERVERS[@]}"
+done < <(dns_services)
+
 # Accessibility: disable UI transparency. WindowServer only reads this at login,
 # so a fresh write leaves the revealed menu bar glassy on top of SketchyBar until
 # the next one. Writing needs Full Disk Access — skipped if denied.
