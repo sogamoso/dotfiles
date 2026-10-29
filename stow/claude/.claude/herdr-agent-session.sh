@@ -13,7 +13,7 @@ input=$(cat)
 
 # herdr reports worktree provenance for any workspace in a repo; is_linked_worktree
 # false is the repo's own checkout, the parent of its worktrees.
-if "${HERDR_BIN_PATH:-herdr}" workspace get "$HERDR_WORKSPACE_ID" 2>/dev/null | python3 -c '
+if "${HERDR_BIN_PATH:-herdr}" workspace get "$HERDR_WORKSPACE_ID" 2>/dev/null | python3 -I -c '
 import json, sys
 worktree = json.load(sys.stdin)["result"]["workspace"].get("worktree")
 sys.exit(0 if worktree and not worktree["is_linked_worktree"] else 1)
