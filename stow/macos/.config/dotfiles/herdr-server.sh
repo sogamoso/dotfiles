@@ -16,6 +16,33 @@ set -euo pipefail
 
 command -v herdr >/dev/null 2>&1 || { echo "herdr-server: herdr isn't on PATH" >&2; exit 1; }
 
+socket="${HERDR_SOCKET_PATH:-$HOME/.config/herdr/herdr.sock}"
+
+# The server a remote attach started on this socket, if that's what's running
+remote_server_pid() {
+  local pid
+  for pid in $(pgrep -f '(^|/)herdr server$' || true); do
+    ps -Eww -o command= -p "$pid" 2>/dev/null | grep -q ' SSH_CONNECTION=' || continue
+    lsof -a -U -p "$pid" -Fn 2>/dev/null | grep -qx "n$socket" || continue
+    echo "$pid"
+    return 0
+  done
+  return 1
+}
+
+# A remote client that reconnects after `herdr server stop` starts a server of
+# its own before launchd retries, back in an SSH login with no keychain. That
+# one gives way to this; herdr resumes the agents it was running. A server
+# from anywhere else is left alone, and launchd keeps retrying.
+if pid=$(remote_server_pid); then
+  echo "herdr-server: stopping the server a remote attach started (pid $pid)" >&2
+  herdr server stop || true
+  for _ in $(seq 1 50); do
+    kill -0 "$pid" 2>/dev/null || break
+    sleep 0.2
+  done
+fi
+
 exec /usr/bin/perl -e '
   use POSIX ();
   my $pid = fork();

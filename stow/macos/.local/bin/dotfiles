@@ -578,7 +578,7 @@ cmd_doctor() {
   elif ps -Eww -o command= -p "$server_pid" | grep -q ' SSH_CONNECTION='; then
     if on_herdr_machine_host; then
       bad "herdr's server was started by a remote attach, so its panes can't reach the login keychain" \
-        "herdr server stop, and the LaunchAgent starts one in this login session"
+        "launchctl kickstart -k gui/$(id -u)/com.sogamoso.herdr-server, whose server takes its place"
     else
       bad "herdr's server was started over SSH, so its panes can't reach the login keychain" \
         "herdr server stop, then brew services start herdr"
