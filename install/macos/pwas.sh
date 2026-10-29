@@ -9,6 +9,7 @@ urls=()
 [[ ! -d "$CHROME_APPS/Audible.app" ]] && { names+=("Audible"); urls+=("https://www.audible.com/library"); }
 [[ ! -d "$CHROME_APPS/Gmail.app" ]] && { names+=("Gmail"); urls+=("https://mail.google.com"); }
 [[ ! -d "$CHROME_APPS/Google Calendar.app" ]] && { names+=("Google Calendar"); urls+=("https://calendar.google.com"); }
+[[ ! -d "$CHROME_APPS/Grok.app" ]] && { names+=("Grok"); urls+=("https://grok.com"); }
 [[ ! -d "$CHROME_APPS/X.app" ]] && { names+=("X"); urls+=("https://x.com"); }
 [[ ! -d "$CHROME_APPS/YouTube.app" ]] && { names+=("YouTube"); urls+=("https://youtube.com"); }
 
