@@ -125,7 +125,8 @@ cmd_reload() {
   for filter in aerospace-gap coderabbit; do
     run "$DOTFILES/install/dotfiles/$filter.sh"
   done
-  # Grok's theme is one key in a file Grok owns, so restowing doesn't set it.
+  # Grok's theme and auto mode are keys in a file Grok owns, so restowing
+  # doesn't set them.
   run "$DOTFILES/install/dotfiles/grok.sh"
   # Skills are linked, not stowed, so restowing doesn't pick up a new one, a
   # renamed category, or a dropped one. Cheap when nothing changed.
@@ -643,6 +644,21 @@ for entry in sys.argv[1:]:
     ok "Theme is Tokyo Night"
   else
     bad "Theme isn't Tokyo Night" "dotfiles reload"
+  fi
+  # A /settings change rewrites it, and a session would stop at every prompt
+  if grep -Eq '^permission_mode = "auto"$' "$HOME/.grok/config.toml" 2>/dev/null; then
+    ok "Auto mode by default"
+  else
+    bad "Auto mode isn't the default" "dotfiles reload"
+  fi
+
+  echo "==> Codex"
+  # Keys in Codex's own config, which it rewrites with its plugins
+  if grep -Eq '^approval_policy = "on-request"$' "$HOME/.codex/config.toml" 2>/dev/null &&
+    grep -Eq '^approvals_reviewer = "auto_review"$' "$HOME/.codex/config.toml" 2>/dev/null; then
+    ok "Auto-review by default"
+  else
+    bad "Auto-review isn't the default" "bash $DOTFILES/install/dotfiles/codex.sh"
   fi
 
   echo "==> Homebrew"
