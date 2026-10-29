@@ -751,14 +751,6 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
     bad "CleanShot has its own capture shortcuts again (${cs_set[*]})" \
       "bash $DOTFILES/install/macos/preferences.sh"
   fi
-  # The AeroSpace bindings open cleanshot:// URLs, which CleanShot drops unless
-  # this is on. A pass doesn't prove the URLs work — see preferences.sh.
-  if [[ $(defaults read pl.maketheweb.cleanshotx allowURLSchemesAPI 2>/dev/null) == "1" ]]; then
-    ok "URL scheme API setting is on (the stored value, not proof the URLs work)"
-  else
-    bad "URL scheme API setting is off, so the capture bindings may do nothing" \
-      "bash $DOTFILES/install/macos/preferences.sh"
-  fi
 
   echo "==> Grok"
   # One key in Grok's own config. reload puts it back if a /theme changed it.

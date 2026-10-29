@@ -71,12 +71,6 @@ else
   for key in LAVAtakeFullscreen LAVAtakeArea LAVAtakeAllInOne LAVAtakeOCR; do
     defaults delete pl.maketheweb.cleanshotx "$key" 2>/dev/null || true
   done
-  # Those bindings only work if CleanShot accepts cleanshot:// URLs from other
-  # apps, the Settings → Advanced → Allow URL scheme API toggle this key backs.
-  # On CleanShot 5 the key alone isn't the whole story: once the URLs worked they
-  # kept working with it false, and writing it true didn't revive them until the
-  # toggle was flipped, so docs/macos-manual-setup.md keeps that step.
-  defaults write pl.maketheweb.cleanshotx allowURLSchemesAPI -bool true
   if [[ $cleanshot_was_running == true ]]; then
     open -a "CleanShot X"
   fi
