@@ -296,8 +296,8 @@ agent_last_exit() {
     awk -F' = ' '/last exit code = / && !seen {print $2; seen=1}'
 }
 
-# A string value from a TOML file, by dotted key (ui.theme), or nothing when the
-# file, the key or the parse is missing
+# A string or boolean from a TOML file, by dotted key (ui.theme), or nothing
+# when the file, the key or the parse is missing. Booleans print as true/false.
 toml_value() {
   python3 -c '
 import sys, tomllib
@@ -307,7 +307,12 @@ except Exception:
     sys.exit()
 for key in sys.argv[2].split("."):
     value = value.get(key) if isinstance(value, dict) else None
-print(value if isinstance(value, str) else "")
+if isinstance(value, str):
+    print(value)
+elif isinstance(value, bool):
+    print("true" if value else "false")
+else:
+    print("")
 ' "$1" "$2" 2>/dev/null
 }
 
@@ -799,11 +804,13 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
   fi
 
   echo "==> Grok"
-  # One key in Grok's own config. reload puts it back if a /theme changed it.
-  if [[ "$(toml_value "$HOME/.grok/config.toml" ui.theme)" =~ ^(tokyonight|tokyo-night|tokyo)$ ]]; then
-    ok "Theme is Tokyo Night"
+  # Keys in Grok's own config. reload puts them back if a /theme changed them.
+  # The name stays hidden, and falls back to GrokNight, until the flag is on.
+  if [[ "$(toml_value "$HOME/.grok/config.toml" ui.theme)" =~ ^(terminal|terminal-default|transparent|native)$ &&
+    "$(toml_value "$HOME/.grok/config.toml" features.terminal_theme)" == "true" ]]; then
+    ok "Theme follows the terminal"
   else
-    bad "Theme isn't Tokyo Night" "dotfiles reload"
+    bad "Theme doesn't follow the terminal" "dotfiles reload"
   fi
   # A /settings change rewrites it, and a session would stop at every prompt.
   # Parsed rather than grepped, so a key under another table doesn't count.

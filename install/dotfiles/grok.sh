@@ -5,8 +5,11 @@ set -euo pipefail
 # the privacy acknowledgement, and Grok rewrites it. Omarchy themes an agent by
 # applying one setting and leaving the rest of the file alone, which is what
 # opencode.sh does. Grok's themes are built into the binary, so there is no
-# colors.toml template to render; the setting is the theme name. Tokyo Night is
-# the only theme here, and the one Omarchy ships as its default.
+# colors.toml template to render. The built-in Tokyo Night paints its own
+# canvas, so the pane sits on the terminal's Tokyo Night instead
+# (theme = "terminal"; transparent and native count). That name stays hidden,
+# and a configured value falls back to GrokNight, until features.terminal_theme
+# is on, so both are set.
 #
 # permission_mode = "auto" makes auto mode Grok's default, as Claude Code's
 # defaultMode = "auto" does there. Grok also reads that Claude setting, but
@@ -27,54 +30,66 @@ with open(path) as fh:
 if lines and not lines[-1].endswith("\n"):
     lines[-1] += "\n"
 
-# Each setting with the values that already count as it
+# section, key, the line to write, and raw values that already count as it.
+# The flag has to be a boolean: a quoted "true" would not enable the theme.
 wants = [
-    ("theme", "tokyonight", {"tokyonight", "tokyo-night", "tokyo"}),
-    ("permission_mode", "auto", {"auto"}),
+    ("features", "terminal_theme", "terminal_theme = true\n", {"true"}),
+    (
+        "ui",
+        "theme",
+        'theme = "terminal"\n',
+        {'"terminal"', '"terminal-default"', '"transparent"', '"native"'},
+    ),
+    ("ui", "permission_mode", 'permission_mode = "auto"\n', {'"auto"'}),
 ]
+
+
+def rhs(line):
+    return line.split("=", 1)[1].strip().split(" #", 1)[0].strip()
 
 
 def scan():
     section = None
-    ui_at = ui_end = None
+    spans = {}
     keys = {}
     for i, line in enumerate(lines):
         stripped = line.strip()
         if stripped.startswith("[["):
-            if section == "ui" and ui_end is None:
-                ui_end = i
+            if section in spans and spans[section][1] is None:
+                spans[section][1] = i
             section = None
             continue
         if stripped.startswith("[") and stripped.endswith("]"):
-            if section == "ui" and ui_end is None:
-                ui_end = i
+            if section in spans and spans[section][1] is None:
+                spans[section][1] = i
             section = stripped[1:-1].strip()
-            if section == "ui":
-                ui_at = i
+            spans.setdefault(section, [i, None])
             continue
-        if section == "ui":
-            keys[stripped.split("=", 1)[0].strip()] = i
-    return ui_at, ui_end, keys
+        if section is None or "=" not in stripped or stripped.startswith("#"):
+            continue
+        key = stripped.split("=", 1)[0].strip()
+        keys.setdefault((section, key), i)
+    return spans, keys
 
 
 changed = False
-for key, value, accepted in wants:
-    want = f'{key} = "{value}"\n'
-    ui_at, ui_end, keys = scan()
-    if key in keys:
-        current = lines[keys[key]].split("=", 1)[1].strip().strip("\"'")
-        if current in accepted:
+for section, key, want, accepted in wants:
+    spans, keys = scan()
+    found = keys.get((section, key))
+    if found is not None:
+        if rhs(lines[found]) in accepted:
             continue
-        lines[keys[key]] = want
-    elif ui_at is not None:
-        insert_at = ui_end if ui_end is not None else len(lines)
-        while insert_at > ui_at + 1 and lines[insert_at - 1].strip() == "":
+        lines[found] = want
+    elif section in spans:
+        header, end = spans[section]
+        insert_at = end if end is not None else len(lines)
+        while insert_at > header + 1 and lines[insert_at - 1].strip() == "":
             insert_at -= 1
         lines.insert(insert_at, want)
     else:
         if lines and lines[-1].strip():
             lines.append("\n")
-        lines.append("[ui]\n")
+        lines.append(f"[{section}]\n")
         lines.append(want)
     changed = True
 
