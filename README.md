@@ -297,6 +297,7 @@ Each opens in Vicinae.
 | `Option + Shift + /` | 1Password Quick Access (1Password's own shortcut, set in its settings) |
 | `Option + Shift + A` | Open Claude |
 | `Option + Shift + Y` | Open YouTube in Chrome |
+| `Option + P` | Pop the playing video out into picture-in-picture, or put it back (Chrome's Picture-in-Picture extension, set to global in its shortcuts) |
 | `Option + Shift + B` | New Chrome window |
 | `Option + Shift + W` | Open Typora |
 | `Option + Shift + X` | Open X |

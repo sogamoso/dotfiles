@@ -175,6 +175,21 @@ In CleanShot → Settings:
   With **Save** off nothing is written to the export location automatically. A capture lives in the clipboard and in CleanShot's own media folder, and reaches `Downloads` only when you save it from the Quick Access overlay. That keeps the folder clean at the cost of losing any capture you dismiss without saving.
 - **Quick Access → Behavior** → enable **Auto-close**, **Action** → **Close**, **Interval** → **2 minutes**
 
+### Chrome
+
+Picture-in-picture has no built-in key in Chrome, and no AeroSpace binding can
+supply one: a video only pops out from a gesture inside the page, so a script
+that focuses Chrome and asks for it is refused. Install Google's own
+**Picture-in-Picture Extension (by Google)** from the Chrome Web Store, then in
+`chrome://extensions/shortcuts` set its shortcut to `Option + P` and the scope
+to **Global**, so it works from any app while Chrome is running. One press pops
+the video playing in the active tab out, another puts it back. It's the
+companion to `Option + Shift + Y`, which opens YouTube as a Chrome tab for this.
+
+The extension stays a per-machine install: the only way to ship it from here is
+a managed Chrome policy, which puts a "managed by your organization" banner on
+every Chrome window.
+
 ### LanguageTool
 
 Nothing to assign. Its Correction and Paraphrasing shortcuts default to
