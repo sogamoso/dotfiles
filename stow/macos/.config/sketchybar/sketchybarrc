@@ -219,7 +219,7 @@ sketchybar --add item agents right \
     popup.background.border_color=$MUTED \
     script="$PLUGIN_DIR/agents.sh" \
   --subscribe agents mouse.clicked mouse.exited.global system_woke
-for agent in claude codex cursor grok; do
+for agent in claude codex cursor gemini grok; do
   sketchybar --add item "agents.$agent" popup.agents \
     --set "agents.$agent" \
       icon.font="$FONT:Bold:13.0" \

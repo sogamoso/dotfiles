@@ -14,7 +14,7 @@ source "${CONFIG_DIR:-$HOME/.config/sketchybar}/lib/agents.sh"
 
 CACHE="${TMPDIR:-/tmp}/dotfiles-agents"
 # Alphabetical, as Omarchy orders them
-AGENTS=("claude|Claude Code" "codex|Codex" "cursor|Cursor" "grok|Grok")
+AGENTS=("claude|Claude Code" "codex|Codex" "cursor|Cursor" "gemini|Gemini CLI" "grok|Grok")
 ROWS=4
 ALARM=90
 
