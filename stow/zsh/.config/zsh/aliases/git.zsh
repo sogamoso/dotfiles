@@ -84,7 +84,7 @@ gwrm() {
     root="${worktree%%--*}"
     branch="${worktree#*--}"
     if [[ "$root" != "$worktree" ]]; then
-      cd "../$root"
+      cd "../$root" || return 1
       git worktree remove "$cwd" --force || return 1
       git branch -D "$branch"
     fi
