@@ -125,7 +125,7 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles pull` | Git pull only |
 | `dotfiles brew` | Sync Brewfile via `brew bundle`, keep brew autoupdate current |
 | `dotfiles stow` | Re-stow all packages |
-| `dotfiles reload` | Re-stow, reapply the git filters and Grok's theme, relink skills, restart SketchyBar, sync the AeroSpace gap and reload AeroSpace, restart a stale herdr server, relink the herdr plugins and integrations, rebuild Neovim.app |
+| `dotfiles reload` | Re-stow, reapply the git filters and Grok's theme and auto mode, relink skills, restart SketchyBar, sync the AeroSpace gap and reload AeroSpace, restart a stale herdr server, relink the herdr plugins and integrations, rebuild Neovim.app |
 | `dotfiles status` | Branch, ahead/behind, dirty files |
 | `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, herdr plugins and service, stow links, 1Password, keyboard shortcuts, login items, GitHub CLI, mailto, Screen Sharing, Vicinae, LanguageTool, CleanShot, Grok's theme, brew autoupdate, the SketchyBar service) and print the fix for anything wrong. Also runs at the end of bootstrap and of `dotfiles update` |
 | `dotfiles vicinae [status \| save \| reset \| install]` | Compare Vicinae's settings and store extensions with the repo. `save` keeps what changed on this Mac (commit the result), `reset` drops it, `install` only adds the extensions in the repo that aren't installed yet |
@@ -145,9 +145,9 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `coderabbit.sh` | Configures git filter to strip Coderabbit config from `.gitconfig` |
 | `aerospace-gap.sh` | Configures git filter to pin the sketchybar-rewritten `outer.top` gap |
 | `claude-code.sh` | Installs Claude Code marketplaces, plugins, and configures claude-hud |
-| `codex.sh` | Installs the third-party Codex marketplaces and plugins |
+| `codex.sh` | Makes auto-review Codex's default approval mode in `~/.codex/config.toml`, and installs the third-party Codex marketplaces and plugins |
 | `opencode.sh` | Sets OpenCode to follow the terminal theme and leave updates to mise, as Omarchy does, without stowing a config that holds secrets |
-| `grok.sh` | Sets Grok's theme to Tokyo Night in `~/.grok/config.toml`, and leaves the rest of that file to Grok |
+| `grok.sh` | Sets Grok's theme to Tokyo Night and its default permission mode to auto in `~/.grok/config.toml`, and leaves the rest of that file to Grok |
 | `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server with Claude Code and Codex, and caches its token where the shells can export it |
 | `skills.sh` | Installs the agent skills, as plugins where a source is packaged for them and linked into `~/.claude/skills` and `~/.codex/skills` otherwise — see [Skills](#skills) |
 | `herdr-plugins.sh` | Installs the pinned third-party herdr plugins and links the ones in `herdr-plugins/` — see [herdr plugins](#herdr-plugins) |
@@ -522,6 +522,7 @@ The Linux setup (`install/linux/all.sh`) runs these scripts in order:
 | Theme | Stock `tokyo-night`; Omarchy already ships it and the colors match |
 | Terminal | Ghostty, as on macOS, instead of Omarchy's default foot. Set with Omarchy's own `omarchy-default-terminal`, so Super + Return and every other terminal launch follow it; its config is Omarchy's |
 | Bar, menu, notifications | Omarchy stock — nothing ported |
+| Agent permissions | Departs from Omarchy on purpose. Omarchy picks the mode in its launchers only (`claude --permission-mode auto`, `codex --approve-for-me` and the like, in `omarchy-agent` and the `cx` alias), so an agent started any other way, such as herdr resuming one after a restart, asks before every action. Here each agent defaults to it in its own config as well: `defaultMode = "auto"` in the stowed Claude Code settings, auto-review for Codex and `permission_mode = "auto"` for Grok, set by their scripts. The launcher flags still match Omarchy's |
 | herdr | Omarchy's config, plus the agent and plugin keys and the pull request status added by an Omarchy `post-update.d` hook, so they come back if an update replaces the file. The status command joins Omarchy's own `tab_bar_right` line; the hook warns if that line changes. The keys match the macOS ones. The [herdr plugins](#herdr-plugins) and the `herdr` stow package are the same as on macOS |
 
 #### Binding deltas
