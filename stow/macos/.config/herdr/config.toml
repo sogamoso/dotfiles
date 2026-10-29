@@ -81,6 +81,13 @@ description = "open this branch's pull request in terminal-browser"
 width = "90%"
 height = "90%"
 
+# The same in the default browser, where GitHub has a session
+[[keys.command]]
+key = "prefix+shift+b"
+type = "popup"
+command = "\"$HOME/.config/herdr/scripts/pr-open.sh\" --browser"
+description = "open this branch's pull request in the browser"
+
 [theme]
 name = "tokyo-night"
 
