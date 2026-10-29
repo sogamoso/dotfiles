@@ -11,12 +11,12 @@ usage() {
 Usage: dotfiles <command>
 
 Commands:
-  update    Pull, sync Brewfile, restow, reload services, update mise tools,
-            then run doctor
-  pull      Git pull only
+  update    Pull, sync Brewfile, restow, reload services, install Vicinae
+            extensions added elsewhere, update mise tools, then run doctor
+  pull      Fetch and fast-forward only, never a rebase
   brew      Sync Brewfile, keep brew autoupdate current
   stow      Re-stow all dotfile packages
-  reload    Re-stow, relink skills and herdr plugins, restart SketchyBar,
+  reload    Re-stow, relink skills and herdr plugins, reload SketchyBar,
             reload AeroSpace (the README lists every step)
   status    Show repo state (branch, ahead/behind, dirty files)
   doctor    Check this Mac's setup and print the fix for anything wrong
@@ -26,7 +26,8 @@ Commands:
             adds the repo's missing extensions
   omarchy-downstream-candidates [--list | --classification | --mark-reviewed]
             Review Omarchy changes worth porting, with the default agent;
-            --list prints the raw changes, --mark-reviewed records the review
+            --list prints the raw changes, --classification only the
+            classification checks, --mark-reviewed records the review
   agent [<name> | run [--pick] [--prompt <text>]]
             Show or set the default coding agent, like omarchy default agent;
             run launches it the way omarchy-agent does (the a alias), and
