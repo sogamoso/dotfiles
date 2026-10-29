@@ -866,8 +866,18 @@ agent_pick() {
     command -v "$agent" >/dev/null && installed+="$agent"$'\n'
   done
 
+  # 1 when the choice is dismissed, 2 when there's nothing to choose with
+  if [[ -z $installed ]]; then
+    echo "No coding agent is installed" >&2
+    return 2
+  fi
+  if ! command -v gum >/dev/null; then
+    echo "gum isn't installed, so there's no picker: dotfiles agent <name> sets one" >&2
+    return 2
+  fi
   agent=$(printf '%s' "$installed" | gum choose --header "Default agent") || return 1
-  cmd_agent "$agent" >/dev/null && echo "$agent"
+  cmd_agent "$agent" >/dev/null || return 2
+  echo "$agent"
 }
 
 agent_run() {
@@ -890,7 +900,15 @@ agent_run() {
   if [[ -z ${agent:-} ]]; then
     # The keybinding passes --pick: a keypress that opens nothing explains nothing
     if $pick; then
-      agent=$(agent_pick) || exit 0
+      local picked=0
+      agent=$(agent_pick) || picked=$?
+      if (( picked == 1 )); then
+        exit 0
+      elif (( picked )); then
+        # The window closes with this script, so hold it until the error is read
+        read -rsn1 -p "Press any key to close" || true
+        exit 1
+      fi
     else
       echo "Choose a default agent with: dotfiles agent <name>" >&2
       exit 1
