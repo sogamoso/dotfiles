@@ -300,7 +300,7 @@ Each opens in Vicinae.
 | Hotkey | Action |
 |---|---|
 | `Option + Enter` | New Ghostty window |
-| `Option + Grave` | Quick terminal: Ghostty's drop-down console, under Esc (toggle) |
+| `Option + Grave` | Quick terminal: Ghostty's drop-down console, under Esc (toggle). A fresh console starts the default agent (`dotfiles agent`) in `~/Work`, as Omarchy's Quake console does; when the agent exits the console closes, and the next toggle starts another |
 | `Option + Shift + Enter` | New Chrome window |
 | `Option + Shift + N` | Neovim in a new Ghostty window |
 | `Option + Shift + C` | Open Google Calendar |

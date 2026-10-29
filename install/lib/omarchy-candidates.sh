@@ -30,6 +30,7 @@ OMARCHY_STATE_FILE="${OMARCHY_STATE_FILE:-$DOTFILES/.omarchy-reviewed}"
 OMARCHY_PARITY_PATHS=(
   default/hypr/bindings.lua
   default/hypr/bindings
+  default/hypr/qconsole.lua
   default/bash
   default/bashrc
   default/themed
