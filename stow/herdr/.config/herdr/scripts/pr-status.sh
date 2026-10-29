@@ -49,7 +49,7 @@ while IFS=$'\t' read -r pane dir; do
         (.__typename == "CheckRun" and .status != "COMPLETED")
         or ((.state // "") | IN("PENDING", "EXPECTED")));
       [.[] | select(.headRefName == $branch)][0] // empty
-      | ["#\(.number) " + (
+      | ["PR #\(.number) (" + (
           if failed then "blocked: checks failed"
           elif .mergeable == "CONFLICTING" then "blocked: conflict"
           elif .reviewDecision == "CHANGES_REQUESTED" then "blocked: changes requested"
@@ -58,7 +58,7 @@ while IFS=$'\t' read -r pane dir; do
           elif .isDraft then "running: draft"
           elif .reviewDecision == "REVIEW_REQUIRED" or .mergeStateStatus == "BLOCKED" then "running: review"
           elif .mergeable == "UNKNOWN" or .mergeStateStatus == "UNKNOWN" then "running: checking"
-          else "passed" end), .url] | @tsv' "$cache" 2>/dev/null)
+          else "passed" end) + ")", .url] | @tsv' "$cache" 2>/dev/null)
   fi
 
   # The TTL clears tokens this script stops refreshing, should it stop running
