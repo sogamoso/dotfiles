@@ -651,6 +651,19 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
     bad "Not Fliqlo on every display" "System Settings → Wallpaper → Screen Saver → Fliqlo"
   fi
 
+  echo "==> Web apps"
+  source "$DOTFILES/install/lib/pwas.sh"
+  local pwa missing_pwas=()
+  for pwa in "${PWAS[@]}"; do
+    [[ -d "$CHROME_APPS/${pwa%%|*}.app" ]] || missing_pwas+=("${pwa%%|*}")
+  done
+  if (( ${#missing_pwas[@]} )); then
+    bad "Not installed: $(printf '%s, ' "${missing_pwas[@]}" | sed 's/, $//')" \
+      "bash $DOTFILES/install/macos/pwas.sh"
+  else
+    ok "All ${#PWAS[@]} installed"
+  fi
+
   echo "==> Login items"
   # Without one its feature just doesn't start: no MacWhisper, no dictation
   source "$DOTFILES/install/lib/login-items.sh"

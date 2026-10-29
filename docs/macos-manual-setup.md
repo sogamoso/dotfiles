@@ -420,7 +420,20 @@ networksetup -setdnsservers Wi-Fi 1.1.1.1 9.9.9.9
 Until then `dotfiles doctor`, the daily run included, reports the service as
 not pinned, which doubles as the reminder.
 
-## 17. Confirm the setup with `dotfiles doctor`
+## 17. Install the web apps
+
+Chrome installs a web app only by hand. Bootstrap runs `install/macos/pwas.sh`,
+which opens each one not yet installed (the list is in `install/lib/pwas.sh`).
+For each:
+
+1. On its tab: ⋮ → Cast, save, and share → Install page as app.
+2. In the `chrome://apps/` tab it also opens, right-click the app, tick
+   **Open as window**, and set **Opening supported links** to open in the app.
+
+Run `bash install/macos/pwas.sh` again for any added later or uninstalled;
+`dotfiles doctor` names the missing ones.
+
+## 18. Confirm the setup with `dotfiles doctor`
 
 Bootstrap ends by running it, so its list of problems is the manual steps still
 left. Once the steps above are done, run it again:

@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
-
-CHROME_APPS="$HOME/Applications/Chrome Apps.localized"
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/pwas.sh"
 
 names=()
 urls=()
-[[ ! -d "$CHROME_APPS/Audible.app" ]] && { names+=("Audible"); urls+=("https://www.audible.com/library"); }
-[[ ! -d "$CHROME_APPS/Gmail.app" ]] && { names+=("Gmail"); urls+=("https://mail.google.com"); }
-[[ ! -d "$CHROME_APPS/Google Calendar.app" ]] && { names+=("Google Calendar"); urls+=("https://calendar.google.com"); }
-[[ ! -d "$CHROME_APPS/Grok.app" ]] && { names+=("Grok"); urls+=("https://grok.com"); }
-[[ ! -d "$CHROME_APPS/X.app" ]] && { names+=("X"); urls+=("https://x.com"); }
-[[ ! -d "$CHROME_APPS/YouTube.app" ]] && { names+=("YouTube"); urls+=("https://youtube.com"); }
+for pwa in "${PWAS[@]}"; do
+  [[ -d "$CHROME_APPS/${pwa%%|*}.app" ]] && continue
+  names+=("${pwa%%|*}")
+  urls+=("${pwa#*|}")
+done
 
 if (( ${#urls[@]} )); then
   log_heading "Installing PWAs..."
