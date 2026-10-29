@@ -4,6 +4,9 @@
     "pr": "",
     "sessionUrl": false
   },
+  "permissions": {
+    "defaultMode": "auto"
+  },
   "hooks": {
     "SessionStart": [
       {
