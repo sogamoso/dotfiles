@@ -612,9 +612,12 @@ def configs(o):
         for v in o.values():
             yield from configs(v)
 store = plistlib.load(open(sys.argv[1], "rb"))
-print(all(b"Fliqlo.saver" in c for c in configs(store)))
+found = list(configs(store))
+print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
 ' "$HOME/Library/Application Support/com.apple.wallpaper/Store/Index.plist" 2>&1); then
     bad "Couldn't read the screen saver choice: $(tail -1 <<<"$saver_out")"
+  elif [[ $saver_out == "none" ]]; then
+    ok "Not checked: no screen saver choice found where macOS kept it"
   elif [[ $saver_out == "True" ]]; then
     ok "Fliqlo"
   else
