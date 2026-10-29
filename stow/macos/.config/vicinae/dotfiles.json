@@ -255,6 +255,11 @@
         "terminalFocusBehavior": "open",
         "closeAfterPrompt": true,
         "showIdleInMenuBar": true
+      },
+      "entrypoints": {
+        "open-herdr": {
+          "alias": "herdr"
+        }
       }
     },
     "clipboard": {
@@ -339,6 +344,16 @@
       "entrypoints": {
         "switch-windows": {
           "enabled": true
+        }
+      }
+    },
+    "applications": {
+      "entrypoints": {
+        "com.sogamoso.neovim": {
+          "alias": "neovin,nvim,vim"
+        },
+        "dev.zed.Zed": {
+          "alias": "zed"
         }
       }
     }
