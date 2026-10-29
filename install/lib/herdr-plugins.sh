@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Sourced by install/dotfiles/herdr-plugins.sh, herdr-integrations.sh,
-# herdr-machines.sh and `dotfiles doctor` — never run directly.
+# herdr-machines.sh, install/macos/tailscale.sh and `dotfiles doctor` — never
+# run directly.
 
 # Third-party herdr plugins, one per line: plugin id, GitHub source, pinned commit.
 # The worktree plugin creates worktrees from a pull request, an issue or a
@@ -24,7 +25,7 @@ HERDR_MACHINE_HOST="sogamoso-m4-mac-mini"
 # machines (https://github.com/herdrdev/herdr/issues/4205), so the mini runs
 # herdr's own background server instead of the brew service every other Mac
 # keeps. `dotfiles doctor` says when the issue closes: then drop the
-# on_herdr_machine_host branches in brew.sh, `dotfiles reload` and doctor.
+# on_herdr_machine_host branches in tailscale.sh, `dotfiles reload` and doctor.
 HERDR_LAUNCHD_ISSUE=4205
 
 # True on the mini itself, by its Tailscale name

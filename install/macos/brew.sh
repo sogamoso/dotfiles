@@ -36,13 +36,6 @@ else
   log_success "All installed packages are in the Brewfile"
 fi
 
-# herdr runs as a login-persistent background service (idempotent if already
-# started), except on the Mac mini: see HERDR_LAUNCHD_ISSUE
-source "$REPO_DIR/install/lib/herdr-plugins.sh"
-if ! on_herdr_machine_host; then
-  brew services start herdr
-fi
-
 # Don't let a failure here abort the run — all.sh aborts with it, skipping
 # every later install script.
 source "$REPO_DIR/install/lib/brew-autoupdate.sh"

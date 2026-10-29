@@ -184,7 +184,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `mailto.sh` | Builds the Gmail `mailto:` handler and sets it as the system default |
 | `sketchybar.sh` | Configures SketchyBar status bar |
 | `~/.config/dotfiles/firewall.sh` | Lets the current `tailscaled` and `mosh-server` through the macOS firewall and restarts a `tailscaled` left on an old binary. Upgrades re-block them, so `--install` adds a root LaunchDaemon (`com.sogamoso.firewall-sync`) that does this after every Homebrew upgrade, running a root-owned copy from `/usr/local/libexec/dotfiles`. A daily user-level `--check` (`com.sogamoso.firewall-check`) notifies if that ever fails |
-| `tailscale.sh` | Starts Tailscale and turns on Tailscale SSH, waiting up to 5 minutes for the browser sign-in on a new machine |
+| `tailscale.sh` | Starts Tailscale and turns on Tailscale SSH, waiting up to 5 minutes for the browser sign-in on a new machine, then starts the herdr brew service on every Mac but the mini |
 | `aerospace.sh` | Starts AeroSpace on the first bootstrap, and prints the workspace layout |
 | `vicinae.sh` | Points Vicinae's `settings.json` at the stowed `dotfiles.json`, installs the store extensions in `extensions.txt`, then launches it |
 | `neovim.sh` | Builds `~/Applications/Neovim.app`, which opens files in Neovim in a new Ghostty window, and makes it the default for text and code file types (via `duti`) |
