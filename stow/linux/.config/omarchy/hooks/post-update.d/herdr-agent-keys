@@ -120,7 +120,7 @@ if grep -qxF '[ui.sidebar.spaces]' "$config"; then
   awk '
     $0 == "[ui.sidebar.spaces]" { print "[ui.sidebar.agents]"; block = 1; next }
     block && $0 == "  [\"state_icon\", \"workspace\"]," { print "  [\"state_icon\", \"machine\", \"workspace\", \"tab\"],"; next }
-    block && $0 == "  [\"branch\", \"git_status\"]," { print "  [\"agent\"],"; next }
+    block && $0 == "  [\"branch\", \"git_status\"]," { print "  [\"$repo\", \"agent\"],"; next }
     block && index($0, "token = \"$pr\"") { print; print "  [\"$pr_url\"],"; next }
     block && $0 == "]" { block = 0 }
     { print }
@@ -137,7 +137,7 @@ if ! grep -qxF "$pr_marker" "$config"; then
 [ui.sidebar.agents]
 rows = [
   ["state_icon", "machine", "workspace", "tab"],
-  ["agent"],
+  ["$repo", "agent"],
   [{ token = "$pr", rules = [{ contains = "blocked", fg = "#f7768e", bold = true }, { contains = "running", fg = "#ff9e64" }, { contains = "passed", fg = "#9ece6a" }] }],
   ["$pr_url"],
 ]
@@ -165,6 +165,21 @@ type = "popup"
 command = "\"$HOME/.config/herdr/scripts/pr-open.sh\" --browser"
 description = "open this branch's pull request in the browser"
 KEYS
+  changed=true
+fi
+
+# The agent row used to carry only the agent's name; now the repo a worktree
+# session belongs to goes in front of it
+old_agent_row='  ["agent"],'
+new_agent_row='  ["$repo", "agent"],'
+if grep -qxF "$old_agent_row" "$config"; then
+  tmp=$(mktemp)
+  old="$old_agent_row" new="$new_agent_row" awk '
+    $0 == ENVIRON["old"] { print ENVIRON["new"]; next }
+    { print }
+  ' "$config" >"$tmp"
+  cat "$tmp" >"$config"
+  rm -f "$tmp"
   changed=true
 fi
 

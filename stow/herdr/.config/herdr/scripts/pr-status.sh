@@ -2,7 +2,9 @@
 # Pull request status for herdr. Every agent pane whose branch has an open pull
 # request gets $pr and $pr_url tokens for its row in the sidebar's agent panel,
 # so the pull request shows only on the tab of the session that opened it, with
-# a link. A branch with several open pull requests (one per base) lists them
+# a link. The same pass gives each pane in a worktree a $repo token, the name of
+# the checkout its worktree hangs off: the spaces panel nests worktrees under
+# their repo, the agent panel doesn't. A branch with several open pull requests (one per base) lists them
 # all, newest first, as "PR #6 (passed), PR #9 (running: review)". The config
 # colours $pr by its status, the worst one when there are several:
 #
@@ -31,6 +33,10 @@ jq -r '.result.panes[] | select(.agent != null)
 while IFS=$'\t' read -r pane dir; do
   status=""
   url=""
+  repo=""
+  git_dir=$(git -C "$dir" rev-parse --path-format=absolute --git-dir 2>/dev/null)
+  common_dir=$(git -C "$dir" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
+  [[ -n $git_dir && $git_dir != "$common_dir" ]] && repo=$(basename "$(dirname "$common_dir")")
   branch=$(git -C "$dir" branch --show-current 2>/dev/null)
   default=$(git -C "$dir" symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null)
   remote=$(git -C "$dir" config --get remote.origin.url 2>/dev/null)
@@ -65,6 +71,12 @@ while IFS=$'\t' read -r pane dir; do
   fi
 
   # The TTL clears tokens this script stops refreshing, should it stop running
+  if [[ -n $repo ]]; then
+    "$herdr" pane report-metadata "$pane" --source "$source" \
+      --token "repo=$repo" --ttl-ms 120000 >/dev/null 2>&1
+  else
+    "$herdr" pane report-metadata "$pane" --source "$source" --clear-token repo >/dev/null 2>&1
+  fi
   if [[ -n $status ]]; then
     "$herdr" pane report-metadata "$pane" --source "$source" \
       --token "pr=$status" --token "pr_url=$url" --ttl-ms 120000 >/dev/null 2>&1
