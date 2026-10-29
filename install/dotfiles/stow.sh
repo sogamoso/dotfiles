@@ -20,6 +20,8 @@ mkdir -p "$HOME/.ssh"
 # two agents, so skills.sh links them and handles what ui.sh leaves behind. The
 # herdr worktree plugin writes its example config on first use.
 take_ownership \
+  "$HOME/.config/agents/AGENTS.md" \
+  "$HOME/.claude/CLAUDE.md" \
   "$HOME/.claude/keybindings.json" \
   "$HOME/.claude/settings.json" \
   "$HOME/.codex/AGENTS.md" \

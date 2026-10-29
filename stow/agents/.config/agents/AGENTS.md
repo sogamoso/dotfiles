@@ -1,8 +1,23 @@
 # Global instructions
 
-Read by Claude Code as `~/.claude/CLAUDE.md`, by Codex as `~/.codex/AGENTS.md` and
-by Grok as `~/.grok/AGENTS.md` — the codex and grok packages symlink back to this
-file. Keep the contents agent neutral.
+Shared instructions live in `~/.config/agents/AGENTS.md`. Claude Code loads it through
+`~/.claude/CLAUDE.md`; `~/.codex/AGENTS.md` and `~/.grok/AGENTS.md` symlink to it.
+Keep the contents agent neutral.
+
+## Delegation and model selection
+
+Delegate independent tasks when doing so materially improves speed or quality.
+Keep short tasks and dependent steps in the main agent, and coordinate edits so
+agents do not overwrite each other's work.
+
+When the runtime permits model selection, choose from the models it currently
+exposes using their capability descriptions, without hardcoding model names in
+instructions. Use the strongest reasoning model for architecture, difficult
+debugging and critical reviews; a capable general model for implementation; and
+a fast, efficient model for bounded searches and mechanical work. Escalate to a
+more capable model when results are uncertain. If model selection is unavailable,
+inherit the parent model. Use the selected model's default reasoning effort unless
+the task warrants an adjustment.
 
 ## Commits
 

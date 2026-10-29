@@ -16,11 +16,10 @@ Each folder under `stow/` is a stow package. Running `stow --target $HOME --rest
 
 ```
 stow/
+  agents/                  # Shared AGENTS.md and Claude Code, Codex, and Grok entry points
   claude/                  # Claude Code settings, keybindings, and status line
-  codex/                   # Codex AGENTS.md (points at the Claude Code instructions)
   editorconfig/            # .editorconfig
   git/                     # .gitconfig, global .gitignore, SSH allowed signers
-  grok/                    # Grok AGENTS.md (points at the Claude Code instructions)
   herdr/                   # Third-party herdr plugin config and the pull request status scripts (herdr's own config is per OS)
   linux/                   # Omarchy-only configs (stowed only on Linux)
   macos/                   # macOS-only configs (stowed only on Darwin)
