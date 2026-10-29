@@ -172,7 +172,12 @@ defaults write com.apple.screensaver askForPasswordDelay -int 0
 # Display sleep: 30 min idle
 sudo pmset -a displaysleep 30
 
-if system_profiler SPHardwareDataType 2>/dev/null | grep -q "Mac mini"; then
+# Read once into a variable: grep -q in a pipe can quit before system_profiler
+# finishes writing, and pipefail would then read the Mac mini as a laptop
+is_mac_mini=false
+[[ $(system_profiler SPHardwareDataType 2>/dev/null) == *"Mac mini"* ]] && is_mac_mini=true
+
+if $is_mac_mini; then
   # Mac mini: never sleep (desktop, always on AC), restart after power failure
   sudo pmset -a sleep 0 disksleep 0 autorestart 1
 else
@@ -186,18 +191,30 @@ killall Dock 2>/dev/null || true
 # Stow puts the plists in ~/Library/LaunchAgents on every Mac and launchd loads
 # that folder at each login, so the Mac mini has to disable them outright:
 # launchctl disable persists, and launchd then skips them despite the plists.
+# Reload a LaunchAgent from its stowed plist. Enabled first, since bootstrap
+# refuses a disabled service. bootout can return before launchd has torn the
+# job down, and a bootstrap that lands in that window fails (often as "5:
+# Input/output error"), so it gets a few tries before failing the script.
+reload_agent() {
+  local label=$1 plist="$HOME/Library/LaunchAgents/$1.plist" try
+  launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
+  launchctl enable "gui/$(id -u)/$label"
+  for try in 1 2 3 4 5; do
+    launchctl bootstrap "gui/$(id -u)" "$plist" 2>/dev/null && return 0
+    sleep 1
+  done
+  launchctl bootstrap "gui/$(id -u)" "$plist"
+}
+
 workhours_labels=(com.sogamoso.workhours.caffeinate-run com.sogamoso.workhours.caffeinate-watch com.sogamoso.workhours.sleep-if-idle)
-if system_profiler SPHardwareDataType 2>/dev/null | grep -q "Mac mini"; then
+if $is_mac_mini; then
   for label in "${workhours_labels[@]}"; do
     launchctl bootout "gui/$(id -u)/$label" 2>/dev/null || true
     launchctl disable "gui/$(id -u)/$label"
   done
 else
   for label in "${workhours_labels[@]}"; do
-    plist="$HOME/Library/LaunchAgents/$label.plist"
-    launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
-    launchctl enable "gui/$(id -u)/$label"
-    launchctl bootstrap "gui/$(id -u)" "$plist"
+    reload_agent "$label"
   done
 fi
 
@@ -206,10 +223,7 @@ fi
 # dotfiles update and doctor daily, notifying the result, and upgrade the mise
 # coding agents every four hours
 for label in com.sogamoso.keyboard.remap com.sogamoso.firewall-check com.sogamoso.dotfiles-daily com.sogamoso.agents-update; do
-  plist="$HOME/Library/LaunchAgents/$label.plist"
-  launchctl bootout "gui/$(id -u)" "$plist" 2>/dev/null || true
-  launchctl bootstrap "gui/$(id -u)" "$plist"
-  launchctl enable "gui/$(id -u)/$label"
+  reload_agent "$label"
 done
 
 log_success "macOS preferences set"
