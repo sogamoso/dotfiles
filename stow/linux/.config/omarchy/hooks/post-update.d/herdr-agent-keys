@@ -144,29 +144,32 @@ rows = [
 
 [[keys.command]]
 key = "prefix+shift+u"
-type = "pane"
+type = "shell"
 command = "\"$HOME/.config/herdr/scripts/pr-open.sh\""
 description = "open this branch's pull request in terminal-browser"
 KEYS
   changed=true
 fi
 
-# The terminal-browser key used to run in a near full-screen popup, where
-# terminal-browser drew nothing: it draws in the herdr pane named by
-# HERDR_PANE_ID, which a popup doesn't have. A temporary pane has one, and
-# needs no size, so configs from then lose the popup type and the size.
-if grep -qxF 'key = "prefix+shift+u"' "$config" && grep -qxF 'width = "90%"' "$config"; then
+# Both pull request keys used to be popups, and the terminal-browser one then
+# a temporary pane; a popup has no herdr pane for terminal-browser to draw in,
+# and herdr's temporary pane is zoomed, which paints blank (herdr#3877). Both
+# now run detached and the script splits a pane itself, so configs from before
+# lose the old type and the popup size.
+if grep -qxF 'key = "prefix+shift+u"' "$config" || grep -qxF 'key = "prefix+shift+b"' "$config"; then
   tmp=$(mktemp)
   awk '
-    $0 == "key = \"prefix+shift+u\"" { block = 1 }
-    block && $0 == "type = \"popup\"" { print "type = \"pane\""; next }
+    /^key = "prefix\+shift\+[ub]"$/ { block = 1 }
+    block && ($0 == "type = \"popup\"" || $0 == "type = \"pane\"") { print "type = \"shell\""; next }
     block && ($0 == "width = \"90%\"" || $0 == "height = \"90%\"") { next }
-    $0 == "" || /^\[\[/ { if ($0 == "" || $0 != "key = \"prefix+shift+u\"") block = 0 }
+    $0 == "" { block = 0 }
     { print }
   ' "$config" >"$tmp"
-  cat "$tmp" >"$config"
+  if ! cmp -s "$tmp" "$config"; then
+    cat "$tmp" >"$config"
+    changed=true
+  fi
   rm -f "$tmp"
-  changed=true
 fi
 
 # Its own marker, so configs that already have the status get it
@@ -177,7 +180,7 @@ if ! grep -qxF "$browser_marker" "$config"; then
 # dotfiles: pull request in the browser
 [[keys.command]]
 key = "prefix+shift+b"
-type = "popup"
+type = "shell"
 command = "\"$HOME/.config/herdr/scripts/pr-open.sh\" --browser"
 description = "open this branch's pull request in the browser"
 KEYS

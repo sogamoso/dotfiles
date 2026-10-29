@@ -71,20 +71,21 @@ type = "plugin_action"
 command = "worktree.create"
 description = "worktree from a pull request, issue or branch"
 
-# The focused pane's pull request in terminal-browser, in a temporary pane
-# split off the focused one, which closes with it (Ctrl+Q). A pane, not a
-# popup: terminal-browser draws in the herdr pane named by HERDR_PANE_ID, which
-# a popup doesn't have, so there it showed nothing.
+# The focused pane's pull request in terminal-browser, in a pane the script
+# splits off the focused one, which closes with it (Ctrl+Q). Detached, not a
+# popup or a temporary pane: terminal-browser draws in a herdr pane, a popup
+# has none, and herdr's temporary pane is zoomed, which paints blank
+# (herdr#3877). A branch with no pull request gets a toast instead.
 [[keys.command]]
 key = "prefix+shift+u"
-type = "pane"
+type = "shell"
 command = "\"$HOME/.config/herdr/scripts/pr-open.sh\""
 description = "open this branch's pull request in terminal-browser"
 
 # The same in the default browser, where GitHub has a session
 [[keys.command]]
 key = "prefix+shift+b"
-type = "popup"
+type = "shell"
 command = "\"$HOME/.config/herdr/scripts/pr-open.sh\" --browser"
 description = "open this branch's pull request in the browser"
 
