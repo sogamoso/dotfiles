@@ -27,9 +27,10 @@ Commands:
   omarchy-downstream-candidates [--list | --classification | --mark-reviewed]
             Review Omarchy changes worth porting, with the default agent;
             --list prints the raw changes, --mark-reviewed records the review
-  agent [<name> | run [--prompt <text>]]
+  agent [<name> | run [--pick] [--prompt <text>]]
             Show or set the default coding agent, like omarchy default agent;
-            run launches it the way omarchy-agent does (the a alias)
+            run launches it the way omarchy-agent does (the a alias), and
+            --pick asks for one when none is set
   edit      Open the repo in \$VISUAL (defaults to nvim)
   help      Show this message
 EOF
@@ -713,15 +714,42 @@ agent_name() {
   esac
 }
 
+# Ask which installed agent to make the default, and print it
+agent_pick() {
+  local agent installed=""
+  for agent in claude codex opencode cursor-agent agy amp copilot crush grok kilo kimi mcode muse omp ori pi qwen dsh freebuff commandcode; do
+    command -v "$agent" >/dev/null && installed+="$agent"$'\n'
+  done
+
+  agent=$(printf '%s' "$installed" | gum choose --header "Default agent") || return 1
+  cmd_agent "$agent" >/dev/null && echo "$agent"
+}
+
 agent_run() {
-  local agent prompt="" clipboard=false
+  local agent prompt="" pick=false clipboard=false
   local -a command
 
-  [[ ${1:-} == "--prompt" ]] && prompt=${2:?--prompt needs a value}
+  while (( $# )); do
+    case "$1" in
+      --pick) pick=true; shift ;;
+      --prompt) prompt=${2:?--prompt needs a value}; shift 2 ;;
+      *) echo "Unexpected argument: $1" >&2; exit 64 ;;
+    esac
+  done
+
+  # Agents won't remember trust for $HOME, so a launch from there, as from the
+  # keybinding, starts in ~/Work, as omarchy-agent does
+  [[ $PWD == "$HOME" && -d $HOME/Work ]] && cd "$HOME/Work"
+
   [[ -f $AGENT_FILE ]] && read -r agent <"$AGENT_FILE"
   if [[ -z ${agent:-} ]]; then
-    echo "Choose a default agent with: dotfiles agent <name>" >&2
-    exit 1
+    # The keybinding passes --pick: a keypress that opens nothing explains nothing
+    if $pick; then
+      agent=$(agent_pick) || exit 0
+    else
+      echo "Choose a default agent with: dotfiles agent <name>" >&2
+      exit 1
+    fi
   fi
 
   case "$agent" in

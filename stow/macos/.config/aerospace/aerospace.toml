@@ -150,6 +150,7 @@ alt-shift-x     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh X'
 alt-shift-q     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh com.apple.calculator' # Omarchy: SUPER+SHIFT+Q → calculator
 alt-shift-cmd-x = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh X https://x.com/compose/post' # Omarchy: SUPER+SHIFT+ALT+X → X post
 alt-shift-cmd-a = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --here ChatGPT' # SUPER+SHIFT+ALT+A → ChatGPT (Omarchy: Grok)
+alt-ctrl-shift-a = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e /bin/zsh -lic "dotfiles agent run --pick"' # Omarchy: SUPER+SHIFT+CTRL+A → default agent (picks one if none is set)
 alt-cmd-enter   = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new Ghostty --args -e tmux new-session -A -s main' # ALT+RETURN → Ghostty+tmux
 alt-shift-cmd-b = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new "Google Chrome" --args --incognito' # ALT+SHIFT+B → Chrome incognito
 

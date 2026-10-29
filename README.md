@@ -304,6 +304,7 @@ Each opens in Vicinae.
 | `Option + Shift + Cmd + X` | New X post |
 | `Option + Shift + Cmd + A` | Open ChatGPT |
 | `Option + Shift + Cmd + B` | Chrome incognito |
+| `Option + Shift + Ctrl + A` | Default coding agent in a new Ghostty window, from `~/Work`; asks for one if none is set |
 | `Option + Cmd + Enter` | Ghostty + tmux session |
 
 ##### System controls
