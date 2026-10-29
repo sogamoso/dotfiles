@@ -180,7 +180,7 @@ else
   sudo pmset repeat wakeorpoweron MTWRF 08:00:00
 fi
 
-killall Dock
+killall Dock 2>/dev/null || true
 
 # Work hours agents run on laptops only; the Mac mini stays awake via pmset.
 # Stow puts the plists in ~/Library/LaunchAgents on every Mac and launchd loads
