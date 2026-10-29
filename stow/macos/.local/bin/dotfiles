@@ -103,6 +103,7 @@ cmd_brew() {
   local bundle_args=(--file="$DOTFILES/Brewfile")
   [[ -n ${DOTFILES_UNATTENDED:-} ]] && bundle_args+=(--no-upgrade)
   run brew bundle install "${bundle_args[@]}" || bundle_failed=1
+  (source "$DOTFILES/install/lib/agent-copies.sh"; agent_copies_remove)
   (source "$DOTFILES/install/lib/brew-autoupdate.sh"; brew_autoupdate_ensure) ||
     echo "==> brew autoupdate start failed; continuing without daily autoupdate"
   # Allow upgraded tailscaled and mosh-server through the firewall and restart
@@ -393,6 +394,15 @@ cmd_doctor() {
       doctor_agent_loaded "$label"
     fi
   done
+
+  echo "==> Coding agents"
+  local copies
+  copies=$(source "$DOTFILES/install/lib/agent-copies.sh"; agent_copies_found | awk '{print $2}' | paste -sd, - | sed 's/,/, /g')
+  if [[ -n $copies ]]; then
+    bad "Older copies shadow mise's agents outside an activated shell: $copies" "dotfiles brew"
+  else
+    ok "Only mise installs the coding agents"
+  fi
 
   echo "==> Skills"
   local dir skill target
