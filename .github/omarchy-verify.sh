@@ -85,9 +85,16 @@ case "${1:-}" in
     [[ -n ${CLAUDE_CODE_OAUTH_TOKEN:-} ]] && values+=("$CLAUDE_CODE_OAUTH_TOKEN")
     [[ -n ${OPENAI_API_KEY:-} ]] && values+=("$OPENAI_API_KEY")
     (( ${#values[@]} )) || exit 0
-    # Never print a match: the log is public
-    if { git diff "$base"; git log -p --format=%B "$base..HEAD"; cat -- "$@" 2>/dev/null; } |
-      grep -qF -f <(printf '%s\n' "${values[@]}"); then
+    # Never print a match: the log is public. Gathered into a file rather than
+    # piped: under pipefail a missing listed file, or grep -q quitting early on
+    # a large diff, would fail the pipeline and read as no match.
+    haystack=$(mktemp)
+    trap 'rm -f "$haystack"' EXIT
+    { git diff "$base"; git log -p --format=%B "$base..HEAD"; } >"$haystack"
+    for file in "$@"; do
+      [[ -f $file ]] && cat -- "$file" >>"$haystack"
+    done
+    if grep -qF -f <(printf '%s\n' "${values[@]}") "$haystack"; then
       fail "A secret value appears in the agent's changes; nothing was published"
     fi
     ;;
