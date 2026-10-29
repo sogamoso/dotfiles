@@ -200,7 +200,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | 2 | Dev | Ghostty |
 | 3 | Chat | Slack, WhatsApp, Discord |
 | 4 | Mail & calendar | Gmail, Google Calendar |
-| 5 | AI | Claude, ChatGPT, Grok, Wabi |
+| 5 | AI | Claude, ChatGPT, Grok |
 | 6 | Basecamp | Basecamp |
 | 7–9 | Misc | Anything |
 | 10 | Scratchpad | Temporary windows (`Option + S`) |
