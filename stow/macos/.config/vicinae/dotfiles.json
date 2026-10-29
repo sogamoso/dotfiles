@@ -354,6 +354,12 @@
         },
         "dev.zed.Zed": {
           "alias": "zed"
+        },
+        "com.anysphere.sand": {
+          "alias": "bot,gork bot"
+        },
+        "com.google.Chrome.app.ggjocahimgaohmigbfhghnlfcnjemagj": {
+          "alias": "gork"
         }
       }
     }
