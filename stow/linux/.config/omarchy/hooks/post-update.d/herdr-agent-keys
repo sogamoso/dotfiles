@@ -89,8 +89,10 @@ KEYS
   changed=true
 fi
 
-# Pull request status, as on macOS. Omarchy's [ui] already sets tab_bar_right,
-# so the status command joins its line in place, as switch_tab does above.
+# Pull request status, as on macOS. The status script runs from the tab bar's
+# status area, which prints nothing and so acts as its timer. Omarchy's [ui]
+# already sets tab_bar_right, so the command joins its line in place, as
+# switch_tab does above.
 pr_status='{ type = "command", command = "\"$HOME/.config/herdr/scripts/pr-status.sh\"", interval_seconds = 30, timeout_seconds = 20 }'
 omarchy_tab_bar_right='tab_bar_right = [{ type = "zoom" }, { type = "hostname" }]'
 if ! grep -qF 'pr-status.sh' "$config"; then
@@ -105,20 +107,39 @@ if ! grep -qF 'pr-status.sh' "$config"; then
     rm -f "$tmp"
     changed=true
   else
-    echo "herdr-agent-keys: Omarchy's tab_bar_right line changed; no pull request status in the tab bar" >&2
+    echo "herdr-agent-keys: Omarchy's tab_bar_right line changed; the pull request status won't run" >&2
   fi
 fi
 
+# The status used to be a row on every workspace; now it's rows on the agent
+# whose session opened the pull request, with its link. Only this hook writes
+# sidebar rows into Omarchy's config, so the old block's lines are rewritten.
 pr_marker="# dotfiles: pull request status"
+if grep -qxF '[ui.sidebar.spaces]' "$config"; then
+  tmp=$(mktemp)
+  awk '
+    $0 == "[ui.sidebar.spaces]" { print "[ui.sidebar.agents]"; block = 1; next }
+    block && $0 == "  [\"state_icon\", \"workspace\"]," { print "  [\"state_icon\", \"machine\", \"workspace\", \"tab\"],"; next }
+    block && $0 == "  [\"branch\", \"git_status\"]," { print "  [\"agent\"],"; next }
+    block && index($0, "token = \"$pr\"") { print; print "  [\"$pr_url\"],"; next }
+    block && $0 == "]" { block = 0 }
+    { print }
+  ' "$config" >"$tmp"
+  cat "$tmp" >"$config"
+  rm -f "$tmp"
+  changed=true
+fi
+
 if ! grep -qxF "$pr_marker" "$config"; then
   cat >>"$config" <<'KEYS'
 
 # dotfiles: pull request status
-[ui.sidebar.spaces]
+[ui.sidebar.agents]
 rows = [
-  ["state_icon", "workspace"],
-  ["branch", "git_status"],
+  ["state_icon", "machine", "workspace", "tab"],
+  ["agent"],
   [{ token = "$pr", rules = [{ contains = "passed", fg = "#9ece6a" }, { contains = "running", fg = "#ff9e64" }, { contains = "blocked", fg = "#f7768e", bold = true }] }],
+  ["$pr_url"],
 ]
 
 [[keys.command]]

@@ -95,20 +95,23 @@ prompt_new_tab_name = false
 status_indicators = "symbols"
 show_agent_labels_on_pane_borders = false
 agent_panel_sort = "spaces"
-# Counts open pull requests by status, and tags each workspace with its own
-# (the $pr row below). The script lives in the cross-platform herdr stow package.
+# The timer for the pull request status: every 30 seconds the script tags each
+# agent pane whose branch has an open pull request (the $pr rows below). It
+# prints nothing, so the status area stays empty. The script lives in the
+# cross-platform herdr stow package.
 tab_bar_right = [
   { type = "command", command = "\"$HOME/.config/herdr/scripts/pr-status.sh\"", interval_seconds = 30, timeout_seconds = 20 },
 ]
 
-# herdr's default rows, plus the workspace's pull request: green once it's
-# ready to merge, orange while checks run or it waits on review, red when
+# herdr's default rows, plus the session's pull request and its link: green once
+# it's ready to merge, orange while checks run or it waits on review, red when
 # something has to change first
-[ui.sidebar.spaces]
+[ui.sidebar.agents]
 rows = [
-  ["state_icon", "workspace"],
-  ["branch", "git_status"],
+  ["state_icon", "machine", "workspace", "tab"],
+  ["agent"],
   [{ token = "$pr", rules = [{ contains = "passed", fg = "#9ece6a" }, { contains = "running", fg = "#ff9e64" }, { contains = "blocked", fg = "#f7768e", bold = true }] }],
+  ["$pr_url"],
 ]
 
 [ui.sound]
