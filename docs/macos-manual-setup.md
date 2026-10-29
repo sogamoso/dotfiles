@@ -1,6 +1,6 @@
 # macOS → Manual Setup
 
-The installer (`bootstrap`) handled everything that can be automated. Everything in this doc requires human intervention. The goal is to finalize the setup to make macOS feel like closer to Omarchy to make the transition between the two systems smoother.
+The installer (`bootstrap`) handled everything that can be automated. This doc covers what's left: the steps that need a human, and, marked **Nothing to do**, the ones bootstrap now automates, kept here to say where their settings live and how to change them. The goal is to finalize the setup to make macOS feel like closer to Omarchy to make the transition between the two systems smoother.
 
 ---
 
@@ -19,6 +19,8 @@ Open each prompt as it appears during the install, or go here:
 
 **System Settings → Privacy & Security → Local Network**
 - LocalSend — allow it at the first-launch prompt, or it can't see other devices. The firewall also asks once whether to accept incoming connections; allow that too, or nothing can send to this Mac.
+
+**System Settings → Privacy & Security → Full Disk Access** — whichever terminal you run the installer from. `install/macos/preferences.sh` needs it to turn off transparency (see the opaque menu bar in section 4) and skips that with a warning without it.
 
 **System Settings → Privacy & Security → Automation** — whichever terminal you run the installer from needs **System Events** enabled under it. Without it, every System Events call fails with `-1743 Not authorized to send Apple events`: `install/macos/preferences.sh` skips dark mode and the auto-hidden menu bar, and `install/macos/login-items.sh` adds no login items at all. Both warn and carry on rather than stopping. `dotfiles doctor`, run from a terminal, flags the missing grant; after granting it, rerun those two scripts.
 
@@ -79,7 +81,7 @@ Turn off every other app (Basecamp, Claude, Codex, Gemini, Granola, MacWhisper, 
 
 The menu bar is set to auto-hide, so SketchyBar owns the top strip and the system bar only slides down on hover. macOS draws that reveal as translucent glass, which lets SketchyBar show through and puts two overlapping sets of items on screen.
 
-`install/macos/preferences.sh` turns off transparency to prevent this, but WindowServer only reads the setting at login — it is not enough to write it. If the revealed menu bar looks transparent, log out and back in, or toggle **System Settings → Accessibility → Display → Reduce transparency** off and on.
+`install/macos/preferences.sh` turns off transparency to prevent this, given Full Disk Access (section 1), but WindowServer only reads the setting at login — it is not enough to write it. If the revealed menu bar looks transparent, log out and back in, or toggle **System Settings → Accessibility → Display → Reduce transparency** off and on.
 
 ---
 
