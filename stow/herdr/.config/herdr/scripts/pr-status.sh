@@ -2,7 +2,9 @@
 # Pull request status for herdr. Every agent pane whose branch has an open pull
 # request gets $pr and $pr_url tokens for its row in the sidebar's agent panel,
 # so the pull request shows only on the tab of the session that opened it, with
-# a link. The config colours $pr by its status:
+# a link. A branch with several open pull requests (one per base) lists them
+# all, newest first, as "PR #6 (passed), PR #9 (running: review)". The config
+# colours $pr by its status, the worst one when there are several:
 #
 #   passed   checks green, mergeable, nothing asked of it
 #   running  checks still running, waiting on review, or a draft
@@ -48,17 +50,18 @@ while IFS=$'\t' read -r pane dir; do
       def pending: any(.statusCheckRollup[]?;
         (.__typename == "CheckRun" and .status != "COMPLETED")
         or ((.state // "") | IN("PENDING", "EXPECTED")));
-      [.[] | select(.headRefName == $branch)][0] // empty
-      | ["PR #\(.number) (" + (
-          if failed then "blocked: checks failed"
-          elif .mergeable == "CONFLICTING" then "blocked: conflict"
-          elif .reviewDecision == "CHANGES_REQUESTED" then "blocked: changes requested"
-          elif .mergeStateStatus == "BEHIND" then "blocked: behind base"
-          elif pending then "running: checks"
-          elif .isDraft then "running: draft"
-          elif .reviewDecision == "REVIEW_REQUIRED" or .mergeStateStatus == "BLOCKED" then "running: review"
-          elif .mergeable == "UNKNOWN" or .mergeStateStatus == "UNKNOWN" then "running: checking"
-          else "passed" end) + ")", .url] | @tsv' "$cache" 2>/dev/null)
+      def status:
+        if failed then "blocked: checks failed"
+        elif .mergeable == "CONFLICTING" then "blocked: conflict"
+        elif .reviewDecision == "CHANGES_REQUESTED" then "blocked: changes requested"
+        elif .mergeStateStatus == "BEHIND" then "blocked: behind base"
+        elif pending then "running: checks"
+        elif .isDraft then "running: draft"
+        elif .reviewDecision == "REVIEW_REQUIRED" or .mergeStateStatus == "BLOCKED" then "running: review"
+        elif .mergeable == "UNKNOWN" or .mergeStateStatus == "UNKNOWN" then "running: checking"
+        else "passed" end;
+      [.[] | select(.headRefName == $branch)] | select(length > 0)
+      | [(map("PR #\(.number) (\(status))") | join(", ")), (map(.url) | join(" "))] | @tsv' "$cache" 2>/dev/null)
   fi
 
   # The TTL clears tokens this script stops refreshing, should it stop running

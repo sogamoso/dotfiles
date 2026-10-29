@@ -112,12 +112,13 @@ tab_bar_right = [
 
 # herdr's default rows, plus the session's pull request and its link: green once
 # it's ready to merge, orange while checks run or it waits on review, red when
-# something has to change first
+# something has to change first. Worst first, so a branch with several pull
+# requests takes the colour of the one that needs attention.
 [ui.sidebar.agents]
 rows = [
   ["state_icon", "machine", "workspace", "tab"],
   ["agent"],
-  [{ token = "$pr", rules = [{ contains = "passed", fg = "#9ece6a" }, { contains = "running", fg = "#ff9e64" }, { contains = "blocked", fg = "#f7768e", bold = true }] }],
+  [{ token = "$pr", rules = [{ contains = "blocked", fg = "#f7768e", bold = true }, { contains = "running", fg = "#ff9e64" }, { contains = "passed", fg = "#9ece6a" }] }],
   ["$pr_url"],
 ]
 

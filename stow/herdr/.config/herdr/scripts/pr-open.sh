@@ -5,8 +5,11 @@ set -euo pipefail
 # the popup prefix+shift+u runs it in, so there's only ever one open and it has
 # to be closed (Ctrl+Q) before anything else. With --browser (prefix+shift+b),
 # or without terminal-browser installed, the default browser opens it instead,
-# where GitHub has a session. ~/.local/bin is checked by name because Omarchy's
-# install links it there, and that may not be on herdr's PATH.
+# where GitHub has a session. A branch with several open pull requests gets a
+# tab for each in the browser, newest first as in the sidebar, and only the
+# newest in terminal-browser, which has the one popup. ~/.local/bin is checked
+# by name because Omarchy's install links it there, and that may not be on
+# herdr's PATH.
 
 # Its usage telemetry stays off, as the shells' supplement also sets
 export TERMINAL_BROWSER_NO_TELEMETRY=1
@@ -15,17 +18,27 @@ cwd="${HERDR_ACTIVE_PANE_CWD:-$PWD}"
 browser=$(command -v terminal-browser || echo "$HOME/.local/bin/terminal-browser")
 [[ ${1:-} == "--browser" ]] && browser=""
 
-if ! url=$(cd "$cwd" && gh pr view --json url --jq .url 2>/dev/null); then
+branch=$(git -C "$cwd" branch --show-current 2>/dev/null || true)
+urls=()
+if [[ -n $branch ]]; then
+  while IFS= read -r url; do
+    [[ -n $url ]] && urls+=("$url")
+  done < <(cd "$cwd" && gh pr list --head "$branch" --state open --json url --jq '.[].url' 2>/dev/null)
+fi
+
+if (( ${#urls[@]} == 0 )); then
   echo "No pull request for this branch. Press a key to close."
   read -rsn1
   exit 0
 fi
 
 if [[ -x $browser ]]; then
-  exec "$browser" open "$url"
+  exec "$browser" open "${urls[0]}"
 fi
 
-case "$(uname -s)" in
-  Darwin) open "$url" ;;
-  *) xdg-open "$url" >/dev/null 2>&1 ;;
-esac
+for url in "${urls[@]}"; do
+  case "$(uname -s)" in
+    Darwin) open "$url" ;;
+    *) xdg-open "$url" >/dev/null 2>&1 ;;
+  esac
+done
