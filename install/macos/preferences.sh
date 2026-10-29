@@ -90,9 +90,9 @@ else
 fi
 
 # LanguageTool: clear its Correction and Paraphrasing shortcuts, which default to
-# Option+Ctrl+C and Option+Ctrl+P, both AeroSpace bindings. Whichever app registers
-# a chord first holds it, so the other's binding goes dead. false is how its
-# shortcut library stores "unassigned"; deleting the key brings the default back.
+# Option+Ctrl+C and Option+Ctrl+P, both AeroSpace bindings, and with them set
+# those chords pop LanguageTool up. false is how its shortcut library stores
+# "unassigned"; deleting the key brings the default back.
 # It reads the shortcuts at launch and turns down a scripted quit, hence the
 # pkill. Its own updater stays on: it sets SUAutomaticallyUpdate back at launch.
 languagetool_was_running=false

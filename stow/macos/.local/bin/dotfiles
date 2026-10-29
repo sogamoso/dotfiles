@@ -728,8 +728,8 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
   fi
 
   echo "==> LanguageTool"
-  # An update restoring its default shortcuts would take Option+Ctrl+C and P back
-  # from AeroSpace, and the bindings would just stop working
+  # An update restoring its default shortcuts would have Option+Ctrl+C and P pop
+  # LanguageTool up again, on top of the AeroSpace bindings
   local lt_key lt_value
   for lt_key in Correction_Open Paraphrasing_Open; do
     lt_value=$(defaults read org.languagetool.desktop "KeyboardShortcuts_$lt_key" 2>/dev/null || echo unset)
@@ -737,7 +737,7 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
       ok "${lt_key%_Open} shortcut unassigned"
     else
       bad "${lt_key%_Open} shortcut is set, clashing with AeroSpace" \
-        "bash $DOTFILES/install/macos/preferences.sh, then aerospace reload-config"
+        "bash $DOTFILES/install/macos/preferences.sh"
     fi
   done
 

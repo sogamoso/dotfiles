@@ -176,17 +176,17 @@ In CleanShot → Settings:
 ### LanguageTool
 
 Nothing to assign. Its Correction and Paraphrasing shortcuts default to
-`Ctrl + Option + C` and `Ctrl + Option + P`, both AeroSpace bindings, and
-whichever app registers a chord first holds it, so the other one goes dead.
+`Ctrl + Option + C` and `Ctrl + Option + P`, both AeroSpace bindings, and with
+them set those chords pop LanguageTool up.
 `install/macos/preferences.sh` clears both, and `dotfiles doctor` flags it if
 an update brings either one back. Its built-in updater can't be turned off (it
 switches itself back on at launch); brew autoupdate and it just race to the same
 version.
 
-If one did come back, the AeroSpace binding stays dead until AeroSpace
-registers it again, so run `aerospace reload-config` after clearing it. By
-hand, they're under **Settings… → Shortcuts**, opened from LanguageTool's menu
-bar icon.
+By hand, they're under **Settings… → Shortcuts**, opened from LanguageTool's
+menu bar icon. If a chord still does nothing once both are cleared, the cause is
+elsewhere: `Ctrl + Option + C` once turned out to be CleanShot's URL scheme API
+being off (see CleanShot above).
 
 ---
 
