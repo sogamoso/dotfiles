@@ -64,6 +64,8 @@ agents_claude() {
 # seconds is what stops a stalled app-server from holding the bar's script.
 agents_codex() {
   local response
+  # Homebrew's SketchyBar service doesn't inherit the shell's mise PATH.
+  local PATH="$PATH:$HOME/.local/share/mise/shims"
   command -v codex >/dev/null 2>&1 || return 0
 
   response=$({
