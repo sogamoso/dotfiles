@@ -311,6 +311,21 @@ else:
 ' "$1" "$2" 2>/dev/null
 }
 
+# Why a TOML file doesn't parse, or nothing when it does or doesn't exist.
+# toml_value reads every key as missing from a broken file, which would blame
+# the keys. Codex once wrote a [projects] table twice.
+toml_error() {
+  python3 -c '
+import sys, tomllib
+try:
+    tomllib.load(open(sys.argv[1], "rb"))
+except FileNotFoundError:
+    pass
+except Exception as error:
+    print(error)
+' "$1" 2>/dev/null
+}
+
 doctor_agent_loaded() {
   local label=$1 any_exit=${2:-} code
   local plist="$HOME/Library/LaunchAgents/$label.plist"
@@ -801,25 +816,34 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
   echo "==> Grok"
   # Keys in Grok's own config. reload puts them back if a /theme changed them.
   # The name stays hidden, and falls back to GrokNight, until the flag is on.
-  if [[ "$(toml_value "$HOME/.grok/config.toml" ui.theme)" =~ ^(terminal|terminal-default|transparent|native)$ &&
-    "$(toml_value "$HOME/.grok/config.toml" features.terminal_theme)" == "true" ]]; then
-    ok "Theme follows the terminal"
+  local grok_config="$HOME/.grok/config.toml" toml_err
+  toml_err=$(toml_error "$grok_config")
+  if [[ -n $toml_err ]]; then
+    bad "$grok_config doesn't parse, so its settings can't be checked: $toml_err"
   else
-    bad "Theme doesn't follow the terminal" "dotfiles reload"
-  fi
-  # A /settings change rewrites it, and a session would stop at every prompt.
-  # Parsed rather than grepped, so a key under another table doesn't count.
-  if [[ "$(toml_value "$HOME/.grok/config.toml" ui.permission_mode)" == "auto" ]]; then
-    ok "Auto mode by default"
-  else
-    bad "Auto mode isn't the default" "dotfiles reload"
+    if [[ "$(toml_value "$grok_config" ui.theme)" =~ ^(terminal|terminal-default|transparent|native)$ &&
+      "$(toml_value "$grok_config" features.terminal_theme)" == "true" ]]; then
+      ok "Theme follows the terminal"
+    else
+      bad "Theme doesn't follow the terminal" "dotfiles reload"
+    fi
+    # A /settings change rewrites it, and a session would stop at every prompt.
+    # Parsed rather than grepped, so a key under another table doesn't count.
+    if [[ "$(toml_value "$grok_config" ui.permission_mode)" == "auto" ]]; then
+      ok "Auto mode by default"
+    else
+      bad "Auto mode isn't the default" "dotfiles reload"
+    fi
   fi
 
   echo "==> Codex"
   # Keys in Codex's own config, which it rewrites with its plugins. The sandbox
   # is what keeps auto-review from approving work outside the workspace.
   local codex_config="$HOME/.codex/config.toml"
-  if [[ "$(toml_value "$codex_config" approval_policy)" == "on-request" &&
+  toml_err=$(toml_error "$codex_config")
+  if [[ -n $toml_err ]]; then
+    bad "$codex_config doesn't parse, so its settings can't be checked: $toml_err"
+  elif [[ "$(toml_value "$codex_config" approval_policy)" == "on-request" &&
     "$(toml_value "$codex_config" approvals_reviewer)" == "auto_review" &&
     "$(toml_value "$codex_config" sandbox_mode)" == "workspace-write" ]]; then
     ok "Auto-review by default"
