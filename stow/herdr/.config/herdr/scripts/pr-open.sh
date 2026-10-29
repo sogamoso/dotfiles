@@ -34,7 +34,8 @@ if [[ ${1:-} == "--pane" ]]; then
   measure='import fcntl, os, struct, termios
 fd = os.open("/dev/tty", os.O_RDWR)
 print(*struct.unpack("HHHH", fcntl.ioctl(fd, termios.TIOCGWINSZ, b"\0" * 8))[2:])'
-  read -r xpx ypx < <(python3 -c "$measure" 2>/dev/null || echo "")
+  # Isolated: the pane's directory is a checkout, which could shadow a module
+  read -r xpx ypx < <(python3 -I -c "$measure" 2>/dev/null || echo "")
   if [[ -n ${xpx:-} && -n ${ypx:-} ]] && (( xpx * ypx * 4 > limit )); then
     # The pane holds half its split; narrow it so a frame (4 bytes a pixel) fits
     amount=$(awk -v px="$((xpx * ypx * 4))" -v limit="$limit" 'BEGIN { printf "%.3f", 0.5 * (1 - limit / px) }')
