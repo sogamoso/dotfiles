@@ -29,3 +29,8 @@ Other agent sessions may be working in the same checkout. Uncommitted changes yo
 didn't make are someone else's work in progress: don't stash, reset, check out or
 pull over them (`git pull --autostash` included), and commit only the files you
 changed. When a pull or rebase needs a clean tree, stop and say so.
+
+A fast-forward is fine with someone else's changes in the tree, since git refuses
+rather than overwrite them: `git fetch && git merge --ff-only @{u}`, not `git pull`,
+which `pull.rebase = true` turns into a rebase. Do it before committing, then
+commit and push straight away, which leaves no local commit to rebase.
