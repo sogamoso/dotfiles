@@ -127,7 +127,9 @@ sketchybar --add item volume right \
     script="$PLUGIN_DIR/volume.sh" \
   --subscribe volume volume_change mouse.clicked mouse.scrolled
 
-# Microphone — drawn only while muted; click toggles via the shared mic script
+# Microphone — drawn only while muted; click toggles via the shared mic script,
+# which triggers the event, so the poll only catches changes made elsewhere
+sketchybar --add event dotfiles_mic_change
 sketchybar --add item mic right \
   --set mic \
     icon="󰍭" \
@@ -137,7 +139,8 @@ sketchybar --add item mic right \
     drawing=off \
     update_freq=5 \
     click_script="$HOME/.config/dotfiles/mic-mute.sh" \
-    script="$PLUGIN_DIR/mic.sh"
+    script="$PLUGIN_DIR/mic.sh" \
+  --subscribe mic dotfiles_mic_change
 
 # Stay awake — drawn while a caffeinate assertion is held (workhours or manual)
 sketchybar --add item stay_awake right \
