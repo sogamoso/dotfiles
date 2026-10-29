@@ -129,7 +129,7 @@ register_marketplace() {
 # only on the agents named in the fourth argument. Every step is idempotent, so
 # a rerun is a no-op rather than a reinstall.
 install_skill_plugin() {
-  local dir=$1 label=$2 url=$3 agents=${4:-claude codex} id marketplace failed=""
+  local dir=$1 label=$2 url=$3 agents=${4:-claude codex} id marketplace failed="" installed=0
   id=$(skill_plugin_id "$dir") || return 1
   marketplace="${id#*@}"
   url=$(to_https "$url")
@@ -143,11 +143,11 @@ install_skill_plugin() {
     # refuses an add whose source doesn't match the declaration exactly, so the
     # https URL failed and the install then found an empty marketplace
     claude plugin marketplace add "$(github_repo "$url")" >/dev/null 2>&1 || true
-    claude plugin install "$id" >/dev/null || failed="$failed claude"
+    claude plugin install "$id" >/dev/null && installed=1 || failed="$failed claude"
   fi
   if [[ " $agents " == *" codex "* ]] && command -v codex &>/dev/null; then
     if register_marketplace codex "$marketplace" "$url"; then
-      codex plugin add "$id" >/dev/null || failed="$failed codex"
+      codex plugin add "$id" >/dev/null && installed=1 || failed="$failed codex"
     else
       failed="$failed codex"
     fi
@@ -158,7 +158,8 @@ install_skill_plugin() {
   else
     log_item "$label: installed as plugin $id"
   fi
-  return 0
+  # Installed nowhere, the caller falls back to linking the skills instead
+  (( installed )) || [[ -z $failed ]]
 }
 
 # Drop links into the sources we manage that this run no longer produces —
