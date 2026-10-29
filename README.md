@@ -180,7 +180,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `../dotfiles/stow.sh` | Stows the cross-platform packages plus `zsh` and `macos` into `$HOME` |
 | `~/.config/dotfiles/firewall.sh` | Lets the current `tailscaled` and `mosh-server` through the macOS firewall and restarts a `tailscaled` left on an old binary. Upgrades re-block them, so `--install` adds a root LaunchDaemon (`com.sogamoso.firewall-sync`) that does this after every Homebrew upgrade, running a root-owned copy from `/usr/local/libexec/dotfiles`. A daily user-level `--check` (`com.sogamoso.firewall-check`) notifies if that ever fails |
 | `preferences.sh` | macOS system defaults: dark mode, scrolling not natural, 24-hour clock, key repeat, the system keyboard shortcuts, DNS, an auto-hidden menu bar with trimmed controls, an emptied Dock on the right that auto-hides, a screen saver after 5 minutes with an immediate password, display sleep after 30. Laptops wake at 08:00 on weekdays and get the work-hours agents (kept awake during work hours, put to sleep at 19:00 on weekdays if idle); the Mac mini never sleeps and restarts after a power failure. It quits and reopens CleanShot, LanguageTool and MacWhisper to write their settings, then loads the LaunchAgents |
-| `pwas.sh` | Opens the Chrome PWAs not yet installed, listed in `install/lib/pwas.sh` (Audible, Gmail, Google Calendar, Grok, X, YouTube) |
+| `pwas.sh` | Opens the Chrome PWAs not yet installed, listed in `install/lib/pwas.sh` (Audible, Gmail, Google Calendar, Grok, X) |
 | `mailto.sh` | Builds the Gmail `mailto:` handler and sets it as the system default |
 | `sketchybar.sh` | Configures SketchyBar status bar |
 | `tailscale.sh` | Starts Tailscale and turns on Tailscale SSH, waiting up to 5 minutes for the browser sign-in on a new machine, then starts the herdr brew service on every Mac but the mini |
@@ -296,7 +296,7 @@ Each opens in Vicinae.
 | `Option + Shift + F` | Open Finder |
 | `Option + Shift + /` | 1Password Quick Access (1Password's own shortcut, set in its settings) |
 | `Option + Shift + A` | Open Claude |
-| `Option + Shift + Y` | Open YouTube |
+| `Option + Shift + Y` | Open YouTube in Chrome |
 | `Option + Shift + B` | New Chrome window |
 | `Option + Shift + W` | Open Typora |
 | `Option + Shift + X` | Open X |

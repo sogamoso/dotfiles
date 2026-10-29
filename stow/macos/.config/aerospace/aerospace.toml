@@ -143,7 +143,7 @@ alt-shift-m     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh co
 alt-shift-o     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh md.obsidian' # Omarchy: SUPER+SHIFT+O → Obsidian
 alt-shift-f     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh Finder' # Omarchy: SUPER+SHIFT+F → Finder
 alt-shift-a     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh com.anthropic.claudefordesktop' # SUPER+SHIFT+A → Claude
-alt-shift-y     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh YouTube' # Omarchy: SUPER+SHIFT+Y → YouTube
+alt-shift-y     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh "Google Chrome" https://youtube.com' # Omarchy: SUPER+SHIFT+Y → YouTube (a Chrome tab here, for picture-in-picture)
 alt-shift-b     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh --new "Google Chrome"' # Omarchy: SUPER+SHIFT+B → browser
 alt-shift-w     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh abnerworks.Typora' # Omarchy: SUPER+SHIFT+W → Omawrite; Typora here
 alt-shift-x     = 'exec-and-forget $HOME/.config/aerospace/launch-or-focus.sh X' # Omarchy: SUPER+SHIFT+X → X
@@ -216,12 +216,6 @@ run = ['split opposite']
 
 [[on-window-detected]]
 if.app-id = 'com.1password.1password'
-run = ['layout floating']
-
-[[on-window-detected]]
-# Chrome assigns PWAs com.google.Chrome.app.<extension-id>, which changes if the
-# app is reinstalled. Match the name instead, as the launcher bindings do.
-if.app-name-regex-substring = 'YouTube'
 run = ['layout floating']
 
 [[on-window-detected]]

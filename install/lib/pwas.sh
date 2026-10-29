@@ -12,5 +12,4 @@ PWAS=(
   "Google Calendar|https://calendar.google.com"
   "Grok|https://grok.com"
   "X|https://x.com"
-  "YouTube|https://youtube.com"
 )
