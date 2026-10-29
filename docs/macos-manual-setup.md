@@ -20,7 +20,7 @@ Open each prompt as it appears during the install, or go here:
 **System Settings → Privacy & Security → Local Network**
 - LocalSend — allow it at the first-launch prompt, or it can't see other devices. The firewall also asks once whether to accept incoming connections; allow that too, or nothing can send to this Mac.
 
-**System Settings → Privacy & Security → Automation** — whichever terminal you run the installer from needs **System Events** enabled under it. Without it, the two `osascript` calls in `install/macos/preferences.sh` fail with `-1743 Not authorized to send Apple events`, and dark mode and the auto-hidden menu bar are silently skipped. The script warns and carries on rather than stopping, so a missed grant costs those two settings and nothing else.
+**System Settings → Privacy & Security → Automation** — whichever terminal you run the installer from needs **System Events** enabled under it. Without it, every System Events call fails with `-1743 Not authorized to send Apple events`: `install/macos/preferences.sh` skips dark mode and the auto-hidden menu bar, and `install/macos/login-items.sh` adds no login items at all. Both warn and carry on rather than stopping. `dotfiles doctor`, run from a terminal, flags the missing grant; after granting it, rerun those two scripts.
 
 ---
 

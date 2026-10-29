@@ -644,8 +644,15 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
   # Without one its feature just doesn't start: no MacWhisper, no dictation
   source "$DOTFILES/install/lib/login-items.sh"
   local login_items app missing_items=()
+  # From a terminal, being refused means the Automation grant is missing, and
+  # then bootstrap added none of them. The daily agent is never allowed to ask.
   if ! login_items=$(login_item_paths 2>/dev/null); then
-    ok "Not checked: this process can't ask System Events"
+    if [[ -t 1 ]]; then
+      bad "Can't ask System Events, so login items can't be read or added" \
+        "System Settings → Privacy & Security → Automation → turn on System Events for this terminal, then bash $DOTFILES/install/macos/login-items.sh"
+    else
+      ok "Not checked: this process can't ask System Events"
+    fi
   else
     for app in "${LOGIN_ITEMS[@]}"; do
       grep -Fxq "$app" <<<"$login_items" || missing_items+=("$(basename "$app" .app)")
