@@ -325,8 +325,9 @@
     },
     "@tonka3000/store.raycast.gmail": {
       "preferences": {
-        "clientid": "362741237384-6e43b54kqfd9i73vqhpf9t0ja8kp5nn7.apps.googleusercontent.com"
-      }
+        "clientid": ""
+      },
+      "enabled": false
     },
     "manage-shortcuts": {
       "enabled": false,
