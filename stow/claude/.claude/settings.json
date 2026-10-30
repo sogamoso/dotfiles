@@ -5,10 +5,10 @@
     "sessionUrl": false
   },
   "permissions": {
-    "defaultMode": "auto",
     "allow": [
       "Bash(gh pr create:*)"
-    ]
+    ],
+    "defaultMode": "auto"
   },
   "model": "best",
   "hooks": {
@@ -45,7 +45,8 @@
     "claude-hud@claude-hud": true,
     "code-review@claude-plugins-official": true,
     "mattpocock-skills@mattpocock": true,
-    "cheque@sendas": true
+    "cheque@sendas": true,
+    "vercel@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "dev-browser-marketplace": {
