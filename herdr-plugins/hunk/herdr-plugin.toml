@@ -1,0 +1,16 @@
+# herdr brings every pane back as an empty shell after a server restart, the
+# agents aside, which their integrations resume. This one brings hunk back
+# too, in the panes it was running in. Linked from this checkout by
+# install/dotfiles/herdr-plugins.sh; the hunk function in the shells' alias
+# files (stow/zsh/.config/zsh/aliases/hunk.zsh and its bash twin) is its
+# other half.
+id = "dotfiles.hunk"
+name = "Hunk"
+version = "0.1.0"
+min_herdr_version = "0.9.5"
+description = "Start hunk again, after a herdr server restart, in the panes it was running in"
+platforms = ["linux", "macos"]
+
+# Once the restored session is up and the API socket answers
+[[startup]]
+command = ["bash", "restore.sh"]
