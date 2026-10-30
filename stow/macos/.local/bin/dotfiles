@@ -159,7 +159,9 @@ cmd_reload() {
   # herdr's server keeps running the old binary after an upgrade, which leaves
   # the CLI failing with protocol_mismatch until the service is restarted.
   # Restarting exits pane processes, so only do it once that has actually
-  # happened rather than on every reload.
+  # happened rather than on every reload. An upgrade that keeps the protocol
+  # still leaves the server on a deleted binary, which costs its panes every
+  # TCC grant; doctor flags that one and leaves the restart to you.
   if command -v herdr >/dev/null 2>&1; then
     if herdr tab list 2>&1 | grep -q protocol_mismatch; then
       source "$DOTFILES/install/lib/herdr-plugins.sh"
@@ -586,6 +588,32 @@ cmd_doctor() {
   else
     ok "herdr's server started from this Mac's login session"
   fi
+  # A brew upgrade replaces the binary and deletes the Cellar version the
+  # running server came from. macOS then can't identify the server, and it is
+  # the responsible process behind every pane, so each TCC-gated call from a
+  # pane is refused outright, with no prompt and whatever Automation says:
+  # osascript gets -1743 and the login items check above blames the terminal.
+  # reload restarts the server only on protocol_mismatch, which a quiet
+  # upgrade never raises, so this catches the rest.
+  local server_start herdr_bin
+  if [[ -n $server_pid ]] && command -v herdr >/dev/null 2>&1; then
+    herdr_bin=$(readlink -f "$(command -v herdr)")
+    server_start=$(date -j -f '%a %b %d %T %Y' \
+      "$(ps -o lstart= -p "$server_pid" | tr -s ' ' | sed 's/ *$//')" +%s 2>/dev/null || true)
+    if [[ -z $server_start ]]; then
+      ok "Not checked: couldn't read when herdr's server started"
+    elif (( server_start < $(stat -f %m "$herdr_bin") )); then
+      if on_herdr_machine_host; then
+        bad "herdr's server predates the installed herdr, so macOS can't identify it and refuses its panes System Events" \
+          "launchctl kickstart -k gui/$(id -u)/com.sogamoso.herdr-server — this ends every pane; the integrations bring the agents back"
+      else
+        bad "herdr's server predates the installed herdr, so macOS can't identify it and refuses its panes System Events" \
+          "brew services restart herdr — this ends every pane; the integrations bring the agents back"
+      fi
+    else
+      ok "herdr's server runs the installed herdr"
+    fi
+  fi
   # The mini's workaround stays only until herdr fixes the bug behind it
   local issue_state
   issue_state=$(gh api "repos/herdrdev/herdr/issues/$HERDR_LAUNCHD_ISSUE" --jq .state 2>/dev/null || true)
@@ -715,10 +743,16 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
   local login_items app missing_items=()
   # From a terminal, being refused means the Automation grant is missing, and
   # then bootstrap added none of them. The daily agent is never allowed to ask.
+  # macOS grants Automation to the responsible process, which in a herdr pane
+  # is herdr's server, not the terminal showing it; and a server left on a
+  # binary an upgrade replaced is refused whatever is granted (see the herdr
+  # plugins section).
+  local grantee="this terminal"
+  [[ -n ${HERDR_ENV:-} ]] && grantee="herdr, which this pane runs under"
   if ! login_items=$(login_item_paths 2>/dev/null); then
     if [[ -t 1 ]]; then
       bad "Can't ask System Events, so login items can't be read or added" \
-        "System Settings → Privacy & Security → Automation → turn on System Events for this terminal, then bash $DOTFILES/install/macos/login-items.sh"
+        "System Settings → Privacy & Security → Automation → turn on System Events for $grantee, then bash $DOTFILES/install/macos/login-items.sh"
     else
       ok "Not checked: this process can't ask System Events"
     fi
