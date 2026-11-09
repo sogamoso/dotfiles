@@ -105,12 +105,13 @@ fi
 # Superwhisper is the offline dictation, with local models; online dictation is
 # Granola's Voice Typing on Right ⌘ (Omarchy: hold Right Alt, which is Command
 # here), set in Granola itself since its preferences file is encrypted and
-# follows the account. So Superwhisper has no hold key at all, never sharing one
-# with Granola, and toggles on Option+Ctrl+X (Omarchy: SUPER+Ctrl+X). Its toggle
-# ships as Option+Space, Vicinae's launcher key, and Change Mode as Option+Shift+K,
-# an AeroSpace binding, so both move. Change Mode gets a chord rather than nothing:
-# an empty value written there is ignored, where push to talk accepts one. Close
-# it first, as with the apps above,
+# follows the account, as does its hands-free toggle on Option+Ctrl+X (Omarchy:
+# SUPER+Ctrl+X). So Superwhisper has no hold key at all, never sharing one with
+# Granola, and toggles on Option+Ctrl+Shift+X. Its toggle ships as Option+Space,
+# Vicinae's launcher key, and Change Mode as Option+Shift+K, an AeroSpace binding,
+# so both move. Change Mode gets a chord rather than nothing: an empty value
+# written there is ignored, where push to talk accepts one. Close it first, as
+# with the apps above,
 # so its in-memory preferences don't overwrite the write. A quit event is
 # accepted but ignored, so this sends SIGTERM instead.
 superwhisper_was_running=false
@@ -124,14 +125,14 @@ if pgrep -xq superwhisper; then
 fi
 
 if pgrep -xq superwhisper; then
-  log_warn "Superwhisper would not quit — clear push to talk and set the toggle to Option+Ctrl+X and Change Mode to Option+Ctrl+Shift+X by hand"
+  log_warn "Superwhisper would not quit — clear push to talk and set the toggle to Option+Ctrl+Shift+X and Change Mode to Option+Ctrl+Shift+M by hand"
 else
-  # Carbon key code 7 is X; 6144 is optionKey (2048) + controlKey (4096), 6656
-  # those plus shiftKey (512); the modifier key codes are what the app itself
-  # records for that chord
+  # Carbon key codes 7 and 46 are X and M; 6656 is optionKey (2048) + controlKey
+  # (4096) + shiftKey (512); the modifier key codes are what the app itself
+  # records for a chord
   defaults write com.superduper.superwhisper KeyboardShortcuts_pushToTalk -bool false
-  defaults write com.superduper.superwhisper KeyboardShortcuts_toggleRecording -string '{"carbonKeyCode":7,"carbonModifiers":6144,"mouseButtonNumbers":[],"modifierKeyCodes":[]}'
-  defaults write com.superduper.superwhisper KeyboardShortcuts_changeMode -string '{"carbonKeyCode":7,"carbonModifiers":6656,"mouseButtonNumbers":[],"modifierKeyCodes":[59,58,56]}'
+  defaults write com.superduper.superwhisper KeyboardShortcuts_toggleRecording -string '{"carbonKeyCode":7,"carbonModifiers":6656,"mouseButtonNumbers":[],"modifierKeyCodes":[]}'
+  defaults write com.superduper.superwhisper KeyboardShortcuts_changeMode -string '{"carbonKeyCode":46,"carbonModifiers":6656,"mouseButtonNumbers":[],"modifierKeyCodes":[59,58,56]}'
   # Filesync carries modes, vocabulary and replacements between Macs on the one
   # license, so they're set up once; it syncs nothing recorded. It doesn't open
   # at login: offline dictation is rare, so it's opened when needed. Local models
