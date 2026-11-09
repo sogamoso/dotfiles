@@ -166,7 +166,16 @@ Bootstrap sets none of this: Granola keeps these settings in an encrypted prefer
 | Local data storage | Delete after 24 hours |
 | Styles | Automatic for every kind of app |
 
-Then open **Dictionary** and check the names and terms are there; add them if the Mac shows an empty list. The dictionary is separate from the meeting jargon list, so a term wanted in both goes in both. **Auto-add words** fills it in over time from spelling fixes.
+Then open **Dictionary** and check the terms below are there; add them if the Mac shows an empty list. **Auto-add words** grows it from spelling fixes, and Screen context catches names visible in the thread being answered, so it starts lean.
+
+Granola's lists only help it recognise a term when spoken. None of them replaces one word with another, so there is no equivalent of Superwhisper's `send as → Sendas` or `slash → /`: add the right spelling and let the model match it, and say the symbol's name, which Granola writes from natural speech. Meeting transcription has its own two lists, separate from the dictation dictionary, so a term wanted in both goes in both. Granola already knows the attendees from the calendar, so their names are not needed in any list.
+
+| List | Where | Terms |
+|---|---|---|
+| Dictionary (dictation, per Mac) | Settings → Voice typing → Personalization | Sendas, Honduras, Tegucigalpa, lempira; BCH, INE, SEFIN, CEPAL, BID, FMI; Claude Code, Codex, Superwhisper, PostHog, DatoCMS, Buttondown, Vercel, Cloudflare, Linear; herdr, Omarchy, AeroSpace, Vicinae, Ghostty, SketchyBar, mise; the people written to most |
+| Personal jargon (meetings, up to 30) | Settings → Preferences → Language | The Sendas domain and the personal tooling, since the workspace isn't Sendas and won't become it: BCH, INE, SEFIN, CEPAL, BID, FMI, Banco Mundial, the institutions and programmes that come up by acronym; DatoCMS, PostHog, Buttondown, Vercel, Cloudflare, Linear; herdr, Omarchy, Claude Code, Codex |
+| Workspace jargon (meetings, everyone, up to 50) | Settings → Workspace → General → Language | Left empty until the workspace has people who share terms |
+
 
 ### Superwhisper
 
