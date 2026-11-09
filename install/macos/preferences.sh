@@ -136,6 +136,10 @@ else
   defaults write com.superduper.superwhisper launchOnLogin -bool true
   defaults write com.superduper.superwhisper voiceModelActiveDelay -int 600
   defaults write com.superduper.superwhisper recordingRetentionDuration -int 31536000
+  # Meetings are Granola's. Off, with no calendar, Superwhisper neither prompts
+  # before a call nor records one unless started by hand from its Meetings tab.
+  defaults write com.superduper.superwhisper meetingDetectionMode -string off
+  defaults write com.superduper.superwhisper googleCalendarEnabled -bool false
   if [[ $superwhisper_was_running == true ]]; then
     open -a superwhisper
   fi
