@@ -11,11 +11,11 @@ Open each prompt as it appears during the install, or go here:
 
 **System Settings → Privacy & Security → Accessibility**
 - Aerospace
-- MacWhisper (types dictation into the focused field)
+- Superwhisper (types dictation into the focused field)
 - Vicinae (pastes and expands snippets)
 
 **System Settings → Privacy & Security → Microphone**
-- MacWhisper
+- Superwhisper
 
 **System Settings → Privacy & Security → Local Network**
 - LocalSend — allow it at the first-launch prompt, or it can't see other devices. The firewall also asks once whether to accept incoming connections; allow that too, or nothing can send to this Mac.
@@ -74,7 +74,7 @@ Then trim third-party items by hand. macOS keeps this list in an encoded record 
 - Tuple
 - Vicinae
 
-Turn off every other app (Basecamp, Brain.fm, ChatGPT, Claude, Gemini, Granola, MacWhisper, Notion, Slack, Wabi, Zoom, …). Turning one off stops its icon from ever appearing; the app itself keeps working. Vicinae shows no icon even while allowed, since `tray.enabled` is off in its stowed config.
+Turn off every other app (Basecamp, Brain.fm, ChatGPT, Claude, Gemini, Granola, Notion, Slack, Superwhisper, Wabi, Zoom, …). Turning one off stops its icon from ever appearing; the app itself keeps working. Vicinae shows no icon even while allowed, since `tray.enabled` is off in its stowed config.
 
 Brain.fm needs one more step. By default it runs as a menu bar app and positions its window under its icon every time it opens, so with the icon disallowed the window lands in the top-left corner. Brain.fm → Settings → App Behavior → **Run in Separate Window** makes it a normal window, which opens centred and stays where it is put. The AeroSpace rule for it only centres that separate window.
 
@@ -143,18 +143,13 @@ Nothing to install by hand either: bootstrap installs the store extensions liste
 
 1Password → Settings → General → **Show Quick Access** shortcut → `Option + Shift + /` (Omarchy: SUPER + SHIFT + / → 1Password). It's 1Password's own shortcut rather than an AeroSpace binding, so it still works while Secure Input has AeroSpace's bindings dead — which is when a password field is focused. The full app opens from the menu bar icon (section 11).
 
-### MacWhisper
+### Superwhisper
 
-Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Alt, which is Command here). `install/macos/preferences.sh` sets the key and the hold-to-talk mode, so they need no hand setup. To tap to start and again to finish instead, switch **Settings → Dictation** to toggle, and change `dictationActivationMode` to `toggle` in `preferences.sh` so bootstrap keeps it.
+Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Alt, which is Command here), or press `Option + Ctrl + X` to start and again to stop (Omarchy: SUPER + Ctrl + X). `install/macos/preferences.sh` sets both as Superwhisper's own shortcuts, so they need no hand setup. The toggle ships as `Option + Space`, Vicinae's launcher key, which is why bootstrap moves it.
 
-Set these once per Mac in **Settings → Dictation**, since they live alongside downloaded models:
+Run Superwhisper's onboarding once per Mac: it asks for **Microphone** and **Accessibility** (the grants in section 1) and has you try the push-to-talk key. Until then Right `⌘` silently does nothing, even with the key already set.
 
-- **Model** → Parakeet v3, which runs locally, so dictation works offline
-- **Language** → Auto Detect, for switching between English and Spanish
-
-Before the key does anything, run MacWhisper's dictation setup once: open MacWhisper → **Dictation**, follow the setup, and grant **Microphone** and **Accessibility** when it asks (the grants in section 1). Until then Right `⌘` silently does nothing, even with the key already set. Check the setup shows Right `⌘` and push to talk, then hold the key in any text field to test.
-
-Dictation belongs to the direct-download build that the `macwhisper` cask installs, not the App Store version.
+Pick a local voice model once per Mac, so dictation works offline; the models download into `~/superwhisper`. Whisper Large v3 Turbo is free, Parakeet Multilanguage needs Pro. Set the mode's language to Auto to switch between English and Spanish. Modes, vocabulary and recordings also live in `~/superwhisper`, outside dotfiles.
 
 ### CleanShot
 
@@ -474,7 +469,7 @@ What is left worth tracking:
 | `SUPER + Ctrl + A/B/N` — audio/bluetooth/network TUIs | ✅ Option+Ctrl+A/B/N → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | ✅ Option+Ctrl+D/P → Displays and Battery settings (Energy on a desktop Mac) |
 | `SUPER + Ctrl + S` — share menu (clipboard, file or folder over LocalSend) | Option+Ctrl+S opens LocalSend itself; pick what to send there |
-| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → MacWhisper: hold to talk (set by `preferences.sh`) |
+| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ holds to talk and Option+Ctrl+X toggles → Superwhisper (set by `preferences.sh`) |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `Shift + CapsLock` — Compose key, typing emojis from two letters (`m s` → 😄) | Not ported. macOS has no system-wide Compose key: `DefaultKeyBinding.dict` sequences only reach native Cocoa text fields, not Chrome, Electron apps or terminals. Option+Ctrl+E opens the emoji picker |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |

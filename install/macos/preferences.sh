@@ -102,25 +102,29 @@ else
   fi
 fi
 
-# MacWhisper: dictation on Right ⌘, held to talk (Omarchy: hold Right Alt, which
-# is Command here). It also writes its preferences back on quit, so close it first.
-macwhisper_was_running=false
-if pgrep -xq MacWhisper; then
-  macwhisper_was_running=true
-  osascript -e 'quit app "MacWhisper"' 2>/dev/null || pkill -x MacWhisper 2>/dev/null || true
+# Superwhisper: dictation on Right ⌘, held to talk (Omarchy: hold Right Alt, which
+# is Command here), and Option+Ctrl+X to start and stop (Omarchy: SUPER+Ctrl+X).
+# The toggle ships as Option+Space, which is Vicinae's launcher key. Quit it first,
+# as with the apps above, so its in-memory preferences don't overwrite the write.
+superwhisper_was_running=false
+if pgrep -xq superwhisper; then
+  superwhisper_was_running=true
+  osascript -e 'quit app "superwhisper"' 2>/dev/null || pkill -x superwhisper 2>/dev/null || true
   for _ in {1..20}; do
-    pgrep -xq MacWhisper || break
+    pgrep -xq superwhisper || break
     sleep 0.5
   done
 fi
 
-if pgrep -xq MacWhisper; then
-  log_warn "MacWhisper would not quit — set its dictation key to Right ⌘ by hand"
+if pgrep -xq superwhisper; then
+  log_warn "Superwhisper would not quit — set push to talk to Right ⌘ and the toggle to Option+Ctrl+X by hand"
 else
-  defaults write com.goodsnooze.MacWhisper dictationKeyboardButton -string rightCmd
-  defaults write com.goodsnooze.MacWhisper dictationActivationMode -string pushToTalk
-  if [[ $macwhisper_was_running == true ]]; then
-    open -a MacWhisper
+  # Carbon key codes and modifier masks: 54 is Right ⌘, 256 cmdKey; 7 is X,
+  # 6144 optionKey (2048) + controlKey (4096)
+  defaults write com.superduper.superwhisper KeyboardShortcuts_pushToTalk -string '{"carbonKeyCode":54,"carbonModifiers":256,"mouseButtonNumbers":[],"modifierKeyCodes":[]}'
+  defaults write com.superduper.superwhisper KeyboardShortcuts_toggleRecording -string '{"carbonKeyCode":7,"carbonModifiers":6144,"mouseButtonNumbers":[],"modifierKeyCodes":[]}'
+  if [[ $superwhisper_was_running == true ]]; then
+    open -a superwhisper
   fi
 fi
 
