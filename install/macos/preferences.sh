@@ -106,12 +106,13 @@ fi
 # is Command here), and Option+Ctrl+X to start and stop (Omarchy: SUPER+Ctrl+X).
 # The toggle ships as Option+Space, Vicinae's launcher key, and Change Mode as
 # Option+Shift+K, an AeroSpace binding, so the first moves and the second goes;
-# modes switch from the menu bar or a superwhisper://mode URL. Quit it first, as
-# with the apps above, so its in-memory preferences don't overwrite the write.
+# modes switch from the menu bar or a superwhisper://mode URL. Close it first, as
+# with the apps above, so its in-memory preferences don't overwrite the write. A
+# quit event is accepted but ignored, so this sends SIGTERM instead.
 superwhisper_was_running=false
 if pgrep -xq superwhisper; then
   superwhisper_was_running=true
-  osascript -e 'quit app "superwhisper"' 2>/dev/null || pkill -x superwhisper 2>/dev/null || true
+  pkill -x superwhisper 2>/dev/null || true
   for _ in {1..20}; do
     pgrep -xq superwhisper || break
     sleep 0.5
