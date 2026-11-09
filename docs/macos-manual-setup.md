@@ -147,9 +147,26 @@ Nothing to install by hand either: bootstrap installs the store extensions liste
 
 ### Granola Voice Typing
 
-Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Alt, which is Command here), or press `Option + Ctrl + X` for hands-free and again to finish (Omarchy: SUPER + Ctrl + X). Granola is a deliberate departure from Omarchy, whose dictation is Superwhisper: it is already the meeting tool here, Voice Typing is free, and its dictionary, languages and shortcut live in the account, so a new Mac needs no setup beyond the grants. The cost is that it needs a connection, which is why Superwhisper stays (below).
+Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Alt, which is Command here), or press `Option + Ctrl + X` for hands-free and again to finish (Omarchy: SUPER + Ctrl + X). Granola is a deliberate departure from Omarchy, whose dictation is Superwhisper: it is already the meeting tool here, Voice Typing is free, and it keeps one history across Macs. The cost is that it needs a connection, which is why Superwhisper stays (below).
 
-Once per account, in Granola → Settings → **Voice typing**: turn **Enable Voice Typing** on, set **Shortcut** to Right `⌘` (its default is `fn`), set **Hands-free** to `Option + Ctrl + X`, and list English and Spanish under **Languages**; it still mixes them within one dictation. Bootstrap can't set these: Granola's preferences file is encrypted. On each Mac, grant **Accessibility** and **Microphone** when it asks (section 1). Names and terms go in its **Dictionary**, separate from the meeting jargon list.
+Bootstrap sets none of this: Granola keeps these settings in an encrypted preferences file and the dictionary in its local database, and documents no sync for either, so treat every row as per machine. Only the history syncs, through **Store data in the cloud**. On each Mac, grant **Accessibility** and **Microphone** when it asks (section 1), then set Granola → Settings → **Voice typing** to match:
+
+| Setting | Value |
+|---|---|
+| Enable Voice Typing | On |
+| Hold to talk | Right `⌘` (its default is `fn`) |
+| Hands-free | Left `⌃` + Left `⌥` + `X` |
+| Languages | English, Spanish |
+| Microphone | System default |
+| Screen context | On |
+| Auto-add words | On |
+| Sound effects | On |
+| Mute other audio | On |
+| Store data in the cloud | On |
+| Local data storage | Delete after 24 hours |
+| Styles | Automatic for every kind of app |
+
+Then open **Dictionary** and check the names and terms are there; add them if the Mac shows an empty list. The dictionary is separate from the meeting jargon list, so a term wanted in both goes in both. **Auto-add words** fills it in over time from spelling fixes.
 
 ### Superwhisper
 
@@ -478,7 +495,7 @@ What is left worth tracking:
 | `SUPER + Ctrl + A/B/N` — audio/bluetooth/network TUIs | ✅ Option+Ctrl+A/B/N → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | ✅ Option+Ctrl+D/P → Displays and Battery settings (Energy on a desktop Mac) |
 | `SUPER + Ctrl + S` — share menu (clipboard, file or folder over LocalSend) | Option+Ctrl+S opens LocalSend itself; pick what to send there |
-| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → Granola Voice Typing, hold to talk, and Option+Ctrl+X hands-free. Deliberately not Superwhisper, Omarchy's default: Granola is already the meeting tool here, Voice Typing is free, and its dictionary and shortcut follow the account. It needs a connection, so Superwhisper stays for offline, toggled with Option+Ctrl+Shift+X and with no hold key (set by `preferences.sh`) |
+| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → Granola Voice Typing, hold to talk, and Option+Ctrl+X hands-free. Deliberately not Superwhisper, Omarchy's default: Granola is already the meeting tool here and Voice Typing is free. Its settings are per Mac, listed in section 7. It needs a connection, so Superwhisper stays for offline, toggled with Option+Ctrl+Shift+X and with no hold key (set by `preferences.sh`) |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `Shift + CapsLock` — Compose key, typing emojis from two letters (`m s` → 😄) | Not ported. macOS has no system-wide Compose key: `DefaultKeyBinding.dict` sequences only reach native Cocoa text fields, not Chrome, Electron apps or terminals. Option+Ctrl+E opens the emoji picker |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |

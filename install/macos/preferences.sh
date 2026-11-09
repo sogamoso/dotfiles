@@ -104,9 +104,9 @@ fi
 
 # Superwhisper is the offline dictation, with local models; online dictation is
 # Granola's Voice Typing on Right ⌘ (Omarchy: hold Right Alt, which is Command
-# here), set in Granola itself since its preferences file is encrypted and
-# follows the account, as does its hands-free toggle on Option+Ctrl+X (Omarchy:
-# SUPER+Ctrl+X). So Superwhisper has no hold key at all, never sharing one with
+# here) and Option+Ctrl+X hands-free (Omarchy: SUPER+Ctrl+X), both set in Granola
+# itself on each Mac, since its preferences file is encrypted; the manual lists
+# every value. So Superwhisper has no hold key at all, never sharing one with
 # Granola, and toggles on Option+Ctrl+Shift+X. Its toggle ships as Option+Space,
 # Vicinae's launcher key, and Change Mode as Option+Shift+K, an AeroSpace binding,
 # so both move. Change Mode is parked on an unused chord rather than cleared: an
