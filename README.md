@@ -338,9 +338,10 @@ Each opens in Vicinae.
 | `Option + Ctrl + S` | LocalSend: share files with Omarchy and phones |
 | `Option + Ctrl + V` | Clipboard history (Vicinae) |
 | `Option + Ctrl + E` | Emoji picker (Vicinae) |
-| `Right ⌘` | Dictation: hold to talk (Superwhisper) |
-| `Option + Ctrl + X` | Dictation: start and stop (Superwhisper) |
-| `Option + Ctrl + Shift + X` | Dictation: switch mode, Cloud or Local (Superwhisper) |
+| `Right ⌘` | Dictation: hold to talk (Granola Voice Typing, needs a connection) |
+| `Right ⌥` | Offline dictation: hold to talk (Superwhisper, local models) |
+| `Option + Ctrl + X` | Offline dictation: start and stop (Superwhisper) |
+| `Option + Ctrl + Shift + X` | Superwhisper: switch mode, Local or Cloud |
 | `Option + I` | Switch input language |
 | `Option + Shift + I` | Switch input language back |
 | `Mic Mute (F18)` | Toggle microphone mute (Lofree mic-mute key; dead on built-in keyboard) |

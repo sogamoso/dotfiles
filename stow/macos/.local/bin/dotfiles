@@ -771,7 +771,7 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
   fi
 
   echo "==> Login items"
-  # Without one its feature just doesn't start: no Superwhisper, no dictation
+  # Without one its feature just doesn't start: no Granola, no dictation
   source "$DOTFILES/install/lib/login-items.sh"
   local login_items app missing_items=()
   # From a terminal, being refused means the Automation grant is missing, and
@@ -882,11 +882,12 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
   fi
 
   echo "==> Superwhisper"
-  # Its toggle ships as Option+Space, Vicinae's launcher key, and Change Mode as
-  # Option+Shift+K, an AeroSpace binding; preferences.sh moves them to
-  # Option+Ctrl+X and Option+Ctrl+Shift+X and keeps push to talk on Right ⌘
+  # The offline dictation. Its toggle ships as Option+Space, Vicinae's launcher
+  # key, and Change Mode as Option+Shift+K, an AeroSpace binding; preferences.sh
+  # moves them to Option+Ctrl+X and Option+Ctrl+Shift+X, and puts push to talk
+  # on Right ⌥, since Right ⌘ is Granola's
   local sw name code mods sw_drift=()
-  for sw in pushToTalk:54:256 toggleRecording:7:6144 changeMode:7:6656; do
+  for sw in pushToTalk:61:2048 toggleRecording:7:6144 changeMode:7:6656; do
     IFS=: read -r name code mods <<<"$sw"
     defaults read com.superduper.superwhisper "KeyboardShortcuts_$name" 2>/dev/null |
       python3 -c 'import json, sys
@@ -894,7 +895,7 @@ s = json.load(sys.stdin)
 sys.exit(0 if (s["carbonKeyCode"], s["carbonModifiers"]) == (int(sys.argv[1]), int(sys.argv[2])) else 1)' "$code" "$mods" 2>/dev/null || sw_drift+=("$name")
   done
   if (( ${#sw_drift[@]} == 0 )); then
-    ok "Right ⌘ holds to talk, Option+Ctrl+X toggles, Option+Ctrl+Shift+X changes mode"
+    ok "Right ⌥ holds to talk offline, Option+Ctrl+X toggles, Option+Ctrl+Shift+X changes mode"
   else
     bad "Dictation shortcuts differ (${sw_drift[*]})" \
       "bash $DOTFILES/install/macos/preferences.sh"

@@ -11,10 +11,12 @@ Open each prompt as it appears during the install, or go here:
 
 **System Settings → Privacy & Security → Accessibility**
 - Aerospace
-- Superwhisper (types dictation into the focused field)
+- Granola (types dictation into the focused field, reads it for context)
+- Superwhisper (types offline dictation into the focused field)
 - Vicinae (pastes and expands snippets)
 
 **System Settings → Privacy & Security → Microphone**
+- Granola
 - Superwhisper
 
 **System Settings → Privacy & Security → Local Network**
@@ -143,13 +145,17 @@ Nothing to install by hand either: bootstrap installs the store extensions liste
 
 1Password → Settings → General → **Show Quick Access** shortcut → `Option + Shift + /` (Omarchy: SUPER + SHIFT + / → 1Password). It's 1Password's own shortcut rather than an AeroSpace binding, so it still works while Secure Input has AeroSpace's bindings dead — which is when a password field is focused. The full app opens from the menu bar icon (section 11).
 
+### Granola Voice Typing
+
+Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Alt, which is Command here), or double-tap it for hands-free and tap again to finish. Granola is a deliberate departure from Omarchy, whose dictation is Superwhisper: it is already the meeting tool here, Voice Typing is free, and its dictionary, languages and shortcut live in the account, so a new Mac needs no setup beyond the grants. The cost is that it needs a connection, which is why Superwhisper stays (below).
+
+Once per account, in Granola → Settings → **Voice typing**: turn **Enable Voice Typing** on, set **Shortcut** to Right `⌘` (its default is `fn`), and leave **Language** on Auto-detect so English and Spanish mix. Bootstrap can't set these: Granola's preferences file is encrypted. On each Mac, grant **Accessibility** and **Microphone** when it asks (section 1). Names and terms go in its **Dictionary**, separate from the meeting jargon list.
+
 ### Superwhisper
 
-Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Alt, which is Command here), or press `Option + Ctrl + X` to start and again to stop (Omarchy: SUPER + Ctrl + X). `install/macos/preferences.sh` sets both as Superwhisper's own shortcuts, so they need no hand setup. The toggle ships as `Option + Space`, Vicinae's launcher key, so bootstrap moves it, and Change Mode ships as `Option + Shift + K`, the Neovim cheatsheet, so bootstrap moves it to `Option + Ctrl + Shift + X`; writing it empty is ignored, so it needs a chord. Modes also switch from the menu bar icon or with `open superwhisper://mode?key=<mode>`.
+Offline dictation only, on local models: hold Right `⌥` to talk, or press `Option + Ctrl + X` to start and again to stop (Omarchy: SUPER + Ctrl + X). `install/macos/preferences.sh` sets both as Superwhisper's own shortcuts, and keeps them off Right `⌘` so Granola and Superwhisper never answer the same key. Its toggle ships as `Option + Space`, Vicinae's launcher key, and Change Mode as `Option + Shift + K`, the Neovim cheatsheet, so bootstrap moves them to `Option + Ctrl + X` and `Option + Ctrl + Shift + X`; writing Change Mode empty is ignored, so it needs a chord. Modes also switch from the menu bar icon or with `open superwhisper://mode?key=<mode>`.
 
-Run Superwhisper's onboarding once per Mac: it asks for **Microphone** and **Accessibility** (the grants in section 1) and has you try the push-to-talk key. Until then Right `⌘` silently does nothing, even with the key already set.
-
-Sign in to the Pro license once per Mac. Bootstrap turns Filesync on, which then brings the modes, vocabulary and replacements over from the other Macs, so none of that is set up again: a Cloud mode on S1-Voice and S1-Language as the default, and a Local mode on Cohere Transcribe and Tiny Aya 3B for offline, both with the language on Automatic for English and Spanish. The Local mode's models still download once per Mac, into `~/superwhisper`, so open that mode once while online.
+Sign in to the Pro license once per Mac. Bootstrap turns Filesync on, which then brings the modes, vocabulary and replacements over from the other Macs: a Local mode on Cohere Transcribe and Tiny Aya 3B, the default since Granola covers online, and a Cloud mode on S1-Voice and S1-Language, both with the language on Automatic for English and Spanish. The Local mode's models still download once per Mac, into `~/superwhisper`, so open that mode once while online.
 
 Meetings are Granola's, so bootstrap turns Superwhisper's meeting detection and calendar off; otherwise both prompt before every call and both record it. Decline its System Audio permission when asked, since dictation doesn't use it. Recordings stay on the Mac that made them: Filesync carries configuration only, and the recordings folder has to stay local. They live a year, from Keep recordings for.
 
@@ -472,7 +478,7 @@ What is left worth tracking:
 | `SUPER + Ctrl + A/B/N` — audio/bluetooth/network TUIs | ✅ Option+Ctrl+A/B/N → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | ✅ Option+Ctrl+D/P → Displays and Battery settings (Energy on a desktop Mac) |
 | `SUPER + Ctrl + S` — share menu (clipboard, file or folder over LocalSend) | Option+Ctrl+S opens LocalSend itself; pick what to send there |
-| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ holds to talk and Option+Ctrl+X toggles → Superwhisper (set by `preferences.sh`) |
+| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → Granola Voice Typing, hold to talk. Deliberately not Superwhisper, Omarchy's default: Granola is already the meeting tool here, Voice Typing is free, and its dictionary and shortcut follow the account. It needs a connection, so Superwhisper stays for offline: Right ⌥ holds to talk, Option+Ctrl+X toggles (set by `preferences.sh`) |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `Shift + CapsLock` — Compose key, typing emojis from two letters (`m s` → 😄) | Not ported. macOS has no system-wide Compose key: `DefaultKeyBinding.dict` sequences only reach native Cocoa text fields, not Chrome, Electron apps or terminals. Option+Ctrl+E opens the emoji picker |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |
