@@ -149,7 +149,9 @@ Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Al
 
 Run Superwhisper's onboarding once per Mac: it asks for **Microphone** and **Accessibility** (the grants in section 1) and has you try the push-to-talk key. Until then Right `⌘` silently does nothing, even with the key already set.
 
-Pick a local voice model once per Mac, so dictation works offline; the models download into `~/superwhisper`. Whisper Large v3 Turbo is free, Parakeet Multilanguage needs Pro. Set the mode's language to Auto to switch between English and Spanish. Modes, vocabulary and recordings also live in `~/superwhisper`, outside dotfiles.
+Sign in to the Pro license once per Mac. Bootstrap turns Filesync on, which then brings the modes, vocabulary and replacements over from the other Macs, so none of that is set up again: a Cloud mode on S1-Voice and S1-Language as the default, and a Local mode on Cohere Transcribe and Tiny Aya 3B for offline, both with the language on Automatic for English and Spanish. The Local mode's models still download once per Mac, into `~/superwhisper`, so open that mode once while online.
+
+Recordings, dictations and meetings alike, stay on the Mac that made them. Filesync carries configuration only, and the recordings folder has to stay local. They live a year, from the one Keep recordings for setting, which cannot keep meetings longer than dictations.
 
 ### CleanShot
 

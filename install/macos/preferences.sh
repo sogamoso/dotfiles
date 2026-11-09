@@ -128,6 +128,14 @@ else
   defaults write com.superduper.superwhisper KeyboardShortcuts_pushToTalk -string '{"carbonKeyCode":54,"carbonModifiers":256,"mouseButtonNumbers":[],"modifierKeyCodes":[]}'
   defaults write com.superduper.superwhisper KeyboardShortcuts_toggleRecording -string '{"carbonKeyCode":7,"carbonModifiers":6144,"mouseButtonNumbers":[],"modifierKeyCodes":[]}'
   defaults write com.superduper.superwhisper KeyboardShortcuts_changeMode -string '{"carbonKeyCode":7,"carbonModifiers":6656,"mouseButtonNumbers":[],"modifierKeyCodes":[59,58,56]}'
+  # Filesync carries modes, vocabulary and replacements between Macs on the one
+  # license, so they're set up once; it syncs nothing recorded. Local models stay
+  # loaded ten minutes between dictations instead of one, and recordings keep for
+  # a year, meetings included, since the one setting covers both.
+  defaults write com.superduper.superwhisper filesyncEnabled -bool true
+  defaults write com.superduper.superwhisper launchOnLogin -bool true
+  defaults write com.superduper.superwhisper voiceModelActiveDelay -int 600
+  defaults write com.superduper.superwhisper recordingRetentionDuration -int 31536000
   if [[ $superwhisper_was_running == true ]]; then
     open -a superwhisper
   fi
