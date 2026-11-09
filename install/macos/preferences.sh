@@ -104,8 +104,10 @@ fi
 
 # Superwhisper: dictation on Right ⌘, held to talk (Omarchy: hold Right Alt, which
 # is Command here), and Option+Ctrl+X to start and stop (Omarchy: SUPER+Ctrl+X).
-# The toggle ships as Option+Space, which is Vicinae's launcher key. Quit it first,
-# as with the apps above, so its in-memory preferences don't overwrite the write.
+# The toggle ships as Option+Space, Vicinae's launcher key, and Change Mode as
+# Option+Shift+K, an AeroSpace binding, so the first moves and the second goes;
+# modes switch from the menu bar or a superwhisper://mode URL. Quit it first, as
+# with the apps above, so its in-memory preferences don't overwrite the write.
 superwhisper_was_running=false
 if pgrep -xq superwhisper; then
   superwhisper_was_running=true
@@ -123,6 +125,7 @@ else
   # 6144 optionKey (2048) + controlKey (4096)
   defaults write com.superduper.superwhisper KeyboardShortcuts_pushToTalk -string '{"carbonKeyCode":54,"carbonModifiers":256,"mouseButtonNumbers":[],"modifierKeyCodes":[]}'
   defaults write com.superduper.superwhisper KeyboardShortcuts_toggleRecording -string '{"carbonKeyCode":7,"carbonModifiers":6144,"mouseButtonNumbers":[],"modifierKeyCodes":[]}'
+  defaults write com.superduper.superwhisper KeyboardShortcuts_changeMode -bool false
   if [[ $superwhisper_was_running == true ]]; then
     open -a superwhisper
   fi
