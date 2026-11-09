@@ -140,9 +140,9 @@ A `dotfiles` command is installed to `~/.local/bin/dotfiles` for day-to-day main
 | `dotfiles pull` | Fetch and fast-forward only (`git merge --ff-only`, never `git pull`'s rebase), refusing when local commits or a rewritten upstream are in the way |
 | `dotfiles brew` | Sync Brewfile via `brew bundle`, keep brew autoupdate current |
 | `dotfiles stow` | Re-stow all packages |
-| `dotfiles reload` | Re-stow, reapply the git filters and Grok's theme and auto mode, relink skills, move Omarchy's agent usage collectors to their pinned commit, reload SketchyBar, sync the AeroSpace gap and reload AeroSpace, restart a stale herdr server, relink the herdr plugins and integrations, save the Mac mini as a herdr machine, rebuild Neovim.app |
+| `dotfiles reload` | Re-stow, reapply the git filters and Grok's theme and auto mode, relink skills, move Omarchy's agent usage collectors to their pinned commit, reload SketchyBar, sync the AeroSpace gap and reload AeroSpace, restart a stale herdr server, relink the herdr plugins and integrations, save the Mac mini as a herdr machine, pick the Herdr app's theme if it's open, rebuild Neovim.app |
 | `dotfiles status` | Branch, ahead/behind, dirty files |
-| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, herdr plugins and service, Omarchy's agent usage collectors, stow links, 1Password, keyboard shortcuts, the screen saver, web apps, login items, GitHub CLI, mailto, Screen Sharing, Vicinae, LanguageTool, CleanShot, Grok's theme and auto mode, Codex's auto-review, brew autoupdate, the SketchyBar service) and print the fix for anything wrong. Also runs at the end of bootstrap and of `dotfiles update` |
+| `dotfiles doctor` | Check this Mac's setup (Tailscale, SSH, firewall, agents, ui.sh skills, herdr plugins and service, the Herdr app, Omarchy's agent usage collectors, stow links, 1Password, keyboard shortcuts, the screen saver, web apps, login items, GitHub CLI, mailto, Screen Sharing, Vicinae, LanguageTool, CleanShot, Grok's theme and auto mode, Codex's auto-review, brew autoupdate, the SketchyBar service) and print the fix for anything wrong. Also runs at the end of bootstrap and of `dotfiles update` |
 | `dotfiles vicinae [status \| save \| reset \| install]` | Compare Vicinae's settings and store extensions with the repo. `save` keeps what changed on this Mac (commit the result), `reset` drops it, `install` only adds the extensions in the repo that aren't installed yet |
 | `dotfiles omarchy-downstream-candidates` | Review what changed in Omarchy since the last review and which of it to port, in a session with the default agent (`dotfiles agent`), following the `omarchy-downstream` skill in `.agents/skills/`. `--list` prints the raw changes: new and removed key bindings, commits touching what the macOS side ports, files added or removed outside the areas set aside as Linux-only, new migrations that mention something used here, other commits whose title mentions something used here, any Omarchy area not yet classified as ported or skipped, and any listed area Omarchy no longer has. `--classification` prints only those last two checks, and exits 1 when either finds something. `--mark-reviewed` records the review in `.omarchy-reviewed` |
 | `dotfiles agent [<name> \| run [--pick] [--prompt <text>]]` | Show or set the default coding agent, like Omarchy's `omarchy default agent`, with the same names (`gemini` picks Antigravity, `cursor` the Cursor CLI). `run` launches it with Omarchy's flags for that agent, as the `a` alias does; `--pick` asks for one when none is set, which is how `Option + Shift + Ctrl + A` opens it. The herdr layouts use it when no agent is given |
@@ -203,6 +203,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `vicinae.sh` | Points Vicinae's `settings.json` at the stowed `dotfiles.json`, installs the store extensions in `extensions.txt`, then launches it |
 | `neovim.sh` | Builds `~/Applications/Neovim.app`, which opens files in Neovim in a new Ghostty window, and makes it the default for text and code file types (via `duti`) |
 | `terminal.sh` | Makes Ghostty the default terminal: it runs double-clicked `.command` and `.tool` scripts and Unix executables, which open in Terminal.app otherwise (via `duti`). `.sh` files stay with Neovim, and `ssh://` and `x-man-page://` links with Terminal.app, since Ghostty doesn't take them |
+| `herdr-app.sh` | Finishes the [Herdr app](#herdr-app) the Brewfile's cask installs: herdr-core through Herdr's own installer when there's none, usage telemetry off, then the Tokyo Night theme picked through the running app, which bootstrap opens first |
 | `apps.sh` | Installs apps Homebrew has no cask for (Wabi), checking the download's Developer ID |
 | `login-items.sh` | Adds the apps in `install/lib/login-items.sh` to the login items, leaving any others alone |
 | `manual_steps.sh` | Opens the manual setup guide, first run only |
@@ -470,6 +471,29 @@ Agent multiplexer. Prefix is `Ctrl + Space`; the Command-key chords replicate th
 | `prefix + Shift + B` | Open the focused branch's pull request in the default browser, where GitHub has a session; a tab each when the branch has several ([pull request status](#pull-request-status)) |
 | `prefix + o` | Jump to the agent that last raised a notification, the latest one waiting on you (herdr default) |
 | `prefix + Shift + 1-9` | Switch to workspace 1–9, and so to an agent, since each agent has its own (herdr default) |
+
+##### Herdr app
+
+Herdr's desktop app, kept beside the terminal herdr the way Omarchy keeps it (its _Install > AI_ entry): spaces, tabs and panes of terminals and agents that keep running in herdr-core when the window closes. The two Herdrs don't share agents. The Brewfile's `herdr-app` cask installs the app and `install/macos/herdr-app.sh` finishes it: herdr-core, which the cask leaves out, comes from Herdr's own installer (checked against the release's SHA-256 and Herdr's code signature, into `~/.local/bin`, self-updating from then on), usage telemetry goes off in `settings.json` as terminal-browser's does, and the theme is picked through the running window, since that's the only way Herdr takes one. The theme, in `stow/macos/.config/herdr-app/themes/omarchy.json`, is Omarchy's `herdr-app.json.tpl` rendered for Tokyo Night, so it carries Omarchy's name in Herdr's picker, as Claude Code's does.
+
+The keymap, `stow/macos/.config/herdr-app/keys.json`, is Herdr's whole macOS default with the terminal herdr's direct keys on top, as Omarchy's `default/herdr-app/keys.json` is for Linux. It has to be the whole file: Herdr stops adding new default shortcuts to a keys file it didn't write, so after a Herdr update diff its `defaults/keys.macos.json` against ours. Not carried over, as on Omarchy: the `Ctrl + Space` prefix keys (the app sends a plain Ctrl key straight to the terminal), pane resize and moving a tab one step (no app command for either), and `Cmd + 1-9` to an agent (the app jumps to an agent by id only, so the digits keep Herdr's tabs). `Cmd + Left/Right` take the tabs, as they do in the terminal herdr, so in the app they no longer move to the start and end of the line.
+
+| Hotkey | Action |
+|---|---|
+| `Cmd + Left/Right` | Previous / next tab (Herdr's own `Cmd + Shift + [ / ]` too) |
+| `Cmd + Up/Down` | Previous / next space (Herdr's own `Cmd + Option + [ / ]` too) |
+| `Ctrl + Cmd + arrows` | Focus pane (Herdr's own `Cmd + Option + arrows` too) |
+| `Cmd + 1-9` | Switch tab (Herdr default) |
+| `Ctrl + 1-9` | Switch space (Herdr default) |
+| `Cmd + [ / ]` | Previous / next agent (Herdr default) |
+| `Cmd + D / Cmd + Shift + D` | Split pane right / down (Herdr default) |
+| `Cmd + Shift + W` | Close pane (Herdr default) |
+| `Cmd + Shift + Enter` | Zoom pane (Herdr default) |
+| `Cmd + T / W` | New / close tab (Herdr default) |
+| `Cmd + N` | New space (Herdr default) |
+| `Cmd + B` | Toggle sidebar (Herdr default) |
+| `Cmd + Shift + P` | Command palette (Herdr default) |
+| `Cmd + /` | All bindings (Herdr default) |
 
 ##### herdr layouts
 

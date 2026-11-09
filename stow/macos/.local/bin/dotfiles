@@ -180,6 +180,10 @@ cmd_reload() {
   if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/neovim.sh" ]]; then
     run "$DOTFILES/install/macos/neovim.sh"
   fi
+  # The Herdr app's theme, picked through its window, so only while it's open
+  if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/herdr-app.sh" ]]; then
+    run "$DOTFILES/install/macos/herdr-app.sh"
+  fi
 }
 
 cmd_update() {
@@ -622,6 +626,35 @@ cmd_doctor() {
       "update herdr, then drop HERDR_LAUNCHD_ISSUE in install/lib/herdr-plugins.sh"
   elif [[ $issue_state == "open" ]]; then
     ok "herdr#$HERDR_LAUNCHD_ISSUE still open, so the mini keeps its own herdr LaunchAgent"
+  fi
+
+  echo "==> Herdr app"
+  # Beside the terminal herdr, as on Omarchy; install/macos/herdr-app.sh does the setup
+  if [[ ! -d /Applications/Herdr.app ]]; then
+    bad "The Herdr app isn't installed" "dotfiles brew"
+  else
+    local app_home="${HERDR_APP_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/herdr-app}" app_theme
+    # The cask leaves out herdr-core, without which the app only shows its install screen
+    if command -v herdr-core >/dev/null 2>&1 || [[ -x $HOME/.local/bin/herdr-core ]]; then
+      ok "herdr-core installed"
+    else
+      bad "herdr-core isn't installed, so the Herdr app can't open a terminal" "install/macos/herdr-app.sh"
+    fi
+    if [[ $(jq -r '.telemetry' "$app_home/settings.json" 2>/dev/null) == "false" ]]; then
+      ok "Herdr app telemetry off"
+    else
+      bad "Herdr app telemetry is on" "install/macos/herdr-app.sh"
+    fi
+    # app.theme sets the dark half of the shown layout's theme, which Herdr keeps in the layout's state
+    app_theme=$(jq -r '.theme | if type == "object" then .dark else . end // empty' \
+      "$app_home/layouts/.state/main.json" 2>/dev/null || true)
+    if [[ $app_theme == "omarchy" ]]; then
+      ok "Herdr app shows the omarchy theme"
+    elif [[ -d $app_home/layouts ]]; then
+      bad "Herdr app shows ${app_theme:-its default theme}, not omarchy" "install/macos/herdr-app.sh --launch"
+    else
+      ok "Not checked: the Herdr app hasn't been opened yet; it takes the theme then (install/macos/herdr-app.sh --launch)"
+    fi
   fi
 
   echo "==> Stow"
