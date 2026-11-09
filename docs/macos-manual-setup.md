@@ -145,7 +145,7 @@ Nothing to install by hand either: bootstrap installs the store extensions liste
 
 ### Superwhisper
 
-Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Alt, which is Command here), or press `Option + Ctrl + X` to start and again to stop (Omarchy: SUPER + Ctrl + X). `install/macos/preferences.sh` sets both as Superwhisper's own shortcuts, so they need no hand setup. The toggle ships as `Option + Space`, Vicinae's launcher key, so bootstrap moves it, and Change Mode ships as `Option + Shift + K`, the Neovim cheatsheet, so bootstrap clears it: switch modes from the menu bar icon or with `open superwhisper://mode?key=<mode>`.
+Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Alt, which is Command here), or press `Option + Ctrl + X` to start and again to stop (Omarchy: SUPER + Ctrl + X). `install/macos/preferences.sh` sets both as Superwhisper's own shortcuts, so they need no hand setup. The toggle ships as `Option + Space`, Vicinae's launcher key, so bootstrap moves it, and Change Mode ships as `Option + Shift + K`, the Neovim cheatsheet, so bootstrap moves it to `Option + Ctrl + Shift + X`; writing it empty is ignored, so it needs a chord. Modes also switch from the menu bar icon or with `open superwhisper://mode?key=<mode>`.
 
 Run Superwhisper's onboarding once per Mac: it asks for **Microphone** and **Accessibility** (the grants in section 1) and has you try the push-to-talk key. Until then Right `⌘` silently does nothing, even with the key already set.
 

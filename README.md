@@ -340,6 +340,7 @@ Each opens in Vicinae.
 | `Option + Ctrl + E` | Emoji picker (Vicinae) |
 | `Right ⌘` | Dictation: hold to talk (Superwhisper) |
 | `Option + Ctrl + X` | Dictation: start and stop (Superwhisper) |
+| `Option + Ctrl + Shift + X` | Dictation: switch mode, Cloud or Local (Superwhisper) |
 | `Option + I` | Switch input language |
 | `Option + Shift + I` | Switch input language back |
 | `Mic Mute (F18)` | Toggle microphone mute (Lofree mic-mute key; dead on built-in keyboard) |

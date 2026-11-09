@@ -883,19 +883,18 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
 
   echo "==> Superwhisper"
   # Its toggle ships as Option+Space, Vicinae's launcher key, and Change Mode as
-  # Option+Shift+K, an AeroSpace binding; preferences.sh moves the first to
-  # Option+Ctrl+X, clears the second and keeps push to talk on Right ⌘
+  # Option+Shift+K, an AeroSpace binding; preferences.sh moves them to
+  # Option+Ctrl+X and Option+Ctrl+Shift+X and keeps push to talk on Right ⌘
   local sw name code mods sw_drift=()
-  for sw in pushToTalk:54:256 toggleRecording:7:6144; do
+  for sw in pushToTalk:54:256 toggleRecording:7:6144 changeMode:7:6656; do
     IFS=: read -r name code mods <<<"$sw"
     defaults read com.superduper.superwhisper "KeyboardShortcuts_$name" 2>/dev/null |
       python3 -c 'import json, sys
 s = json.load(sys.stdin)
 sys.exit(0 if (s["carbonKeyCode"], s["carbonModifiers"]) == (int(sys.argv[1]), int(sys.argv[2])) else 1)' "$code" "$mods" 2>/dev/null || sw_drift+=("$name")
   done
-  [[ $(defaults read com.superduper.superwhisper KeyboardShortcuts_changeMode 2>/dev/null) == "0" ]] || sw_drift+=("changeMode")
   if (( ${#sw_drift[@]} == 0 )); then
-    ok "Right ⌘ holds to talk, Option+Ctrl+X toggles, Change Mode unassigned"
+    ok "Right ⌘ holds to talk, Option+Ctrl+X toggles, Option+Ctrl+Shift+X changes mode"
   else
     bad "Dictation shortcuts differ (${sw_drift[*]})" \
       "bash $DOTFILES/install/macos/preferences.sh"

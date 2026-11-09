@@ -105,8 +105,8 @@ fi
 # Superwhisper: dictation on Right ⌘, held to talk (Omarchy: hold Right Alt, which
 # is Command here), and Option+Ctrl+X to start and stop (Omarchy: SUPER+Ctrl+X).
 # The toggle ships as Option+Space, Vicinae's launcher key, and Change Mode as
-# Option+Shift+K, an AeroSpace binding, so the first moves and the second goes;
-# modes switch from the menu bar or a superwhisper://mode URL. Close it first, as
+# Option+Shift+K, an AeroSpace binding, so both move. Change Mode gets a chord
+# rather than nothing: an empty value written here is ignored. Close it first, as
 # with the apps above, so its in-memory preferences don't overwrite the write. A
 # quit event is accepted but ignored, so this sends SIGTERM instead.
 superwhisper_was_running=false
@@ -120,13 +120,14 @@ if pgrep -xq superwhisper; then
 fi
 
 if pgrep -xq superwhisper; then
-  log_warn "Superwhisper would not quit — set push to talk to Right ⌘ and the toggle to Option+Ctrl+X by hand"
+  log_warn "Superwhisper would not quit — set push to talk to Right ⌘, the toggle to Option+Ctrl+X and Change Mode to Option+Ctrl+Shift+X by hand"
 else
   # Carbon key codes and modifier masks: 54 is Right ⌘, 256 cmdKey; 7 is X,
-  # 6144 optionKey (2048) + controlKey (4096)
+  # 6144 optionKey (2048) + controlKey (4096), 6656 those plus shiftKey (512);
+  # the modifier key codes are what the app itself records for that chord
   defaults write com.superduper.superwhisper KeyboardShortcuts_pushToTalk -string '{"carbonKeyCode":54,"carbonModifiers":256,"mouseButtonNumbers":[],"modifierKeyCodes":[]}'
   defaults write com.superduper.superwhisper KeyboardShortcuts_toggleRecording -string '{"carbonKeyCode":7,"carbonModifiers":6144,"mouseButtonNumbers":[],"modifierKeyCodes":[]}'
-  defaults write com.superduper.superwhisper KeyboardShortcuts_changeMode -bool false
+  defaults write com.superduper.superwhisper KeyboardShortcuts_changeMode -string '{"carbonKeyCode":7,"carbonModifiers":6656,"mouseButtonNumbers":[],"modifierKeyCodes":[59,58,56]}'
   if [[ $superwhisper_was_running == true ]]; then
     open -a superwhisper
   fi
