@@ -341,7 +341,6 @@ Each opens in Vicinae.
 | `Right ⌘` | Dictation: hold to talk (Granola Voice Typing, needs a connection) |
 | `Option + Ctrl + X` | Dictation: hands-free, press to start and again to stop (Granola) |
 | `Option + Ctrl + Shift + X` | Offline dictation: start and stop (Superwhisper, local models; open it first, it isn't a login item) |
-| `Option + Ctrl + Shift + M` | Superwhisper: switch mode, Local or Cloud |
 | `Option + I` | Switch input language |
 | `Option + Shift + I` | Switch input language back |
 | `Mic Mute (F18)` | Toggle microphone mute (Lofree mic-mute key; dead on built-in keyboard) |

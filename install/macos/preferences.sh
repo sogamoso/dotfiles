@@ -109,8 +109,9 @@ fi
 # SUPER+Ctrl+X). So Superwhisper has no hold key at all, never sharing one with
 # Granola, and toggles on Option+Ctrl+Shift+X. Its toggle ships as Option+Space,
 # Vicinae's launcher key, and Change Mode as Option+Shift+K, an AeroSpace binding,
-# so both move. Change Mode gets a chord rather than nothing: an empty value
-# written there is ignored, where push to talk accepts one. Close it first, as
+# so both move. Change Mode is parked on an unused chord rather than cleared: an
+# empty value written there is ignored, where push to talk accepts one, and with
+# Local the default mode the switcher goes unused. Close it first, as
 # with the apps above,
 # so its in-memory preferences don't overwrite the write. A quit event is
 # accepted but ignored, so this sends SIGTERM instead.
