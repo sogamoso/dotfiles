@@ -172,7 +172,7 @@ Granola's lists only help it recognise a term when spoken. None of them replaces
 
 | List | Where | Terms |
 |---|---|---|
-| Dictionary (dictation, per Mac) | Settings → Voice typing → Personalization | Sendas, Honduras, Tegucigalpa, lempira; BCH, INE, SEFIN, CEPAL, BID, FMI; Claude Code, Codex, Superwhisper, PostHog, DatoCMS, Buttondown, Vercel, Cloudflare, Linear; herdr, Omarchy, AeroSpace, Vicinae, Ghostty, SketchyBar, mise; the people written to most |
+| Dictionary (dictation, per Mac) | Settings → Voice typing → Personalization | Sendas, lempira, OKR, OKRs; BCH, INE, SEFIN, CEPAL, BID, IDB, FMI, IMF, Banco Mundial, World Bank; DatoCMS, Buttondown, Attio, Sanity, PostHog, Vercel, Cloudflare, Linear, Notion, Basecamp, Claude Code, Codex; and the first names of the people written to most, which stay out of this public file |
 | Personal jargon (meetings, up to 30) | Settings → Preferences → Language | The Sendas domain, since the workspace isn't Sendas and won't become it, with the institutions in both languages because meetings run in both: BCH, SEFIN, CEPAL, BID, IDB, FMI, IMF, Banco Mundial, World Bank, DatoCMS, Buttondown, Attio, Sanity, plus the institutions and programmes that come up by acronym |
 | Workspace jargon (meetings, everyone, up to 50) | Settings → Workspace → General → Language | The tooling, shared with whoever joins the workspace: GitHub, Notion, Linear, Claude, Claude Code, ChatGPT, Codex, herdr, Omarchy, Grok, Grok Bot, Cloudflare, Vercel, PostHog, 1Password, Basecamp, Wabi, Slack, WhatsApp, Ruby, Rails, Ruby on Rails, mise, Tailscale, YouTube, Discord, Neovim, Vim, tmux, ssh, cli, Docker |
 
