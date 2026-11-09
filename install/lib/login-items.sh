@@ -3,7 +3,7 @@
 
 # Apps that open at login. A missing one costs its feature silently: without
 # Granola, holding Right ⌘ does nothing, and without Superwhisper there is no
-# dictation offline. Both also open themselves through their own launch at
+# dictation offline on Option+Ctrl+X. Both also open themselves through their own launch at
 # login; they stay here too, deliberately, so losing either still leaves
 # dictation working.
 LOGIN_ITEMS=(

@@ -339,8 +339,7 @@ Each opens in Vicinae.
 | `Option + Ctrl + V` | Clipboard history (Vicinae) |
 | `Option + Ctrl + E` | Emoji picker (Vicinae) |
 | `Right ⌘` | Dictation: hold to talk (Granola Voice Typing, needs a connection) |
-| `Right ⌥` | Offline dictation: hold to talk (Superwhisper, local models) |
-| `Option + Ctrl + X` | Offline dictation: start and stop (Superwhisper) |
+| `Option + Ctrl + X` | Offline dictation: start and stop (Superwhisper, local models) |
 | `Option + Ctrl + Shift + X` | Superwhisper: switch mode, Local or Cloud |
 | `Option + I` | Switch input language |
 | `Option + Shift + I` | Switch input language back |

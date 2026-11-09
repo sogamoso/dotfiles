@@ -105,11 +105,12 @@ fi
 # Superwhisper is the offline dictation, with local models; online dictation is
 # Granola's Voice Typing on Right ⌘ (Omarchy: hold Right Alt, which is Command
 # here), set in Granola itself since its preferences file is encrypted and
-# follows the account. So Superwhisper holds on Right ⌥, never sharing a key with
-# Granola, and toggles on Option+Ctrl+X (Omarchy: SUPER+Ctrl+X). Its toggle ships
-# as Option+Space, Vicinae's launcher key, and Change Mode as Option+Shift+K, an
-# AeroSpace binding, so both move. Change Mode gets a chord rather than nothing:
-# an empty value written here is ignored. Close it first, as with the apps above,
+# follows the account. So Superwhisper has no hold key at all, never sharing one
+# with Granola, and toggles on Option+Ctrl+X (Omarchy: SUPER+Ctrl+X). Its toggle
+# ships as Option+Space, Vicinae's launcher key, and Change Mode as Option+Shift+K,
+# an AeroSpace binding, so both move. Change Mode gets a chord rather than nothing:
+# an empty value written there is ignored, where push to talk accepts one. Close
+# it first, as with the apps above,
 # so its in-memory preferences don't overwrite the write. A quit event is
 # accepted but ignored, so this sends SIGTERM instead.
 superwhisper_was_running=false
@@ -123,12 +124,12 @@ if pgrep -xq superwhisper; then
 fi
 
 if pgrep -xq superwhisper; then
-  log_warn "Superwhisper would not quit — set push to talk to Right ⌥, the toggle to Option+Ctrl+X and Change Mode to Option+Ctrl+Shift+X by hand"
+  log_warn "Superwhisper would not quit — clear push to talk and set the toggle to Option+Ctrl+X and Change Mode to Option+Ctrl+Shift+X by hand"
 else
-  # Carbon key codes and modifier masks: 61 is Right ⌥, 2048 optionKey; 7 is X,
-  # 6144 optionKey + controlKey (4096), 6656 those plus shiftKey (512); the
-  # modifier key codes are what the app itself records for that chord
-  defaults write com.superduper.superwhisper KeyboardShortcuts_pushToTalk -string '{"carbonKeyCode":61,"carbonModifiers":2048,"mouseButtonNumbers":[],"modifierKeyCodes":[]}'
+  # Carbon key code 7 is X; 6144 is optionKey (2048) + controlKey (4096), 6656
+  # those plus shiftKey (512); the modifier key codes are what the app itself
+  # records for that chord
+  defaults write com.superduper.superwhisper KeyboardShortcuts_pushToTalk -bool false
   defaults write com.superduper.superwhisper KeyboardShortcuts_toggleRecording -string '{"carbonKeyCode":7,"carbonModifiers":6144,"mouseButtonNumbers":[],"modifierKeyCodes":[]}'
   defaults write com.superduper.superwhisper KeyboardShortcuts_changeMode -string '{"carbonKeyCode":7,"carbonModifiers":6656,"mouseButtonNumbers":[],"modifierKeyCodes":[59,58,56]}'
   # Filesync carries modes, vocabulary and replacements between Macs on the one

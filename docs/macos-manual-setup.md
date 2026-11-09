@@ -153,7 +153,7 @@ Once per account, in Granola → Settings → **Voice typing**: turn **Enable Vo
 
 ### Superwhisper
 
-Offline dictation only, on local models: hold Right `⌥` to talk, or press `Option + Ctrl + X` to start and again to stop (Omarchy: SUPER + Ctrl + X). `install/macos/preferences.sh` sets both as Superwhisper's own shortcuts, and keeps them off Right `⌘` so Granola and Superwhisper never answer the same key. Its toggle ships as `Option + Space`, Vicinae's launcher key, and Change Mode as `Option + Shift + K`, the Neovim cheatsheet, so bootstrap moves them to `Option + Ctrl + X` and `Option + Ctrl + Shift + X`; writing Change Mode empty is ignored, so it needs a chord. Modes also switch from the menu bar icon or with `open superwhisper://mode?key=<mode>`.
+Offline dictation only, on local models: press `Option + Ctrl + X` to start and again to stop (Omarchy: SUPER + Ctrl + X). It has no hold key; `install/macos/preferences.sh` clears Push to Talk so Granola and Superwhisper never answer the same key. Its toggle ships as `Option + Space`, Vicinae's launcher key, and Change Mode as `Option + Shift + K`, the Neovim cheatsheet, so bootstrap moves them to `Option + Ctrl + X` and `Option + Ctrl + Shift + X`; writing Change Mode empty is ignored, so it needs a chord. Modes also switch from the menu bar icon or with `open superwhisper://mode?key=<mode>`.
 
 Sign in to the Pro license once per Mac. Bootstrap turns Filesync on, which then brings the modes, vocabulary and replacements over from the other Macs: a Local mode on Cohere Transcribe and Tiny Aya 3B, the default since Granola covers online, and a Cloud mode on S1-Voice and S1-Language, both with the language on Automatic for English and Spanish. The Local mode's models still download once per Mac, into `~/superwhisper`, so open that mode once while online.
 
@@ -478,7 +478,7 @@ What is left worth tracking:
 | `SUPER + Ctrl + A/B/N` — audio/bluetooth/network TUIs | ✅ Option+Ctrl+A/B/N → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | ✅ Option+Ctrl+D/P → Displays and Battery settings (Energy on a desktop Mac) |
 | `SUPER + Ctrl + S` — share menu (clipboard, file or folder over LocalSend) | Option+Ctrl+S opens LocalSend itself; pick what to send there |
-| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → Granola Voice Typing, hold to talk. Deliberately not Superwhisper, Omarchy's default: Granola is already the meeting tool here, Voice Typing is free, and its dictionary and shortcut follow the account. It needs a connection, so Superwhisper stays for offline: Right ⌥ holds to talk, Option+Ctrl+X toggles (set by `preferences.sh`) |
+| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → Granola Voice Typing, hold to talk. Deliberately not Superwhisper, Omarchy's default: Granola is already the meeting tool here, Voice Typing is free, and its dictionary and shortcut follow the account. It needs a connection, so Superwhisper stays for offline, toggled with Option+Ctrl+X and with no hold key (set by `preferences.sh`) |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `Shift + CapsLock` — Compose key, typing emojis from two letters (`m s` → 😄) | Not ported. macOS has no system-wide Compose key: `DefaultKeyBinding.dict` sequences only reach native Cocoa text fields, not Chrome, Electron apps or terminals. Option+Ctrl+E opens the emoji picker |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |
