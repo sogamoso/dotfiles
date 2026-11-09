@@ -149,7 +149,7 @@ Nothing to install by hand either: bootstrap installs the store extensions liste
 
 Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Alt, which is Command here), or press `Option + Ctrl + X` for hands-free and again to finish (Omarchy: SUPER + Ctrl + X). Granola is a deliberate departure from Omarchy, whose dictation is Superwhisper: it is already the meeting tool here, Voice Typing is free, and its dictionary, languages and shortcut live in the account, so a new Mac needs no setup beyond the grants. The cost is that it needs a connection, which is why Superwhisper stays (below).
 
-Once per account, in Granola → Settings → **Voice typing**: turn **Enable Voice Typing** on, set **Shortcut** to Right `⌘` (its default is `fn`), set the hands-free shortcut to `Option + Ctrl + X`, and leave **Language** on Auto-detect so English and Spanish mix. Bootstrap can't set these: Granola's preferences file is encrypted. On each Mac, grant **Accessibility** and **Microphone** when it asks (section 1). Names and terms go in its **Dictionary**, separate from the meeting jargon list.
+Once per account, in Granola → Settings → **Voice typing**: turn **Enable Voice Typing** on, set **Shortcut** to Right `⌘` (its default is `fn`), set **Hands-free** to `Option + Ctrl + X`, and list English and Spanish under **Languages**; it still mixes them within one dictation. Bootstrap can't set these: Granola's preferences file is encrypted. On each Mac, grant **Accessibility** and **Microphone** when it asks (section 1). Names and terms go in its **Dictionary**, separate from the meeting jargon list.
 
 ### Superwhisper
 
