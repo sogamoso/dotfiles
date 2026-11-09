@@ -40,7 +40,12 @@ if ! command -v herdr-core >/dev/null 2>&1 && [[ ! -x $HOME/.local/bin/herdr-cor
   fi
 fi
 
-# Off by default here, as terminal-browser's is. Herdr writes the rest.
+# The settings the terminal herdr and Ghostty already answer: telemetry off as
+# terminal-browser's is, sounds off as the herdr config has them, the dark
+# appearance the Omarchy theme is rendered for (Tokyo Night has no light half,
+# so System would show Herdr's paper theme if macOS ever switched), and
+# Ghostty's font and size, since starship and eza draw Nerd Font glyphs. Zoom,
+# Herdr's whole-window size, is left to the person. Herdr writes the rest.
 mkdir -p "$APP_HOME"
 python3 - "$APP_HOME/settings.json" <<'PY'
 import json, sys
@@ -50,8 +55,25 @@ try:
         settings = json.load(f)
 except (FileNotFoundError, json.JSONDecodeError):
     settings = {}
-if settings.get("telemetry") is not False:
-    settings["telemetry"] = False
+wanted = {
+    "telemetry": False,
+    "appearance": "dark",
+    "font": "JetBrainsMono Nerd Font",
+    "font_size": 12,
+}
+changed = False
+for key, value in wanted.items():
+    if settings.get(key) != value:
+        settings[key] = value
+        changed = True
+sounds = settings.get("sounds")
+if not isinstance(sounds, dict):
+    sounds = {}
+if sounds.get("enabled") is not False:
+    sounds["enabled"] = False
+    settings["sounds"] = sounds
+    changed = True
+if changed:
     with open(path, "w") as f:
         json.dump(settings, f, indent=2)
         f.write("\n")

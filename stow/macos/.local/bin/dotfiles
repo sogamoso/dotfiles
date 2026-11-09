@@ -640,10 +640,19 @@ cmd_doctor() {
     else
       bad "herdr-core isn't installed, so the Herdr app can't open a terminal" "install/macos/herdr-app.sh"
     fi
-    if [[ $(jq -r '.telemetry' "$app_home/settings.json" 2>/dev/null) == "false" ]]; then
-      ok "Herdr app telemetry off"
+    # What herdr-app.sh sets in settings.json; the rest of that file is Herdr's
+    local app_drift
+    app_drift=$(jq -r '[
+        (if .telemetry != false then "telemetry" else empty end),
+        (if .appearance != "dark" then "appearance" else empty end),
+        (if .font != "JetBrainsMono Nerd Font" then "font" else empty end),
+        (if .font_size != 12 then "font_size" else empty end),
+        (if .sounds.enabled != false then "sounds" else empty end)
+      ] | join(", ")' "$app_home/settings.json" 2>/dev/null || echo "settings.json unreadable")
+    if [[ -z $app_drift ]]; then
+      ok "Herdr app settings match the terminal herdr and Ghostty"
     else
-      bad "Herdr app telemetry is on" "install/macos/herdr-app.sh"
+      bad "Herdr app settings differ: $app_drift" "install/macos/herdr-app.sh"
     fi
     # app.theme sets the dark half of the shown layout's theme, which Herdr keeps in the layout's state
     app_theme=$(jq -r '.theme | if type == "object" then .dark else . end // empty' \
