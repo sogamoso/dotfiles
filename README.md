@@ -340,7 +340,7 @@ Each opens in Vicinae.
 | `Option + Ctrl + E` | Emoji picker (Vicinae) |
 | `Right ⌘` | Dictation: hold to talk (Granola Voice Typing, needs a connection) |
 | `Cmd + Space` | Dictation: hands-free, press to start and again to stop (Granola; Omarchy: Alt + Space) |
-| `Option + Ctrl + Shift + X` | Offline dictation: start and stop (Superwhisper, local models; open it first, it isn't a login item) |
+| `Option + Ctrl + X` | Offline dictation: start and stop (Superwhisper, local models; open it first, it isn't a login item) |
 | `Option + I` | Switch input language |
 | `Option + Shift + I` | Switch input language back |
 | `Mic Mute (F18)` | Toggle microphone mute (Lofree mic-mute key; dead on built-in keyboard) |

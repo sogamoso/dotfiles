@@ -925,10 +925,10 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
   echo "==> Superwhisper"
   # The offline dictation. Its toggle ships as Option+Space, Vicinae's launcher
   # key, and Change Mode as Option+Shift+K, an AeroSpace binding; preferences.sh
-  # moves them to Option+Ctrl+Shift+X and Option+Ctrl+Shift+M, and clears push
+  # moves them to Option+Ctrl+X and Option+Ctrl+Shift+X, and clears push
   # to talk, since the hold key, Right ⌘, is Granola's, as is Cmd+Space
   local sw name code mods sw_drift=()
-  for sw in toggleRecording:7:6656 changeMode:46:6656; do
+  for sw in toggleRecording:7:6144 changeMode:7:6656; do
     IFS=: read -r name code mods <<<"$sw"
     defaults read com.superduper.superwhisper "KeyboardShortcuts_$name" 2>/dev/null |
       python3 -c 'import json, sys
@@ -937,7 +937,7 @@ sys.exit(0 if (s["carbonKeyCode"], s["carbonModifiers"]) == (int(sys.argv[1]), i
   done
   [[ $(defaults read com.superduper.superwhisper KeyboardShortcuts_pushToTalk 2>/dev/null) == "0" ]] || sw_drift+=("pushToTalk")
   if (( ${#sw_drift[@]} == 0 )); then
-    ok "Option+Ctrl+Shift+X toggles offline dictation, Option+Ctrl+Shift+M changes mode, no hold key"
+    ok "Option+Ctrl+X toggles offline dictation, Option+Ctrl+Shift+X changes mode, no hold key"
   else
     bad "Dictation shortcuts differ (${sw_drift[*]})" \
       "bash $DOTFILES/install/macos/preferences.sh"
