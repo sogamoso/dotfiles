@@ -64,7 +64,10 @@ OMARCHY_PARITY_PATHS=(
   'bin/omarchy-reminder*'
   'bin/omarchy-tailscale*'
   'bin/omarchy-toggle*'
-  'bin/omarchy-update*'
+  # Of the update commands, only the pipeline dotfiles update mirrors and the
+  # two steps it has (pull the checkout, mise up): the rest are pacman,
+  # firmware, keyring and boot work. Plain entries also classify the area
+  bin/omarchy-update bin/omarchy-update-dev bin/omarchy-update-mise
   'bin/omarchy-weather*'
   'bin/omarchy-webapp*'
 )
