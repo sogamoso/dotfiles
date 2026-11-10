@@ -30,16 +30,38 @@ remote_server_pid() {
   return 1
 }
 
+# Any server on this socket, whoever started it
+server_pid() {
+  local pid
+  for pid in $(pgrep -f '(^|/)herdr server$' || true); do
+    lsof -a -U -p "$pid" -Fn 2>/dev/null | grep -qx "n$socket" || continue
+    echo "$pid"
+    return 0
+  done
+  return 1
+}
+
 # A remote client that reconnects after `herdr server stop` starts a server of
 # its own before launchd retries, back in an SSH login with no keychain. That
-# one gives way to this; herdr resumes the agents it was running. A server
-# from anywhere else is left alone, and launchd keeps retrying.
+# one gives way to this; herdr resumes the agents it was running.
 if pid=$(remote_server_pid); then
   echo "herdr-server: stopping the server a remote attach started (pid $pid)" >&2
   herdr server stop || true
   for _ in $(seq 1 50); do
     kill -0 "$pid" 2>/dev/null || break
     sleep 0.2
+  done
+fi
+
+# A server a local client started, as `herdr` in a Ghostty window does when
+# none is running, already has the keychain. Starting another would fail at
+# once with "already running", and launchd, keeping this alive, would retry
+# every ten seconds for as long as that server lives. Wait for it instead, so
+# the agent stays the one that brings the next server up.
+if pid=$(server_pid); then
+  echo "herdr-server: a server from this login session is already running (pid $pid); taking over when it ends" >&2
+  while kill -0 "$pid" 2>/dev/null; do
+    sleep 5
   done
 fi
 
