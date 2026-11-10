@@ -443,9 +443,11 @@ cmd_doctor() {
   doctor_agent_loaded com.sogamoso.agents-update
   [[ -r ${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/uidotsh.env ]] &&
     doctor_agent_loaded com.sogamoso.uidotsh-token
-  # The mini's herdr server; the other Macs run the brew service instead
+  # The mini's herdr server and Herdr app core; the other Macs run the brew
+  # service and let the app start its core instead
   if (( desktop )); then
     doctor_agent_loaded com.sogamoso.herdr-server
+    doctor_agent_loaded com.sogamoso.herdr-core
   else
     doctor_agent_disabled com.sogamoso.herdr-server
   fi
@@ -653,6 +655,34 @@ cmd_doctor() {
       ok "Herdr app settings match the terminal herdr and Ghostty"
     else
       bad "Herdr app settings differ: $app_drift" "install/macos/herdr-app.sh"
+    fi
+    # A core started over SSH, as the first connection from a laptop starts one
+    # on the mini when none is running, has no login keychain (herdr#966 for
+    # the terminal herdr); the mini's herdr-core LaunchAgent keeps one ahead
+    local core_pid
+    core_pid=$(hc server status --json 2>/dev/null | jq -r '.pid // empty' 2>/dev/null || true)
+    if [[ -z $core_pid ]]; then
+      ok "Not checked: herdr-core isn't running; the Herdr app or its LaunchAgent starts it"
+    elif ps -Eww -o command= -p "$core_pid" 2>/dev/null | grep -q ' SSH_CONNECTION='; then
+      if (( desktop )); then
+        bad "herdr-core was started over SSH, so the app's terminals can't reach the login keychain" \
+          "hc server stop, then launchctl kickstart -k gui/$(id -u)/com.sogamoso.herdr-core"
+      else
+        bad "herdr-core was started over SSH, so the app's terminals can't reach the login keychain" \
+          "hc server stop, then open Herdr"
+      fi
+    else
+      ok "herdr-core started from this Mac's login session"
+    fi
+    # The laptops show the mini in the app's sidebar, as they do in the terminal herdr
+    if (( ! desktop )) && command -v hc >/dev/null 2>&1; then
+      source "$DOTFILES/install/lib/herdr-plugins.sh"
+      if hc machine ls --json 2>/dev/null |
+        jq -e --arg host "$HERDR_MACHINE" '.machines[] | select((.name // .target // "" | tostring) == $host)' >/dev/null 2>&1; then
+        ok "$HERDR_MACHINE saved in herdr-core"
+      else
+        bad "$HERDR_MACHINE isn't saved in herdr-core, so the Herdr app doesn't show it" "hc machine add $HERDR_MACHINE"
+      fi
     fi
     # app.theme sets the dark half of the shown layout's theme, which Herdr keeps in the layout's state
     app_theme=$(jq -r '.theme | if type == "object" then .dark else . end // empty' \

@@ -238,11 +238,16 @@ fi
 # service (see HERDR_LAUNCHD_ISSUE in install/lib/herdr-plugins.sh). A server
 # already running, as a remote attach starts one, holds the socket until
 # `herdr server stop`, after which launchd starts this one.
+# The Herdr app's core gets the same treatment, for the same reason, in
+# com.sogamoso.herdr-core; the laptops' cores start with their app.
 if $is_mac_mini; then
   reload_agent com.sogamoso.herdr-server
+  reload_agent com.sogamoso.herdr-core
 else
-  launchctl bootout "gui/$(id -u)/com.sogamoso.herdr-server" 2>/dev/null || true
-  launchctl disable "gui/$(id -u)/com.sogamoso.herdr-server"
+  for label in com.sogamoso.herdr-server com.sogamoso.herdr-core; do
+    launchctl bootout "gui/$(id -u)/$label" 2>/dev/null || true
+    launchctl disable "gui/$(id -u)/$label"
+  done
 fi
 
 # Apply user key remappings via hidutil at login (Lofree mic-mute → F18), check
