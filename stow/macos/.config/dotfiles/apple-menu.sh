@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
-
-# @vicinae.schemaVersion 1
-# @vicinae.title Apple Menu
-# @vicinae.mode silent
-# @vicinae.packageName System
+# Opens the Apple menu, or closes it when it's already open, for AeroSpace's
+# alt-esc. A file path, not a Vicinae command: nothing launches it by name.
 
 osascript -e '
 tell application "System Events"
