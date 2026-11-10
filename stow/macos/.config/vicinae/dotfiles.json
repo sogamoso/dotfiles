@@ -34,7 +34,7 @@
       "entrypoints": {
         "store": {
           "preferences": {
-            "alwaysShowIntro": true
+            "alwaysShowIntro": false
           }
         }
       }
@@ -44,6 +44,14 @@
         "limit": "50",
         "labelsLimit": "100",
         "shouldHideRedundantIssues": false
+      },
+      "entrypoints": {
+        "create-issue-for-myself": {
+          "preferences": {
+            "preferredTeamKey": "TECH",
+            "shouldCloseMainWindow": false
+          }
+        }
       }
     },
     "@Aayush9029/store.raycast.cleanshotx": {
@@ -129,6 +137,11 @@
         "weekStart": "0",
         "showWeeks": true,
         "viewMode": "1"
+      },
+      "entrypoints": {
+        "index": {
+          "alias": "qc"
+        }
       }
     },
     "@gebeto/store.raycast.translate": {
@@ -219,6 +232,17 @@
         "deletionBehavior": "trash",
         "showDeletingFilename": true,
         "downloadsFolder": "/Users/sogamoso/Downloads"
+      },
+      "entrypoints": {
+        "manage-downloads": {
+          "preferences": {
+            "primaryAction": "open",
+            "showHiddenFiles": true,
+            "showPreview": true,
+            "fileOrder": "addTime",
+            "downloadsLayout": "list"
+          }
+        }
       }
     },
     "@thomaslombart/store.raycast.github": {
@@ -287,6 +311,11 @@
         },
         "search-builtin-icons": {
           "enabled": true
+        },
+        "store": {
+          "preferences": {
+            "alwaysShowIntro": false
+          }
         }
       }
     },
@@ -296,14 +325,26 @@
     "system": {
       "entrypoints": {
         "browse-apps": {
-          "enabled": true
+          "enabled": true,
+          "preferences": {
+            "sortAlphabetically": true,
+            "showHidden": true
+          }
+        }
+      },
+      "tools": {
+        "bash": {
+          "policy": "allow"
+        },
+        "open": {
+          "policy": "allow"
         }
       }
     },
     "@joao.mainka/store.raycast.raycast-timezone-converter": {
       "preferences": {
-        "sortTimezones": "manually",
-        "hideWorldMap": false
+        "sortTimezones": "alphabetically",
+        "hideWorldMap": true
       }
     },
     "@koinzhang/store.raycast.copy-path": {
@@ -361,9 +402,85 @@
         },
         "com.google.Chrome.app.ggjocahimgaohmigbfhghnlfcnjemagj": {
           "alias": "gork"
+        },
+        "com.anthropic.claudefordesktop": {
+          "alias": "cx"
+        },
+        "com.openai.codex": {
+          "alias": "cy"
+        },
+        "net.whatsapp.WhatsApp": {
+          "alias": "wa"
+        },
+        "so.sogamo.gmail-mailto": {
+          "alias": "mail"
+        }
+      }
+    },
+    "@leonkohli/store.vicinae.process-manager": {
+      "preferences": {
+        "refresh-interval": "5000",
+        "sort-by-memory": false,
+        "show-system-processes": false,
+        "show-pid": true,
+        "show-path": true,
+        "search-in-paths": true,
+        "search-in-pid": true,
+        "close-window-after-kill": false,
+        "clear-search-after-kill": false,
+        "process-limit": "500"
+      }
+    },
+    "ai": {
+      "preferences": {
+        "providers": {
+          "claude-code": {
+            "type": "claude-code",
+            "fields": {}
+          },
+          "codex": {
+            "type": "codex",
+            "fields": {}
+          },
+          "local": {
+            "type": "local",
+            "fields": {
+              "keepLoaded": "900"
+            }
+          }
+        },
+        "defaultModel": "claude-code:opus",
+        "instructions": "",
+        "enableTools": true
+      }
+    },
+    "apple-shortcuts": {
+      "entrypoints": {
+        "35C571B8-95AA-43B3-A28B-EF4B79F538FC": {
+          "enabled": false
+        }
+      }
+    },
+    "dictation": {
+      "enabled": false,
+      "entrypoints": {
+        "vocab": {
+          "enabled": false
+        }
+      }
+    },
+    "files": {
+      "tools": {
+        "read": {
+          "policy": "allow"
         }
       }
     }
   },
-  "wrap_navigation": true
+  "wrap_navigation": true,
+  "font": {
+    "normal": {
+      "family": ".AppleSystemUIFont"
+    }
+  }
 }
