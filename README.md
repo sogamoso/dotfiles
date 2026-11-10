@@ -268,6 +268,7 @@ Each opens in Vicinae.
 | Hotkey | Action |
 |---|---|
 | `Option + Space` | Vicinae launcher |
+| `Option + Escape` | Apple menu |
 | `Option + 1-9` | Switch to workspace 1–9 |
 | `Option + S` | Switch to scratchpad (workspace 10) |
 | `Option + Tab` | Next workspace |
