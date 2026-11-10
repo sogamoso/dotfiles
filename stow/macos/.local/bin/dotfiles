@@ -34,7 +34,11 @@ Commands:
             integration for the agents named, or for the ones mise just
             installed (its postinstall hook)
   edit      Open the repo in \$VISUAL (defaults to nvim)
-  help      Show this message
+  refresh-config <path>
+            Replace a copied config in ~/.config with the repo's version
+            from config/ (e.g. btop/btop.conf), like omarchy-refresh-config;
+            backs up yours and shows what changed
+  help     Show this message
 EOF
 }
 
@@ -1217,6 +1221,48 @@ cmd_edit() {
   ${VISUAL:-nvim} "$DOTFILES"
 }
 
+# omarchy-refresh-config for the seeds in config/: the copy in ~/.config is
+# the app's own after the first install, so a seed change only reaches a
+# machine through this.
+cmd_refresh_config() {
+  local config_file=${1:-}
+  if [[ -z $config_file ]]; then
+    echo "Usage: dotfiles refresh-config <path under ~/.config>, e.g. btop/btop.conf" >&2
+    echo "Seeds: $(cd "$DOTFILES/config" && find . -type f | sed 's|^\./||' | sort | tr '\n' ' ')" >&2
+    return 64
+  fi
+
+  local seed="$DOTFILES/config/$config_file"
+  local target="$HOME/.config/$config_file"
+  local backup
+  backup="$target.bak.$(date +%s)"
+
+  if [[ ! -f $seed ]]; then
+    echo "Not a seed in $DOTFILES/config: $config_file" >&2
+    return 1
+  fi
+
+  mkdir -p "$(dirname "$target")"
+  # A leftover stow link would take the copy through to the repo
+  [[ -L $target ]] && rm "$target"
+
+  if [[ -f $target ]]; then
+    cp -f "$target" "$backup"
+    cp -f "$seed" "$target"
+    if cmp -s "$target" "$backup"; then
+      rm "$backup"
+      echo "$target already matches the repo"
+    else
+      echo "Replaced $target with the repo's version. Backup: $backup"
+      echo "Changes (- yours, + the repo's):"
+      diff -u "$backup" "$target" || true
+    fi
+  else
+    cp "$seed" "$target"
+    echo "Copied the repo's version to $target"
+  fi
+}
+
 case "${1:-help}" in
   update)         cmd_update ;;
   pull)           cmd_pull ;;
@@ -1229,6 +1275,7 @@ case "${1:-help}" in
   omarchy-downstream-candidates) shift; cmd_omarchy "$@" ;;
   agent)          shift; cmd_agent "$@" ;;
   edit)           cmd_edit ;;
+  refresh-config) shift; cmd_refresh_config "$@" ;;
   help|-h|--help) usage ;;
   *)              echo "Unknown command: $1" >&2; usage >&2; exit 64 ;;
 esac
