@@ -35,6 +35,7 @@ raycast:vimtor/tailwindcss
 raycast:vimtor/whatsapp
 raycast:vishaltelangre/google-drive
 raycast:vlades/herdr
+vicinae:fredrikmwold/mise
 vicinae:knoopx/agenda
 vicinae:leonkohli/process-manager
 vicinae:nihalxkumar/freetube
