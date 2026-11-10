@@ -73,8 +73,10 @@ OMARCHY_PARITY_PATHS=(
 # macOS counterpart, terminals and apps not used here, Omarchy's own packaging,
 # development and docs, and themes (macOS keeps one theme by hand).
 OMARCHY_SKIPPED_AREAS=(
-  # Repo housekeeping, Omarchy's own development, docs and tests
-  .editorconfig .github .gitignore .greptile .luarc.json agents AGENTS.md CLAUDE.md
+  # Repo housekeeping, Omarchy's own development, docs and tests (oligarchy
+  # drives Omarchy's desktop tests)
+  .editorconfig .github .gitignore .greptile .luarc.json .oligarchyrc oligarchy-tests
+  agents AGENTS.md CLAUDE.md
   README.md LICENSE version docs plans scripts test manual icon.png icon.txt logo.svg logo.txt
   bin 'bin/omarchy-dev*' 'bin/omarchy-debug*' 'bin/omarchy-crash*' 'bin/omarchy-done*'
   'bin/omarchy-state*' 'bin/omarchy-lifecycle*' 'bin/omarchy-migrate*' 'bin/omarchy-version*'
@@ -95,6 +97,7 @@ OMARCHY_SKIPPED_AREAS=(
   'bin/omarchy-monitor*' 'bin/omarchy-input*' 'bin/omarchy-bluetooth*' 'bin/omarchy-network*'
   'bin/omarchy-dns*' 'bin/omarchy-disk*' 'bin/omarchy-drive*' 'bin/omarchy-file*' 'bin/omarchy-dock*'
   'bin/omarchy-windows*' 'bin/omarchy-font*' 'bin/omarchy-locale*' 'bin/omarchy-language*'
+  'bin/omarchy-keyboard*'
   'bin/omarchy-i18n*' 'bin/omarchy-branding*' 'bin/omarchy-ascii*' 'bin/omarchy-tui*'
   'bin/omarchy-theme*' 'bin/omarchy-clipboard*' 'bin/omarchy-dictation*' 'bin/omarchy-voxtype*'
   'bin/omarchy-transcode*' 'bin/omarchy-upload*' 'bin/omarchy-games*' 'bin/omarchy-chromium*'
