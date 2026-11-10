@@ -27,10 +27,12 @@ Commands:
             Review Omarchy changes worth porting, with the default agent;
             --list prints the raw changes, --classification only the
             classification checks, --mark-reviewed records the review
-  agent [<name> | run [--pick] [--prompt <text>]]
+  agent [<name> | run [--pick] [--prompt <text>] | integrate [<agent>...]]
             Show or set the default coding agent, like omarchy default agent;
             run launches it the way omarchy-agent does (the a alias), and
-            --pick asks for one when none is set
+            --pick asks for one when none is set; integrate installs herdr's
+            integration for the agents named, or for the ones mise just
+            installed (its postinstall hook)
   edit      Open the repo in \$VISUAL (defaults to nvim)
   help      Show this message
 EOF
@@ -1152,6 +1154,7 @@ cmd_agent() {
       return 0
       ;;
     run) shift; agent_run "$@" ;;
+    integrate) shift; agent_integrate "$@" ;;
     *)
       if ! agent=$(agent_name "$1"); then
         echo "Unknown agent: $1" >&2
@@ -1167,6 +1170,29 @@ cmd_agent() {
       echo "Default agent: $agent"
       ;;
   esac
+}
+
+# herdr installs an integration into the agent's existing config directory, so
+# an agent gets its hook on its first use at the earliest, and a newer hook
+# only when the integration is installed again. mise runs this as its
+# postinstall hook (the macOS mise conf.d's omarchy.toml), as Omarchy's
+# omarchy-agent-integrate-herdr runs, naming the tools it just installed in
+# MISE_INSTALLED_TOOLS; the four hourly agent upgrades reach it too. Named
+# agents are herdr's targets. Never fails: the agent should still start.
+agent_integrate() {
+  local agents=("$@") tool target
+  if (( ${#agents[@]} == 0 )); then
+    source "$DOTFILES/install/lib/herdr-plugins.sh"
+    while IFS= read -r tool; do
+      target=$(herdr_integration_for_tool "$tool")
+      [[ -n $target ]] && agents+=("$target")
+    done < <(jq -r '.[].name' <<<"${MISE_INSTALLED_TOOLS:-[]}" 2>/dev/null)
+    (( ${#agents[@]} )) || return 0
+  fi
+  command -v herdr >/dev/null || return 0
+  # herdr reports to stdout, which from the hook would land on the agent's
+  # first screen
+  bash "$DOTFILES/install/dotfiles/herdr-integrations.sh" "${agents[@]}" >&2 || true
 }
 
 cmd_edit() {

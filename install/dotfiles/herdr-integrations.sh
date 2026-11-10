@@ -8,11 +8,16 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 # still sees the agent, by reading its screen, but has nothing to resume. Each
 # hook script no-ops outside a herdr pane. Rerun on every `dotfiles reload`, so
 # a herdr upgrade's newer hook versions land; reinstalling changes nothing
-# otherwise.
+# otherwise. Given integrations as arguments, only those are installed: that's
+# how `dotfiles agent integrate` reinstalls one when mise installs or upgrades
+# its agent, as Omarchy's postinstall hook does.
 
 command -v herdr >/dev/null || exit 0
 
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/herdr-plugins.sh"
+
+agents=("$@")
+(( ${#agents[@]} )) || agents=("${HERDR_INTEGRATIONS[@]}")
 
 log_heading "Installing herdr agent integrations..."
 
@@ -23,7 +28,7 @@ log_heading "Installing herdr agent integrations..."
 mkdir -p "$HOME/.cursor"
 
 failed=""
-for agent in "${HERDR_INTEGRATIONS[@]}"; do
+for agent in "${agents[@]}"; do
   if [[ $agent == "claude" ]]; then
     # The installer would also add the hook to ~/.claude/settings.json, which is
     # stowed from this repo and shared with Omarchy, under this machine's

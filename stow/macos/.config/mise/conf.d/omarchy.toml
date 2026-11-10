@@ -11,3 +11,9 @@ upgrade.auto_prune = false
 # Expose only its launcher so the bundled Node cannot shadow the user's Node.
 [tool_alias]
 cursor-agent = 'http:cursor-agent[bin_path=bin,postinstall=mkdir -p "$MISE_TOOL_INSTALL_PATH/bin" && ln -sfn ../dist-package/cursor-agent "$MISE_TOOL_INSTALL_PATH/bin/cursor-agent"]'
+
+# Coding agents get herdr's status and session-restore hooks when mise installs
+# or upgrades them, Omarchy's omarchy-agent-integrate-herdr hook done through
+# `dotfiles agent integrate`, which reads the tools in MISE_INSTALLED_TOOLS.
+[hooks]
+postinstall = "dotfiles agent integrate"

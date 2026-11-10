@@ -16,6 +16,15 @@ HERDR_THIRD_PARTY_PLUGINS=(
 # herdr's own agent integrations, installed by install/dotfiles/herdr-integrations.sh
 HERDR_INTEGRATIONS=(claude codex cursor grok)
 
+# The integration for a tool mise installed, from the names mise gives the
+# tools in the macOS agents.toml; nothing for an agent that has none here
+herdr_integration_for_tool() {
+  case $1 in
+    claude | codex | grok) echo "$1" ;;
+    cursor-agent | http:cursor-agent) echo cursor ;;
+  esac
+}
+
 # The machine every other host saves in herdr, by its ~/.ssh/config host, and
 # its Tailscale name, which tells install/dotfiles/herdr-machines.sh it's on it
 HERDR_MACHINE="mac-mini"
