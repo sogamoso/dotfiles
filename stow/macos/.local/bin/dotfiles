@@ -179,6 +179,10 @@ cmd_reload() {
     run "$DOTFILES/install/dotfiles/herdr-integrations.sh"
     run "$DOTFILES/install/dotfiles/herdr-machines.sh"
   fi
+  # btop's config is a copy btop owns, seeded only when missing
+  if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/btop.sh" ]]; then
+    run "$DOTFILES/install/macos/btop.sh"
+  fi
   if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/neovim.sh" ]]; then
     run "$DOTFILES/install/macos/neovim.sh"
   fi
@@ -941,6 +945,20 @@ sys.exit(0 if (s["carbonKeyCode"], s["carbonModifiers"]) == (int(sys.argv[1]), i
   else
     bad "Dictation shortcuts differ (${sw_drift[*]})" \
       "bash $DOTFILES/install/macos/preferences.sh"
+  fi
+
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    echo "==> btop"
+    # A copy btop rewrites on exit, as on Omarchy. A link would send every
+    # save into the repo.
+    local btop_config="$HOME/.config/btop/btop.conf"
+    if [[ -L $btop_config ]]; then
+      bad "$btop_config is a link, so btop's saves land in its target" "dotfiles reload"
+    elif [[ -f $btop_config ]]; then
+      ok "Config is btop's own copy"
+    else
+      bad "$btop_config is missing" "dotfiles reload"
+    fi
   fi
 
   echo "==> Grok"

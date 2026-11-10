@@ -37,7 +37,6 @@ case "$(uname -s)" in
       "$HOME/.zprofile" \
       "$HOME/.config/tmux/tmux.conf" \
       "$HOME/.config/starship.toml" \
-      "$HOME/.config/btop/btop.conf" \
       "$HOME/.config/ghostty/config" \
       "$HOME/.config/zed/settings.json" \
       "$HOME/Library/LaunchAgents/com.sogamoso.workhours.caffeinate-run.plist" \

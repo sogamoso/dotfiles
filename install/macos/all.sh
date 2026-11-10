@@ -13,6 +13,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 bash "$DIR/onepassword.sh"
 bash "$DIR/../dotfiles/stow.sh"
+bash "$DIR/btop.sh"
 # The stowed helper, shared with dotfiles brew and the daily check that
 # preferences.sh loads; allowing first keeps that check from firing on day one.
 # --install adds the root daemon that re-allows after background upgrades.
