@@ -42,7 +42,6 @@ OMARCHY_PARITY_PATHS=(
   config/herdr
   default/herdr-app
   config/git
-  config/lazygit
   config/opencode
   config/omarchy
   etc/mise
@@ -118,6 +117,9 @@ OMARCHY_SKIPPED_AREAS=(
   # Slack's live theming is a Linux launcher over Slack's debugging pipe; the
   # manual carries the four colours it sets
   default/slack
+  # An empty config.yml since Omarchy added it in June 2025, so lazygit runs
+  # on its defaults there, as it does here
+  config/lazygit
   etc/cups etc/docker etc/pipewire etc/fastfetch etc/gnupg etc/limine-entry-tool.d etc/mkinitcpio.conf.d
   etc/modprobe.d etc/NetworkManager etc/nsswitch.conf etc/plymouth etc/profile.d etc/sddm.conf.d
   etc/security etc/sudoers.d etc/sysctl.d etc/systemd etc/sysusers.d etc/tmpfiles.d etc/udev
