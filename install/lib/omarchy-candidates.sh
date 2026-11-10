@@ -109,6 +109,9 @@ OMARCHY_SKIPPED_AREAS=(
   default/sddm default/settings-runtime-profile default/snapper default/systemd default/tensaku
   default/udev default/uwsm default/v4l2-relayd default/voxtype default/wayland-sessions
   default/wireplumber default/xcompose default/xdg-terminal-exec
+  # Slack's live theming is a Linux launcher over Slack's debugging pipe; the
+  # manual carries the four colours it sets
+  default/slack
   etc/cups etc/docker etc/pipewire etc/fastfetch etc/gnupg etc/limine-entry-tool.d etc/mkinitcpio.conf.d
   etc/modprobe.d etc/NetworkManager etc/nsswitch.conf etc/plymouth etc/profile.d etc/sddm.conf.d
   etc/security etc/sudoers.d etc/sysctl.d etc/systemd etc/sysusers.d etc/tmpfiles.d etc/udev

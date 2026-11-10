@@ -119,11 +119,13 @@ The `fliqlo` cask in the Brewfile installs it. Then:
 
 ### Slack
 
-Slack → Preferences → Themes → Custom Theme → paste:
+Slack → Preferences → Appearance → Custom theme → Import theme → paste, then Apply:
 
 ```
-#1a1b26,#32344a,#7aa2f7,#a9b1d6,#444b6a,#a9b1d6,#9ece6a,#7aa2f7,#1a1b26,#a9b1d6
+#1a1b26,#7aa2f7,#9ece6a,#f7768e
 ```
+
+The four colours Slack's redesign takes (system navigation, selected items, presence, notifications), with the values Omarchy's native Slack theme sets from the palette: background, accent, green and red (`default/themed/slack.json.tpl`). Omarchy applies them live through Slack's own theme store on Linux; here they're pasted once, since Slack keeps the theme in the account. Colour mode Dark, Window gradient and Darker sidebars off, which is the plain dark window Omarchy sets. The ten colour string of the old Themes tab still imports, but Slack keeps only four of its colours.
 
 ---
 
@@ -499,7 +501,7 @@ What is left worth tracking:
 | Devin CLI and Kiro CLI | Not ported. Omarchy's mise entries download Linux builds only. Add them once mise can fetch Apple Silicon builds on demand |
 | Agents updating themselves every four hours (mise `auto_update`) | ✅ By another route: on mise 2026.10.19 `auto_update` breaks how the shim calls the agent, so the `com.sogamoso.agents-update` LaunchAgent runs `mise upgrade` on the installed agents every four hours. Retry `auto_update` after a mise upgrade |
 | SSH reconnect and terminal cleanup on drop | ✅ Omarchy's `ssh` wrapper, ported in `stow/zsh/.config/zsh/omarchy/fns/ssh-reconnect.zsh`: a dropped interactive session gets its mouse tracking and alternate screen disarmed and reconnects, and keepalives surface a dead link in ~45s |
-| Themes generating nvim/btop/VS Code colors from one colorset | No generator. `themes/tokyo-night/colors.toml` is the palette to copy by hand into apps without a Tokyo Night theme, Slack included |
+| Themes generating nvim/btop/VS Code colors from one colorset | No generator. `themes/tokyo-night/colors.toml` is the palette to copy by hand into apps without a Tokyo Night theme; Slack's four colours, as Omarchy's native Slack theme sets them, are in section 6 |
 | Visual theme and background switchers | No equivalent |
 | `SUPER + Ctrl + A/B/N` — audio/bluetooth/network TUIs | ✅ Option+Ctrl+A/B/N → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | ✅ Option+Ctrl+D/P → Displays and Battery settings (Energy on a desktop Mac) |
