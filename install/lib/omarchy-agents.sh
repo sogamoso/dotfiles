@@ -9,7 +9,7 @@
 # agent's transcripts and sign-ins, so the checkout is pinned to a commit whose
 # collectors were read first. Bump the pin only after reading what changed
 # since; the weekly Omarchy review lists it.
-OMARCHY_AGENTS_COMMIT=573b518be16ec47547d50fe6197bc7f53e982340
+OMARCHY_AGENTS_COMMIT=c40eca98bdc3f99b2b19879875cffb2db079f02d
 OMARCHY_AGENTS_DIR="$HOME/.local/share/omarchy"
 OMARCHY_AGENTS_PATHS=(bin shell/plugins/agents docs)
 # The collectors need Python 3.11 (tomllib); macOS ships 3.9, so Homebrew's,
