@@ -41,7 +41,7 @@ SYMBOLIC_HOTKEYS=(
   # herdr prefix
   "60 off 32,49,262144"        # Previous input source
   "61 off 32,49,786432"        # Next input source
-  # Spotlight: Vicinae takes the slot
+  # Spotlight: Vicinae takes the slot, and Cmd+Space is Granola's hands-free dictation
   "64 off 32,49,1048576"       # Show Spotlight search
   "65 off 32,49,1572864"       # Show Finder search window
   # Screenshots: CleanShot takes Cmd+Shift+3/4/5 through AeroSpace

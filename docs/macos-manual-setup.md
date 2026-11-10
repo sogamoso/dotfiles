@@ -39,7 +39,7 @@ flags any that change. These sections are turned off:
    - **Turn Do Not Disturb On/Off** → `Option + Ctrl + ,`
 2. **Windows** — conflicts with AeroSpace window bindings
 3. **Input Sources** — `Option + I` switches language instead (Fn does nothing), and `Ctrl + Space` stays free for the tmux and herdr prefix
-4. **Spotlight** — Vicinae takes that slot
+4. **Spotlight** — Vicinae takes that slot, and `Cmd + Space` goes to Granola's hands-free dictation
 5. **Screenshots** — CleanShot takes `Cmd + Shift + 3/4/5` (see step 7)
 
 To change one, edit it in System Settings, then update its line in
@@ -147,7 +147,7 @@ Nothing to install by hand either: bootstrap installs the store extensions liste
 
 ### Granola Voice Typing
 
-Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Alt, which is Command here), or press `Option + Ctrl + X` for hands-free and again to finish (Omarchy: SUPER + Ctrl + X). Granola is a deliberate departure from Omarchy, whose dictation is Superwhisper: it is already the meeting tool here, Voice Typing is free, and it keeps one history across Macs. The cost is that it needs a connection, which is why Superwhisper stays (below).
+Dictation, replacing Raycast's: hold Right `⌘` to talk (Omarchy: hold Right Alt, which is Command here), or press `Cmd + Space` for hands-free and again to finish (Omarchy: Alt + Space, which is Command here; Spotlight is off, so the chord is free). Granola is a deliberate departure from Omarchy, whose dictation is Superwhisper: it is already the meeting tool here, Voice Typing is free, and it keeps one history across Macs. The cost is that it needs a connection, which is why Superwhisper stays (below).
 
 Bootstrap sets none of this: Granola keeps these settings in an encrypted preferences file and the dictionary in its local database, and documents no sync for either, so treat every row as per machine. Only the history syncs, through **Store data in the cloud**. On each Mac, grant **Accessibility** and **Microphone** when it asks (section 1), then set Granola → Settings → **Voice typing** to match:
 
@@ -155,7 +155,7 @@ Bootstrap sets none of this: Granola keeps these settings in an encrypted prefer
 |---|---|
 | Enable Voice Typing | On |
 | Hold to talk | Right `⌘` (its default is `fn`) |
-| Hands-free | Left `⌃` + Left `⌥` + `X` |
+| Hands-free | Left `⌘` + `Space` |
 | Languages | English, Spanish |
 | Microphone | System default |
 | Screen context | On |
@@ -504,7 +504,7 @@ What is left worth tracking:
 | `SUPER + Ctrl + A/B/N` — audio/bluetooth/network TUIs | ✅ Option+Ctrl+A/B/N → System Settings |
 | `SUPER + Ctrl + D` / `P` — display and power panels | ✅ Option+Ctrl+D/P → Displays and Battery settings (Energy on a desktop Mac) |
 | `SUPER + Ctrl + S` — share menu (clipboard, file or folder over LocalSend) | Option+Ctrl+S opens LocalSend itself; pick what to send there |
-| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → Granola Voice Typing, hold to talk, and Option+Ctrl+X hands-free. Deliberately not Superwhisper, Omarchy's default: Granola is already the meeting tool here and Voice Typing is free. Its settings are per Mac, listed in section 7. It needs a connection, so Superwhisper stays for offline, toggled with Option+Ctrl+Shift+X and with no hold key (set by `preferences.sh`) |
+| `SUPER + Ctrl + X` — dictation, and holding Right Alt to talk | ✅ Right ⌘ → Granola Voice Typing, hold to talk, and Cmd+Space hands-free (Omarchy: Alt+Space). Deliberately not Superwhisper, Omarchy's default: Granola is already the meeting tool here and Voice Typing is free. Its settings are per Mac, listed in section 7. It needs a connection, so Superwhisper stays for offline, toggled with Option+Ctrl+Shift+X and with no hold key (set by `preferences.sh`) |
 | `SUPER + Ctrl + Z` — screen zoom | Use macOS Accessibility zoom |
 | `Shift + CapsLock` — Compose key, typing emojis from two letters (`m s` → 😄) | Not ported. macOS has no system-wide Compose key: `DefaultKeyBinding.dict` sequences only reach native Cocoa text fields, not Chrome, Electron apps or terminals. Option+Ctrl+E opens the emoji picker |
 | `SUPER + C/V` — copy/paste | Cmd+C/V already works on macOS |
