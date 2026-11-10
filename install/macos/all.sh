@@ -20,6 +20,7 @@ bash "$DIR/btop.sh"
 bash "$HOME/.config/dotfiles/firewall.sh"
 bash "$HOME/.config/dotfiles/firewall.sh" --install
 bash "$DIR/preferences.sh"
+bash "$DIR/app-path.sh"
 bash "$DIR/pwas.sh"
 bash "$DIR/mailto.sh"
 bash "$DIR/omarchy-agents.sh"

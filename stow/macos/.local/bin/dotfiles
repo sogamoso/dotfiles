@@ -819,6 +819,21 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
     ok "All ${#PWAS[@]} installed"
   fi
 
+  echo "==> App PATH"
+  # Without it, apps and their extensions can't find Homebrew's tools by name
+  source "$DOTFILES/install/lib/app-path.sh"
+  local app_path
+  app_path=$(app_path_current)
+  if [[ $app_path == "$APP_PATH" ]]; then
+    ok "Apps start with Homebrew on PATH"
+  elif [[ -z $app_path ]]; then
+    bad "Apps start with launchd's default PATH, without Homebrew" \
+      "bash $DOTFILES/install/macos/app-path.sh, then restart"
+  else
+    bad "Apps start with an unexpected PATH: $app_path" \
+      "bash $DOTFILES/install/macos/app-path.sh, then restart"
+  fi
+
   echo "==> Login items"
   # Without one its feature just doesn't start: no Granola, no dictation
   source "$DOTFILES/install/lib/login-items.sh"
