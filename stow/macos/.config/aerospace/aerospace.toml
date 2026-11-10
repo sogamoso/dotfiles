@@ -175,7 +175,6 @@ f18          = 'exec-and-forget $HOME/.config/dotfiles/mic-mute.sh' # Omarchy: X
 # Launcher commands, through Vicinae deeplinks. The launcher itself
 # (Option+Space) is Vicinae's own global shortcut, set in
 # ~/.config/vicinae/dotfiles.json, so it survives Secure Input; these don't.
-alt-esc     = 'exec-and-forget $HOME/.config/dotfiles/apple-menu.sh' # Omarchy: SUPER+Escape → system menu
 alt-k       = 'exec-and-forget vicinae "vicinae://launch/scripts/hotkeys-cheatsheet.sh?toggle=true"' # Omarchy: SUPER+K → keybindings
 alt-shift-k = 'exec-and-forget vicinae "vicinae://launch/scripts/nvim-cheatsheet.sh?toggle=true"' # Neovim keybindings (no Omarchy equivalent; joins its SUPER+K family)
 alt-cmd-k   = 'exec-and-forget vicinae "vicinae://launch/scripts/tmux-cheatsheet.sh?toggle=true"' # Omarchy: SUPER+ALT+K → tmux keybindings
