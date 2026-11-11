@@ -980,16 +980,10 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
   fi
 
   echo "==> Screen Sharing"
-  # On for the Mac mini, reached over Tailscale; off on laptops, since it
-  # answers on every network they join
+  # Off everywhere: it answers on every network a Mac joins, and the mini's
+  # screen is reached through its KVM instead
   if launchctl print system/com.apple.screensharing >/dev/null 2>&1; then
-    if (( desktop )); then
-      ok "On"
-    else
-      bad "On, on a laptop" "System Settings → General → Sharing → turn off Screen Sharing"
-    fi
-  elif (( desktop )); then
-    bad "Off, so this Mac can't be reached by VNC" "System Settings → General → Sharing → Screen Sharing"
+    bad "On, and answering beyond the tailnet" "System Settings → General → Sharing → turn off Screen Sharing"
   else
     ok "Off"
   fi

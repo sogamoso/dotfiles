@@ -350,7 +350,7 @@ The SSH agent serves the keys behind `git` over SSH and commit signing (`~/.ssh/
 1Password → Settings → Security → **Auto-lock** depends on the Mac:
 
 - **Laptops**: enable **Lock when device locks or sleeps**, and set **Lock after the device is idle for** → 30 minutes. Option + Ctrl + L then locks 1Password along with the screen, as Omarchy's Super + Ctrl + L locks everything, and the idle lock covers a laptop left unlocked somewhere else.
-- **Desktops that stay on, like the Mac mini**: leave **Lock when device locks or sleeps** off and the idle lock at **Never**. The machine stays home and is reached over Screen Sharing and SSH, where re-entering the 1Password password after every screen lock costs more than it protects. Option + Ctrl + L locks the screen only.
+- **Desktops that stay on, like the Mac mini**: leave **Lock when device locks or sleeps** off and the idle lock at **Never**. The machine stays home and is reached through its KVM and SSH (section 14), where re-entering the 1Password password after every screen lock costs more than it protects. Option + Ctrl + L locks the screen only.
 
 System Settings → General → **AutoFill & Passwords** makes 1Password the only password manager macOS offers, in every app and not just the browser:
 
@@ -381,26 +381,30 @@ Homebrew has no `wabi` cask. Since a downloadable build exists, one could be con
 
 ---
 
-## 14. Enable Screen Sharing (always-available machines only)
+## 14. Reach the Mac mini's screen (GL.iNet Comet Pro)
 
-**Desktop computers that stay on, like the Mac mini — not laptops.** A laptop
-moves between networks, and Screen Sharing listens on every one of them.
+The Mac mini's screen is reached through a GL.iNet Comet Pro (GL-RM10), a
+network KVM, not through macOS Screen Sharing. Plug its HDMI into the mini's
+HDMI port and its USB into one of the mini's USB ports, so it captures the
+display and acts as the keyboard and mouse. Then, in its admin panel:
 
-System Settings → General → Sharing → enable **Screen Sharing**, then under its
-ⓘ set **Allow access for** to **Only these users** with just your account. macOS
-won't let a script turn it on, which is why it's here.
+- Join it to the tailnet and connect to it by its Tailscale name, like the Macs.
+- Leave its cloud remote access off: Tailscale already covers it, and anything
+  that reaches the Comet can type on the mini.
+- Keep its firmware current.
 
-Connect through Tailscale, using the machine's Tailscale name:
+It works below macOS, so it reaches what Screen Sharing never could: the
+FileVault unlock screen after a reboot or power cut, a frozen login session,
+and the macOS installer. In exchange the picture is compressed video (up to
+4K at 30 fps), and there's no shared clipboard. Terminal work still goes
+through Tailscale SSH.
 
-- From another Mac: Finder → Go → Connect to Server → `vnc://<tailscale-name>`
-  (e.g. `vnc://sogamoso-m4-mac-mini`), and sign in with that Mac's user account.
-- From a phone: the Tailscale app connected, plus a VNC client pointed at the
-  same name.
-
-Unlike SSH, Screen Sharing isn't limited to the tailnet: it also answers on the
-local network. That's acceptable for a desktop behind a home router; it's the
-reason laptops skip this step. Remote Login (macOS's own SSH server) stays off on
-every Mac; SSH goes through Tailscale SSH instead.
+**Screen Sharing and Remote Login stay off on every Mac.** Screen Sharing
+answers on every network a Mac joins, not just the tailnet, and Remote Login
+(macOS's own SSH server) is redundant with Tailscale SSH. `dotfiles doctor`
+flags either one if it gets turned on. Should the Comet fail, turn Screen
+Sharing back on at the desk (System Settings → General → Sharing) until it's
+replaced.
 
 ---
 
@@ -493,7 +497,7 @@ dotfiles doctor
 
 It checks everything the README's `dotfiles doctor` row lists, from Tailscale
 SSH and the firewall to the LaunchAgents (work hours on laptops only) and
-Screen Sharing (on for the Mac mini, off on laptops). Anything wrong
+Screen Sharing (off on every Mac). Anything wrong
 comes with the command that fixes it. `dotfiles update` and the daily run end
 with it too; run it again whenever something seems off.
 
