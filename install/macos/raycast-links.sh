@@ -8,8 +8,8 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 # its Mac app only registers vicinae://, and without Raycast installed nothing
 # receives raycast:// links: the sign-in succeeds in the browser and never
 # reaches the extension. Build a tiny AppleScript app that claims both schemes
-# and hands each link to Vicinae's own CLI, the way its Linux desktop entry
-# claims them for Vicinae itself. Only the OAuth callbacks go through: any web
+# and reopens each callback as vicinae://oauth, in the background, the link
+# Raycast's redirect page opens for extensions that sign in through it. Only the OAuth callbacks go through: any web
 # page can open a raycast:// link, and the rest of them launch commands and
 # extensions, which no sign-in needs.
 
@@ -37,10 +37,16 @@ if [[ $(/usr/libexec/PlistBuddy -c "Print :DotfilesBuildStamp" "$plist" 2>/dev/n
   script="$(mktemp -t raycast-links).applescript"
   cat >"$script" <<APPLESCRIPT
 on open location theURL
+	set query to missing value
 	ignoring case
-		if theURL does not start with "raycast://oauth?" and theURL does not start with "com.raycast:/oauth?" then return
+		if theURL starts with "raycast://oauth?" then
+			set query to text 17 thru -1 of theURL
+		else if theURL starts with "com.raycast:/oauth?" then
+			set query to text 20 thru -1 of theURL
+		end if
 	end ignoring
-	do shell script quoted form of "$CLI" & " " & quoted form of theURL
+	if query is missing value then return
+	do shell script "/usr/bin/open -g " & quoted form of ("vicinae://oauth?" & query)
 end open location
 APPLESCRIPT
   mkdir -p "$(dirname "$APP")"
