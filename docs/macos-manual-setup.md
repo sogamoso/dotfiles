@@ -462,7 +462,7 @@ steps need a person, once per machine:
 2. **Pair the app with this machine's service.** With T3 Code open:
 
    ```
-   t3 pair --label "Desktop app (this Mac)"
+   t3 pair
    ```
 
    Open the `t3code://` link it prints (or `open` it). T3 Code's own triage

@@ -740,7 +740,8 @@ cmd_doctor() {
         bad "T3 Code isn't set up for the tailnet" "install/dotfiles/t3-code.sh"
       fi
       # The app and the service can't both serve ~/.t3, so the app runs on the
-      # service, paired with it once
+      # service, paired with it once. The app's session lists its client as
+      # desktop, over 127.0.0.1, whatever label the pairing was given
       if jq -e '.localEnvironmentEnabled == false' "$HOME/.t3/userdata/desktop-settings.json" >/dev/null 2>&1; then
         ok "T3 Code's app uses the background service"
       else
@@ -749,13 +750,13 @@ cmd_doctor() {
       fi
       local t3_app_expiry t3_app_left
       t3_app_expiry=$("$t3" auth session list 2>/dev/null |
-        awk '/^[^ ]/ { app = 0 } /client: Desktop app \(this Mac\)/ { app = 1 } app && /expires:/ { print $2 }' | sort | tail -1)
+        awk '/^[^ ]/ { app = 0 } /client: .*\| desktop \|.*\| 127\.0\.0\.1$/ { app = 1 } app && /expires:/ { print $2 }' | sort | tail -1)
       if [[ -z $t3_app_expiry ]]; then
-        bad "T3 Code's app isn't paired with this Mac's service" "t3 pair --label \"Desktop app (this Mac)\", then open its t3code:// link with T3 Code open"
+        bad "T3 Code's app isn't paired with this Mac's service" "t3 pair, then open its t3code:// link with T3 Code open"
       else
         t3_app_left=$(( ($(date -j -u -f "%Y-%m-%dT%H:%M:%S" "${t3_app_expiry%%.*}" +%s 2>/dev/null || echo 0) - $(date +%s)) / 86400 ))
         if (( t3_app_left < 3 )); then
-          bad "T3 Code's app pairing with this Mac expires in under 3 days" "t3 pair --label \"Desktop app (this Mac)\", then open its t3code:// link with T3 Code open"
+          bad "T3 Code's app pairing with this Mac expires in under 3 days" "t3 pair, then open its t3code:// link with T3 Code open"
         else
           ok "T3 Code's app paired with this Mac's service ($t3_app_left days left)"
         fi
