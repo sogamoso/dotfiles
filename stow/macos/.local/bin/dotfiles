@@ -893,7 +893,18 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
   source "$DOTFILES/install/lib/app-path.sh"
   local app_path
   app_path=$(app_path_current)
-  if [[ $app_path == "$APP_PATH" ]]; then
+  local aerospace_pid="" aerospace_path=""
+  aerospace_pid=$(pgrep -x AeroSpace | head -1)
+  # launchd only hands the setting to apps started after the next login, and
+  # AeroSpace, started at login, passes its PATH to every app and command it
+  # launches, so a stale one leaves bindings such as Option+Shift+N without
+  # Homebrew. ps shows the environment of this user's own processes.
+  [[ -n $aerospace_pid ]] &&
+    aerospace_path=$(ps eww -o command= -p "$aerospace_pid" 2>/dev/null | grep -oE '(^| )PATH=[^ ]*' | head -1 | sed 's/^ *PATH=//')
+  if [[ $app_path == "$APP_PATH" && -n $aerospace_path && :$aerospace_path: != *:/opt/homebrew/bin:* ]]; then
+    bad "Apps start with Homebrew on PATH, but AeroSpace started before it was set and launches apps without it" \
+      "restart, or log out and back in"
+  elif [[ $app_path == "$APP_PATH" ]]; then
     ok "Apps start with Homebrew on PATH"
   elif [[ -z $app_path ]]; then
     bad "Apps start with launchd's default PATH, without Homebrew" \
