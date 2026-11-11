@@ -6,6 +6,10 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 # Build a tiny AppleScript app that hands the files to nvim in a new Ghostty
 # window, opened in the first file's folder, and make it the default for text
 # and code. Rebuilt on every run: it's cheap, and keeps it in step with this file.
+# nvim starts from a login shell, as the Option+Shift+N binding does: Ghostty's
+# -e runs its command directly, on the PATH of whatever opened it, and
+# AppleScript's do shell script only has the system's, so ~/.zprofile is what
+# puts Homebrew's nvim and the mise tools its plugins call on PATH.
 
 APP="$HOME/Applications/Neovim.app"
 BUNDLE_ID="com.sogamoso.neovim"
@@ -34,7 +38,7 @@ build_app() {
   script="$(mktemp -t neovim-app).applescript"
   cat >"$script" <<'APPLESCRIPT'
 on run
-	do shell script "open -na Ghostty --args -e nvim"
+	do shell script "open -na Ghostty --args -e /bin/zsh -lc 'exec nvim'"
 end run
 
 on open theItems
@@ -44,7 +48,7 @@ on open theItems
 	end repeat
 	set firstPath to POSIX path of (item 1 of theItems)
 	set dir to do shell script "dirname " & quoted form of firstPath
-	do shell script "open -na Ghostty --args --working-directory=" & quoted form of dir & " -e nvim" & fileArgs
+	do shell script "open -na Ghostty --args --working-directory=" & quoted form of dir & " -e /bin/zsh -lc 'exec nvim \"$@\"' nvim" & fileArgs
 end open
 APPLESCRIPT
 
