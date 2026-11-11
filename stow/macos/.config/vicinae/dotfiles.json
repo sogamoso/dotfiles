@@ -22,7 +22,8 @@
         "secondaryAction": "open-in-browser",
         "closeWindowAfterCopying": true,
         "reduceItemListMemoryUsage": false,
-        "zshPath": "/bin/zsh"
+        "zshPath": "/bin/zsh",
+        "cliPath": null
       },
       "entrypoints": {
         "renew-auth": {
@@ -43,7 +44,8 @@
       "preferences": {
         "limit": "50",
         "labelsLimit": "100",
-        "shouldHideRedundantIssues": false
+        "shouldHideRedundantIssues": false,
+        "issueCustomCopyAction": null
       },
       "entrypoints": {
         "create-issue-for-myself": {
@@ -253,7 +255,10 @@
         "repositoryCloneProtocol": "ssh",
         "isOpenInBrowser": true,
         "includeTeamReviewRequests": true,
-        "repositoryFilterMode": "all"
+        "repositoryFilterMode": "all",
+        "numberOfResults": null,
+        "baseClonePath": null,
+        "repositoryList": null
       }
     },
     "@vimtor/store.raycast.whatsapp": {
