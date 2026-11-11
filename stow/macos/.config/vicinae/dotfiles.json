@@ -482,15 +482,6 @@
         }
       }
     },
-    "@jonah_tweed/store.raycast.daycal-google-calendar": {
-      "preferences": {
-        "daysAhead": "7",
-        "hideDeclined": false,
-        "calendarSelectionMode": "custom",
-        "menuBarMode": "never",
-        "menuBarHeadlineStyle": "smart"
-      }
-    },
     "browser-extension": {
       "enabled": false
     },
