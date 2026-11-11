@@ -728,7 +728,7 @@ cmd_doctor() {
       if "$t3" theme show 2>/dev/null | grep -qi "environment theme: omarchy"; then
         ok "T3 Code shows the omarchy theme"
       else
-        bad "T3 Code doesn't show the omarchy theme" "dotfiles stow, then install/dotfiles/t3-code.sh"
+        bad "T3 Code doesn't show the omarchy theme" "install/dotfiles/t3-code.sh"
       fi
     else
       bad "The standalone t3 CLI isn't installed" "install/dotfiles/t3-code.sh"

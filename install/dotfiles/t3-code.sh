@@ -10,8 +10,10 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 # The app: Omarchy's installer on Linux (AppImage, launcher, theme), the
 # Brewfile's t3-code cask on macOS. Omarchy points T3 Code at its palette by
 # publishing omarchy.json into T3's state dir and selecting it; on macOS that
-# file is Omarchy's t3code.json.tpl rendered for Tokyo Night, stowed into
-# ~/.t3/userdata/themes, and selected here.
+# file is config/t3code/omarchy.json, Omarchy's t3code.json.tpl rendered for
+# Tokyo Night, copied in here. Copied rather than stowed: T3 ignores a theme
+# that is a symlink. It is written atomically, as Omarchy writes it, since T3
+# watches the file and would read a half-written one as invalid.
 #
 # The CLI comes from T3's own installer, downloaded whole before it runs and
 # checked by it against the release's SHA-256. It shares ~/.t3 with the app
@@ -59,7 +61,17 @@ else
   fi
 fi
 
-if [[ $(uname -s) == "Darwin" && -f $T3CODE_HOME/userdata/themes/omarchy.json ]]; then
+if [[ $(uname -s) == "Darwin" ]]; then
+  theme_src="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)/config/t3code/omarchy.json"
+  theme="$T3CODE_HOME/userdata/themes/omarchy.json"
+  # A link left by the stow package this file used to be in
+  [[ -L $theme ]] && rm -f "$theme"
+  if ! cmp -s "$theme_src" "$theme"; then
+    mkdir -p "$(dirname "$theme")"
+    tmp=$(mktemp "$theme.XXXXXX")
+    cp "$theme_src" "$tmp"
+    mv "$tmp" "$theme"
+  fi
   if "$T3" theme set omarchy --base-dir "$T3CODE_HOME" >/dev/null 2>&1; then
     log_item "T3 Code shows the omarchy theme"
   else
