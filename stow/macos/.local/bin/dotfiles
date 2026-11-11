@@ -1034,6 +1034,11 @@ sys.exit(0 if (s["carbonKeyCode"], s["carbonModifiers"]) == (int(sys.argv[1]), i
     bad "Dictation shortcuts differ (${sw_drift[*]})" \
       "bash $DOTFILES/install/macos/preferences.sh"
   fi
+  if [[ $(defaults read com.superduper.superwhisper appFolderDirectory 2>/dev/null) == "$HOME/.local/share" ]]; then
+    ok "Recordings, modes and templates in ~/.local/share/superwhisper"
+  else
+    bad "Superwhisper's folder isn't in ~/.local/share" "bash $DOTFILES/install/macos/preferences.sh"
+  fi
 
   if [[ "$(uname -s)" == "Darwin" ]]; then
     echo "==> btop"

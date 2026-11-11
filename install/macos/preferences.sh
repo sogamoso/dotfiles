@@ -147,6 +147,27 @@ else
   # before a call nor records one unless started by hand from its Meetings tab.
   defaults write com.superduper.superwhisper meetingDetectionMode -string off
   defaults write com.superduper.superwhisper googleCalendarEnabled -bool false
+  # Its folder (Settings → Advanced) holds recordings, modes and meeting
+  # templates, in a superwhisper folder inside the one this names. It lives in
+  # ~/.local/share rather than the home folder, and rather than Documents,
+  # which iCloud can sync, recordings and all. Not Application Support's
+  # superwhisper either: that one is the app's own, models and database, and
+  # has a models folder of its own. Recordings are found by folder name, so
+  # a folder already in use is moved along, never onto one already there.
+  sw_parent="$HOME/.local/share"
+  sw_current=$(defaults read com.superduper.superwhisper appFolderDirectory 2>/dev/null || true)
+  if [[ $sw_current != "$sw_parent" ]]; then
+    mkdir -p "$sw_parent"
+    if [[ -n $sw_current && -d $sw_current/superwhisper && -e $sw_parent/superwhisper ]]; then
+      log_warn "Superwhisper's folder is in both $sw_current and $sw_parent; merge them by hand, then rerun"
+    elif [[ -n $sw_current && -d $sw_current/superwhisper ]] &&
+      ! mv "$sw_current/superwhisper" "$sw_parent/superwhisper"; then
+      log_warn "Could not move $sw_current/superwhisper to $sw_parent"
+    else
+      defaults write com.superduper.superwhisper appFolderDirectory -string "$sw_parent"
+      log_item "Superwhisper keeps its recordings, modes and templates in $sw_parent/superwhisper"
+    fi
+  fi
   if [[ $superwhisper_was_running == true ]]; then
     open -a superwhisper
   fi
