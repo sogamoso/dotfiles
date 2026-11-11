@@ -492,7 +492,7 @@
     "screenshots": {
       "enabled": false
     },
-    "@tailscale/store.raycast.tailscale": {
+    "@samlinville/store.raycast.tailscale": {
       "preferences": {
         "tailscalePath": "/opt/homebrew/bin/tailscale"
       }
