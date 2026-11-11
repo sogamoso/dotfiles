@@ -191,6 +191,8 @@ cmd_reload() {
     run "$DOTFILES/install/macos/neovim.sh"
   fi
   # The Herdr app's theme, picked through its window, so only while it's open
+  # Picks T3 Code's theme again, and installs its CLI or service if either went missing
+  run "$DOTFILES/install/dotfiles/t3-code.sh"
   if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/herdr-app.sh" ]]; then
     run "$DOTFILES/install/macos/herdr-app.sh"
   fi
@@ -703,6 +705,33 @@ cmd_doctor() {
       bad "Herdr app shows ${app_theme:-its default theme}, not omarchy" "install/macos/herdr-app.sh --launch"
     else
       ok "Not checked: the Herdr app hasn't been opened yet; it takes the theme then (install/macos/herdr-app.sh --launch)"
+    fi
+  fi
+
+  echo "==> T3 Code"
+  # Installed as Omarchy does, plus the standalone CLI and its background
+  # service; install/dotfiles/t3-code.sh does the setup
+  if [[ ! -d "/Applications/T3 Code (Beta).app" ]]; then
+    bad "T3 Code isn't installed" "dotfiles brew"
+  else
+    local t3="$HOME/.local/bin/t3" t3_status
+    if [[ $(readlink "$t3" 2>/dev/null || true) == "$HOME/.t3/runtime/versions/"* && -x $t3 ]]; then
+      ok "t3 CLI $("$t3" --version 2>/dev/null | awk '{print $2}')"
+      t3_status=$("$t3" service status 2>/dev/null || true)
+      if [[ $t3_status != *"Status: installed"* ]]; then
+        bad "T3 Code's background service isn't installed" "install/dotfiles/t3-code.sh"
+      elif ! launchctl print "gui/$(id -u)/com.t3tools.t3code.service" 2>/dev/null | grep -q "state = running"; then
+        bad "T3 Code's background service isn't running" "t3 service restart, then t3 service status"
+      else
+        ok "T3 Code's background service running"
+      fi
+      if "$t3" theme show 2>/dev/null | grep -qi "environment theme: omarchy"; then
+        ok "T3 Code shows the omarchy theme"
+      else
+        bad "T3 Code doesn't show the omarchy theme" "dotfiles stow, then install/dotfiles/t3-code.sh"
+      fi
+    else
+      bad "The standalone t3 CLI isn't installed" "install/dotfiles/t3-code.sh"
     fi
   fi
 

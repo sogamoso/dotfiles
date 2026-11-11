@@ -22,3 +22,5 @@ bash "$DIR/skills.sh"
 bash "$DIR/herdr-plugins.sh"
 bash "$DIR/herdr-integrations.sh"
 bash "$DIR/herdr-machines.sh"
+# Last: on Omarchy it runs Omarchy's T3 Code installer, which asks for sudo
+bash "$DIR/t3-code.sh"

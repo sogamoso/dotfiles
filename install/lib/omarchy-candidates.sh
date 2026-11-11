@@ -67,6 +67,8 @@ OMARCHY_PARITY_PATHS=(
   # two steps it has (pull the checkout, mise up): the rest are pacman,
   # firmware, keyring and boot work. Plain entries also classify the area
   bin/omarchy-update bin/omarchy-update-dev bin/omarchy-update-mise
+  # T3 Code: installed as Omarchy installs it, themed from its template
+  bin/omarchy-install-ai-t3-code bin/omarchy-install-t3code-app bin/omarchy-theme-set-t3code
   'bin/omarchy-weather*'
   'bin/omarchy-webapp*'
 )
@@ -127,7 +129,7 @@ OMARCHY_SKIPPED_AREAS=(
 )
 
 # Commit titles outside those paths that can still matter here
-OMARCHY_KEYWORDS='herdr|tmux|alias|neovim|nvim|lazyvim|ghostty|starship|ssh|mosh|tailscale|clipboard|super ?\+|keybinding|hotkey|shortcut|agent|mise|worktree|hook|claude|codex|opencode|hunk|git'
+OMARCHY_KEYWORDS='herdr|tmux|alias|neovim|nvim|lazyvim|ghostty|starship|ssh|mosh|tailscale|clipboard|super ?\+|keybinding|hotkey|shortcut|agent|mise|worktree|hook|claude|codex|opencode|hunk|git|t3'
 
 omarchy_reviewed_sha() { awk '!/^#/ && NF {print $1; exit}' "$OMARCHY_STATE_FILE"; }
 omarchy_reviewed_date() { awk '!/^#/ && NF {print $2; exit}' "$OMARCHY_STATE_FILE"; }
