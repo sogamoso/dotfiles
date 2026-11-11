@@ -352,6 +352,15 @@ The SSH agent serves the keys behind `git` over SSH and commit signing (`~/.ssh/
 - **Laptops**: enable **Lock when device locks or sleeps**, and set **Lock after the device is idle for** → 30 minutes. Option + Ctrl + L then locks 1Password along with the screen, as Omarchy's Super + Ctrl + L locks everything, and the idle lock covers a laptop left unlocked somewhere else.
 - **Desktops that stay on, like the Mac mini**: leave **Lock when device locks or sleeps** off and the idle lock at **Never**. The machine stays home and is reached over Screen Sharing and SSH, where re-entering the 1Password password after every screen lock costs more than it protects. Option + Ctrl + L locks the screen only.
 
+System Settings → General → **AutoFill & Passwords** makes 1Password the only password manager macOS offers, in every app and not just the browser:
+
+- **AutoFill Passwords and Passkeys** → on
+- **AutoFill from** → **Passwords** off, **1Password** on. With both on, macOS offers two sets of suggestions and saves new passkeys to whichever one it picks.
+- **Delete After Use** → on, so codes texted or emailed for sign-in don't pile up in Messages and Mail
+- **Set Up Codes In** → 1Password, so setup links and QR codes for verification codes open there
+
+macOS keeps these in storage no script can read or write, so they stay manual. `dotfiles doctor` checks the one it can see: whether 1Password's AutoFill extension is on. Reinstalling 1Password can turn it off without a word.
+
 ---
 
 ## 12. Install Supernote Partner

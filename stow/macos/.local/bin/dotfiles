@@ -822,6 +822,17 @@ cmd_doctor() {
   else
     bad "SSH agent isn't running" "1Password → Settings → Developer → Use the SSH Agent"
   fi
+  # pluginkit marks an enabled extension with "+" and a disabled one with "-".
+  # The other AutoFill & Passwords settings have no readable store
+  local autofill
+  autofill=$(pluginkit -m -i com.1password.1password.autofill-extension 2>/dev/null)
+  if [[ -z $autofill ]]; then
+    bad "AutoFill extension isn't registered" "Open 1Password once so macOS picks up its extension"
+  elif [[ $autofill == +* ]]; then
+    ok "Fills passwords, passkeys and codes system-wide"
+  else
+    bad "Not enabled for AutoFill" "System Settings → General → AutoFill & Passwords → AutoFill from → 1Password"
+  fi
 
   echo "==> Keyboard shortcuts"
   # A macOS update or a click in System Settings can turn one back on, and then
