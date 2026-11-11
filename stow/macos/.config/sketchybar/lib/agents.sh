@@ -26,7 +26,7 @@ AGENTS_LIB=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 # signed in but unused, and skips its collector. Every agent is on otherwise.
 AGENTS_CONFIG="$HOME/.config/sketchybar/agents.json"
 agents_enabled() {
-  [[ "$(jq -r --arg id "$1" '.providers[$id].enabled // true' "$AGENTS_CONFIG" 2>/dev/null)" != "false" ]]
+  ! jq -e --arg id "$1" '.providers[$id].enabled == false' "$AGENTS_CONFIG" >/dev/null 2>&1
 }
 
 # Every agent that can have a record here, in Omarchy's order
