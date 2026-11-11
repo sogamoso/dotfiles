@@ -73,7 +73,10 @@ fi
 
 # Lazy mise tools, such as the agents in the macOS mise conf.d, only get a command
 # on PATH once their shims exist, and stow can add or drop one. Offline, as
-# Omarchy builds them: a shim needs no version resolved over the network
+# Omarchy builds them: a shim needs no version resolved over the network. Offline,
+# mise still tries to resolve "latest" for every lazy tool it has never
+# installed, and warns "no versions found" for each before building its shim
+# anyway (basecamp/omarchy#16174), so only errors are shown
 if command -v mise >/dev/null; then
-  MISE_OFFLINE=true mise reshim
+  MISE_OFFLINE=true mise --log-level error reshim
 fi
