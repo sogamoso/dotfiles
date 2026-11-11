@@ -9,7 +9,9 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/lib/log.sh"
 # receives raycast:// links: the sign-in succeeds in the browser and never
 # reaches the extension. Build a tiny AppleScript app that claims both schemes
 # and hands each link to Vicinae's own CLI, the way its Linux desktop entry
-# claims them for Vicinae itself.
+# claims them for Vicinae itself. Only the OAuth callbacks go through: any web
+# page can open a raycast:// link, and the rest of them launch commands and
+# extensions, which no sign-in needs.
 
 APP="$HOME/Applications/Raycast Links.app"
 BUNDLE_ID="com.sogamoso.raycast-links"
@@ -35,6 +37,9 @@ if [[ $(/usr/libexec/PlistBuddy -c "Print :DotfilesBuildStamp" "$plist" 2>/dev/n
   script="$(mktemp -t raycast-links).applescript"
   cat >"$script" <<APPLESCRIPT
 on open location theURL
+	ignoring case
+		if theURL does not start with "raycast://oauth?" and theURL does not start with "com.raycast:/oauth?" then return
+	end ignoring
 	do shell script quoted form of "$CLI" & " " & quoted form of theURL
 end open location
 APPLESCRIPT
