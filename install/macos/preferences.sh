@@ -14,6 +14,14 @@ defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 # Disable click desktop to reveal
 defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
 
+# No widgets on the desktop or in Stage Manager
+defaults write com.apple.WindowManager StandardHideWidgets -bool true
+defaults write com.apple.WindowManager StageManagerHideWidgets -bool true
+
+# Ask before keeping unsaved changes when closing a document, rather than
+# saving them silently
+defaults write NSGlobalDomain NSCloseAlwaysConfirmsChanges -bool true
+
 # 24-hour clock
 defaults write NSGlobalDomain AppleICUForce24HourTime -bool true
 
