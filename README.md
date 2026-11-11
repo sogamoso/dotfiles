@@ -163,7 +163,6 @@ The dotfiles setup (`install/dotfiles/all.sh`) runs these scripts in order:
 | `claude-code.sh` | Installs Claude Code marketplaces, plugins, and configures claude-hud |
 | `codex.sh` | Makes auto-review Codex's default approval mode in `~/.codex/config.toml`, and installs the third-party Codex marketplaces and plugins |
 | `opencode.sh` | Sets OpenCode to follow the terminal theme and leave updates to mise, as Omarchy does, without stowing a config that holds secrets |
-| `agents-widget.sh` | On Omarchy, merges `~/.config/agents/widget.json`, the agents the agents widget hides on every host, into the providers of Omarchy's agents panel through `omarchy bar set`; the macOS widget reads the file directly |
 | `grok.sh` | Sets Grok to follow the terminal theme, and its default permission mode to auto, in `~/.grok/config.toml`, and leaves the rest of that file to Grok |
 | `uidotsh.sh` | Registers the [ui.sh](https://ui.sh) MCP server with Claude Code and Codex, and caches its token where the shells can export it |
 | `skills.sh` | Installs the agent skills, as plugins where a source is packaged for them and linked into `~/.claude/skills` and `~/.codex/skills` otherwise — see [Skills](#skills) |
