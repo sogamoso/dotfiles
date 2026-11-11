@@ -225,6 +225,8 @@ cmd_update() {
   set -e
   # Picks up extensions added on the other Mac; settings arrive through the stow
   run python3 "$DOTFILES/install/lib/vicinae.py" install || true
+  # Rebuilds Raycast Links.app only when its script changed
+  run bash "$DOTFILES/install/macos/raycast-links.sh" || true
   # Every installed mise tool, as omarchy update does: an update is a request
   # for current versions, so mise's cooldown on new releases is skipped, the
   # same call the mup alias makes. Tools never run stay uninstalled.
@@ -995,6 +997,16 @@ print("none" if not found else all(b"Fliqlo.saver" in c for c in found))
     ok "Settings and extensions match the repo"
   else
     bad "Vicinae differs from the repo:"$'\n'"$drift" "dotfiles vicinae save to keep it, or dotfiles vicinae reset to drop it"
+  fi
+  # Extensions that sign in with OAuth (DayCal, Trek) come back on a
+  # raycast:// link, which only Raycast Links.app passes on to Vicinae
+  local raycast_handler
+  raycast_handler=$(osascript -l JavaScript -e 'ObjC.import("AppKit"); const u = $.NSWorkspace.sharedWorkspace.URLForApplicationToOpenURL($.NSURL.URLWithString("raycast://oauth")); u.isNil() ? "" : u.path.js' 2>/dev/null || true)
+  if [[ $raycast_handler == "$HOME/Applications/Raycast Links.app" ]]; then
+    ok "raycast:// sign-ins reach Vicinae"
+  else
+    bad "raycast:// links open ${raycast_handler:-nothing}, so extensions can't finish signing in" \
+      "bash $DOTFILES/install/macos/raycast-links.sh"
   fi
 
   echo "==> LanguageTool"
