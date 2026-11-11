@@ -79,6 +79,26 @@ if [[ $(uname -s) == "Darwin" ]]; then
   fi
 fi
 
+# One server per T3 home: the app's own and the service would both claim
+# ~/.t3, and the app refuses to start ("This T3 home is unavailable"). As T3
+# recommends for an app beside a service, the app's local environment is off
+# (Settings > Environments) and the app works through the service, once
+# paired with it (docs/macos-manual-setup.md). A running app keeps its own
+# copy of this file and writes it back, so it takes effect when it reopens.
+DESKTOP_SETTINGS="$T3CODE_HOME/userdata/desktop-settings.json"
+if ! jq -e '.localEnvironmentEnabled == false' "$DESKTOP_SETTINGS" >/dev/null 2>&1; then
+  mkdir -p "$(dirname "$DESKTOP_SETTINGS")"
+  tmp=$(mktemp "$DESKTOP_SETTINGS.XXXXXX")
+  jq '.localEnvironmentEnabled = false' "$DESKTOP_SETTINGS" >"$tmp" 2>/dev/null ||
+    echo '{"localEnvironmentEnabled":false}' >"$tmp"
+  mv "$tmp" "$DESKTOP_SETTINGS"
+  if pgrep -x "T3 Code (Beta)" >/dev/null 2>&1 || pgrep -x t3code >/dev/null 2>&1; then
+    log_warn "T3 Code is open; quit and reopen it so it uses the background service"
+  else
+    log_item "T3 Code's app uses the background service instead of a server of its own"
+  fi
+fi
+
 # Each machine is reachable both ways: over the tailnet, and through T3
 # Connect. Tailscale access is T3's LAN mode (`t3 up --lan`), which is the
 # single line T3CODE_LAN=true in service.env. Binding to the Tailscale address

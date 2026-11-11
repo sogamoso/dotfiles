@@ -443,7 +443,37 @@ For each:
 Run `bash install/macos/pwas.sh` again for any added later or uninstalled;
 `dotfiles doctor` names the missing ones.
 
-## 17. Confirm the setup with `dotfiles doctor`
+## 17. Connect T3 Code
+
+Bootstrap installs T3 Code with its background service and turns off the app's
+own server, since the two can't share `~/.t3` (see the README's T3 Code). Two
+steps need a person, once per machine:
+
+1. **Sign in to T3 Connect**, so the phone and the other machines reach this
+   one through T3's relay. Bootstrap offers it; otherwise, in a terminal:
+
+   ```
+   t3 up --connect
+   ```
+
+   It opens a browser to approve the sign-in, and asks before restarting the
+   service, which stops any agent turn running on it.
+
+2. **Pair the app with this machine's service.** With T3 Code open:
+
+   ```
+   t3 pair --label "Desktop app (this Mac)"
+   ```
+
+   Open the `t3code://` link it prints (or `open` it). T3 Code's own triage
+   does the same if the app reports it can't reach a server. The pairing
+   comes with a 30-day expiry; `dotfiles doctor` warns three days before it,
+   and the same command pairs the app again.
+
+The same two steps apply on Omarchy, after running `install/dotfiles/t3-code.sh`
+there.
+
+## 18. Confirm the setup with `dotfiles doctor`
 
 Bootstrap ends by running it, so its list of problems is the manual steps still
 left. Once the steps above are done, run it again:
