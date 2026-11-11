@@ -79,6 +79,26 @@ if [[ $(uname -s) == "Darwin" ]]; then
   fi
 fi
 
+# Each machine is reachable both ways: over the tailnet, and through T3
+# Connect. Tailscale access is T3's LAN mode (`t3 up --lan`), which is the
+# single line T3CODE_LAN=true in service.env. Binding to the Tailscale address
+# alone would cut off T3 Connect, whose tunnel reaches the server on
+# 127.0.0.1, so the server listens on the local network too, behind a pairing
+# code. The file is written here rather than through `t3 up`, which restarts
+# the service unasked when there's no terminal and stops running agent turns:
+# a new service starts with it, a running one picks it up at its next restart.
+SERVICE_ENV="$T3CODE_HOME/service.env"
+lan_on() { grep -qx 'T3CODE_LAN=true' "$SERVICE_ENV" 2>/dev/null; }
+set_lan() {
+  local tmp
+  mkdir -p "$T3CODE_HOME"
+  tmp=$(mktemp "$SERVICE_ENV.XXXXXX")
+  grep -v '^T3CODE_LAN=' "$SERVICE_ENV" 2>/dev/null >"$tmp" || true
+  echo "T3CODE_LAN=true" >>"$tmp"
+  mv "$tmp" "$SERVICE_ENV"
+}
+lan_on || set_lan
+
 # The service keeps the PATH it was installed from, so it's installed from a
 # fresh login shell's: the one ~/.zprofile (or Omarchy's /etc/profile.d) builds,
 # with Homebrew and the mise shims the agents run through, rather than whatever
@@ -86,9 +106,26 @@ fi
 if "$T3" service status 2>/dev/null | grep -q "not installed"; then
   if env PATH=/usr/bin:/bin:/usr/sbin:/sbin "${SHELL:-/bin/bash}" -lc '"$0" service install' "$T3"; then
     log_success "T3 Code's background service installed"
+    # Nothing runs on a service this new, so a restart costs nothing, should
+    # the install have put back the default it writes for a new service
+    if ! lan_on; then
+      set_lan
+      "$T3" service restart >/dev/null
+    fi
   else
     log_warn "T3 Code's service didn't install; see t3 service status"
   fi
 else
   log_item "T3 Code's background service installed"
+fi
+
+# T3 Connect needs a sign-in to a T3 account, once per machine, which only a
+# person can approve. With a terminal, `t3 up --connect` asks before any
+# restart; unattended runs, such as the daily update, only say what's left.
+if ! "$T3" status --json 2>/dev/null | jq -e '.connect.enabled == true and .connect.revoked != true' >/dev/null; then
+  if [[ -t 0 && -t 1 ]]; then
+    "$T3" up --connect || log_warn "T3 Connect isn't set up; run: t3 up --connect"
+  else
+    log_warn "T3 Connect isn't set up; run t3 up --connect in a terminal to sign in"
+  fi
 fi

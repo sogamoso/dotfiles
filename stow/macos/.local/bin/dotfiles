@@ -725,6 +725,21 @@ cmd_doctor() {
       else
         ok "T3 Code's background service running"
       fi
+      # Reachable over the tailnet (LAN mode) and through T3 Connect
+      local t3_json
+      t3_json=$("$t3" status --json 2>/dev/null || true)
+      if jq -e '.lan.enabled == true' <<<"$t3_json" >/dev/null 2>&1; then
+        ok "T3 Code reachable over the tailnet"
+      elif grep -qx 'T3CODE_LAN=true' "$HOME/.t3/service.env" 2>/dev/null; then
+        bad "T3 Code's tailnet access waits for a service restart" "t3 service restart, once no agent is working"
+      else
+        bad "T3 Code isn't reachable over the tailnet" "install/dotfiles/t3-code.sh"
+      fi
+      if jq -e '.connect.enabled == true and .connect.revoked != true' <<<"$t3_json" >/dev/null 2>&1; then
+        ok "T3 Connect on"
+      else
+        bad "T3 Connect isn't set up" "t3 up --connect"
+      fi
       if "$t3" theme show 2>/dev/null | grep -qiE 'environment theme: "?omarchy"?'; then
         ok "T3 Code shows the omarchy theme"
       else
