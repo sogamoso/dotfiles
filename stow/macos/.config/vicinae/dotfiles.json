@@ -170,10 +170,11 @@
       "preferences": {
         "refreshInterval": "15",
         "timeFormat": "24h"
-      }
+      },
+      "enabled": false
     },
     "@limonkufu/store.raycast.aerospace": {
-      "enabled": false,
+      "enabled": true,
       "preferences": {
         "showFullBindings": true,
         "showMenuBarExtras": true,
@@ -475,6 +476,21 @@
           "policy": "allow"
         }
       }
+    },
+    "@jonah_tweed/store.raycast.daycal-google-calendar": {
+      "preferences": {
+        "daysAhead": "7",
+        "hideDeclined": false,
+        "calendarSelectionMode": "custom",
+        "menuBarMode": "never",
+        "menuBarHeadlineStyle": "smart"
+      }
+    },
+    "browser-extension": {
+      "enabled": false
+    },
+    "screenshots": {
+      "enabled": false
     }
   },
   "wrap_navigation": true,
@@ -482,5 +498,10 @@
     "normal": {
       "family": ".AppleSystemUIFont"
     }
-  }
+  },
+  "fallbacks": [
+    "ai:quick",
+    "@mblode/store.raycast.google-search:index",
+    "files:search"
+  ]
 }
