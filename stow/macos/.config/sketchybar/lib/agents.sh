@@ -6,16 +6,20 @@
 # tierLabel, usageStatusText, limits as [{label, title, percent 0..1,
 # resetsAt}], limitsStale, limitsFetchedAt, balance and the local stats block.
 # Omarchy's own collectors print them, run from the pinned checkout that
-# install/macos/omarchy-agents.sh keeps at Omarchy's own path. Two agents need
-# help: Cursor keeps its token in the keychain, where Omarchy's collector
+# install/macos/omarchy-agents.sh keeps at Omarchy's own path. Three agents
+# need help: Cursor keeps its token in the keychain, where Omarchy's collector
 # doesn't look, so the collector is handed it through the CURSOR_AUTH_TOKEN
-# its contract names; Gemini CLI has no collector, so agents_gemini fetches
-# its limits and agents_record wraps them into the same shape.
+# its contract names; Claude Code keeps its sign-in there too, with no such
+# variable, so claude-collector.py runs its collector with the keychain
+# answering for ~/.claude/.credentials.json; Gemini CLI has no collector, so
+# agents_gemini fetches its limits and agents_record wraps them into the same
+# shape.
 
 OMARCHY_PATH=${OMARCHY_PATH:-$HOME/.local/share/omarchy}
 export OMARCHY_PATH
 # The collectors need Python 3.11; Homebrew's, which is on the bar's PATH
 AGENTS_PYTHON=/opt/homebrew/bin/python3
+AGENTS_LIB=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 # Every agent that can have a record here, in Omarchy's order
 agents_ids() {
@@ -59,6 +63,8 @@ agents_collector() {
   if [[ $id == cursor ]] && security find-generic-password -s cursor-access-token >/dev/null 2>&1; then
     CURSOR_AUTH_TOKEN="$(security find-generic-password -s cursor-access-token -w 2>/dev/null)" \
       perl -e 'alarm shift; exec @ARGV' 90 "$AGENTS_PYTHON" "$collector" "$@" 2>/dev/null
+  elif [[ $id == claude ]]; then
+    perl -e 'alarm shift; exec @ARGV' 90 "$AGENTS_PYTHON" "$AGENTS_LIB/claude-collector.py" "$collector" "$@" 2>/dev/null
   else
     perl -e 'alarm shift; exec @ARGV' 90 "$AGENTS_PYTHON" "$collector" "$@" 2>/dev/null
   fi
