@@ -31,7 +31,11 @@ refresh() {
   OMARCHY_AGENT_USAGE_REFRESH_AT=$(date +%s)
   export OMARCHY_AGENT_USAGE_REFRESH_AT
   for id in $(agents_ids); do
-    agents_collect "$CACHE" "$id" ${2:+"$2"} &
+    if agents_enabled "$id"; then
+      agents_collect "$CACHE" "$id" ${2:+"$2"} &
+    else
+      rm -f "$CACHE/$id.json"
+    fi
   done
   wait
 }
@@ -70,7 +74,10 @@ render() {
 
   # What the records' token counts add up to, the figures Omarchy's hero
   # line rotates through
-  for file in "$CACHE"/*.json; do [[ -f $file ]] && files+=("$file"); done
+  for file in "$CACHE"/*.json; do
+    id=${file##*/}
+    [[ -f $file ]] && agents_enabled "${id%.json}" && files+=("$file")
+  done
   local today prompts sessions week model
   IFS=$'\t' read -r today prompts sessions week model < <(jq -s -r '
     [(map(.todayTotalTokens // 0) | add), (map(.todayPrompts // 0) | add),
@@ -91,7 +98,7 @@ render() {
 
     # An agent that isn't used or signed in here has no record, as in Omarchy.
     # A record from before the widget read Omarchy's shape is none either.
-    if [[ ! -f $file ]] || ! jq -e '.schemaVersion' "$file" >/dev/null 2>&1; then
+    if ! agents_enabled "$id" || [[ ! -f $file ]] || ! jq -e '.schemaVersion' "$file" >/dev/null 2>&1; then
       args+=(--set "agents.$id" drawing=off)
     else
       args+=(--set "agents.$id" drawing=on)

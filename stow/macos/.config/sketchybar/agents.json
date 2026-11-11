@@ -1,0 +1,7 @@
+{
+  "providers": {
+    "agy": { "enabled": false },
+    "cursor": { "enabled": false },
+    "gemini": { "enabled": false }
+  }
+}
