@@ -21,10 +21,12 @@ export OMARCHY_PATH
 AGENTS_PYTHON=/opt/homebrew/bin/python3
 AGENTS_LIB=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
-# Agents turned off in agents.json, beside sketchybarrc, in the shape of
-# Omarchy's shell.json: providers.<id>.enabled false hides an agent that's
-# signed in but unused, and skips its collector. Every agent is on otherwise.
-AGENTS_CONFIG="$HOME/.config/sketchybar/agents.json"
+# Agents turned off in ~/.config/agents/widget.json, in the shape of Omarchy's
+# shell.json: providers.<id>.enabled false hides an agent that's signed in but
+# unused, and skips its collector. Every agent is on otherwise. The same file
+# is stowed on Omarchy, where install/dotfiles/agents-widget.sh hands it to
+# Omarchy's own agents panel.
+AGENTS_CONFIG="$HOME/.config/agents/widget.json"
 agents_enabled() {
   ! jq -e --arg id "$1" '.providers[$id].enabled == false' "$AGENTS_CONFIG" >/dev/null 2>&1
 }
