@@ -481,7 +481,7 @@
       "preferences": {
         "daysAhead": "7",
         "hideDeclined": false,
-        "calendarSelectionMode": "custom",
+        "calendarSelectionMode": "google",
         "menuBarMode": "never",
         "menuBarHeadlineStyle": "smart"
       }
