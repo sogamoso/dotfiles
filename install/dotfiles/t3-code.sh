@@ -100,24 +100,33 @@ if ! jq -e '.localEnvironmentEnabled == false' "$DESKTOP_SETTINGS" >/dev/null 2>
 fi
 
 # Each machine is reachable both ways: over the tailnet, and through T3
-# Connect. Tailscale access is T3's LAN mode (`t3 up --lan`), which is the
-# single line T3CODE_LAN=true in service.env. Binding to the Tailscale address
-# alone would cut off T3 Connect, whose tunnel reaches the server on
-# 127.0.0.1, so the server listens on the local network too, behind a pairing
-# code. The file is written here rather than through `t3 up`, which restarts
-# the service unasked when there's no terminal and stops running agent turns:
-# a new service starts with it, a running one picks it up at its next restart.
+# Connect. The server listens on 127.0.0.1 only, where T3 Connect's tunnel
+# reaches it, and publishes itself to the tailnet through Tailscale Serve
+# (https://<machine>.<tailnet>.ts.net), which it sets up on every start. T3's
+# LAN mode would reach the tailnet too, but by listening on every network the
+# machine joins, café Wi-Fi included, so it stays off. Both are lines in
+# service.env, written here rather than through `t3 up`, which restarts the
+# service unasked when there's no terminal and stops running agent turns: a
+# new service starts with them, a running one picks them up at its next restart.
 SERVICE_ENV="$T3CODE_HOME/service.env"
-lan_on() { grep -qx 'T3CODE_LAN=true' "$SERVICE_ENV" 2>/dev/null; }
-set_lan() {
-  local tmp
+SERVICE_SETTINGS=(T3CODE_LAN=false T3CODE_TAILSCALE_SERVE=true)
+settings_on() {
+  local setting
+  for setting in "${SERVICE_SETTINGS[@]}"; do
+    grep -qx "$setting" "$SERVICE_ENV" 2>/dev/null || return 1
+  done
+}
+set_settings() {
+  local tmp setting
   mkdir -p "$T3CODE_HOME"
   tmp=$(mktemp "$SERVICE_ENV.XXXXXX")
-  grep -v '^T3CODE_LAN=' "$SERVICE_ENV" 2>/dev/null >"$tmp" || true
-  echo "T3CODE_LAN=true" >>"$tmp"
+  grep -vE '^(T3CODE_LAN|T3CODE_TAILSCALE_SERVE)=' "$SERVICE_ENV" 2>/dev/null >"$tmp" || true
+  for setting in "${SERVICE_SETTINGS[@]}"; do
+    echo "$setting" >>"$tmp"
+  done
   mv "$tmp" "$SERVICE_ENV"
 }
-lan_on || set_lan
+settings_on || set_settings
 
 # The service keeps the PATH it was installed from, so it's installed from a
 # fresh login shell's: the one ~/.zprofile (or Omarchy's /etc/profile.d) builds,
@@ -128,8 +137,8 @@ if "$T3" service status 2>/dev/null | grep -q "not installed"; then
     log_success "T3 Code's background service installed"
     # Nothing runs on a service this new, so a restart costs nothing, should
     # the install have put back the default it writes for a new service
-    if ! lan_on; then
-      set_lan
+    if ! settings_on; then
+      set_settings
       "$T3" service restart >/dev/null
     fi
   else

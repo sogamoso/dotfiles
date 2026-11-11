@@ -725,15 +725,19 @@ cmd_doctor() {
       else
         ok "T3 Code's background service running"
       fi
-      # Reachable over the tailnet (LAN mode) and through T3 Connect
-      local t3_json
+      # Reachable over the tailnet (Tailscale Serve, with the server on
+      # localhost rather than in LAN mode) and through T3 Connect
+      local t3_json t3_serve
       t3_json=$("$t3" status --json 2>/dev/null || true)
-      if jq -e '.lan.enabled == true' <<<"$t3_json" >/dev/null 2>&1; then
-        ok "T3 Code reachable over the tailnet"
-      elif grep -qx 'T3CODE_LAN=true' "$HOME/.t3/service.env" 2>/dev/null; then
-        bad "T3 Code's tailnet access waits for a service restart" "t3 service restart, once no agent is working"
+      t3_serve=$(tailscale serve status --json 2>/dev/null |
+        jq -r '.Web // {} | to_entries[] | select(any(.value.Handlers[]?; .Proxy // "" | test(":3773/?$"))) | .key | sub(":443$"; "")' 2>/dev/null | head -1)
+      if [[ -n $t3_serve ]] && jq -e '.lan.enabled == false' <<<"$t3_json" >/dev/null 2>&1; then
+        ok "T3 Code reachable over the tailnet at https://$t3_serve, and not on the local network"
+      elif grep -qx 'T3CODE_TAILSCALE_SERVE=true' "$HOME/.t3/service.env" 2>/dev/null &&
+        grep -qx 'T3CODE_LAN=false' "$HOME/.t3/service.env" 2>/dev/null; then
+        bad "T3 Code's tailnet setup waits for a service restart" "t3 service restart, once no agent is working"
       else
-        bad "T3 Code isn't reachable over the tailnet" "install/dotfiles/t3-code.sh"
+        bad "T3 Code isn't set up for the tailnet" "install/dotfiles/t3-code.sh"
       fi
       # The app and the service can't both serve ~/.t3, so the app runs on the
       # service, paired with it once
