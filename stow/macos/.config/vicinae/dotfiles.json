@@ -491,6 +491,11 @@
     },
     "screenshots": {
       "enabled": false
+    },
+    "@tailscale/store.raycast.tailscale": {
+      "preferences": {
+        "tailscalePath": "/opt/homebrew/bin/tailscale"
+      }
     }
   },
   "wrap_navigation": true,
