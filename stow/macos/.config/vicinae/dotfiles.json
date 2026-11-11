@@ -172,8 +172,7 @@
       "preferences": {
         "refreshInterval": "15",
         "timeFormat": "24h"
-      },
-      "enabled": false
+      }
     },
     "@limonkufu/store.raycast.aerospace": {
       "enabled": true,
