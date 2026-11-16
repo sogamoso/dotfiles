@@ -52,15 +52,15 @@ if [[ -n $HERDR_PANE_ID ]] && command -v herdr >/dev/null; then
   unset HERDR_RENAME_HOOK
 fi
 
-# Rex shells mark themselves so a host reached over ssh from Rex can tell. ssh
+# Rex shells ask the host they ssh into to skip the herdr attach below. ssh
 # forwards only LANG and LC_* by default (SendEnv/AcceptEnv), so TERM_PROGRAM
-# doesn't arrive; LC_TERMINAL is the variable iTerm2 uses for the same purpose.
-[[ $TERM_PROGRAM == rex ]] && export LC_TERMINAL=rex
+# doesn't arrive, hence an LC_ name. A host that drops it attaches as usual.
+[[ $TERM_PROGRAM == rex ]] && export LC_SKIP_HERDR=1
 
 # Auto-attach to herdr on ssh, as tmux used to, except from Rex, which keeps
 # its own behavior, and from inside herdr. herdr launches or attaches to the
 # persistent session; tmux stays installed for running by hand.
-if [[ "$-" == *i* && -n $SSH_TTY && -z $HERDR_PANE_ID && $LC_TERMINAL != rex ]] &&
+if [[ "$-" == *i* && -n $SSH_TTY && -z $HERDR_PANE_ID && -z $LC_SKIP_HERDR ]] &&
   command -v herdr >/dev/null; then
   herdr
 fi
