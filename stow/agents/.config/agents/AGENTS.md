@@ -19,6 +19,13 @@ more capable model when results are uncertain. If model selection is unavailable
 inherit the parent model. Use the selected model's default reasoning effort unless
 the task warrants an adjustment.
 
+## T3 threads
+
+New T3 threads are expected to run in `auto`. When launching threads or
+delegating (`t3_thread_launch`, `create_threads`, `delegate_task`), omit
+`runtimeMode` so the thread inherits the default, or set it to `auto`. Choose a
+different mode only when the user asks for one in that request.
+
 ## Commits
 
 - Subject line in the imperative mood ("Add", "Drop", "Fix" — not "Added" or "Adds").
