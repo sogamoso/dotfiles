@@ -52,9 +52,17 @@ if [[ -n $HERDR_PANE_ID ]] && command -v herdr >/dev/null; then
   unset HERDR_RENAME_HOOK
 fi
 
-# Auto-attach to tmux on SSH
-if [[ -z $TMUX && "$-" == *i* && -n "$SSH_TTY" ]]; then
-  tmux attach || tmux new -s Work
+# Rex shells mark themselves so a host reached over ssh from Rex can tell. ssh
+# forwards only LANG and LC_* by default (SendEnv/AcceptEnv), so TERM_PROGRAM
+# doesn't arrive; LC_TERMINAL is the variable iTerm2 uses for the same purpose.
+[[ $TERM_PROGRAM == rex ]] && export LC_TERMINAL=rex
+
+# Auto-attach to herdr on ssh, as tmux used to, except from Rex, which keeps
+# its own behavior, and from inside herdr. herdr launches or attaches to the
+# persistent session; tmux stays installed for running by hand.
+if [[ "$-" == *i* && -n $SSH_TTY && -z $HERDR_PANE_ID && $LC_TERMINAL != rex ]] &&
+  command -v herdr >/dev/null; then
+  herdr
 fi
 
 # Source OS-specific supplement
