@@ -49,7 +49,7 @@
     "typescript-lsp@claude-plugins-official": true,
     "ruby-lsp@claude-plugins-official": true,
     "dev-browser@dev-browser-marketplace": true,
-    "superpowers@superpowers-marketplace": true,
+    "pstack@cursor-plugins": true,
     "episodic-memory@superpowers-marketplace": true,
     "claude-hud@claude-hud": true,
     "code-review@claude-plugins-official": true,
@@ -62,31 +62,43 @@
       "source": {
         "source": "github",
         "repo": "SawyerHood/dev-browser"
-      }
+      },
+      "autoUpdate": true
     },
     "superpowers-marketplace": {
       "source": {
         "source": "github",
         "repo": "obra/superpowers-marketplace"
-      }
+      },
+      "autoUpdate": true
+    },
+    "cursor-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "cursor/plugins"
+      },
+      "autoUpdate": true
     },
     "claude-hud": {
       "source": {
         "source": "github",
         "repo": "jarrodwatts/claude-hud"
-      }
+      },
+      "autoUpdate": true
     },
     "mattpocock": {
       "source": {
         "source": "github",
         "repo": "mattpocock/skills"
-      }
+      },
+      "autoUpdate": true
     },
     "sendas": {
       "source": {
         "source": "github",
         "repo": "sendasorg/cheque"
-      }
+      },
+      "autoUpdate": true
     }
   },
   "tui": "fullscreen",

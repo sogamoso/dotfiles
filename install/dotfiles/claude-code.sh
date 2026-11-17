@@ -14,6 +14,7 @@ marketplaces=(
   "SawyerHood/dev-browser"
   "jarrodwatts/claude-hud"
   "mattpocock/skills"
+  "cursor/plugins"
 )
 
 for marketplace in "${marketplaces[@]}"; do
@@ -38,7 +39,7 @@ plugins=(
   "typescript-lsp@claude-plugins-official"
   "ruby-lsp@claude-plugins-official"
   "dev-browser@dev-browser-marketplace"
-  "superpowers@superpowers-marketplace"
+  "pstack@cursor-plugins"
   "episodic-memory@superpowers-marketplace"
   "claude-hud@claude-hud"
   "mattpocock-skills@mattpocock"

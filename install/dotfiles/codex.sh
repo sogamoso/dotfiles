@@ -92,7 +92,6 @@ log_heading "Installing Codex plugins..."
 plugins=(
   "frontend-design@claude-plugins-official"
   "dev-browser@dev-browser-marketplace"
-  "superpowers@superpowers-marketplace"
   "episodic-memory@superpowers-marketplace"
 )
 

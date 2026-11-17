@@ -149,10 +149,12 @@ fi
 
 # cheque was sogamoso/stroppers, plugin stroppers@stroppers. Drop that user
 # install and its marketplace so the same skills don't load twice under two
-# names. Claude only loses the user-scope install: repositories that installed
-# stroppers per project keep theirs until they switch.
+# names, and so the four-hourly plugin refresh (agents-update.sh) doesn't keep
+# failing on a repo that has moved. A repository that still installs stroppers
+# per project re-adds the marketplace from its own settings when opened.
 if command -v claude &>/dev/null; then
   claude plugin uninstall stroppers@stroppers --scope user >/dev/null 2>&1 || true
+  claude plugin marketplace remove stroppers >/dev/null 2>&1 || true
 fi
 if command -v codex &>/dev/null; then
   codex plugin remove stroppers@stroppers >/dev/null 2>&1 || true
