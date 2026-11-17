@@ -63,14 +63,14 @@
         "source": "github",
         "repo": "SawyerHood/dev-browser"
       },
-      "autoUpdate": true
+      "autoUpdate": false
     },
     "superpowers-marketplace": {
       "source": {
         "source": "github",
         "repo": "obra/superpowers-marketplace"
       },
-      "autoUpdate": true
+      "autoUpdate": false
     },
     "cursor-plugins": {
       "source": {
@@ -84,14 +84,14 @@
         "source": "github",
         "repo": "jarrodwatts/claude-hud"
       },
-      "autoUpdate": true
+      "autoUpdate": false
     },
     "mattpocock": {
       "source": {
         "source": "github",
         "repo": "mattpocock/skills"
       },
-      "autoUpdate": true
+      "autoUpdate": false
     },
     "sendas": {
       "source": {
