@@ -190,6 +190,11 @@ cmd_reload() {
   if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/neovim.sh" ]]; then
     run "$DOTFILES/install/macos/neovim.sh"
   fi
+  # Apps with no cask, otherwise installed only by bootstrap. Instant once
+  # they're in place, and a failed download only warns.
+  if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/apps.sh" ]]; then
+    run "$DOTFILES/install/macos/apps.sh"
+  fi
   # The Herdr app's theme, picked through its window, so only while it's open
   # Picks T3 Code's theme again, and installs its CLI or service if either went missing
   run "$DOTFILES/install/dotfiles/t3-code.sh"
@@ -714,7 +719,7 @@ cmd_doctor() {
   if [[ -d "/Applications/Rex Beta.app" ]]; then
     ok "Rex $(defaults read "/Applications/Rex Beta.app/Contents/Info" CFBundleShortVersionString 2>/dev/null) ($(defaults read "/Applications/Rex Beta.app/Contents/Info" CFBundleVersion 2>/dev/null))"
   else
-    bad "Rex isn't installed" "install/macos/apps.sh"
+    bad "Rex isn't installed" "dotfiles reload"
   fi
 
   echo "==> T3 Code"

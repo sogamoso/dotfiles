@@ -379,7 +379,7 @@ It is absent from `Brewfile` and cannot go there. Ratta ships the macOS build th
 
 Homebrew has no `wabi` cask. Since a downloadable build exists, one could be contributed upstream; once it lands in `homebrew/cask`, move Wabi into the Brewfile and drop it from `apps.sh`.
 
-The same script installs Rex, Superlogical's terminal multiplexer app, as `Rex Beta.app`. Rex has no fixed download link, so the script takes the newest DMG from its Sparkle preview feed (`blob.superlogical.com/public/rex-app/preview/appcast.xml`), and Sparkle keeps the app current after that. It refuses any build not notarized and signed by Superlogical, Inc. (team `AG92C3PT77`), or one whose app is no longer named `Rex Beta.app`, which is the likely change when Rex leaves preview. When that happens, update `REX_APPCAST` and `REX_APP` in `apps.sh` and the path in `dotfiles doctor`'s Rex check. Homebrew's `rex` formula is an unrelated tool; don't add it to the Brewfile.
+The same script installs Rex, Superlogical's terminal multiplexer app, as `Rex Beta.app`. Rex has no fixed download link, so the script takes the newest DMG from its Sparkle preview feed (`blob.superlogical.com/public/rex-app/preview/appcast.xml`), and Sparkle keeps the app current after that. `dotfiles reload` runs the script too, so a Mac set up before Rex was added gets it there. It refuses any build not notarized and signed by Superlogical, Inc. (team `AG92C3PT77`), or one whose app is no longer named `Rex Beta.app`, which is the likely change when Rex leaves preview. When that happens, update `REX_APPCAST` and `REX_APP` in `apps.sh` and the path in `dotfiles doctor`'s Rex check. Homebrew's `rex` formula is an unrelated tool; don't add it to the Brewfile.
 
 ---
 
