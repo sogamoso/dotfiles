@@ -48,30 +48,13 @@
     "code-simplifier@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
     "ruby-lsp@claude-plugins-official": true,
-    "dev-browser@dev-browser-marketplace": true,
     "pstack@cursor-plugins": true,
-    "episodic-memory@superpowers-marketplace": true,
     "claude-hud@claude-hud": true,
     "code-review@claude-plugins-official": true,
-    "mattpocock-skills@mattpocock": true,
     "cheque@sendas": true,
     "vercel@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
-    "dev-browser-marketplace": {
-      "source": {
-        "source": "github",
-        "repo": "SawyerHood/dev-browser"
-      },
-      "autoUpdate": false
-    },
-    "superpowers-marketplace": {
-      "source": {
-        "source": "github",
-        "repo": "obra/superpowers-marketplace"
-      },
-      "autoUpdate": false
-    },
     "cursor-plugins": {
       "source": {
         "source": "github",
@@ -83,13 +66,6 @@
       "source": {
         "source": "github",
         "repo": "jarrodwatts/claude-hud"
-      },
-      "autoUpdate": false
-    },
-    "mattpocock": {
-      "source": {
-        "source": "github",
-        "repo": "mattpocock/skills"
       },
       "autoUpdate": false
     },

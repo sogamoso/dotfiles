@@ -76,7 +76,7 @@ link_skills() {
 # plugins namespace their skills and each agent updates them natively. Packaged
 # for one agent only, it would namespace on that side and not the other, so it
 # stays linked; a set you only use in that one agent belongs with its plugins
-# instead, the way mattpocock sits in claude-code.sh. Prints PLUGIN@MARKETPLACE.
+# instead, in claude-code.sh or codex.sh. Prints PLUGIN@MARKETPLACE.
 skill_plugin_id() {
   local dir=$1
   [[ -f "$dir/.claude-plugin/marketplace.json" ]] || return 1

@@ -10,10 +10,7 @@ fi
 log_heading "Adding Claude Code marketplaces..."
 
 marketplaces=(
-  "obra/superpowers-marketplace"
-  "SawyerHood/dev-browser"
   "jarrodwatts/claude-hud"
-  "mattpocock/skills"
   "cursor/plugins"
 )
 
@@ -38,11 +35,8 @@ plugins=(
   "code-review@claude-plugins-official"
   "typescript-lsp@claude-plugins-official"
   "ruby-lsp@claude-plugins-official"
-  "dev-browser@dev-browser-marketplace"
   "pstack@cursor-plugins"
-  "episodic-memory@superpowers-marketplace"
   "claude-hud@claude-hud"
-  "mattpocock-skills@mattpocock"
 )
 
 for plugin in "${plugins[@]}"; do
@@ -51,6 +45,20 @@ for plugin in "${plugins[@]}"; do
   else
     log_warn "Failed to install $plugin"
   fi
+done
+
+# Retired 2026-11-16 after a usage review: dev-browser never ran (the
+# built-in browser covers it), episodic-memory was searched in 4 of 299
+# sessions and kept a 535 MB copy of every transcript (pstack's recall reads
+# them directly), and mattpocock-skills loaded 27 skills to use 2, which now
+# ship in sogamoso-skills as pr and writing-for-agents. Remove them where an
+# earlier run installed them, so every machine converges.
+for plugin in dev-browser@dev-browser-marketplace episodic-memory@superpowers-marketplace \
+  mattpocock-skills@mattpocock superpowers@superpowers-marketplace; do
+  claude plugin uninstall "$plugin" --scope user >/dev/null 2>&1 || true
+done
+for marketplace in dev-browser-marketplace mattpocock superpowers-marketplace; do
+  claude plugin marketplace remove "$marketplace" >/dev/null 2>&1 || true
 done
 
 log_heading "Configuring claude-hud..."

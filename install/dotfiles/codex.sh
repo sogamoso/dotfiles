@@ -71,8 +71,6 @@ log_heading "Adding Codex marketplaces..."
 
 marketplaces=(
   "https://github.com/anthropics/claude-plugins-official.git"
-  "https://github.com/obra/superpowers-marketplace.git"
-  "https://github.com/SawyerHood/dev-browser.git"
 )
 
 for marketplace in "${marketplaces[@]}"; do
@@ -91,8 +89,6 @@ log_heading "Installing Codex plugins..."
 # as do the LSP plugins: Codex doesn't read a plugin's lspServers.
 plugins=(
   "frontend-design@claude-plugins-official"
-  "dev-browser@dev-browser-marketplace"
-  "episodic-memory@superpowers-marketplace"
 )
 
 for plugin in "${plugins[@]}"; do
@@ -101,6 +97,17 @@ for plugin in "${plugins[@]}"; do
   else
     log_warn "Failed to install $plugin"
   fi
+done
+
+# Retired 2026-11-16 (see claude-code.sh). claude-hud and mattpocock-skills
+# were never installed from here, but ended up in Codex anyway and do nothing
+# there: Codex has no Claude statusline, and mattpocock is Claude-only.
+for plugin in dev-browser@dev-browser-marketplace episodic-memory@superpowers-marketplace \
+  superpowers@superpowers-marketplace claude-hud@claude-hud mattpocock-skills@mattpocock; do
+  codex plugin remove "$plugin" >/dev/null 2>&1 || true
+done
+for marketplace in dev-browser-marketplace superpowers-marketplace claude-hud mattpocock; do
+  codex plugin marketplace remove "$marketplace" >/dev/null 2>&1 || true
 done
 
 log_success "Codex plugins installed"
