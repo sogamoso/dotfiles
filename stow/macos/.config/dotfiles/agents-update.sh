@@ -23,7 +23,7 @@ HELD_SEEN="$HOME/.local/state/dotfiles/plugins-held.txt"
 
 # Marketplaces whose plugins update without review.
 CLAUDE_TRUSTED=(claude-plugins-official cursor-plugins sendas)
-CODEX_TRUSTED=(claude-plugins-official sendas sogamoso)
+CODEX_TRUSTED=(claude-plugins-official pstack-codex sendas sogamoso)
 
 trusted() { # name, list...
   local name=$1; shift

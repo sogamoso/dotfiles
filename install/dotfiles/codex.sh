@@ -69,8 +69,12 @@ log_success "Codex reviews its own approvals"
 
 log_heading "Adding Codex marketplaces..."
 
+# pstack-codex is my Codex build of pstack (Cursor ships none): upstream's
+# Claude Code tree plus Codex's explicit-only flags, rebuilt daily. Retire it
+# for pstack@cursor-plugins once upstream ships a Codex build.
 marketplaces=(
   "https://github.com/anthropics/claude-plugins-official.git"
+  "sogamoso/pstack-codex"
 )
 
 for marketplace in "${marketplaces[@]}"; do
@@ -89,6 +93,7 @@ log_heading "Installing Codex plugins..."
 # as do the LSP plugins: Codex doesn't read a plugin's lspServers.
 plugins=(
   "frontend-design@claude-plugins-official"
+  "pstack@pstack-codex"
 )
 
 for plugin in "${plugins[@]}"; do
