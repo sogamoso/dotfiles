@@ -195,6 +195,11 @@ cmd_reload() {
   if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/apps.sh" ]]; then
     run "$DOTFILES/install/macos/apps.sh"
   fi
+  # Rex's theme and font are keys in its preferences, which only exist once
+  # Rex has been opened, so bootstrap alone can miss them
+  if [[ "$(uname -s)" == "Darwin" && -x "$DOTFILES/install/macos/rex.sh" ]]; then
+    run "$DOTFILES/install/macos/rex.sh"
+  fi
   # The Herdr app's theme, picked through its window, so only while it's open
   # Picks T3 Code's theme again, and installs its CLI or service if either went missing
   run "$DOTFILES/install/dotfiles/t3-code.sh"
