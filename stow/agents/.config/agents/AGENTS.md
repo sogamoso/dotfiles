@@ -29,6 +29,8 @@ different mode only when the user asks for one in that request.
 ## Commits
 
 - Subject line in the imperative mood ("Add", "Drop", "Fix" — not "Added" or "Adds").
+- Commit subjects and PR titles carry no Conventional Commits prefix
+  (`feat(scope):`, `fix:`), even when a skill asks for one.
 - Body is prose explaining *why* the change was made, not a restatement of the diff.
 - No trailers: no `Co-Authored-By`, no `Generated with`. Claude Code's
   `settings.json` already blanks commit and PR attribution; this covers the rest.
