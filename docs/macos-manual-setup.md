@@ -350,7 +350,7 @@ The SSH agent serves the keys behind `git` over SSH and commit signing (`~/.ssh/
 1Password → Settings → Security → **Auto-lock** depends on the Mac:
 
 - **Laptops**: enable **Lock when device locks or sleeps**, and set **Lock after the device is idle for** → 30 minutes. Option + Ctrl + L then locks 1Password along with the screen, as Omarchy's Super + Ctrl + L locks everything, and the idle lock covers a laptop left unlocked somewhere else.
-- **Desktops that stay on, like the Mac mini**: leave **Lock when device locks or sleeps** off and the idle lock at **Never**. The machine stays home and is reached through its KVM and SSH (section 14), where re-entering the 1Password password after every screen lock costs more than it protects. Option + Ctrl + L locks the screen only.
+- **Desktops that stay on, like the Mac mini**: leave **Lock when device locks or sleeps** off and the idle lock at **Never**. The machine stays home and is reached through its KVM and SSH (section 15), where re-entering the 1Password password after every screen lock costs more than it protects. Option + Ctrl + L locks the screen only.
 
 System Settings → General → **AutoFill & Passwords** makes 1Password the only password manager macOS offers, in every app and not just the browser:
 
@@ -373,7 +373,15 @@ It is absent from `Brewfile` and cannot go there. Ratta ships the macOS build th
 
 ---
 
-## 13. Wabi and Rex (installed by bootstrap)
+## 13. Install Hark
+
+The Hark AI assistant. Download it from [hark.com/mac](https://hark.com/mac) and drag it to Applications.
+
+It is absent from `Brewfile` because Homebrew has no `hark` cask yet: the Mac app is new (November 2026), and `hark.com/mac` is a page rather than a fixed download, so there is nothing stable for a cask to fetch. Check `brew info --cask hark` now and then; once a cask lands in `homebrew/cask`, add `cask "hark"` to the Brewfile and drop this section. Don't add an unofficial tap for it.
+
+---
+
+## 14. Wabi and Rex (installed by bootstrap)
 
 `install/macos/apps.sh` installs Wabi, the group AI assistant, from the Apple silicon DMG at [wabi.ai/download](https://wabi.ai/download). It refuses any build not notarized and signed by Wabi, Inc. (team `J4Q32LA8N4`). If Wabi ever changes signing identity, the script warns and skips the install; check the new identity before updating `WABI_TEAM`.
 
@@ -383,7 +391,7 @@ The same script installs Rex, Superlogical's terminal multiplexer app, as `Rex B
 
 ---
 
-## 14. Reach the Mac mini's screen (GL.iNet Comet Pro)
+## 15. Reach the Mac mini's screen (GL.iNet Comet Pro)
 
 The Mac mini's screen is reached through a GL.iNet Comet Pro (GL-RM10), a
 network KVM, not through macOS Screen Sharing. Plug its HDMI into the mini's
@@ -410,7 +418,7 @@ replaced.
 
 ---
 
-## 15. Reach the Macs from the iPhone (Blink)
+## 16. Reach the Macs from the iPhone (Blink)
 
 Both Macs take SSH and mosh through Tailscale SSH: no keys, and nothing listens
 on the local network. The Mac side is automated (`tailscale.sh`, `firewall.sh`,
@@ -445,7 +453,7 @@ daily check notifies if that ever fails.
 
 ---
 
-## 16. Install the web apps
+## 17. Install the web apps
 
 Chrome installs a web app only by hand. Bootstrap runs `install/macos/pwas.sh`,
 which opens each one not yet installed (the list is in `install/lib/pwas.sh`).
@@ -458,7 +466,7 @@ For each:
 Run `bash install/macos/pwas.sh` again for any added later or uninstalled;
 `dotfiles doctor` names the missing ones.
 
-## 17. Connect T3 Code
+## 18. Connect T3 Code
 
 Bootstrap installs T3 Code with its background service and turns off the app's
 own server, since the two can't share `~/.t3` (see the README's T3 Code). Two
@@ -488,7 +496,7 @@ steps need a person, once per machine:
 The same two steps apply on Omarchy, after running `install/dotfiles/t3-code.sh`
 there.
 
-## 18. Confirm the setup with `dotfiles doctor`
+## 19. Confirm the setup with `dotfiles doctor`
 
 Bootstrap ends by running it, so its list of problems is the manual steps still
 left. Once the steps above are done, run it again:
