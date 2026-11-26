@@ -727,6 +727,14 @@ cmd_doctor() {
     bad "Rex isn't installed" "dotfiles reload"
   fi
 
+  echo "==> Wabi"
+  # No cask; install/macos/apps.sh installs it, then its own updater keeps it current
+  if [[ -d "/Applications/Wabi.app" ]]; then
+    ok "Wabi $(defaults read "/Applications/Wabi.app/Contents/Info" CFBundleShortVersionString 2>/dev/null)"
+  else
+    bad "Wabi isn't installed" "dotfiles reload"
+  fi
+
   echo "==> Hark"
   # No cask; install/macos/apps.sh installs it, then its own updater keeps it current
   if [[ -d "/Applications/Hark.app" ]]; then
