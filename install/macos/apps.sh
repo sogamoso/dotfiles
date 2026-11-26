@@ -83,3 +83,44 @@ if [[ ! -d "/Applications/$REX_APP" ]]; then
     log_warn "Could not install Rex — download it from $REX_APPCAST"
   fi
 fi
+
+# Cue names each DMG by version, so its electron-updater feed says which is
+# current, along with the file's SHA-512. Apple silicon builds only.
+CUE_FEED="https://download.cue.im/latest-mac.yml"
+# Butterfly Effect Pte. Ltd.'s Developer ID (Manus, which makes Cue). A DMG
+# signed by anyone else is refused.
+CUE_TEAM="5V8XDGQQB6"
+
+install_cue() (
+  tmp="$(mktemp -d "${TMPDIR:-/tmp}/dotfiles-cue.XXXXXX")"
+  mnt="$tmp/mnt"
+  trap 'hdiutil detach "$mnt" -quiet 2>/dev/null || true; rm -rf "$tmp"' EXIT
+
+  feed="$(curl -fsSL "$CUE_FEED")" || return 1
+  dmg="$(awk '/- url: .*\.dmg$/ { print $3; getline; print $2; exit }' <<<"$feed")"
+  dmg_name="$(sed -n 1p <<<"$dmg")"
+  dmg_sha="$(sed -n 2p <<<"$dmg")"
+  [[ $dmg_name =~ ^Cue-[0-9.]+-mac-arm64\.dmg$ && -n $dmg_sha ]] || return 1
+
+  curl -fsSL -o "$tmp/Cue.dmg" "https://download.cue.im/$dmg_name" || return 1
+  [[ "$(openssl dgst -sha512 -binary "$tmp/Cue.dmg" | base64)" == "$dmg_sha" ]] || return 1
+  hdiutil attach -nobrowse -readonly -mountpoint "$mnt" "$tmp/Cue.dmg" -quiet || return 1
+  app="$mnt/Cue.app"
+  [[ -d $app ]] || return 1
+
+  team="$(codesign -dv "$app" 2>&1 | sed -n 's/^TeamIdentifier=//p')"
+  if [[ $team != "$CUE_TEAM" ]] || ! spctl -a -t exec "$app" 2>/dev/null; then
+    log_warn "Cue.app failed its signature check (team: ${team:-none}); not installing"
+    return 1
+  fi
+  ditto "$app" "/Applications/Cue.app"
+)
+
+if [[ ! -d "/Applications/Cue.app" ]]; then
+  log_heading "Installing Cue..."
+  if install_cue; then
+    log_success "Cue installed"
+  else
+    log_warn "Could not install Cue — download it from https://cue.im"
+  fi
+fi

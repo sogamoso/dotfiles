@@ -735,6 +735,14 @@ cmd_doctor() {
     bad "Hark isn't installed" "dotfiles reload"
   fi
 
+  echo "==> Cue"
+  # No cask; install/macos/apps.sh installs it, then electron-updater keeps it current
+  if [[ -d "/Applications/Cue.app" ]]; then
+    ok "Cue $(defaults read "/Applications/Cue.app/Contents/Info" CFBundleShortVersionString 2>/dev/null)"
+  else
+    bad "Cue isn't installed" "dotfiles reload"
+  fi
+
   echo "==> T3 Code"
   # Installed as Omarchy does, plus the standalone CLI and its background
   # service; install/dotfiles/t3-code.sh does the setup

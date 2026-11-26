@@ -186,7 +186,7 @@ The macOS setup (`install/macos/all.sh`) runs these scripts in order:
 | `neovim.sh` | Builds `~/Applications/Neovim.app`, which opens files in Neovim in a new Ghostty window, and makes it the default for text and code file types (via `duti`) |
 | `terminal.sh` | Makes Ghostty the default terminal: it runs double-clicked `.command` and `.tool` scripts and Unix executables, which open in Terminal.app otherwise (via `duti`). `.sh` files stay with Neovim, and `ssh://` and `x-man-page://` links with Terminal.app, since Ghostty doesn't take them |
 | `herdr-app.sh` | Finishes the [Herdr app](#herdr-app) the Brewfile's cask installs: herdr-core through Herdr's own installer when there's none, the settings the terminal herdr and Ghostty already answer (telemetry off, sounds off, dark appearance, Ghostty's font), then the Tokyo Night theme picked through the running app, which bootstrap opens first |
-| `apps.sh` | Installs apps Homebrew has no cask for (Wabi, Hark, Rex), checking the download's Developer ID |
+| `apps.sh` | Installs apps Homebrew has no cask for (Wabi, Hark, Rex, Cue), checking the download's Developer ID |
 | `rex.sh` | Gives Rex Ghostty's look: the Tokyo Night theme from `config/rex/tokyo-night.json` and JetBrains Mono Nerd Font, written to its preferences. Waits until Rex has been opened once, since `dotfiles reload` runs it again, and leaves Rex alone if its preferences aren't in the form it expects |
 | `login-items.sh` | Adds the apps in `install/lib/login-items.sh` to the login items, leaving any others alone |
 | `manual_steps.sh` | Opens the manual setup guide, first run only |
